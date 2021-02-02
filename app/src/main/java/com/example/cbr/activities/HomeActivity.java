@@ -5,86 +5,35 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import com.example.cbr.R;
+import com.example.cbr.fragments.TempHomeFragment;
+import com.example.cbr.fragments.base.BaseActivity;
+import com.example.cbr.fragments.clientlist.ClientListFragment;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity
+        implements TempHomeFragment.TempHomeFragmentInterface
+{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        setupAddNewClientButton();
-        setupAddNewVisitButton();
-        setupDashboardButton();
-        setupAddNewReferralButton();
-        setupViewAllClientsButton();
-        setupSyncButton();
+        swapToHomeFragment();
     }
 
-    private void setupSyncButton() {
-        Button button = findViewById(R.id.button_sync);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+    public void swapToHomeFragment() {
+        TempHomeFragment tempHomeFragment = TempHomeFragment.newInstance();
+        addFragment(R.id.homeFragmentContainer, tempHomeFragment, TempHomeFragment.getFragmentTag());
     }
 
-    private void setupViewAllClientsButton() {
-        Button button = findViewById(R.id.button_client_list);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+    @Override
+    public void swapToClientList() {
+        ClientListFragment clientListFragment = ClientListFragment.newInstance();
+        replaceFragment(R.id.homeFragmentContainer, clientListFragment, ClientListFragment.getFragmentTag());
     }
 
-    private void setupAddNewReferralButton() {
-        Button button = findViewById(R.id.button_new_referral);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-    }
-
-    private void setupDashboardButton() {
-        Button button = findViewById(R.id.button_dashboard);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-    }
-
-    private void setupAddNewVisitButton() {
-        Button button = findViewById(R.id.button_new_visit);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-    }
-
-    private void setupAddNewClientButton() {
-
-        Button button = findViewById(R.id.button_new_client);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-    }
 
     public static Intent makeIntent(Context context){
         return new Intent(context, HomeActivity.class);

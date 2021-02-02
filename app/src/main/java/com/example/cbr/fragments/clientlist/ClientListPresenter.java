@@ -10,6 +10,7 @@ public class ClientListPresenter implements ClientListContract.Presenter {
 
     @Override
     public void onButtonClicked() {
+        // communicate back to the view with information
         clientListView.displayString("Sample string, maybe get this from model");
     }
 }

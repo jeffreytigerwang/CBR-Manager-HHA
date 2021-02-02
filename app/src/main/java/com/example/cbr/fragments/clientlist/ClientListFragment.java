@@ -18,6 +18,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     @Override
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setPresenter(new ClientListPresenter(this));
+        // View binding so that findViewById() doesn't have to be used
         binding = FragmentClientlistBinding.inflate(inflater, container, false);
 
         setupButton();
@@ -28,6 +29,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        // destroy references to view
         binding = null;
     }
 
@@ -48,6 +50,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
 
     @Override
     public void setPresenter(ClientListContract.Presenter presenter) {
+        // set the presenter so the view can communicate with the presenter
         clientListPresenter = presenter;
     }
 
@@ -56,6 +59,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     }
 
     public static String getFragmentTag() {
+        // return the name of the fragment as a tag, primarily for switching between fragments
         return ClientListFragment.class.getSimpleName();
     }
 }

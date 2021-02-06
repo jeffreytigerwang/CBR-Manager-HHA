@@ -17,17 +17,30 @@ Go to http://localhost:8080/ and server will be running
 
 `mysql -u root -p` to log in
 
-Create a new user for our app.
-
-`ALTER USER '<name>'@'localhost' IDENTIFIED BY '<password>';`
-
-add name and user name to be used with our server 
+Create a new database for our app
 
 `SHOW DATABASES;` to see what is already installed
+`CREATE DATABASE cbr_data`
 
-`CREATE DATABASE <name>` to create new database
+Create a new user for our app.
 
-`USE <name>` to make changes to database
+`CREATE USER '<name>'@'localhost' IDENTIFIED BY '<password>';`
+
+We will use this user to access the database from our app. 
+Now we will add privileges to the account, so that the user only has access to
+our cbr_data database.
+
+`GRANT ALL PRIVILEGES ON cbr_data . * TO '<name>'@'localhost';`
+
+Note: cbr_data is the database we are giving privileges to, and * is the tables
+
+`FLUSH PRIVILEGES;` and logout `quit;`
+
+Try logging in with the new account
+
+`mysql -u <name> -p` and type in password when prompted
+
+`USE cbr_data` to make changes to database
 
 The following example shows how to create a basic table:
 
@@ -52,3 +65,26 @@ Other useful commands:
 
 for more information check out the docs:
 https://dev.mysql.com/doc/mysql-getting-started/en/#mysql-getting-started-installing
+
+## Give credencials to app
+
+Open  app/config/db.config.js to see the following:
+
+```
+module.exports = {
+  HOST: "localhost",
+  USER: "<name>",
+  PASSWORD: "<password>",
+  DB: "cbr_data",
+  dialect: "mysql",
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
+};
+```
+
+update name and password fields with credencials creates in mysql
+Note: we can share what they are in discord

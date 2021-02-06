@@ -2,6 +2,12 @@
 
 Clone Repo
 
-`cd tut-nodejs-backend-api`
+```
+cd tut-nodejs-backend-api
 
-`npm install`
+npm install
+
+node server.js
+```
+
+Go to http://localhost:8080/ and server will be running

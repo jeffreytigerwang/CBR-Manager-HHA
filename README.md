@@ -7,10 +7,7 @@ cd tut-nodejs-backend-api
 
 npm install
 
-node server.js
 ```
-
-Go to http://localhost:8080/ and server will be running
 
 
 ## Set up MySQL Locally (for testing)
@@ -117,3 +114,9 @@ module.exports = (sequelize, Sequelize) => {
 
 Basically, replace modelName & ModelName with the name of a new class, and populate
 with properties
+
+## Initialize server
+
+`node server.js`
+
+Go to http://localhost:8080/ and server will be running

@@ -88,3 +88,32 @@ module.exports = {
 
 update name and password fields with credencials creates in mysql
 Note: we can share what they are in discord
+
+
+## Defining Models
+
+create a model with naming convention *modelName.model.js* and add to *models* 
+folder.
+
+Use the following template to create new data:
+
+```
+module.exports = (sequelize, Sequelize) => {
+  const ModelName = sequelize.define("modelName", {
+    property_one: {
+      type: Sequelize.STRING
+    },
+    property_two: {
+      type: Sequelize.STRING
+    },
+    property_three: {
+      type: Sequelize.BOOLEAN
+    }
+  });
+
+  return ModelName;
+};
+```
+
+Basically, replace modelName & ModelName with the name of a new class, and populate
+with properties

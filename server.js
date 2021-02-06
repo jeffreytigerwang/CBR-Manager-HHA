@@ -18,6 +18,16 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// sync with database
+const db = require("./app/models");
+
+// turn below on in production
+//db.sequelize.sync();
+// use below for dev
+db.sequelize.sync({ force: true }).then(() => {
+  console.log("dropped table and re-sync db");
+});
+
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the CBR Application." });

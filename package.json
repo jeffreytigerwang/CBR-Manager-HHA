@@ -1,0 +1,15 @@
+{
+  "name": "tut-nodejs-auth",
+  "version": "1.0.0",
+  "description": "following this tutorial: https://bezkoder.com/node-js-jwt-authentication-mysql/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:compSciKai/tut-nodejs-auth.git"
+  },
+  "author": "Bezkoder & Kainoa Seaman",
+  "license": "ISC"
+}

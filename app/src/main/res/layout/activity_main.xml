@@ -44,7 +44,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
         <EditText
-            android:id="@+id/editText_user"
+            android:id="@+id/edt_username"
             android:layout_width="301dp"
             android:layout_height="55dp"
             android:layout_marginTop="32dp"
@@ -61,7 +61,7 @@
             app:layout_constraintTop_toBottomOf="@+id/text_sign_in" />
 
         <EditText
-            android:id="@+id/editText_user2"
+            android:id="@+id/edt_password"
             android:layout_width="301dp"
             android:layout_height="55dp"
             android:layout_marginTop="28dp"
@@ -76,7 +76,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.511"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText_user" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_username" />
 
         <TextView
             android:id="@+id/textView_terms"
@@ -87,8 +87,39 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText_user2"
+            app:layout_constraintTop_toBottomOf="@+id/edt_password"
             app:layout_constraintVertical_bias="0.772" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_register"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="94dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="34dp"
+            android:text="REGISTER"
+            app:layout_constraintBottom_toTopOf="@+id/textView_terms"
+            app:layout_constraintEnd_toStartOf="@+id/btn_login"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_password" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="94dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="34dp"
+            android:text="LOGIN"
+            app:layout_constraintBottom_toTopOf="@+id/textView_terms"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_register"
+            app:layout_constraintTop_toBottomOf="@+id/edt_password" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button

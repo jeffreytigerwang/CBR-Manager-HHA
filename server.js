@@ -33,6 +33,8 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to the CBR Application." });
 });
 
+require("./app/routes/test_data.routes")(app);
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

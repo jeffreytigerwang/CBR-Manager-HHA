@@ -120,3 +120,31 @@ with properties
 `node server.js`
 
 Go to http://localhost:8080/ and server will be running
+
+## Creating new models
+
+Basic idea of creating new models is:
+
+1. copy *test_data.model.js* file in the *models* folder, and add properties
+
+2. copy *test_data.controller.js* file in the *controllers* folder, and update test_data varibles with your new class name.
+
+3. copy *test_data.routes.js* file in the *routes* folder, and replace test_data with new class name.
+
+## Testing
+
+Use Postman
+
+`snap install postman`
+
+Follow the tutorial: https://bezkoder.com/node-js-express-sequelize-mysql/
+Basically, start up your server and got to http://localhost:8080/api/test_data
+
+- using GET at */api/test_data* will show data in database
+- using POST at */api/test_data* will add data (in postman go to body > raw > json 
+- using GET at */api/test_data/id* will show that one item
+- using PUT at */api/test_data/id* will update that item, when using postman
+- using DELETE at */api/test_data/id* will delete that item, when using postman
+- using DELETE at */api/test_data* will delete all items, using postman
+- using GET at */api/test_data/active* will show all active items (active is just a property)
+

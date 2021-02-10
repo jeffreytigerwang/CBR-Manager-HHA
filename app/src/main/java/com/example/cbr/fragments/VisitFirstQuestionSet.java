@@ -16,7 +16,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
 import com.example.cbr.R;
 
@@ -132,30 +131,12 @@ public class VisitFirstQuestionSet extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 TextView question2 = view.findViewById(R.id.textViewQ2);
 
-                question2.setTextColor(Color.parseColor("#808080"));
-                health.setTextColor(Color.parseColor("#808080"));
-                education.setTextColor(Color.parseColor("#808080"));
-                social.setTextColor(Color.parseColor("#808080"));
-
-                health.setClickable(false);
-                education.setClickable(false);
-                social.setClickable(false);
-
-                health.setChecked(false);
-                education.setChecked(false);
-                social.setChecked(false);
+                resetQuestionTwo(question2);
 
                 if (checkedId == R.id.radioButtonCBR) {
                     Log.d(LOG_TAG, "onCheckedChanged: checked CBR");
 
-                    question2.setTextColor(Color.parseColor("#000000"));
-                    health.setTextColor(Color.parseColor("#000000"));
-                    education.setTextColor(Color.parseColor("#000000"));
-                    social.setTextColor(Color.parseColor("#000000"));
-
-                    health.setClickable(true);
-                    education.setClickable(true);
-                    social.setClickable(true);
+                    toggleQuestionTwo(question2, "#000000", true);
 
                 } else if (checkedId == R.id.radioButtonDCR) {
                     Log.d(LOG_TAG, "onCheckedChanged: checked DCR");
@@ -166,5 +147,24 @@ public class VisitFirstQuestionSet extends Fragment {
                 }
             }
         });
+    }
+
+    private void toggleQuestionTwo(TextView question2, String color, boolean toggle) {
+        question2.setTextColor(Color.parseColor(color));
+        health.setTextColor(Color.parseColor(color));
+        education.setTextColor(Color.parseColor(color));
+        social.setTextColor(Color.parseColor(color));
+
+        health.setClickable(toggle);
+        education.setClickable(toggle);
+        social.setClickable(toggle);
+    }
+
+    private void resetQuestionTwo(TextView question2) {
+        toggleQuestionTwo(question2, "#808080", false);
+
+        health.setChecked(false);
+        education.setChecked(false);
+        social.setChecked(false);
     }
 }

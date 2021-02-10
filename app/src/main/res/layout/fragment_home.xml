@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragmentHome"
@@ -10,8 +10,8 @@
         android:id="@+id/buttonNewReferral"
         android:layout_width="105dp"
         android:layout_height="88dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="96dp"
         android:text="New Referral"
         app:layout_constraintStart_toEndOf="@+id/buttonDashboard"
         app:layout_constraintTop_toBottomOf="@+id/buttonNewVisit" />
@@ -20,10 +20,10 @@
         android:id="@+id/buttonSync"
         android:layout_width="105dp"
         android:layout_height="88dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="48dp"
         android:text="Sync"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.293"
+        app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toEndOf="@+id/buttonClientList"
         app:layout_constraintTop_toBottomOf="@+id/buttonNewReferral" />
 
@@ -31,8 +31,8 @@
         android:id="@+id/buttonDashboard"
         android:layout_width="105dp"
         android:layout_height="88dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="216dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="292dp"
         android:text="Dashboard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +62,7 @@
         android:layout_width="105dp"
         android:layout_height="88dp"
         android:layout_marginStart="68dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="48dp"
         android:text="Client List"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonDashboard" />
@@ -89,4 +89,4 @@
         app:layout_constraintStart_toEndOf="@+id/buttonNewClient"
         app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

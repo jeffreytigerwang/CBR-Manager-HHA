@@ -1,10 +1,7 @@
 package com.example.cbr.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +12,8 @@ import com.example.cbr.R;
 import com.example.cbr.fragments.TempHomeFragment;
 import com.example.cbr.fragments.base.BaseActivity;
 import com.example.cbr.fragments.clientlist.ClientListFragment;
+import com.example.cbr.fragments.discussion.DiscussionFragment;
+import com.example.cbr.fragments.notification.NotificationFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends BaseActivity
@@ -29,7 +28,7 @@ public class HomeActivity extends BaseActivity
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        swapToHomeFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.homeFragmentContainer, new TempHomeFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -38,8 +37,20 @@ public class HomeActivity extends BaseActivity
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectedFragment = null;
                     switch (item.getItemId()){
-                        case R.id.fragment_clientlist:
+                        case R.id.fragmentClientList:
                             selectedFragment = new ClientListFragment();
+                            break;
+
+                        case R.id.fragmentHome:
+                            selectedFragment = new TempHomeFragment();
+                            break;
+
+                        case R.id.fragmentDiscussion:
+                            selectedFragment = new DiscussionFragment();
+                            break;
+
+                        case R.id.fragmentNotification:
+                            selectedFragment = new NotificationFragment();
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.homeFragmentContainer, selectedFragment).commit();
@@ -47,10 +58,7 @@ public class HomeActivity extends BaseActivity
                 }
             };
 
-    public void swapToHomeFragment() {
-        TempHomeFragment tempHomeFragment = TempHomeFragment.newInstance();
-        addFragment(R.id.homeFragmentContainer, tempHomeFragment, TempHomeFragment.getFragmentTag());
-    }
+
 
     @Override
     public void swapToClientList() {

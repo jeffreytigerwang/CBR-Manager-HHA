@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 
 import com.example.cbr.R;
 import com.example.cbr.fragments.VisitFirstQuestionSet;
@@ -33,6 +34,19 @@ public class NewVisitActivity extends AppCompatActivity {
 
         Fragment firstQuestionSet = new VisitFirstQuestionSet();
         manageFragment(firstQuestionSet);
+
+        Button buttonNext = findViewById(R.id.buttonVisitNext);
+        Button buttonBack = findViewById(R.id.buttonVisitBack);
+        setupNextButton(buttonNext);
+        setupBackButton(buttonBack);
+    }
+
+    private void setupBackButton(Button buttonBack) {
+        // TODO: 2021-02-09 go back to prev frag
+    }
+
+    private void setupNextButton(Button buttonNext) {
+        // TODO: 2021-02-09 next frag
     }
 
     private void manageFragment(Fragment fragment) {

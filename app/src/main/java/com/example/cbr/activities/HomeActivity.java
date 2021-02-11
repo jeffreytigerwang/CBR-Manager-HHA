@@ -28,8 +28,14 @@ public class HomeActivity extends BaseActivity
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.homeFragmentContainer, new TempHomeFragment()).commit();
+        swapToHomeFragment();
     }
+
+    public void swapToHomeFragment() {
+        TempHomeFragment tempHomeFragment = TempHomeFragment.newInstance();
+        addFragment(R.id.homeFragmentContainer, tempHomeFragment, TempHomeFragment.getFragmentTag());
+    }
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {

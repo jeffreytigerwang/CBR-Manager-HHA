@@ -23,7 +23,7 @@ import com.example.cbr.models.VisitRecord;
 import java.util.Calendar;
 import java.util.Date;
 
-public class VisitFirstQuestionSet extends Fragment {
+public class VisitFirstQuestionSetFragment extends Fragment {
 
     private static final String LOG_TAG = "FirstQuestionSetFragment";
 
@@ -32,7 +32,7 @@ public class VisitFirstQuestionSet extends Fragment {
     private CheckBox social;
     private VisitRecord visitRecord;
 
-    public VisitFirstQuestionSet() {
+    public VisitFirstQuestionSetFragment() {
         // Required empty public constructor
     }
 

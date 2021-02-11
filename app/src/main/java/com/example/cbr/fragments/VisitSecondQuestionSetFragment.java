@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 
 import com.example.cbr.R;
 
-public class VisitSecondQuestionSet extends Fragment {
+public class VisitSecondQuestionSetFragment extends Fragment {
 
     private EditText editTextWheelChair;
     private EditText editTextProsthetic;
@@ -28,7 +28,7 @@ public class VisitSecondQuestionSet extends Fragment {
     private EditText editTextEncouragement;
     private EditText editTextHealthOutcome;
 
-    public VisitSecondQuestionSet() {
+    public VisitSecondQuestionSetFragment() {
     }
 
     @Nullable

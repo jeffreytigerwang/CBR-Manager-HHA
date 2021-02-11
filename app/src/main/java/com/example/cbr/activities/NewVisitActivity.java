@@ -13,11 +13,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.cbr.R;
-import com.example.cbr.fragments.VisitFirstQuestionSet;
-import com.example.cbr.fragments.VisitSecondQuestionSet;
+import com.example.cbr.fragments.VisitFirstQuestionSetFragment;
+import com.example.cbr.fragments.VisitSecondQuestionSetFragment;
 import com.example.cbr.models.VisitRecord;
 
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
@@ -54,7 +53,7 @@ public class NewVisitActivity extends AppCompatActivity {
             Log.d(LOG_TAG, "onCreate: failed to get client ID");
         }
 
-        currentFragment = new VisitFirstQuestionSet();
+        currentFragment = new VisitFirstQuestionSetFragment();
         manageFragment(currentFragment);
 
         visitRecord = VisitRecord.getInstance();
@@ -79,7 +78,7 @@ public class NewVisitActivity extends AppCompatActivity {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (prevFragments.peek() instanceof VisitFirstQuestionSet) {
+                if (prevFragments.peek() instanceof VisitFirstQuestionSetFragment) {
                     Log.d(LOG_TAG, "Back");
                     buttonBack.setVisibility(View.GONE);
                 }
@@ -103,12 +102,12 @@ public class NewVisitActivity extends AppCompatActivity {
 //                    buttonRecord.setVisibility(View.VISIBLE);
 //                    buttonNext.setVisibility(View.GONE);
 //                }
-                if (currentFragment instanceof VisitFirstQuestionSet) {
+                if (currentFragment instanceof VisitFirstQuestionSetFragment) {
                     prevFragments.clear();
                     nextFragments.clear();
 
                     if (visitRecord.isHealthChecked()) {
-                        nextFragments.offer(new VisitSecondQuestionSet());
+                        nextFragments.offer(new VisitSecondQuestionSetFragment());
                     }
                 }
 
@@ -123,7 +122,7 @@ public class NewVisitActivity extends AppCompatActivity {
                         + " is education: " + visitRecord.isEducationChecked()
                         + " is social: " + visitRecord.isSocialChecked());
 
-                if (!(currentFragment instanceof VisitFirstQuestionSet)) {
+                if (!(currentFragment instanceof VisitFirstQuestionSetFragment)) {
                     buttonBack.setVisibility(View.VISIBLE);
                 }
             }

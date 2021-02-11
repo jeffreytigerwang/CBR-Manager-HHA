@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
@@ -24,6 +26,7 @@ public class VisitSecondQuestionSet extends Fragment {
     private EditText editTextAdvice;
     private EditText editTextAdvocacy;
     private EditText editTextEncouragement;
+    private EditText editTextHealthOutcome;
 
     public VisitSecondQuestionSet() {
     }
@@ -37,8 +40,28 @@ public class VisitSecondQuestionSet extends Fragment {
 
         setupCheckBoxes(inflate);
         setupEditTexts(inflate);
+        setupRadioGroup(inflate);
 
         return inflate;
+    }
+
+    private void setupRadioGroup(final View view) {
+        RadioGroup goalStatus = view.findViewById(R.id.radioGroupGoalStatus);
+
+        goalStatus.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                TextView question10 = view.findViewById(R.id.textViewQ10);
+                if (checkedId == R.id.radioButtonConcluded) {
+
+                    question10.setVisibility(View.VISIBLE);
+                    editTextHealthOutcome.setVisibility(View.VISIBLE);
+                } else {
+                    question10.setVisibility(View.GONE);
+                    editTextHealthOutcome.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     private void setupEditTexts(View view) {
@@ -50,6 +73,9 @@ public class VisitSecondQuestionSet extends Fragment {
         editTextAdvice = view.findViewById(R.id.editTextAdvice);
         editTextAdvocacy = view.findViewById(R.id.editTextAdvocacy);
         editTextEncouragement = view.findViewById(R.id.editTextEncouragement);
+        editTextHealthOutcome = view.findViewById(R.id.editTextHealthOutcome);
+
+        // TODO: 2021-02-11 save to db
     }
 
     private void setupCheckBoxes(final View view) {

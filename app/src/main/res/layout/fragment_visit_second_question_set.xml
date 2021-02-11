@@ -154,5 +154,57 @@
             android:hint="Description* (Max 100 characters)"
             android:maxLength="100"
             android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewQ9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Goal met?*:"
+            android:textColor="#000000" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupGoalStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp">
+
+            <RadioButton
+                android:id="@+id/radioButtonCancelled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancelled" />
+
+            <RadioButton
+                android:id="@+id/radioButtonOngoing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ongoing" />
+
+            <RadioButton
+                android:id="@+id/radioButtonConcluded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Concluded" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textViewQ10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="If concluded, what was outcome:"
+            android:textColor="#000000"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/editTextHealthOutcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Description* (Max 100 characters)"
+            android:visibility="gone" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

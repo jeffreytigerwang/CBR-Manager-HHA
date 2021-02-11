@@ -75,11 +75,12 @@ public class NewVisitActivity extends AppCompatActivity {
 
     private void setupBackButton() {
         buttonBack = findViewById(R.id.buttonVisitBack);
-        // TODO: 2021-02-09 go back to prev frag
+        // TODO: 2021-02-09 save data
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (nextFragments.peek() instanceof VisitFirstQuestionSet) {
+                if (prevFragments.peek() instanceof VisitFirstQuestionSet) {
+                    Log.d(LOG_TAG, "Back");
                     buttonBack.setVisibility(View.GONE);
                 }
 
@@ -93,7 +94,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
     private void setupNextButton() {
         final Button buttonNext = findViewById(R.id.buttonVisitNext);
-        // TODO: 2021-02-09 , save values as needed
+        // TODO: 2021-02-09 save values as needed
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

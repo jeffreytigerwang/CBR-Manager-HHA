@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Orthotic" />
+            android:text="Referral to other org." />
 
         <EditText
             android:id="@+id/editTextEducationRef"
@@ -126,7 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="If concluded, what was outcome:"
+            android:text="If concluded, what was the outcome:"
             android:textColor="#000000"
             android:visibility="gone" />
 

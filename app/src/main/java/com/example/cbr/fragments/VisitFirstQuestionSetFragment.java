@@ -109,6 +109,8 @@ public class VisitFirstQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     visitRecord.setHealthChecked(true);
+                } else {
+                    visitRecord.setHealthChecked(false);
                 }
             }
         });
@@ -117,6 +119,8 @@ public class VisitFirstQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     visitRecord.setEducationChecked(true);
+                } else {
+                    visitRecord.setEducationChecked(false);
                 }
             }
         });
@@ -126,6 +130,8 @@ public class VisitFirstQuestionSetFragment extends Fragment {
                 // TODO: 2021-02-09 make question 14-16 available
                 if (isChecked) {
                     visitRecord.setSocialChecked(true);
+                } else {
+                    visitRecord.setSocialChecked(false);
                 }
             }
         });

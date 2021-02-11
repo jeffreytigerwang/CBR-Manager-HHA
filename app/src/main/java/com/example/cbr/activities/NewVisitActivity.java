@@ -15,8 +15,10 @@ import android.widget.Button;
 import com.example.cbr.R;
 import com.example.cbr.fragments.VisitFirstQuestionSetFragment;
 import com.example.cbr.fragments.VisitSecondQuestionSetFragment;
+import com.example.cbr.fragments.VisitThirdQuestionSetFragment;
 import com.example.cbr.models.VisitRecord;
 
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
@@ -58,7 +60,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         visitRecord = VisitRecord.getInstance();
 
-        nextFragments = new PriorityQueue<>();
+        nextFragments = new LinkedList<>();
         prevFragments = new Stack<>();
 
         setupNextButton();
@@ -108,6 +110,9 @@ public class NewVisitActivity extends AppCompatActivity {
 
                     if (visitRecord.isHealthChecked()) {
                         nextFragments.offer(new VisitSecondQuestionSetFragment());
+                    }
+                    if (visitRecord.isEducationChecked()) {
+                        nextFragments.offer(new VisitThirdQuestionSetFragment());
                     }
                 }
 

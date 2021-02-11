@@ -3,4 +3,140 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.VisitThirdQuestionSetFragment"/>
+    tools:context=".fragments.VisitThirdQuestionSetFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewQ11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="For education what was provided?*:"
+            android:textColor="#000000" />
+
+        <CheckBox
+            android:id="@+id/checkBoxEducationAdvice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Advice" />
+
+        <EditText
+            android:id="@+id/editTextEducationAdvice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Description* (Max 100 characters)"
+            android:maxLength="100"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/checkBoxEducationAdvocacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Advocacy" />
+
+        <EditText
+            android:id="@+id/editTextEducationAdvocacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Description* (Max 100 characters)"
+            android:maxLength="100"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/checkBoxEducationRef"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Orthotic" />
+
+        <EditText
+            android:id="@+id/editTextEducationRef"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Description* (Max 100 characters)"
+            android:maxLength="100"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/checkBoxEducationEncouragement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Wheelchair repairs" />
+
+        <EditText
+            android:id="@+id/editTextEducationEncouragement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Description* (Max 100 characters)"
+            android:maxLength="100"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewQ12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Goal met?*:"
+            android:textColor="#000000" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupEducationGoalStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp">
+
+            <RadioButton
+                android:id="@+id/radioButtonEducationCancelled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancelled" />
+
+            <RadioButton
+                android:id="@+id/radioButtonEducationOngoing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ongoing" />
+
+            <RadioButton
+                android:id="@+id/radioButtonEducationConcluded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Concluded" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textViewQ13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="If concluded, what was outcome:"
+            android:textColor="#000000"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/editTextEducationOutcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Description* (Max 100 characters)"
+            android:visibility="gone" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

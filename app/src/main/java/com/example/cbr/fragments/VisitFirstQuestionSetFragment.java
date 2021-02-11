@@ -77,7 +77,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: 2021-02-10 save value after next is pressed
+
             }
 
             @Override
@@ -115,7 +115,6 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         education.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // TODO: 2021-02-09 make question 11-13 available
                 if (isChecked) {
                     visitRecord.setEducationChecked(true);
                 }

@@ -20,14 +20,14 @@
             android:textColor="#000000" />
 
         <CheckBox
-            android:id="@+id/checkBoxWheelchair"
+            android:id="@+id/checkBoxHealthWheelchair"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="Wheelchair" />
 
         <EditText
-            android:id="@+id/editTextWheelchair"
+            android:id="@+id/editTextHealthWheelchair"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -37,14 +37,14 @@
             android:visibility="gone" />
 
         <CheckBox
-            android:id="@+id/checkBoxProsthetic"
+            android:id="@+id/checkBoxHealthProsthetic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="Prosthetic" />
 
         <EditText
-            android:id="@+id/editTextProsthetic"
+            android:id="@+id/editTextHealthProsthetic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -54,14 +54,14 @@
             android:visibility="gone" />
 
         <CheckBox
-            android:id="@+id/checkBoxOrthotic"
+            android:id="@+id/checkBoxHealthOrthotic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="Orthotic" />
 
         <EditText
-            android:id="@+id/editTextOrthotic"
+            android:id="@+id/editTextHealthOrthotic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -71,14 +71,14 @@
             android:visibility="gone" />
 
         <CheckBox
-            android:id="@+id/checkBoxWR"
+            android:id="@+id/checkBoxHealthWR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="Wheelchair repairs" />
 
         <EditText
-            android:id="@+id/editTextWR"
+            android:id="@+id/editTextHealthWR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -88,14 +88,14 @@
             android:visibility="gone" />
 
         <CheckBox
-            android:id="@+id/checkBoxReferralToHC"
+            android:id="@+id/checkBoxHealthReferralToHC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="Referral to health centre" />
 
         <EditText
-            android:id="@+id/editTextReferralToHC"
+            android:id="@+id/editTextHealthReferralToHC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -105,14 +105,14 @@
             android:visibility="gone" />
 
         <CheckBox
-            android:id="@+id/checkBoxAdvice"
+            android:id="@+id/checkBoxHealthAdvice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="Advice" />
 
         <EditText
-            android:id="@+id/editTextAdvice"
+            android:id="@+id/editTextHealthAdvice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -122,14 +122,14 @@
             android:visibility="gone" />
 
         <CheckBox
-            android:id="@+id/checkBoxAdvocacy"
+            android:id="@+id/checkBoxHealthAdvocacy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="Advocacy" />
 
         <EditText
-            android:id="@+id/editTextAdvocacy"
+            android:id="@+id/editTextHealthAdvocacy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -139,14 +139,14 @@
             android:visibility="gone" />
 
         <CheckBox
-            android:id="@+id/checkBoxEncouragement"
+            android:id="@+id/checkBoxHealthEncouragement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="Encouragement" />
 
         <EditText
-            android:id="@+id/editTextEncouragement"
+            android:id="@+id/editTextHealthEncouragement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -164,25 +164,25 @@
             android:textColor="#000000" />
 
         <RadioGroup
-            android:id="@+id/radioGroupGoalStatus"
+            android:id="@+id/radioGroupHealthGoalStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp">
 
             <RadioButton
-                android:id="@+id/radioButtonCancelled"
+                android:id="@+id/radioButtonHealthCancelled"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cancelled" />
 
             <RadioButton
-                android:id="@+id/radioButtonOngoing"
+                android:id="@+id/radioButtonHealthOngoing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ongoing" />
 
             <RadioButton
-                android:id="@+id/radioButtonConcluded"
+                android:id="@+id/radioButtonHealthConcluded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Concluded" />

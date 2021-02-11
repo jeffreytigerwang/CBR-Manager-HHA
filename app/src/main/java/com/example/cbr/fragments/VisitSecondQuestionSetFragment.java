@@ -46,13 +46,13 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     }
 
     private void setupRadioGroup(final View view) {
-        RadioGroup goalStatus = view.findViewById(R.id.radioGroupGoalStatus);
+        RadioGroup goalStatus = view.findViewById(R.id.radioGroupHealthGoalStatus);
 
         goalStatus.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 TextView question10 = view.findViewById(R.id.textViewQ10);
-                if (checkedId == R.id.radioButtonConcluded) {
+                if (checkedId == R.id.radioButtonHealthConcluded) {
 
                     question10.setVisibility(View.VISIBLE);
                     editTextHealthOutcome.setVisibility(View.VISIBLE);
@@ -65,28 +65,28 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     }
 
     private void setupEditTexts(View view) {
-        editTextWheelChair = view.findViewById(R.id.editTextWheelchair);
-        editTextProsthetic = view.findViewById(R.id.editTextProsthetic);
-        editTextOrthotic = view.findViewById(R.id.editTextOrthotic);
-        editTextWR = view.findViewById(R.id.editTextWR);
-        editTextReferralToHC = view.findViewById(R.id.editTextReferralToHC);
-        editTextAdvice = view.findViewById(R.id.editTextAdvice);
-        editTextAdvocacy = view.findViewById(R.id.editTextAdvocacy);
-        editTextEncouragement = view.findViewById(R.id.editTextEncouragement);
+        editTextWheelChair = view.findViewById(R.id.editTextHealthWheelchair);
+        editTextProsthetic = view.findViewById(R.id.editTextHealthProsthetic);
+        editTextOrthotic = view.findViewById(R.id.editTextHealthOrthotic);
+        editTextWR = view.findViewById(R.id.editTextHealthWR);
+        editTextReferralToHC = view.findViewById(R.id.editTextHealthReferralToHC);
+        editTextAdvice = view.findViewById(R.id.editTextHealthAdvice);
+        editTextAdvocacy = view.findViewById(R.id.editTextHealthAdvocacy);
+        editTextEncouragement = view.findViewById(R.id.editTextHealthEncouragement);
         editTextHealthOutcome = view.findViewById(R.id.editTextHealthOutcome);
 
         // TODO: 2021-02-11 save to db
     }
 
     private void setupCheckBoxes(final View view) {
-        CheckBox checkBoxWheelchair = view.findViewById(R.id.checkBoxWheelchair);
-        CheckBox checkBoxProsthetic = view.findViewById(R.id.checkBoxProsthetic);
-        CheckBox checkBoxOrthotic = view.findViewById(R.id.checkBoxOrthotic);
-        CheckBox checkBoxWR = view.findViewById(R.id.checkBoxWR);
-        CheckBox checkBoxReferralToHC = view.findViewById(R.id.checkBoxReferralToHC);
-        CheckBox checkBoxAdvice = view.findViewById(R.id.checkBoxAdvice);
-        CheckBox checkBoxAdvocacy = view.findViewById(R.id.checkBoxAdvocacy);
-        CheckBox checkBoxEncouragement = view.findViewById(R.id.checkBoxEncouragement);
+        CheckBox checkBoxWheelchair = view.findViewById(R.id.checkBoxHealthWheelchair);
+        CheckBox checkBoxProsthetic = view.findViewById(R.id.checkBoxHealthProsthetic);
+        CheckBox checkBoxOrthotic = view.findViewById(R.id.checkBoxHealthOrthotic);
+        CheckBox checkBoxWR = view.findViewById(R.id.checkBoxHealthWR);
+        CheckBox checkBoxReferralToHC = view.findViewById(R.id.checkBoxHealthReferralToHC);
+        CheckBox checkBoxAdvice = view.findViewById(R.id.checkBoxHealthAdvice);
+        CheckBox checkBoxAdvocacy = view.findViewById(R.id.checkBoxHealthAdvocacy);
+        CheckBox checkBoxEncouragement = view.findViewById(R.id.checkBoxHealthEncouragement);
 
         // TODO: 2021-02-11 save isChecked?
         checkBoxWheelchair.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

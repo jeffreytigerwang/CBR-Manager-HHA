@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.VisitSecondQuestionSet">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewQ8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="For health what was provided?*:"
+            android:textColor="#000000" />
+
+        <CheckBox
+            android:id="@+id/checkBoxWheelchair"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Wheelchair" />
+
+        <EditText
+            android:id="@+id/editTextWheelchair"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Description* (Max 100 characters)"
+            android:maxLength="100"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/checkBoxProsthetic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Prosthetic" />
+
+        <EditText
+            android:id="@+id/editTextProsthetic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Description* (Max 100 characters)"
+            android:maxLength="100"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/checkBoxOrthotic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Orthotic" />
+
+        <EditText
+            android:id="@+id/editTextOrthotic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Description* (Max 100 characters)"
+            android:maxLength="100"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/checkBoxWR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Wheelchair repairs" />
+
+        <EditText
+            android:id="@+id/editTextWR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Description* (Max 100 characters)"
+            android:maxLength="100"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/checkBoxReferralToHC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Referral to health centre" />
+
+        <EditText
+            android:id="@+id/editTextReferralToHC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Description* (Max 100 characters)"
+            android:maxLength="100"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/checkBoxAdvice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Advice" />
+
+        <EditText
+            android:id="@+id/editTextAdvice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Description* (Max 100 characters)"
+            android:maxLength="100"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/checkBoxAdvocacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Advocacy" />
+
+        <EditText
+            android:id="@+id/editTextAdvocacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Description* (Max 100 characters)"
+            android:maxLength="100"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/checkBoxEncouragement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Encouragement" />
+
+        <EditText
+            android:id="@+id/editTextEncouragement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:hint="Description* (Max 100 characters)"
+            android:maxLength="100"
+            android:visibility="gone" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

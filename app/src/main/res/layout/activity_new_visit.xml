@@ -22,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:visibility="gone"
         android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonVisitNext"
@@ -48,4 +49,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="562dp" />
+
+    <Button
+        android:id="@+id/buttonVisitRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonVisitNext"
+        app:layout_constraintEnd_toEndOf="@+id/buttonVisitNext"
+        app:layout_constraintStart_toStartOf="@+id/buttonVisitNext"
+        app:layout_constraintTop_toTopOf="@+id/buttonVisitNext" />
 </androidx.constraintlayout.widget.ConstraintLayout>

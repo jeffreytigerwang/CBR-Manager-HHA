@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.cbr.R;
+import com.example.cbr.models.VisitRecord;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -29,6 +30,7 @@ public class VisitFirstQuestionSet extends Fragment {
     private CheckBox health;
     private CheckBox education;
     private CheckBox social;
+    private VisitRecord visitRecord;
 
     public VisitFirstQuestionSet() {
         // Required empty public constructor
@@ -38,7 +40,9 @@ public class VisitFirstQuestionSet extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_visit_first_question_set, container, false);
-        
+
+        visitRecord = VisitRecord.getInstance();
+
         setupRadioGroup(view);
         setupCheckBox(view);
         setupEditText(view);
@@ -103,22 +107,27 @@ public class VisitFirstQuestionSet extends Fragment {
         health.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // TODO: 2021-02-09 make question 8-10 available
                 if (isChecked) {
-
+                    visitRecord.setHealthChecked(true);
                 }
             }
         });
         education.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // TODO: 2021-02-09 make question 11-13 available 
+                // TODO: 2021-02-09 make question 11-13 available
+                if (isChecked) {
+                    visitRecord.setEducationChecked(true);
+                }
             }
         });
         social.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // TODO: 2021-02-09 make question 14-16 available
+                if (isChecked) {
+                    visitRecord.setSocialChecked(true);
+                }
             }
         });
     }
@@ -166,5 +175,9 @@ public class VisitFirstQuestionSet extends Fragment {
         health.setChecked(false);
         education.setChecked(false);
         social.setChecked(false);
+
+        visitRecord.setHealthChecked(false);
+        visitRecord.setEducationChecked(false);
+        visitRecord.setSocialChecked(false);
     }
 }

@@ -89,7 +89,7 @@ public class TempHomeFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Intent intent = new Intent(getActivity(), NewVisitActivity.class);
+                Intent intent = NewVisitActivity.makeLaunchIntent(getActivity(), -1);
                 startActivity(intent);
             }
         });

@@ -1,0 +1,26 @@
+{
+  "name": "tut-nodejs-backend-api",
+  "version": "1.0.0",
+  "description": "created using this tutorial https://bezkoder.com/node-js-express-sequelize-mysql/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/compSciKai/tut-nodejs-backend-api.git"
+  },
+  "author": "Kainoa Seaman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/compSciKai/tut-nodejs-backend-api/issues"
+  },
+  "homepage": "https://github.com/compSciKai/tut-nodejs-backend-api#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.5.0"
+  }
+}

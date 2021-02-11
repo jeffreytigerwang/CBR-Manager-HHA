@@ -16,15 +16,15 @@ import androidx.annotation.Nullable;
 
 import com.example.cbr.R;
 
-public class VisitThirdQuestionSetFragment extends Fragment {
+public class VisitFourthQuestionSetFragment extends Fragment {
 
     private EditText editTextAdvice;
     private EditText editTextAdvocacy;
     private EditText editTextRef;
     private EditText editTextEncouragement;
-    private EditText editTextEducationOutcome;
+    private EditText editTextSocialOutcome;
 
-    public VisitThirdQuestionSetFragment() {
+    public VisitFourthQuestionSetFragment() {
     }
 
     @Nullable
@@ -32,7 +32,7 @@ public class VisitThirdQuestionSetFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        final View inflate = inflater.inflate(R.layout.fragment_visit_third_question_set, container, false);
+        final View inflate = inflater.inflate(R.layout.fragment_visit_fourth_question_set, container, false);
 
         setupCheckBoxes(inflate);
         setupEditTexts(inflate);
@@ -42,37 +42,37 @@ public class VisitThirdQuestionSetFragment extends Fragment {
     }
 
     private void setupRadioGroup(final View view) {
-        RadioGroup goalStatus = view.findViewById(R.id.radioGroupEducationGoalStatus);
+        RadioGroup goalStatus = view.findViewById(R.id.radioGroupSocialGoalStatus);
 
         goalStatus.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                TextView question13 = view.findViewById(R.id.textViewQ16);
-                if (checkedId == R.id.radioButtonEducationConcluded) {
+                TextView question13 = view.findViewById(R.id.textViewQ14);
+                if (checkedId == R.id.radioButtonSocialConcluded) {
 
                     question13.setVisibility(View.VISIBLE);
-                    editTextEducationOutcome.setVisibility(View.VISIBLE);
+                    editTextSocialOutcome.setVisibility(View.VISIBLE);
                 } else {
                     question13.setVisibility(View.GONE);
-                    editTextEducationOutcome.setVisibility(View.GONE);
+                    editTextSocialOutcome.setVisibility(View.GONE);
                 }
             }
         });
     }
 
     private void setupEditTexts(View view) {
-        editTextAdvice = view.findViewById(R.id.editTextEducationAdvice);
-        editTextAdvocacy = view.findViewById(R.id.editTextEducationAdvocacy);
-        editTextRef = view.findViewById(R.id.editTextEducationRef);
-        editTextEncouragement = view.findViewById(R.id.editTextEducationEncouragement);
-        editTextEducationOutcome = view.findViewById(R.id.editTextEducationOutcome);
+        editTextAdvice = view.findViewById(R.id.editTextSocialAdvice);
+        editTextAdvocacy = view.findViewById(R.id.editTextSocialAdvocacy);
+        editTextRef = view.findViewById(R.id.editTextSocialRef);
+        editTextEncouragement = view.findViewById(R.id.editTextSocialEncouragement);
+        editTextSocialOutcome = view.findViewById(R.id.editTextSocialOutcome);
     }
 
     private void setupCheckBoxes(View view) {
-        CheckBox checkBoxAdvice = view.findViewById(R.id.checkBoxEducationAdvice);
-        CheckBox checkBoxAdvocacy = view.findViewById(R.id.checkBoxEducationAdvocacy);
-        CheckBox checkBoxRef = view.findViewById(R.id.checkBoxEducationRef);
-        CheckBox checkBoxEncouragement = view.findViewById(R.id.checkBoxEducationEncouragement);
+        CheckBox checkBoxAdvice = view.findViewById(R.id.checkBoxSocialAdvice);
+        CheckBox checkBoxAdvocacy = view.findViewById(R.id.checkBoxSocialAdvocacy);
+        CheckBox checkBoxRef = view.findViewById(R.id.checkBoxSocialRef);
+        CheckBox checkBoxEncouragement = view.findViewById(R.id.checkBoxSocialEncouragement);
 
         checkBoxAdvice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

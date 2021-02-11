@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.example.cbr.R;
 import com.example.cbr.fragments.VisitFirstQuestionSetFragment;
+import com.example.cbr.fragments.VisitFourthQuestionSetFragment;
 import com.example.cbr.fragments.VisitSecondQuestionSetFragment;
 import com.example.cbr.fragments.VisitThirdQuestionSetFragment;
 import com.example.cbr.models.VisitRecord;
@@ -34,6 +35,7 @@ public class NewVisitActivity extends AppCompatActivity {
     private Stack<Fragment> prevFragments;
     private Button buttonBack;
     private Button buttonRecord;
+    private Button buttonNext;
 
     public static Intent makeLaunchIntent(Context context, final long clientID) {
         Intent intent = new Intent(context, NewVisitActivity.class);
@@ -71,7 +73,7 @@ public class NewVisitActivity extends AppCompatActivity {
     private void setupRecordButton() {
         buttonRecord = findViewById(R.id.buttonVisitRecord);
 
-        // TODO: 2021-02-10 set button visible on last frag, next button 'gone'
+        // TODO: 2021-02-11 save data to db
     }
 
     private void setupBackButton() {
@@ -89,21 +91,21 @@ public class NewVisitActivity extends AppCompatActivity {
                 currentFragment = prevFragments.pop();
 
                 manageFragment(currentFragment);
+
+                if (!(currentFragment instanceof VisitFourthQuestionSetFragment)) {
+                    buttonRecord.setVisibility(View.GONE);
+                    buttonNext.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
 
     private void setupNextButton() {
-        final Button buttonNext = findViewById(R.id.buttonVisitNext);
+        buttonNext = findViewById(R.id.buttonVisitNext);
         // TODO: 2021-02-09 save values as needed
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                if (currentFragment instanceof VisitFourthQuestionSet) {
-//                    buttonRecord.setVisibility(View.VISIBLE);
-//                    buttonNext.setVisibility(View.GONE);
-//                }
                 if (currentFragment instanceof VisitFirstQuestionSetFragment) {
                     prevFragments.clear();
                     nextFragments.clear();
@@ -113,6 +115,9 @@ public class NewVisitActivity extends AppCompatActivity {
                     }
                     if (visitRecord.isEducationChecked()) {
                         nextFragments.offer(new VisitThirdQuestionSetFragment());
+                    }
+                    if (visitRecord.isSocialChecked()) {
+                        nextFragments.offer(new VisitFourthQuestionSetFragment());
                     }
                 }
 
@@ -129,6 +134,10 @@ public class NewVisitActivity extends AppCompatActivity {
 
                 if (!(currentFragment instanceof VisitFirstQuestionSetFragment)) {
                     buttonBack.setVisibility(View.VISIBLE);
+                }
+                if (currentFragment instanceof VisitFourthQuestionSetFragment) {
+                    buttonRecord.setVisibility(View.VISIBLE);
+                    buttonNext.setVisibility(View.GONE);
                 }
             }
         });

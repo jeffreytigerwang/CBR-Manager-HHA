@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ import com.example.cbr.models.VisitRecord;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class VisitFirstQuestionSetFragment extends Fragment {
 
@@ -31,6 +33,8 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     private CheckBox education;
     private CheckBox social;
     private VisitRecord visitRecord;
+    private Button record;
+    private Button next;
 
     public VisitFirstQuestionSetFragment() {
         // Required empty public constructor
@@ -152,16 +156,28 @@ public class VisitFirstQuestionSetFragment extends Fragment {
 
                     toggleQuestionTwo(question2, "#000000", true);
 
+                    toggleRecordButton(View.VISIBLE, View.GONE);
+
                 } else if (checkedId == R.id.radioButtonDCR) {
                     Log.d(LOG_TAG, "onCheckedChanged: checked DCR");
-
+                    toggleRecordButton(View.GONE, View.VISIBLE);
 
                 } else if (checkedId == R.id.radioButtonDCRFU) {
                     Log.d(LOG_TAG, "onCheckedChanged: checked DCRFU");
+                    toggleRecordButton(View.GONE, View.VISIBLE);
                 }
             }
         });
     }
+
+    private void toggleRecordButton(int nextVisibility, int recordVisibility) {
+        next = Objects.requireNonNull(getActivity()).findViewById(R.id.buttonVisitNext);
+        record = getActivity().findViewById(R.id.buttonVisitRecord);
+
+        next.setVisibility(nextVisibility);
+        record.setVisibility(recordVisibility);
+    }
+
 
     private void toggleQuestionTwo(TextView question2, String color, boolean toggle) {
         question2.setTextColor(Color.parseColor(color));

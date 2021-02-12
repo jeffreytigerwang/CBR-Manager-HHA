@@ -36,6 +36,8 @@ public class NewVisitActivity extends AppCompatActivity {
     private Button buttonBack;
     private Button buttonRecord;
     private Button buttonNext;
+    private byte totalFragments;
+    private byte pageNum;
 
     public static Intent makeLaunchIntent(Context context, final long clientID) {
         Intent intent = new Intent(context, NewVisitActivity.class);
@@ -59,6 +61,8 @@ public class NewVisitActivity extends AppCompatActivity {
 
         currentFragment = new VisitFirstQuestionSetFragment();
         manageFragment(currentFragment);
+        totalFragments += 1;
+        pageNum = 1;
 
         visitRecord = VisitRecord.getInstance();
 
@@ -82,17 +86,18 @@ public class NewVisitActivity extends AppCompatActivity {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (prevFragments.peek() instanceof VisitFirstQuestionSetFragment) {
-                    Log.d(LOG_TAG, "Back");
+                if (pageNum-1 == 1) {
+                    Log.d(LOG_TAG, "pagNum-1: " + (pageNum-1));
                     buttonBack.setVisibility(View.GONE);
                 }
 
                 nextFragments.add(currentFragment);
                 currentFragment = prevFragments.pop();
-
                 manageFragment(currentFragment);
+                pageNum -= 1;
 
-                if (!(currentFragment instanceof VisitFourthQuestionSetFragment)) {
+                if (pageNum < totalFragments) {
+                    Log.d(LOG_TAG, "pagNum: " + pageNum + " totalFragments: " + totalFragments);
                     buttonRecord.setVisibility(View.GONE);
                     buttonNext.setVisibility(View.VISIBLE);
                 }
@@ -106,18 +111,23 @@ public class NewVisitActivity extends AppCompatActivity {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentFragment instanceof VisitFirstQuestionSetFragment) {
+                if (pageNum == 1) {
                     prevFragments.clear();
                     nextFragments.clear();
 
+                    totalFragments = 1;
+
                     if (visitRecord.isHealthChecked()) {
                         nextFragments.offer(new VisitSecondQuestionSetFragment());
+                        totalFragments += 1;
                     }
                     if (visitRecord.isEducationChecked()) {
                         nextFragments.offer(new VisitThirdQuestionSetFragment());
+                        totalFragments += 1;
                     }
                     if (visitRecord.isSocialChecked()) {
                         nextFragments.offer(new VisitFourthQuestionSetFragment());
+                        totalFragments += 1;
                     }
                 }
 
@@ -125,17 +135,18 @@ public class NewVisitActivity extends AppCompatActivity {
                     prevFragments.add(currentFragment);
                     currentFragment = nextFragments.remove();
                     manageFragment(currentFragment);
+                    pageNum += 1;
                 }
 
-                Log.d(LOG_TAG, "prevFragments size: " + prevFragments.size());
+                Log.d(LOG_TAG, "pageNum: " + pageNum);
                 Log.d(LOG_TAG, "Is health: " + visitRecord.isHealthChecked()
                         + " is education: " + visitRecord.isEducationChecked()
                         + " is social: " + visitRecord.isSocialChecked());
 
-                if (!(currentFragment instanceof VisitFirstQuestionSetFragment)) {
+                if (pageNum > 1) {
                     buttonBack.setVisibility(View.VISIBLE);
                 }
-                if (currentFragment instanceof VisitFourthQuestionSetFragment) {
+                if (pageNum == totalFragments && pageNum != 1) {
                     buttonRecord.setVisibility(View.VISIBLE);
                     buttonNext.setVisibility(View.GONE);
                 }

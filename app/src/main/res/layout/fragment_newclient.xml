@@ -95,7 +95,7 @@
                 android:text="@string/gender" />
 
             <RadioGroup
-                android:id="@+id/newClient_genderRadioButton"
+                android:id="@+id/newClient_genderRadioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

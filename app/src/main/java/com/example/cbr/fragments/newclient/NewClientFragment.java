@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -72,13 +73,72 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String firstNameText = binding.newClientFirstNameEditText.getText().toString();
-                String lastNameText = binding.newClientLastNameEditText.getText().toString();
+                Boolean consentToInterview = binding.newClientConsentToInterviewCheckBox.isChecked();
+                String gpsLocation = binding.newClientGpsLocationEditText.getText().toString();
+                String location = binding.newClientLocationSpinner.getSelectedItem().toString();
+                String villageNumber = binding.newClientVillageNumberEditText.getText().toString();
+                String dateText = binding.newClientDateEditText.getText().toString();
+                String firstName = binding.newClientFirstNameEditText.getText().toString();
+                String lastName = binding.newClientLastNameEditText.getText().toString();
+                Integer age = Integer.parseInt(binding.newClientAgeEditText.getText().toString());
+                String contactNumber = binding.newClientContactNumberEditText.getText().toString();
+                boolean caregiverPresentForInterview = binding.newClientCaregiverIsPresentCheckBox.isChecked();
+                String caregiverContactNumber = binding.newClientCaregiverContactNumberEditText.getText().toString();
+                boolean amputeeDisability = binding.newClientAmputeeDisabilityCheckBox.isChecked();
+                boolean polioDisability = binding.newClientPolioDisabilityCheckBox.isChecked();
+                boolean spinalCordInjuryDisability = binding.newClientSpinalCordInjuryDisabilityCheckBox.isChecked();
+                boolean cerebralPalsyDisability = binding.newClientCerebralPalsyDisabilityCheckBox.isChecked();
+                boolean spinaBifidaDisability = binding.newClientSpinaBifidaDisabilityCheckBox.isChecked();
+                boolean hydrocephalusDisability = binding.newClientHydrocephalusDisabilityCheckBox.isChecked();
+                boolean visualImpairmentDisability = binding.newClientVisualImpairmentDisabilityCheckBox.isChecked();
+                boolean hearingImpairmentDisability = binding.newClientHearingImpairmentDisabilityCheckBox.isChecked();
+                boolean doNotKnowDisability = binding.newClientDoNotKnowDisabilityCheckBox.isChecked();
+                boolean otherDisability = binding.newClientOtherDisabilityCheckBox.isChecked();
+                String rateHealth = binding.newClientRateClientHealthSpinner.getSelectedItem().toString();
+                String describeHealth = binding.newClientDescribeClientHealthEditText.getText().toString();
+                String setGoalForHealth = binding.newClientSetGoalForClientHealthEditText.getText().toString();
+                String rateEducation = binding.newClientRateClientEducationSpinner.getSelectedItem().toString();
+                String describeEducation = binding.newClientDescribeClientEducationEditText.getText().toString();
+                String setGoalForEducation = binding.newClientSetGoalForClientEducationEditText.getText().toString();
+                String rateSocialStatus = binding.newClientRateClientSocialStatusSpinner.getSelectedItem().toString();
+                String describeSocialStatus = binding.newClientDescribeClientSocialStatusEditText.getText().toString();
+                String setGoalForSocialStatus = binding.newClientSetGoalForClientSocialStatusEditText.getText().toString();
 
-                ClientInfo clientInfo = new ClientInfo(firstNameText, lastNameText);
+                ClientInfo clientInfo = new ClientInfo(
+                        consentToInterview,
+                        gpsLocation,
+                        location,
+                        villageNumber,
+                        dateText,
+                        firstName,
+                        lastName,
+                        age,
+                        contactNumber,
+                        caregiverPresentForInterview,
+                        caregiverContactNumber,
+                        amputeeDisability,
+                        polioDisability,
+                        spinalCordInjuryDisability,
+                        cerebralPalsyDisability,
+                        spinaBifidaDisability,
+                        hydrocephalusDisability,
+                        visualImpairmentDisability,
+                        hearingImpairmentDisability,
+                        doNotKnowDisability,
+                        otherDisability,
+                        rateHealth,
+                        describeHealth,
+                        setGoalForHealth,
+                        rateEducation,
+                        describeEducation,
+                        setGoalForEducation,
+                        rateSocialStatus,
+                        describeSocialStatus,
+                        setGoalForSocialStatus);
             }
         });
     }
+
 
     @Override
     public void displayString(String string) {

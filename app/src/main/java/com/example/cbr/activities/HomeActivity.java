@@ -10,6 +10,7 @@ import com.example.cbr.R;
 import com.example.cbr.fragments.TempHomeFragment;
 import com.example.cbr.fragments.base.BaseActivity;
 import com.example.cbr.fragments.clientlist.ClientListFragment;
+import com.example.cbr.fragments.newclient.NewClientFragment;
 
 public class HomeActivity extends BaseActivity
         implements TempHomeFragment.TempHomeFragmentInterface
@@ -32,6 +33,12 @@ public class HomeActivity extends BaseActivity
     public void swapToClientList() {
         ClientListFragment clientListFragment = ClientListFragment.newInstance();
         replaceFragment(R.id.homeFragmentContainer, clientListFragment, ClientListFragment.getFragmentTag());
+    }
+
+    @Override
+    public void swapToNewClient() {
+        NewClientFragment newClientFragment = NewClientFragment.newInstance();
+        replaceFragment(R.id.homeFragmentContainer, newClientFragment, NewClientFragment.getFragmentTag());
     }
 
 

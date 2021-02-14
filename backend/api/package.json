@@ -4,7 +4,10 @@
   "description": "created using this tutorial https://bezkoder.com/node-js-express-sequelize-mysql/",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "migrate": "node ./bin/migrate.js",
+    "pm2": "pm2 start processes.json --no-daemon"
   },
   "repository": {
     "type": "git",
@@ -21,6 +24,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mysql2": "^2.2.5",
+    "pm2": "^4.5.4",
     "sequelize": "^6.5.0"
   }
 }

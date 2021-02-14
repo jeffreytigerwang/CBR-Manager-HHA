@@ -30,7 +30,7 @@ db.sequelize.sync({ force: true }).then(() => {
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to the CBR Application." });
+  res.json({ message: "Welcome to the CBR test Application." });
 });
 
 require("./app/routes/test_data.routes")(app);

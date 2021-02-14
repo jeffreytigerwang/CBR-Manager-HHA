@@ -2,7 +2,7 @@ module.exports = {
   HOST: "localhost",
   USER: "cbr-admin",
   PASSWORD: "marsbars",
-  DB: "cbr-data",
+  DB: "cbr_data",
   dialect: "mysql",
   pool: {
     max: 5,

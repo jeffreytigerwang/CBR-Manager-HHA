@@ -1,12 +1,12 @@
 package com.example.cbr.fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,11 +20,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.cbr.R;
+import com.example.cbr.models.PurposeOfVisit;
 import com.example.cbr.models.VisitRecord;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
+
+import static com.example.cbr.models.Constants.CBR;
+import static com.example.cbr.models.Constants.DCR;
+import static com.example.cbr.models.Constants.DCRFU;
 
 public class VisitFirstQuestionSetFragment extends Fragment {
 
@@ -33,11 +38,13 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     private CheckBox health;
     private CheckBox education;
     private CheckBox social;
-    private Button record;
-    private Button next;
 
     private final VisitRecord visitRecord;
     private FragmentActivity activity;
+    private EditText date;
+    private EditText cbrWorkerName;
+    private EditText location;
+    private EditText villageNumber;
 
     public VisitFirstQuestionSetFragment(VisitRecord visitRecord) {
         this.visitRecord = visitRecord;
@@ -81,29 +88,46 @@ public class VisitFirstQuestionSetFragment extends Fragment {
 
         spinnerLocation.setAdapter(adapter);
 
-        spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        String selectedItem = spinnerLocation.getSelectedItem().toString();
+        visitRecord.setSiteLocation(selectedItem);
     }
 
     private void setupEditText(View view) {
-        EditText date = view.findViewById(R.id.editTextDate);
-        EditText CBRWorkerName = view.findViewById(R.id.editTextPersonName);
-        EditText location = view.findViewById(R.id.editTextLocation);
-        EditText villageNumber = view.findViewById(R.id.editTextVillageNumber);
+        date = view.findViewById(R.id.editTextDate);
+        cbrWorkerName = view.findViewById(R.id.editTextPersonName);
+        location = view.findViewById(R.id.editTextLocationOfVisit);
+        villageNumber = view.findViewById(R.id.editTextVillageNumber);
+
         Date currentTime = Calendar.getInstance().getTime();
 
         date.setText(currentTime.toString());
-        // TODO: 2021-02-09 fill CBR worker name
-        // TODO: 2021-02-10 save location and village number after next is pressed
+        visitRecord.setDateOfVisit(currentTime);
+
+        cbrWorkerName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Log.d(LOG_TAG, "Worker name: " + cbrWorkerName.getText().toString());
+                    visitRecord.setNameOfCBRWorker(cbrWorkerName.getText().toString());
+                }
+            }
+        });
+        location.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    visitRecord.setLocationOfVisit(location.getText().toString());
+                }
+            }
+        });
+        villageNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    visitRecord.setVillageNumber(Integer.parseInt(villageNumber.getText().toString()));
+                }
+            }
+        });
     }
 
     private void setupCheckBox(View view) {
@@ -142,18 +166,17 @@ public class VisitFirstQuestionSetFragment extends Fragment {
                 resetQuestionTwo(question2);
 
                 if (checkedId == R.id.radioButtonCBR) {
-                    Log.d(LOG_TAG, "onCheckedChanged: checked CBR");
+                    visitRecord.setPurposeOfVisit(CBR);
 
                     toggleQuestionTwo(question2, "#000000", true);
-
                     toggleRecordButton(View.VISIBLE, View.GONE);
 
                 } else if (checkedId == R.id.radioButtonDCR) {
-                    Log.d(LOG_TAG, "onCheckedChanged: checked DCR");
+                    visitRecord.setPurposeOfVisit(DCR);
                     toggleRecordButton(View.GONE, View.VISIBLE);
 
                 } else if (checkedId == R.id.radioButtonDCRFU) {
-                    Log.d(LOG_TAG, "onCheckedChanged: checked DCRFU");
+                    visitRecord.setPurposeOfVisit(DCRFU);
                     toggleRecordButton(View.GONE, View.VISIBLE);
                 }
             }
@@ -161,8 +184,8 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     }
 
     private void toggleRecordButton(int nextVisibility, int recordVisibility) {
-        next = Objects.requireNonNull(activity).findViewById(R.id.buttonVisitNext);
-        record = activity.findViewById(R.id.buttonVisitRecord);
+        Button next = Objects.requireNonNull(activity).findViewById(R.id.buttonVisitNext);
+        Button record = activity.findViewById(R.id.buttonVisitRecord);
 
         next.setVisibility(nextVisibility);
         record.setVisibility(recordVisibility);
@@ -190,5 +213,21 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         visitRecord.setHealthChecked(false);
         visitRecord.setEducationChecked(false);
         visitRecord.setSocialChecked(false);
+    }
+
+    public EditText getDate() {
+        return date;
+    }
+
+    public EditText getCbrWorkerName() {
+        return cbrWorkerName;
+    }
+
+    public EditText getLocation() {
+        return location;
+    }
+
+    public EditText getVillageNumber() {
+        return villageNumber;
     }
 }

@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.example.cbr.R;
 import com.example.cbr.models.VisitRecord;
@@ -35,6 +36,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     private VisitRecord visitRecord;
     private Button record;
     private Button next;
+    private FragmentActivity activity;
 
     public VisitFirstQuestionSetFragment() {
         // Required empty public constructor
@@ -46,6 +48,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_visit_first_question_set, container, false);
 
         visitRecord = VisitRecord.getInstance();
+        activity = getActivity();
 
         setupRadioGroup(view);
         setupCheckBox(view);
@@ -71,7 +74,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                getActivity(),
+                activity,
                 android.R.layout.simple_spinner_item,
                 locations
         );
@@ -111,32 +114,19 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         health.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    visitRecord.setHealthChecked(true);
-                } else {
-                    visitRecord.setHealthChecked(false);
-                }
+                visitRecord.setHealthChecked(isChecked);
             }
         });
         education.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    visitRecord.setEducationChecked(true);
-                } else {
-                    visitRecord.setEducationChecked(false);
-                }
+                visitRecord.setEducationChecked(isChecked);
             }
         });
         social.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // TODO: 2021-02-09 make question 14-16 available
-                if (isChecked) {
-                    visitRecord.setSocialChecked(true);
-                } else {
-                    visitRecord.setSocialChecked(false);
-                }
+                visitRecord.setSocialChecked(isChecked);
             }
         });
     }
@@ -171,8 +161,8 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     }
 
     private void toggleRecordButton(int nextVisibility, int recordVisibility) {
-        next = Objects.requireNonNull(getActivity()).findViewById(R.id.buttonVisitNext);
-        record = getActivity().findViewById(R.id.buttonVisitRecord);
+        next = Objects.requireNonNull(activity).findViewById(R.id.buttonVisitNext);
+        record = activity.findViewById(R.id.buttonVisitRecord);
 
         next.setVisibility(nextVisibility);
         record.setVisibility(recordVisibility);

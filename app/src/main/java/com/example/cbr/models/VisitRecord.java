@@ -1,21 +1,14 @@
 package com.example.cbr.models;
 
-public class VisitRecord {
+import java.io.Serializable;
 
-    private static VisitRecord instance = null;
+public class VisitRecord implements Serializable {
 
     private boolean isHealthChecked;
     private boolean isEducationChecked;
     private boolean isSocialChecked;
 
-    private VisitRecord() {
-    }
-
-    public static VisitRecord getInstance() {
-        if (instance == null) {
-            instance = new VisitRecord();
-        }
-        return instance;
+    public VisitRecord() {
     }
 
     public boolean isHealthChecked() {

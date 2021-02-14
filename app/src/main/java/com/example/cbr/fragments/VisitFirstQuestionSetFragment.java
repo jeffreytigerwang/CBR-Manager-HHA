@@ -33,13 +33,14 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     private CheckBox health;
     private CheckBox education;
     private CheckBox social;
-    private VisitRecord visitRecord;
     private Button record;
     private Button next;
+
+    private final VisitRecord visitRecord;
     private FragmentActivity activity;
 
-    public VisitFirstQuestionSetFragment() {
-        // Required empty public constructor
+    public VisitFirstQuestionSetFragment(VisitRecord visitRecord) {
+        this.visitRecord = visitRecord;
     }
 
     @Override
@@ -47,7 +48,6 @@ public class VisitFirstQuestionSetFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_visit_first_question_set, container, false);
 
-        visitRecord = VisitRecord.getInstance();
         activity = getActivity();
 
         setupRadioGroup(view);

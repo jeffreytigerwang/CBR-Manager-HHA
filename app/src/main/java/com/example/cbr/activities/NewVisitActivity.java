@@ -26,6 +26,7 @@ import java.util.Stack;
 
 public class NewVisitActivity extends AppCompatActivity {
 
+    public static final String VISIT_RECORD = "visitRecord";
     private static final String CLIENT_ID = "clientID";
     private static final String LOG_TAG = "NewVisitActivity";
 
@@ -39,9 +40,13 @@ public class NewVisitActivity extends AppCompatActivity {
     private byte totalFragments;
     private byte pageNum;
 
-    public static Intent makeLaunchIntent(Context context, final long clientID) {
+    public static Intent makeLaunchIntent(
+            Context context,
+            final long clientID,
+            final VisitRecord visitRecord) {
         Intent intent = new Intent(context, NewVisitActivity.class);
         intent.putExtra(CLIENT_ID, clientID);
+        intent.putExtra(VISIT_RECORD, visitRecord);
         return intent;
     }
 
@@ -52,6 +57,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final long clientID = intent.getLongExtra(CLIENT_ID, -1);
+        visitRecord = (VisitRecord) intent.getSerializableExtra(VISIT_RECORD);
 
         if (clientID != -1) {
             // TODO: 2021-02-09 get client info from DB
@@ -59,12 +65,10 @@ public class NewVisitActivity extends AppCompatActivity {
             Log.d(LOG_TAG, "onCreate: failed to get client ID");
         }
 
-        currentFragment = new VisitFirstQuestionSetFragment();
+        currentFragment = new VisitFirstQuestionSetFragment(visitRecord);
         manageFragment(currentFragment);
         totalFragments += 1;
         pageNum = 1;
-
-        visitRecord = VisitRecord.getInstance();
 
         nextFragments = new LinkedList<>();
         prevFragments = new Stack<>();
@@ -118,15 +122,15 @@ public class NewVisitActivity extends AppCompatActivity {
                     totalFragments = 1;
 
                     if (visitRecord.isHealthChecked()) {
-                        nextFragments.offer(new VisitSecondQuestionSetFragment());
+                        nextFragments.offer(new VisitSecondQuestionSetFragment(visitRecord));
                         totalFragments += 1;
                     }
                     if (visitRecord.isEducationChecked()) {
-                        nextFragments.offer(new VisitThirdQuestionSetFragment());
+                        nextFragments.offer(new VisitThirdQuestionSetFragment(visitRecord));
                         totalFragments += 1;
                     }
                     if (visitRecord.isSocialChecked()) {
-                        nextFragments.offer(new VisitFourthQuestionSetFragment());
+                        nextFragments.offer(new VisitFourthQuestionSetFragment(visitRecord));
                         totalFragments += 1;
                     }
                 }

@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.cbr.R;
+import com.example.cbr.models.VisitRecord;
 
 public class VisitFourthQuestionSetFragment extends Fragment {
 
@@ -24,7 +25,10 @@ public class VisitFourthQuestionSetFragment extends Fragment {
     private EditText editTextEncouragement;
     private EditText editTextSocialOutcome;
 
-    public VisitFourthQuestionSetFragment() {
+    private final VisitRecord visitRecord;
+
+    public VisitFourthQuestionSetFragment(VisitRecord visitRecord) {
+        this.visitRecord = visitRecord;
     }
 
     @Nullable

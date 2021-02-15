@@ -5,4 +5,9 @@
     <string name="password">Password</string>
     <string name="terms_of_service_and_privacy_policy">Terms of Service and Privacy Policy</string>
     <string name="continue_text">continue</string>
+    <string name="agnes_kenyi">Agnes Kenyi</string>
+    <string name="bidibidi_zone_3">BidiBidi, Zone 3</string>
+    <string name="gender_clientpage">Gender:</string>
+    <string name="age_clientpage">Age:</string>
+    <string name="disability_clientpage">Disability:</string>
 </resources>

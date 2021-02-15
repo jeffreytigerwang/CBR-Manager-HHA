@@ -14,6 +14,7 @@ public class Constants {
     public static final String NAME_OF_CBR_WORKER_KEY = "nameOfCBRWorker";
     public static final String LOCATION_OF_VISIT_KEY = "locationOfVisit";
     public static final String SITE_LOCATION_KEY = "siteLocation";
+    public static final String SITE_LOCATION_SPINNER_SELECTED_POSITION_KEY = "siteLocationSpinnerSelectedPosition";
     public static final String VILLAGE_NUMBER_KEY = "villageNumber";
 
     public static final String IS_WHEEL_CHAIR_CHECKED_KEY = "isWheelChairChecked";

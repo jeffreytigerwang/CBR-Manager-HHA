@@ -72,7 +72,11 @@ public class NewVisitActivity extends AppCompatActivity {
             Log.d(LOG_TAG, "onCreate: failed to get client ID");
         }
 
-        currentFragment = new VisitFirstQuestionSetFragment(binding, visitCheckContainer);
+        currentFragment = new VisitFirstQuestionSetFragment(
+                binding,
+                visitCheckContainer,
+                NewVisitActivity.this
+        );
         manageFragment(currentFragment);
         totalFragments += 1;
         pageNum = 1;
@@ -158,15 +162,18 @@ public class NewVisitActivity extends AppCompatActivity {
                     totalFragments = 1;
 
                     if (visitCheckContainer.isHealthChecked()) {
-                        nextFragments.offer(new VisitSecondQuestionSetFragment(visitCheckContainer, NewVisitActivity.this));
+                        nextFragments.offer(new VisitSecondQuestionSetFragment(
+                                visitCheckContainer, NewVisitActivity.this));
                         totalFragments += 1;
                     }
                     if (visitCheckContainer.isEducationChecked()) {
-                        nextFragments.offer(new VisitThirdQuestionSetFragment(visitCheckContainer, NewVisitActivity.this));
+                        nextFragments.offer(new VisitThirdQuestionSetFragment(
+                                visitCheckContainer, NewVisitActivity.this));
                         totalFragments += 1;
                     }
                     if (visitCheckContainer.isSocialChecked()) {
-                        nextFragments.offer(new VisitFourthQuestionSetFragment(visitCheckContainer, NewVisitActivity.this));
+                        nextFragments.offer(new VisitFourthQuestionSetFragment(
+                                visitCheckContainer, NewVisitActivity.this));
                         totalFragments += 1;
                     }
                 }
@@ -315,6 +322,7 @@ public class NewVisitActivity extends AppCompatActivity {
         editor.putString(Constants.NAME_OF_CBR_WORKER_KEY, workerName.getText().toString());
         editor.putString(Constants.LOCATION_OF_VISIT_KEY, locationOfVisit.getText().toString());
         editor.putString(Constants.SITE_LOCATION_KEY, visitCheckContainer.getSiteLocation());
+        editor.putInt(Constants.SITE_LOCATION_SPINNER_SELECTED_POSITION_KEY, visitCheckContainer.getSiteLocationSpinnerSelectedPosition());
         editor.putString(Constants.VILLAGE_NUMBER_KEY, villageNumber.getText().toString());
     }
 

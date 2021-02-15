@@ -12,6 +12,7 @@ public class VisitCheckContainer implements Serializable {
     private boolean isEducationChecked;
     private boolean isSocialChecked;
     private String siteLocation;
+    private int siteLocationSpinnerSelectedPosition;
 
     private boolean isWheelChairChecked;
     private boolean isProstheticChecked;
@@ -229,5 +230,13 @@ public class VisitCheckContainer implements Serializable {
 
     public void setSocialGoalStatus(String socialGoalStatus) {
         SocialGoalStatus = socialGoalStatus;
+    }
+
+    public int getSiteLocationSpinnerSelectedPosition() {
+        return siteLocationSpinnerSelectedPosition;
+    }
+
+    public void setSiteLocationSpinnerSelectedPosition(int siteLocationSpinnerSelectedPosition) {
+        this.siteLocationSpinnerSelectedPosition = siteLocationSpinnerSelectedPosition;
     }
 }

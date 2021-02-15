@@ -88,20 +88,18 @@ public class NewVisitActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
+        // TODO: 2021-02-15 user confirmation: save session or delete 
         removeSavedSession();
     }
 
     private void setupRecordButton() {
-
         buttonRecord = binding.buttonVisitRecord;
-        // TODO: 2021-02-11 save data to db
-
-        removeSavedSession();
 
         buttonRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // TODO: 2021-02-11 save data to db
+                removeSavedSession();
                 finish();
             }
         });

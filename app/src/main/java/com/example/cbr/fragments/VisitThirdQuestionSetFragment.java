@@ -142,7 +142,7 @@ public class VisitThirdQuestionSetFragment extends Fragment {
         goalStatus.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                TextView question13 = view.findViewById(R.id.textViewQ13);
+
                 if (checkedId == R.id.radioButtonEducationConcluded) {
                     visitRecord.setEducationGoalStatus(CONCLUDED);
                     question13.setVisibility(View.VISIBLE);

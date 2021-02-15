@@ -49,6 +49,19 @@ public class Constants {
     public static final String EDUCATION_ENCOURAGEMENT_DESC = "educationEncouragementDesc";
     public static final String EDUCATION_OUTCOME_DESC = "educationOutcomeDesc";
     public static final String EDUCATION_GOAL_STATUS = "educationGoalStatus";
+
+    public static final String IS_SOCIAL_ADVICE_CHECKED = "isSocialAdviceChecked";
+    public static final String IS_SOCIAL_ADVOCACY_CHECKED = "isSocialAdvocacyChecked";
+    public static final String IS_SOCIAL_REF_CHECKED = "isSocialRefChecked";
+    public static final String IS_SOCIAL_ENCOURAGEMENT_CHECKED = "isSocialEncouragementChecked";
+    public static final String SOCIAL_ADVICE_DESC = "socialAdviceDesc";
+    public static final String SOCIAL_ADVOCACY_DESC = "socialAdvocacyDesc";
+    public static final String SOCIAL_REF_DESC = "socialRefDesc";
+    public static final String SOCIAL_ENCOURAGEMENT_DESC = "socialEncouragementDesc";
+    public static final String SOCIAL_OUTCOME_DESC = "socialOutcomeDesc";
+    public static final String SOCIAL_GOAL_STATUS = "socialGoalStatus";
+
     public static final String QUESTION_SET_2_PREF_NAME = "questionSet2";
     public static final String QUESTION_SET_3_PREF_NAME = "questionSet3";
+    public static final String QUESTION_SET_4_PREF_NAME = "questionSet4";
 }

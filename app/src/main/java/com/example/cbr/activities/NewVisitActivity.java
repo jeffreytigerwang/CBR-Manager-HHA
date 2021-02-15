@@ -23,6 +23,7 @@ import com.example.cbr.models.Constants;
 import com.example.cbr.models.VisitRecord;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -34,7 +35,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
     private Fragment currentFragment;
     private VisitRecord visitRecord;
-    private Queue<Fragment> nextFragments;
+    private LinkedList<Fragment> nextFragments;
     private Stack<Fragment> prevFragments;
     private Button buttonBack;
     private Button buttonRecord;
@@ -96,8 +97,9 @@ public class NewVisitActivity extends AppCompatActivity {
                     buttonBack.setVisibility(View.GONE);
                 }
                 saveQuestionSetData(pageNum);
+                Log.d(LOG_TAG, "pagNum onBack: " + pageNum);
 
-                nextFragments.add(currentFragment);
+                nextFragments.addFirst(currentFragment);
                 currentFragment = prevFragments.pop();
                 manageFragment(currentFragment);
                 pageNum -= 1;
@@ -140,7 +142,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
                 if (nextFragments.peek() != null) {
                     prevFragments.add(currentFragment);
-                    currentFragment = nextFragments.remove();
+                    currentFragment = nextFragments.removeFirst();
                     manageFragment(currentFragment);
                     pageNum += 1;
                 }
@@ -183,16 +185,6 @@ public class NewVisitActivity extends AppCompatActivity {
                 editor.putString(Constants.VILLAGE_NUMBER_KEY, villageNumber.getText().toString());
 
                 Log.d(LOG_TAG, "workerName: " + workerName.getText().toString());
-
-//                editor.putString("purposeOfVisit", visitRecord.getPurposeOfVisit());
-//                editor.putBoolean("isHealthChecked", visitRecord.isHealthChecked());
-//                editor.putBoolean("isEducationChecked", visitRecord.isEducationChecked());
-//                editor.putBoolean("isSocialChecked", visitRecord.isSocialChecked());
-//                editor.putString("dateOfVisit", visitRecord.getDateOfVisit().toString());
-//                editor.putString("nameOfCBRWorker", visitRecord.getNameOfCBRWorker());
-//                editor.putString("locationOfVisit", visitRecord.getLocationOfVisit());
-//                editor.putString("siteLocation", visitRecord.getSiteLocation());
-//                editor.putInt("villageNumber", visitRecord.getVillageNumber());
                 editor.apply();
                 break;
             case 2:
@@ -248,6 +240,28 @@ public class NewVisitActivity extends AppCompatActivity {
                 editor.putString(Constants.EDUCATION_ENCOURAGEMENT_DESC, educationEncouragement.getText().toString());
                 editor.putString(Constants.EDUCATION_OUTCOME_DESC, educationOutcome.getText().toString());
                 editor.putString(Constants.EDUCATION_GOAL_STATUS, visitRecord.getEducationGoalStatus());
+
+                editor.apply();
+                break;
+            case 4:
+                VisitFourthQuestionSetFragment fourthFragment = (VisitFourthQuestionSetFragment) currentFragment;
+                EditText socialAdvice = fourthFragment.getEditTextAdvice();
+                EditText socialAdvocacy = fourthFragment.getEditTextAdvocacy();
+                EditText socialRef = fourthFragment.getEditTextRef();
+                EditText socialEncouragement = fourthFragment.getEditTextEncouragement();
+                EditText socialOutcome = fourthFragment.getEditTextSocialOutcome();
+
+                editor.putBoolean(Constants.IS_SOCIAL_ADVICE_CHECKED, visitRecord.isSocialAdviceChecked());
+                editor.putBoolean(Constants.IS_SOCIAL_ADVOCACY_CHECKED, visitRecord.isSocialAdvocacyChecked());
+                editor.putBoolean(Constants.IS_SOCIAL_REF_CHECKED, visitRecord.isSocialRefChecked());
+                editor.putBoolean(Constants.IS_SOCIAL_ENCOURAGEMENT_CHECKED, visitRecord.isSocialEncouragementChecked());
+
+                editor.putString(Constants.SOCIAL_ADVICE_DESC, socialAdvice.getText().toString());
+                editor.putString(Constants.SOCIAL_ADVOCACY_DESC, socialAdvocacy.getText().toString());
+                editor.putString(Constants.SOCIAL_REF_DESC, socialRef.getText().toString());
+                editor.putString(Constants.SOCIAL_ENCOURAGEMENT_DESC, socialEncouragement.getText().toString());
+                editor.putString(Constants.SOCIAL_OUTCOME_DESC, socialOutcome.getText().toString());
+                editor.putString(Constants.SOCIAL_GOAL_STATUS, visitRecord.getSocialGoalStatus());
 
                 editor.apply();
                 break;

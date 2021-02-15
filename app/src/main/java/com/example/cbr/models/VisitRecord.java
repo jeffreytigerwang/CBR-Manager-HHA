@@ -44,6 +44,13 @@ public class VisitRecord implements Serializable {
     private boolean isEducationOutcomeChecked;
     private String educationGoalStatus;
 
+    private boolean isSocialAdviceChecked;
+    private boolean isSocialAdvocacyChecked;
+    private boolean isSocialRefChecked;
+    private boolean isSocialEncouragementChecked;
+    private boolean isSocialOutcomeChecked;
+    private String SocialGoalStatus;
+
     public VisitRecord() {
     }
 
@@ -317,5 +324,53 @@ public class VisitRecord implements Serializable {
 
     public void setEducationRefChecked(boolean educationRefChecked) {
         isEducationRefChecked = educationRefChecked;
+    }
+
+    public boolean isSocialAdviceChecked() {
+        return isSocialAdviceChecked;
+    }
+
+    public void setSocialAdviceChecked(boolean socialAdviceChecked) {
+        isSocialAdviceChecked = socialAdviceChecked;
+    }
+
+    public boolean isSocialAdvocacyChecked() {
+        return isSocialAdvocacyChecked;
+    }
+
+    public void setSocialAdvocacyChecked(boolean socialAdvocacyChecked) {
+        isSocialAdvocacyChecked = socialAdvocacyChecked;
+    }
+
+    public boolean isSocialRefChecked() {
+        return isSocialRefChecked;
+    }
+
+    public void setSocialRefChecked(boolean socialRefChecked) {
+        isSocialRefChecked = socialRefChecked;
+    }
+
+    public boolean isSocialEncouragementChecked() {
+        return isSocialEncouragementChecked;
+    }
+
+    public void setSocialEncouragementChecked(boolean socialEncouragementChecked) {
+        isSocialEncouragementChecked = socialEncouragementChecked;
+    }
+
+    public boolean isSocialOutcomeChecked() {
+        return isSocialOutcomeChecked;
+    }
+
+    public void setSocialOutcomeChecked(boolean socialOutcomeChecked) {
+        isSocialOutcomeChecked = socialOutcomeChecked;
+    }
+
+    public String getSocialGoalStatus() {
+        return SocialGoalStatus;
+    }
+
+    public void setSocialGoalStatus(String socialGoalStatus) {
+        SocialGoalStatus = socialGoalStatus;
     }
 }

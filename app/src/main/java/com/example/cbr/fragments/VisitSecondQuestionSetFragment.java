@@ -189,7 +189,6 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         goalStatus.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                TextView question10 = view.findViewById(R.id.textViewQ10);
 
                 if (checkedId == R.id.radioButtonHealthConcluded) {
                     visitRecord.setHealthGoalStatus(CONCLUDED);

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "550962147109",
+    "project_id": "cbr-manager-3fe1a",
+    "storage_bucket": "cbr-manager-3fe1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550962147109:android:73f4ed8fccc8105b9274cc",
+        "android_client_info": {
+          "package_name": "com.example.cbr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "550962147109-2fgm5s233hf2jhasnvnijqnvc57cl8ge.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAACh25oheniXex9SdOj0Yvis9fB9M_FWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "550962147109-2fgm5s233hf2jhasnvnijqnvc57cl8ge.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

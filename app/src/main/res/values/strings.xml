@@ -5,5 +5,9 @@
     <string name="password">Password</string>
     <string name="terms_of_service_and_privacy_policy">Terms of Service and Privacy Policy</string>
     <string name="continue_text">continue</string>
+    <string name="sample_name">Sample Name</string>
+    <string name="sample_id">Sample ID</string>
+    <string name="sample_location">Sample Location</string>
+    <string name="clientlist_title">Patient List</string>
 
 </resources>

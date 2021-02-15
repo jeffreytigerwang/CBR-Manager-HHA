@@ -23,8 +23,6 @@ import com.example.cbr.models.Constants;
 import com.example.cbr.models.VisitRecord;
 
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 import java.util.Stack;
 
 public class NewVisitActivity extends AppCompatActivity {
@@ -81,10 +79,32 @@ public class NewVisitActivity extends AppCompatActivity {
         setupRecordButton();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        removeSavedSession();
+    }
+
     private void setupRecordButton() {
         buttonRecord = findViewById(R.id.buttonVisitRecord);
-
         // TODO: 2021-02-11 save data to db
+
+        removeSavedSession();
+        finish();
+    }
+
+    private void removeSavedSession() {
+        clearSharedPreference(Constants.QUESTION_SET_1_PREF_NAME);
+        clearSharedPreference(Constants.QUESTION_SET_2_PREF_NAME);
+        clearSharedPreference(Constants.QUESTION_SET_3_PREF_NAME);
+        clearSharedPreference(Constants.QUESTION_SET_4_PREF_NAME);
+    }
+
+    private void clearSharedPreference(String questionSetPrefName) {
+        SharedPreferences sharedPref = getSharedPreferences(questionSetPrefName, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit().clear();
+        editor.apply();
     }
 
     private void setupBackButton() {

@@ -61,6 +61,7 @@ public class Constants {
     public static final String SOCIAL_OUTCOME_DESC = "socialOutcomeDesc";
     public static final String SOCIAL_GOAL_STATUS = "socialGoalStatus";
 
+    public static final String QUESTION_SET_1_PREF_NAME = "questionSet1";
     public static final String QUESTION_SET_2_PREF_NAME = "questionSet2";
     public static final String QUESTION_SET_3_PREF_NAME = "questionSet3";
     public static final String QUESTION_SET_4_PREF_NAME = "questionSet4";

@@ -18,9 +18,7 @@ import androidx.annotation.Nullable;
 
 import com.example.cbr.R;
 import com.example.cbr.models.Constants;
-import com.example.cbr.models.VisitRecord;
-
-import org.w3c.dom.Text;
+import com.example.cbr.models.VisitCheckContainer;
 
 import static com.example.cbr.models.Constants.CANCELLED;
 import static com.example.cbr.models.Constants.CONCLUDED;
@@ -56,7 +54,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     private EditText editTextEncouragement;
     private EditText editTextHealthOutcome;
 
-    private final VisitRecord visitRecord;
+    private final VisitCheckContainer visitCheckContainer;
     private final Context context;
 
     private RadioGroup goalStatus;
@@ -70,8 +68,8 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     private CheckBox checkBoxEncouragement;
     private TextView question10;
 
-    public VisitSecondQuestionSetFragment(VisitRecord visitRecord, Context context) {
-        this.visitRecord = visitRecord;
+    public VisitSecondQuestionSetFragment(VisitCheckContainer visitCheckContainer, Context context) {
+        this.visitCheckContainer = visitCheckContainer;
         this.context = context;
     }
 
@@ -191,7 +189,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
                 if (checkedId == R.id.radioButtonHealthConcluded) {
-                    visitRecord.setHealthGoalStatus(CONCLUDED);
+                    visitCheckContainer.setHealthGoalStatus(CONCLUDED);
 
                     question10.setVisibility(View.VISIBLE);
                     editTextHealthOutcome.setVisibility(View.VISIBLE);
@@ -200,10 +198,10 @@ public class VisitSecondQuestionSetFragment extends Fragment {
                     editTextHealthOutcome.setVisibility(View.GONE);
                 }
                 if (checkedId == R.id.radioButtonHealthOngoing) {
-                    visitRecord.setHealthGoalStatus(ONGOING);
+                    visitCheckContainer.setHealthGoalStatus(ONGOING);
 
                 } else if (checkedId == R.id.radioButtonHealthCancelled) {
-                    visitRecord.setHealthGoalStatus(CANCELLED);
+                    visitCheckContainer.setHealthGoalStatus(CANCELLED);
                 }
             }
         });
@@ -217,10 +215,10 @@ public class VisitSecondQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextWheelChair.setVisibility(View.VISIBLE);
-                    visitRecord.setWheelChairChecked(true);
+                    visitCheckContainer.setWheelChairChecked(true);
                 } else {
                     editTextWheelChair.setVisibility(View.GONE);
-                    visitRecord.setWheelChairChecked(false);
+                    visitCheckContainer.setWheelChairChecked(false);
                 }
             }
         });
@@ -229,10 +227,10 @@ public class VisitSecondQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextProsthetic.setVisibility(View.VISIBLE);
-                    visitRecord.setProstheticChecked(true);
+                    visitCheckContainer.setProstheticChecked(true);
                 } else {
                     editTextProsthetic.setVisibility(View.GONE);
-                    visitRecord.setProstheticChecked(false);
+                    visitCheckContainer.setProstheticChecked(false);
                 }
             }
         });
@@ -241,10 +239,10 @@ public class VisitSecondQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextOrthotic.setVisibility(View.VISIBLE);
-                    visitRecord.setOrthoticChecked(true);
+                    visitCheckContainer.setOrthoticChecked(true);
                 } else {
                     editTextOrthotic.setVisibility(View.GONE);
-                    visitRecord.setOrthoticChecked(false);
+                    visitCheckContainer.setOrthoticChecked(false);
                 }
             }
         });
@@ -253,10 +251,10 @@ public class VisitSecondQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextWR.setVisibility(View.VISIBLE);
-                    visitRecord.setWRChecked(true);
+                    visitCheckContainer.setWRChecked(true);
                 } else {
                     editTextWR.setVisibility(View.GONE);
-                    visitRecord.setWRChecked(false);
+                    visitCheckContainer.setWRChecked(false);
                 }
             }
         });
@@ -265,10 +263,10 @@ public class VisitSecondQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextReferralToHC.setVisibility(View.VISIBLE);
-                    visitRecord.setReferralToHCChecked(true);
+                    visitCheckContainer.setReferralToHCChecked(true);
                 } else {
                     editTextReferralToHC.setVisibility(View.GONE);
-                    visitRecord.setReferralToHCChecked(false);
+                    visitCheckContainer.setReferralToHCChecked(false);
                 }
             }
         });
@@ -277,10 +275,10 @@ public class VisitSecondQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextAdvice.setVisibility(View.VISIBLE);
-                    visitRecord.setHealthAdviceChecked(true);
+                    visitCheckContainer.setHealthAdviceChecked(true);
                 } else {
                     editTextAdvice.setVisibility(View.GONE);
-                    visitRecord.setHealthAdviceChecked(false);
+                    visitCheckContainer.setHealthAdviceChecked(false);
                 }
             }
         });
@@ -289,10 +287,10 @@ public class VisitSecondQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextAdvocacy.setVisibility(View.VISIBLE);
-                    visitRecord.setHealthAdvocacyChecked(true);
+                    visitCheckContainer.setHealthAdvocacyChecked(true);
                 } else {
                     editTextAdvocacy.setVisibility(View.GONE);
-                    visitRecord.setHealthAdvocacyChecked(false);
+                    visitCheckContainer.setHealthAdvocacyChecked(false);
                 }
             }
         });
@@ -301,10 +299,10 @@ public class VisitSecondQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextEncouragement.setVisibility(View.VISIBLE);
-                    visitRecord.setWheelChairChecked(true);
+                    visitCheckContainer.setHealthEncouragementChecked(true);
                 } else {
                     editTextEncouragement.setVisibility(View.GONE);
-                    visitRecord.setWheelChairChecked(false);
+                    visitCheckContainer.setHealthEncouragementChecked(false);
                 }
             }
         });

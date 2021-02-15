@@ -18,20 +18,10 @@ import androidx.annotation.Nullable;
 
 import com.example.cbr.R;
 import com.example.cbr.models.Constants;
-import com.example.cbr.models.VisitRecord;
+import com.example.cbr.models.VisitCheckContainer;
 
 import static com.example.cbr.models.Constants.CANCELLED;
 import static com.example.cbr.models.Constants.CONCLUDED;
-import static com.example.cbr.models.Constants.EDUCATION_ADVICE_DESC;
-import static com.example.cbr.models.Constants.EDUCATION_ADVOCACY_DESC;
-import static com.example.cbr.models.Constants.EDUCATION_ENCOURAGEMENT_DESC;
-import static com.example.cbr.models.Constants.EDUCATION_GOAL_STATUS;
-import static com.example.cbr.models.Constants.EDUCATION_OUTCOME_DESC;
-import static com.example.cbr.models.Constants.EDUCATION_REF_DESC;
-import static com.example.cbr.models.Constants.IS_EDUCATION_ADVICE_CHECKED;
-import static com.example.cbr.models.Constants.IS_EDUCATION_ADVOCACY_CHECKED;
-import static com.example.cbr.models.Constants.IS_EDUCATION_ENCOURAGEMENT_CHECKED;
-import static com.example.cbr.models.Constants.IS_EDUCATION_REF_CHECKED;
 import static com.example.cbr.models.Constants.IS_SOCIAL_ADVICE_CHECKED;
 import static com.example.cbr.models.Constants.IS_SOCIAL_ADVOCACY_CHECKED;
 import static com.example.cbr.models.Constants.IS_SOCIAL_ENCOURAGEMENT_CHECKED;
@@ -52,7 +42,7 @@ public class VisitFourthQuestionSetFragment extends Fragment {
     private EditText editTextEncouragement;
     private EditText editTextSocialOutcome;
 
-    private final VisitRecord visitRecord;
+    private final VisitCheckContainer visitCheckContainer;
     private final Context context;
     private RadioGroup goalStatus;
     private CheckBox checkBoxAdvice;
@@ -61,8 +51,8 @@ public class VisitFourthQuestionSetFragment extends Fragment {
     private CheckBox checkBoxEncouragement;
     private TextView question16;
 
-    public VisitFourthQuestionSetFragment(VisitRecord visitRecord, Context context) {
-        this.visitRecord = visitRecord;
+    public VisitFourthQuestionSetFragment(VisitCheckContainer visitCheckContainer, Context context) {
+        this.visitCheckContainer = visitCheckContainer;
         this.context = context;
     }
 
@@ -153,7 +143,7 @@ public class VisitFourthQuestionSetFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
                 if (checkedId == R.id.radioButtonSocialConcluded) {
-                    visitRecord.setSocialGoalStatus(CONCLUDED);
+                    visitCheckContainer.setSocialGoalStatus(CONCLUDED);
                     question16.setVisibility(View.VISIBLE);
                     editTextSocialOutcome.setVisibility(View.VISIBLE);
                 } else {
@@ -161,10 +151,10 @@ public class VisitFourthQuestionSetFragment extends Fragment {
                     editTextSocialOutcome.setVisibility(View.GONE);
                 }
                 if (checkedId == R.id.radioButtonSocialCancelled) {
-                    visitRecord.setSocialGoalStatus(CANCELLED);
+                    visitCheckContainer.setSocialGoalStatus(CANCELLED);
                 }
                 if (checkedId == R.id.radioButtonSocialOngoing) {
-                    visitRecord.setSocialGoalStatus(ONGOING);
+                    visitCheckContainer.setSocialGoalStatus(ONGOING);
                 }
             }
         });
@@ -177,10 +167,10 @@ public class VisitFourthQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextAdvice.setVisibility(View.VISIBLE);
-                    visitRecord.setSocialAdviceChecked(true);
+                    visitCheckContainer.setSocialAdviceChecked(true);
                 } else {
                     editTextAdvice.setVisibility(View.GONE);
-                    visitRecord.setSocialAdviceChecked(false);
+                    visitCheckContainer.setSocialAdviceChecked(false);
                 }
             }
         });
@@ -189,10 +179,10 @@ public class VisitFourthQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextAdvocacy.setVisibility(View.VISIBLE);
-                    visitRecord.setSocialAdvocacyChecked(true);
+                    visitCheckContainer.setSocialAdvocacyChecked(true);
                 } else {
                     editTextAdvocacy.setVisibility(View.GONE);
-                    visitRecord.setSocialAdvocacyChecked(false);
+                    visitCheckContainer.setSocialAdvocacyChecked(false);
                 }
             }
         });
@@ -201,10 +191,10 @@ public class VisitFourthQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextRef.setVisibility(View.VISIBLE);
-                    visitRecord.setSocialRefChecked(true);
+                    visitCheckContainer.setSocialRefChecked(true);
                 } else {
                     editTextRef.setVisibility(View.GONE);
-                    visitRecord.setSocialRefChecked(false);
+                    visitCheckContainer.setSocialRefChecked(false);
                 }
             }
         });
@@ -213,10 +203,10 @@ public class VisitFourthQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextEncouragement.setVisibility(View.VISIBLE);
-                    visitRecord.setSocialEncouragementChecked(true);
+                    visitCheckContainer.setSocialEncouragementChecked(true);
                 } else {
                     editTextEncouragement.setVisibility(View.GONE);
-                    visitRecord.setSocialEncouragementChecked(false);
+                    visitCheckContainer.setSocialEncouragementChecked(false);
                 }
             }
         });

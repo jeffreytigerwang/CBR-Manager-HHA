@@ -1,9 +1,7 @@
 package com.example.cbr.fragments;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.cbr.R;
-import com.example.cbr.models.PurposeOfVisit;
-import com.example.cbr.models.VisitRecord;
+import com.example.cbr.models.VisitCheckContainer;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -39,15 +36,15 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     private CheckBox education;
     private CheckBox social;
 
-    private final VisitRecord visitRecord;
+    private final VisitCheckContainer visitCheckContainer;
     private FragmentActivity activity;
     private EditText date;
     private EditText cbrWorkerName;
     private EditText location;
     private EditText villageNumber;
 
-    public VisitFirstQuestionSetFragment(VisitRecord visitRecord) {
-        this.visitRecord = visitRecord;
+    public VisitFirstQuestionSetFragment(VisitCheckContainer visitCheckContainer) {
+        this.visitCheckContainer = visitCheckContainer;
     }
 
     @Override
@@ -89,7 +86,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         spinnerLocation.setAdapter(adapter);
 
         String selectedItem = spinnerLocation.getSelectedItem().toString();
-        visitRecord.setSiteLocation(selectedItem);
+        visitCheckContainer.setSiteLocation(selectedItem);
     }
 
     private void setupEditText(View view) {
@@ -101,33 +98,6 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         Date currentTime = Calendar.getInstance().getTime();
 
         date.setText(currentTime.toString());
-        visitRecord.setDateOfVisit(currentTime);
-
-        cbrWorkerName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    Log.d(LOG_TAG, "Worker name: " + cbrWorkerName.getText().toString());
-                    visitRecord.setNameOfCBRWorker(cbrWorkerName.getText().toString());
-                }
-            }
-        });
-        location.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    visitRecord.setLocationOfVisit(location.getText().toString());
-                }
-            }
-        });
-        villageNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    visitRecord.setVillageNumber(Integer.parseInt(villageNumber.getText().toString()));
-                }
-            }
-        });
     }
 
     private void setupCheckBox(View view) {
@@ -138,19 +108,19 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         health.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                visitRecord.setHealthChecked(isChecked);
+                visitCheckContainer.setHealthChecked(isChecked);
             }
         });
         education.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                visitRecord.setEducationChecked(isChecked);
+                visitCheckContainer.setEducationChecked(isChecked);
             }
         });
         social.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                visitRecord.setSocialChecked(isChecked);
+                visitCheckContainer.setSocialChecked(isChecked);
             }
         });
     }
@@ -166,17 +136,17 @@ public class VisitFirstQuestionSetFragment extends Fragment {
                 resetQuestionTwo(question2);
 
                 if (checkedId == R.id.radioButtonCBR) {
-                    visitRecord.setPurposeOfVisit(CBR);
+                    visitCheckContainer.setPurposeOfVisit(CBR);
 
                     toggleQuestionTwo(question2, "#000000", true);
                     toggleRecordButton(View.VISIBLE, View.GONE);
 
                 } else if (checkedId == R.id.radioButtonDCR) {
-                    visitRecord.setPurposeOfVisit(DCR);
+                    visitCheckContainer.setPurposeOfVisit(DCR);
                     toggleRecordButton(View.GONE, View.VISIBLE);
 
                 } else if (checkedId == R.id.radioButtonDCRFU) {
-                    visitRecord.setPurposeOfVisit(DCRFU);
+                    visitCheckContainer.setPurposeOfVisit(DCRFU);
                     toggleRecordButton(View.GONE, View.VISIBLE);
                 }
             }
@@ -210,9 +180,9 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         education.setChecked(false);
         social.setChecked(false);
 
-        visitRecord.setHealthChecked(false);
-        visitRecord.setEducationChecked(false);
-        visitRecord.setSocialChecked(false);
+        visitCheckContainer.setHealthChecked(false);
+        visitCheckContainer.setEducationChecked(false);
+        visitCheckContainer.setSocialChecked(false);
     }
 
     public EditText getDate() {

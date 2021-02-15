@@ -18,9 +18,7 @@ import androidx.annotation.Nullable;
 
 import com.example.cbr.R;
 import com.example.cbr.models.Constants;
-import com.example.cbr.models.VisitRecord;
-
-import org.w3c.dom.Text;
+import com.example.cbr.models.VisitCheckContainer;
 
 import static com.example.cbr.models.Constants.CANCELLED;
 import static com.example.cbr.models.Constants.CONCLUDED;
@@ -44,7 +42,7 @@ public class VisitThirdQuestionSetFragment extends Fragment {
     private EditText editTextEncouragement;
     private EditText editTextEducationOutcome;
 
-    private final VisitRecord visitRecord;
+    private final VisitCheckContainer visitCheckContainer;
     private final Context context;
     private CheckBox checkBoxEncouragement;
     private CheckBox checkBoxAdvice;
@@ -53,8 +51,8 @@ public class VisitThirdQuestionSetFragment extends Fragment {
     private RadioGroup goalStatus;
     private TextView question13;
 
-    public VisitThirdQuestionSetFragment(VisitRecord visitRecord, Context context) {
-        this.visitRecord = visitRecord;
+    public VisitThirdQuestionSetFragment(VisitCheckContainer visitCheckContainer, Context context) {
+        this.visitCheckContainer = visitCheckContainer;
         this.context = context;
     }
 
@@ -144,7 +142,7 @@ public class VisitThirdQuestionSetFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
                 if (checkedId == R.id.radioButtonEducationConcluded) {
-                    visitRecord.setEducationGoalStatus(CONCLUDED);
+                    visitCheckContainer.setEducationGoalStatus(CONCLUDED);
                     question13.setVisibility(View.VISIBLE);
                     editTextEducationOutcome.setVisibility(View.VISIBLE);
                 } else {
@@ -152,10 +150,10 @@ public class VisitThirdQuestionSetFragment extends Fragment {
                     editTextEducationOutcome.setVisibility(View.GONE);
                 }
                 if (checkedId == R.id.radioButtonEducationCancelled) {
-                    visitRecord.setEducationGoalStatus(CANCELLED);
+                    visitCheckContainer.setEducationGoalStatus(CANCELLED);
                 }
                 if (checkedId == R.id.radioButtonEducationOngoing) {
-                    visitRecord.setEducationGoalStatus(ONGOING);
+                    visitCheckContainer.setEducationGoalStatus(ONGOING);
                 }
             }
         });
@@ -167,10 +165,10 @@ public class VisitThirdQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextAdvice.setVisibility(View.VISIBLE);
-                    visitRecord.setEducationAdviceChecked(true);
+                    visitCheckContainer.setEducationAdviceChecked(true);
                 } else {
                     editTextAdvice.setVisibility(View.GONE);
-                    visitRecord.setEducationAdviceChecked(false);
+                    visitCheckContainer.setEducationAdviceChecked(false);
                 }
             }
         });
@@ -179,10 +177,10 @@ public class VisitThirdQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextAdvocacy.setVisibility(View.VISIBLE);
-                    visitRecord.setEducationAdvocacyChecked(true);
+                    visitCheckContainer.setEducationAdvocacyChecked(true);
                 } else {
                     editTextAdvocacy.setVisibility(View.GONE);
-                    visitRecord.setEducationAdvocacyChecked(false);
+                    visitCheckContainer.setEducationAdvocacyChecked(false);
                 }
             }
         });
@@ -191,10 +189,10 @@ public class VisitThirdQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextRef.setVisibility(View.VISIBLE);
-                    visitRecord.setEducationRefChecked(true);
+                    visitCheckContainer.setEducationRefChecked(true);
                 } else {
                     editTextRef.setVisibility(View.GONE);
-                    visitRecord.setEducationRefChecked(false);
+                    visitCheckContainer.setEducationRefChecked(false);
                 }
             }
         });
@@ -203,10 +201,10 @@ public class VisitThirdQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextEncouragement.setVisibility(View.VISIBLE);
-                    visitRecord.setEducationEncouragementChecked(true);
+                    visitCheckContainer.setEducationEncouragementChecked(true);
                 } else {
                     editTextEncouragement.setVisibility(View.GONE);
-                    visitRecord.setEducationEncouragementChecked(false);
+                    visitCheckContainer.setEducationEncouragementChecked(false);
                 }
             }
         });

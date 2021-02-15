@@ -122,7 +122,7 @@ public class NewVisitActivity extends AppCompatActivity {
                     Log.d(LOG_TAG, "pagNum-1: " + (pageNum-1));
                     buttonBack.setVisibility(View.GONE);
                 }
-                saveQuestionSetData(pageNum);
+                saveSession(pageNum);
                 Log.d(LOG_TAG, "pagNum onBack: " + pageNum);
 
                 nextFragments.addFirst(currentFragment);
@@ -144,7 +144,7 @@ public class NewVisitActivity extends AppCompatActivity {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveQuestionSetData(pageNum);
+                saveSession(pageNum);
 
                 if (pageNum == 1) {
                     prevFragments.clear();
@@ -189,109 +189,128 @@ public class NewVisitActivity extends AppCompatActivity {
         });
     }
 
-    private void saveQuestionSetData(byte pageNum) {
+    private void saveSession(byte pageNum) {
         SharedPreferences sharedPreferences = getSharedPreferences("questionSet" + pageNum, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         switch (pageNum) {
             case 1:
-                VisitFirstQuestionSetFragment firstFragment = (VisitFirstQuestionSetFragment) currentFragment;
-                EditText dateOfVisit = firstFragment.getDate();
-                EditText workerName = firstFragment.getCbrWorkerName();
-                EditText locationOfVisit = firstFragment.getLocation();
-                EditText villageNumber = firstFragment.getVillageNumber();
+                saveFirstQuestionSet(editor);
 
-                editor.putString(Constants.PURPOSE_OF_VISIT_KEY, visitCheckContainer.getPurposeOfVisit());
-                editor.putBoolean(Constants.IS_HEALTH_CHECKED_KEY, visitCheckContainer.isHealthChecked());
-                editor.putBoolean(Constants.IS_EDUCATION_CHECKED_KEY, visitCheckContainer.isEducationChecked());
-                editor.putBoolean(Constants.IS_SOCIAL_CHECKED_KEY, visitCheckContainer.isSocialChecked());
-                editor.putString(Constants.DATE_OF_VISIT_KEY, dateOfVisit.getText().toString());
-                editor.putString(Constants.NAME_OF_CBR_WORKER_KEY, workerName.getText().toString());
-                editor.putString(Constants.LOCATION_OF_VISIT_KEY, locationOfVisit.getText().toString());
-                editor.putString(Constants.SITE_LOCATION_KEY, visitCheckContainer.getSiteLocation());
-                editor.putString(Constants.VILLAGE_NUMBER_KEY, villageNumber.getText().toString());
-
-                Log.d(LOG_TAG, "workerName: " + workerName.getText().toString());
                 editor.apply();
                 break;
             case 2:
-                VisitSecondQuestionSetFragment secondFragment = (VisitSecondQuestionSetFragment) currentFragment;
-                EditText wheelChairDesc = secondFragment.getEditTextWheelChair();
-                EditText prostheticDesc = secondFragment.getEditTextProsthetic();
-                EditText orthoticDesc = secondFragment.getEditTextOrthotic();
-                EditText WRDesc = secondFragment.getEditTextWR();
-                EditText referralToHCDesc = secondFragment.getEditTextReferralToHC();
-                EditText healthAdviceDesc = secondFragment.getEditTextAdvice();
-                EditText healthAdvocacyDesc = secondFragment.getEditTextAdvocacy();
-                EditText healthEncouragementDesc = secondFragment.getEditTextEncouragement();
-                EditText healthOutcomeDesc = secondFragment.getEditTextHealthOutcome();
-
-                editor.putBoolean(Constants.IS_WHEEL_CHAIR_CHECKED_KEY, visitCheckContainer.isWheelChairChecked());
-                editor.putBoolean(Constants.IS_PROSTHETIC_CHECKED_KEY, visitCheckContainer.isProstheticChecked());
-                editor.putBoolean(Constants.IS_ORTHOTIC_CHECKED_KEY, visitCheckContainer.isOrthoticChecked());
-                editor.putBoolean(Constants.IS_WR_CHECKED_KEY, visitCheckContainer.isWRChecked());
-                editor.putBoolean(Constants.IS_REFERRAL_TO_HC_CHECKED_KEY, visitCheckContainer.isReferralToHCChecked());
-                editor.putBoolean(Constants.IS_HEALTH_ADVICE_CHECKED_KEY, visitCheckContainer.isHealthAdviceChecked());
-                editor.putBoolean(Constants.IS_HEALTH_ADVOCACY_CHECKED_KEY, visitCheckContainer.isHealthAdvocacyChecked());
-                editor.putBoolean(Constants.IS_HEALTH_ENCOURAGEMENT_CHECKED_KEY, visitCheckContainer.isHealthEncouragementChecked());
-
-                editor.putString(Constants.WHEEL_CHAIR_DESC_KEY, wheelChairDesc.getText().toString());
-                editor.putString(Constants.PROSTHETIC_DESC_KEY, prostheticDesc.getText().toString());
-                editor.putString(Constants.ORTHOTIC_DESC_KEY, orthoticDesc.getText().toString());
-                editor.putString(Constants.WR_DESC_KEY, WRDesc.getText().toString());
-                editor.putString(Constants.REFERRAL_TO_HC_DESC_KEY, referralToHCDesc.getText().toString());
-                editor.putString(Constants.HEALTH_ADVICE_DESC_KEY, healthAdviceDesc.getText().toString());
-                editor.putString(Constants.HEALTH_ADVOCACY_DESC_KEY, healthAdvocacyDesc.getText().toString());
-                editor.putString(Constants.HEALTH_ENCOURAGEMENT_WR_DESC_KEY, healthEncouragementDesc.getText().toString());
-                editor.putString(Constants.HEALTH_OUTCOME_DESC_KEY, healthOutcomeDesc.getText().toString());
-                editor.putString(Constants.HEALTH_GOAL_STATUS, visitCheckContainer.getHealthGoalStatus());
+                saveSecondQuestionSet(editor);
 
                 editor.apply();
                 break;
             case 3:
-                VisitThirdQuestionSetFragment thirdFragment = (VisitThirdQuestionSetFragment) currentFragment;
-                EditText educationAdvice = thirdFragment.getEditTextAdvice();
-                EditText educationAdvocacy = thirdFragment.getEditTextAdvocacy();
-                EditText educationRef = thirdFragment.getEditTextRef();
-                EditText educationEncouragement = thirdFragment.getEditTextEncouragement();
-                EditText educationOutcome = thirdFragment.getEditTextEducationOutcome();
-
-                editor.putBoolean(Constants.IS_EDUCATION_ADVICE_CHECKED, visitCheckContainer.isEducationAdviceChecked());
-                editor.putBoolean(Constants.IS_EDUCATION_ADVOCACY_CHECKED, visitCheckContainer.isEducationAdvocacyChecked());
-                editor.putBoolean(Constants.IS_EDUCATION_REF_CHECKED, visitCheckContainer.isEducationRefChecked());
-                editor.putBoolean(Constants.IS_EDUCATION_ENCOURAGEMENT_CHECKED, visitCheckContainer.isEducationEncouragementChecked());
-
-                editor.putString(Constants.EDUCATION_ADVICE_DESC, educationAdvice.getText().toString());
-                editor.putString(Constants.EDUCATION_ADVOCACY_DESC, educationAdvocacy.getText().toString());
-                editor.putString(Constants.EDUCATION_REF_DESC, educationRef.getText().toString());
-                editor.putString(Constants.EDUCATION_ENCOURAGEMENT_DESC, educationEncouragement.getText().toString());
-                editor.putString(Constants.EDUCATION_OUTCOME_DESC, educationOutcome.getText().toString());
-                editor.putString(Constants.EDUCATION_GOAL_STATUS, visitCheckContainer.getEducationGoalStatus());
+                saveThirdQuestionSet(editor);
 
                 editor.apply();
                 break;
             case 4:
-                VisitFourthQuestionSetFragment fourthFragment = (VisitFourthQuestionSetFragment) currentFragment;
-                EditText socialAdvice = fourthFragment.getEditTextAdvice();
-                EditText socialAdvocacy = fourthFragment.getEditTextAdvocacy();
-                EditText socialRef = fourthFragment.getEditTextRef();
-                EditText socialEncouragement = fourthFragment.getEditTextEncouragement();
-                EditText socialOutcome = fourthFragment.getEditTextSocialOutcome();
-
-                editor.putBoolean(Constants.IS_SOCIAL_ADVICE_CHECKED, visitCheckContainer.isSocialAdviceChecked());
-                editor.putBoolean(Constants.IS_SOCIAL_ADVOCACY_CHECKED, visitCheckContainer.isSocialAdvocacyChecked());
-                editor.putBoolean(Constants.IS_SOCIAL_REF_CHECKED, visitCheckContainer.isSocialRefChecked());
-                editor.putBoolean(Constants.IS_SOCIAL_ENCOURAGEMENT_CHECKED, visitCheckContainer.isSocialEncouragementChecked());
-
-                editor.putString(Constants.SOCIAL_ADVICE_DESC, socialAdvice.getText().toString());
-                editor.putString(Constants.SOCIAL_ADVOCACY_DESC, socialAdvocacy.getText().toString());
-                editor.putString(Constants.SOCIAL_REF_DESC, socialRef.getText().toString());
-                editor.putString(Constants.SOCIAL_ENCOURAGEMENT_DESC, socialEncouragement.getText().toString());
-                editor.putString(Constants.SOCIAL_OUTCOME_DESC, socialOutcome.getText().toString());
-                editor.putString(Constants.SOCIAL_GOAL_STATUS, visitCheckContainer.getSocialGoalStatus());
+                saveFourthQuestionSet(editor);
 
                 editor.apply();
                 break;
         }
+    }
+
+    private void saveFourthQuestionSet(SharedPreferences.Editor editor) {
+        VisitFourthQuestionSetFragment fourthFragment = (VisitFourthQuestionSetFragment) currentFragment;
+
+        EditText socialAdvice = fourthFragment.getEditTextAdvice();
+        EditText socialAdvocacy = fourthFragment.getEditTextAdvocacy();
+        EditText socialRef = fourthFragment.getEditTextRef();
+        EditText socialEncouragement = fourthFragment.getEditTextEncouragement();
+        EditText socialOutcome = fourthFragment.getEditTextSocialOutcome();
+
+        editor.putBoolean(Constants.IS_SOCIAL_ADVICE_CHECKED, visitCheckContainer.isSocialAdviceChecked());
+        editor.putBoolean(Constants.IS_SOCIAL_ADVOCACY_CHECKED, visitCheckContainer.isSocialAdvocacyChecked());
+        editor.putBoolean(Constants.IS_SOCIAL_REF_CHECKED, visitCheckContainer.isSocialRefChecked());
+        editor.putBoolean(Constants.IS_SOCIAL_ENCOURAGEMENT_CHECKED, visitCheckContainer.isSocialEncouragementChecked());
+
+        editor.putString(Constants.SOCIAL_ADVICE_DESC, socialAdvice.getText().toString());
+        editor.putString(Constants.SOCIAL_ADVOCACY_DESC, socialAdvocacy.getText().toString());
+        editor.putString(Constants.SOCIAL_REF_DESC, socialRef.getText().toString());
+        editor.putString(Constants.SOCIAL_ENCOURAGEMENT_DESC, socialEncouragement.getText().toString());
+        editor.putString(Constants.SOCIAL_OUTCOME_DESC, socialOutcome.getText().toString());
+        editor.putString(Constants.SOCIAL_GOAL_STATUS, visitCheckContainer.getSocialGoalStatus());
+    }
+
+    private void saveThirdQuestionSet(SharedPreferences.Editor editor) {
+        VisitThirdQuestionSetFragment thirdFragment = (VisitThirdQuestionSetFragment) currentFragment;
+
+        EditText educationAdvice = thirdFragment.getEditTextAdvice();
+        EditText educationAdvocacy = thirdFragment.getEditTextAdvocacy();
+        EditText educationRef = thirdFragment.getEditTextRef();
+        EditText educationEncouragement = thirdFragment.getEditTextEncouragement();
+        EditText educationOutcome = thirdFragment.getEditTextEducationOutcome();
+
+        editor.putBoolean(Constants.IS_EDUCATION_ADVICE_CHECKED, visitCheckContainer.isEducationAdviceChecked());
+        editor.putBoolean(Constants.IS_EDUCATION_ADVOCACY_CHECKED, visitCheckContainer.isEducationAdvocacyChecked());
+        editor.putBoolean(Constants.IS_EDUCATION_REF_CHECKED, visitCheckContainer.isEducationRefChecked());
+        editor.putBoolean(Constants.IS_EDUCATION_ENCOURAGEMENT_CHECKED, visitCheckContainer.isEducationEncouragementChecked());
+
+        editor.putString(Constants.EDUCATION_ADVICE_DESC, educationAdvice.getText().toString());
+        editor.putString(Constants.EDUCATION_ADVOCACY_DESC, educationAdvocacy.getText().toString());
+        editor.putString(Constants.EDUCATION_REF_DESC, educationRef.getText().toString());
+        editor.putString(Constants.EDUCATION_ENCOURAGEMENT_DESC, educationEncouragement.getText().toString());
+        editor.putString(Constants.EDUCATION_OUTCOME_DESC, educationOutcome.getText().toString());
+        editor.putString(Constants.EDUCATION_GOAL_STATUS, visitCheckContainer.getEducationGoalStatus());
+    }
+
+    private void saveSecondQuestionSet(SharedPreferences.Editor editor) {
+        VisitSecondQuestionSetFragment secondFragment = (VisitSecondQuestionSetFragment) currentFragment;
+
+        EditText wheelChairDesc = secondFragment.getEditTextWheelChair();
+        EditText prostheticDesc = secondFragment.getEditTextProsthetic();
+        EditText orthoticDesc = secondFragment.getEditTextOrthotic();
+        EditText WRDesc = secondFragment.getEditTextWR();
+        EditText referralToHCDesc = secondFragment.getEditTextReferralToHC();
+        EditText healthAdviceDesc = secondFragment.getEditTextAdvice();
+        EditText healthAdvocacyDesc = secondFragment.getEditTextAdvocacy();
+        EditText healthEncouragementDesc = secondFragment.getEditTextEncouragement();
+        EditText healthOutcomeDesc = secondFragment.getEditTextHealthOutcome();
+
+        editor.putBoolean(Constants.IS_WHEEL_CHAIR_CHECKED_KEY, visitCheckContainer.isWheelChairChecked());
+        editor.putBoolean(Constants.IS_PROSTHETIC_CHECKED_KEY, visitCheckContainer.isProstheticChecked());
+        editor.putBoolean(Constants.IS_ORTHOTIC_CHECKED_KEY, visitCheckContainer.isOrthoticChecked());
+        editor.putBoolean(Constants.IS_WR_CHECKED_KEY, visitCheckContainer.isWRChecked());
+        editor.putBoolean(Constants.IS_REFERRAL_TO_HC_CHECKED_KEY, visitCheckContainer.isReferralToHCChecked());
+        editor.putBoolean(Constants.IS_HEALTH_ADVICE_CHECKED_KEY, visitCheckContainer.isHealthAdviceChecked());
+        editor.putBoolean(Constants.IS_HEALTH_ADVOCACY_CHECKED_KEY, visitCheckContainer.isHealthAdvocacyChecked());
+        editor.putBoolean(Constants.IS_HEALTH_ENCOURAGEMENT_CHECKED_KEY, visitCheckContainer.isHealthEncouragementChecked());
+
+        editor.putString(Constants.WHEEL_CHAIR_DESC_KEY, wheelChairDesc.getText().toString());
+        editor.putString(Constants.PROSTHETIC_DESC_KEY, prostheticDesc.getText().toString());
+        editor.putString(Constants.ORTHOTIC_DESC_KEY, orthoticDesc.getText().toString());
+        editor.putString(Constants.WR_DESC_KEY, WRDesc.getText().toString());
+        editor.putString(Constants.REFERRAL_TO_HC_DESC_KEY, referralToHCDesc.getText().toString());
+        editor.putString(Constants.HEALTH_ADVICE_DESC_KEY, healthAdviceDesc.getText().toString());
+        editor.putString(Constants.HEALTH_ADVOCACY_DESC_KEY, healthAdvocacyDesc.getText().toString());
+        editor.putString(Constants.HEALTH_ENCOURAGEMENT_WR_DESC_KEY, healthEncouragementDesc.getText().toString());
+        editor.putString(Constants.HEALTH_OUTCOME_DESC_KEY, healthOutcomeDesc.getText().toString());
+        editor.putString(Constants.HEALTH_GOAL_STATUS, visitCheckContainer.getHealthGoalStatus());
+    }
+
+    private void saveFirstQuestionSet(SharedPreferences.Editor editor) {
+        VisitFirstQuestionSetFragment firstFragment = (VisitFirstQuestionSetFragment) currentFragment;
+
+        EditText dateOfVisit = firstFragment.getDate();
+        EditText workerName = firstFragment.getCbrWorkerName();
+        EditText locationOfVisit = firstFragment.getLocation();
+        EditText villageNumber = firstFragment.getVillageNumber();
+
+        editor.putString(Constants.PURPOSE_OF_VISIT_KEY, visitCheckContainer.getPurposeOfVisit());
+        editor.putBoolean(Constants.IS_HEALTH_CHECKED_KEY, visitCheckContainer.isHealthChecked());
+        editor.putBoolean(Constants.IS_EDUCATION_CHECKED_KEY, visitCheckContainer.isEducationChecked());
+        editor.putBoolean(Constants.IS_SOCIAL_CHECKED_KEY, visitCheckContainer.isSocialChecked());
+        editor.putString(Constants.DATE_OF_VISIT_KEY, dateOfVisit.getText().toString());
+        editor.putString(Constants.NAME_OF_CBR_WORKER_KEY, workerName.getText().toString());
+        editor.putString(Constants.LOCATION_OF_VISIT_KEY, locationOfVisit.getText().toString());
+        editor.putString(Constants.SITE_LOCATION_KEY, visitCheckContainer.getSiteLocation());
+        editor.putString(Constants.VILLAGE_NUMBER_KEY, villageNumber.getText().toString());
     }
 
     private void manageFragment(Fragment fragment) {

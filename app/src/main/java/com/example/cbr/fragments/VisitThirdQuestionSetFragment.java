@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.cbr.R;
+import com.example.cbr.databinding.FragmentVisitThirdQuestionSetBinding;
 import com.example.cbr.models.Constants;
 import com.example.cbr.models.VisitCheckContainer;
 
@@ -36,14 +37,17 @@ import static com.example.cbr.models.Constants.ONGOING;
 
 public class VisitThirdQuestionSetFragment extends Fragment {
 
+    private FragmentVisitThirdQuestionSetBinding binding;
+
+    private final VisitCheckContainer visitCheckContainer;
+    private final Context context;
+
     private EditText editTextAdvice;
     private EditText editTextAdvocacy;
     private EditText editTextRef;
     private EditText editTextEncouragement;
     private EditText editTextEducationOutcome;
 
-    private final VisitCheckContainer visitCheckContainer;
-    private final Context context;
     private CheckBox checkBoxEncouragement;
     private CheckBox checkBoxAdvice;
     private CheckBox checkBoxAdvocacy;
@@ -61,18 +65,18 @@ public class VisitThirdQuestionSetFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_visit_third_question_set, container, false);
+        binding = FragmentVisitThirdQuestionSetBinding.inflate(inflater, container, false);
 
-        preLoadViews(view);
+        preLoadViews();
 
-        setupCheckBoxes(view);
-        setupRadioGroup(view);
+        setupCheckBoxes();
+        setupRadioGroup();
 
-        return view;
+        return binding.getRoot();
     }
 
-    private void preLoadViews(View view) {
-        findViews(view);
+    private void preLoadViews() {
+        findViews();
 
         SharedPreferences sharedPref = context.getSharedPreferences(Constants.QUESTION_SET_3_PREF_NAME, Context.MODE_PRIVATE);
 
@@ -119,24 +123,24 @@ public class VisitThirdQuestionSetFragment extends Fragment {
         }
     }
 
-    private void findViews(View view) {
-        editTextAdvice = view.findViewById(R.id.editTextEducationAdvice);
-        editTextAdvocacy = view.findViewById(R.id.editTextEducationAdvocacy);
-        editTextRef = view.findViewById(R.id.editTextEducationRef);
-        editTextEncouragement = view.findViewById(R.id.editTextEducationEncouragement);
-        editTextEducationOutcome = view.findViewById(R.id.editTextEducationOutcome);
+    private void findViews() {
+        editTextAdvice = binding.editTextEducationAdvice;
+        editTextAdvocacy = binding.editTextEducationAdvocacy;
+        editTextRef = binding.editTextEducationRef;
+        editTextEncouragement = binding.editTextEducationEncouragement;
+        editTextEducationOutcome = binding.editTextEducationOutcome;
 
-        goalStatus = view.findViewById(R.id.radioGroupEducationGoalStatus);
+        goalStatus = binding.radioGroupEducationGoalStatus;
 
-        checkBoxAdvice = view.findViewById(R.id.checkBoxEducationAdvice);
-        checkBoxAdvocacy = view.findViewById(R.id.checkBoxEducationAdvocacy);
-        checkBoxRef = view.findViewById(R.id.checkBoxEducationRef);
-        checkBoxEncouragement = view.findViewById(R.id.checkBoxEducationEncouragement);
+        checkBoxAdvice = binding.checkBoxEducationAdvice;
+        checkBoxAdvocacy = binding.checkBoxEducationAdvocacy;
+        checkBoxRef = binding.checkBoxEducationRef;
+        checkBoxEncouragement = binding.checkBoxEducationEncouragement;
 
-        question13 = view.findViewById(R.id.textViewQ13);
+        question13 = binding.textViewQ13;
     }
 
-    private void setupRadioGroup(final View view) {
+    private void setupRadioGroup() {
         goalStatus.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -159,7 +163,7 @@ public class VisitThirdQuestionSetFragment extends Fragment {
         });
     }
 
-    private void setupCheckBoxes(View view) {
+    private void setupCheckBoxes() {
         checkBoxAdvice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

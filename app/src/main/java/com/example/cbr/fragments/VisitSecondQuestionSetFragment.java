@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.cbr.R;
+import com.example.cbr.databinding.FragmentVisitSecondQuestionSetBinding;
 import com.example.cbr.models.Constants;
 import com.example.cbr.models.VisitCheckContainer;
 
@@ -44,6 +45,11 @@ import static com.example.cbr.models.Constants.WR_DESC_KEY;
 
 public class VisitSecondQuestionSetFragment extends Fragment {
 
+    private FragmentVisitSecondQuestionSetBinding binding;
+
+    private final VisitCheckContainer visitCheckContainer;
+    private final Context context;
+
     private EditText editTextWheelChair;
     private EditText editTextProsthetic;
     private EditText editTextOrthotic;
@@ -53,9 +59,6 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     private EditText editTextAdvocacy;
     private EditText editTextEncouragement;
     private EditText editTextHealthOutcome;
-
-    private final VisitCheckContainer visitCheckContainer;
-    private final Context context;
 
     private RadioGroup goalStatus;
     private CheckBox checkBoxWheelchair;
@@ -78,18 +81,18 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_visit_second_question_set, container, false);
+        binding = FragmentVisitSecondQuestionSetBinding.inflate(inflater, container, false);
 
-        preLoadViews(view);
+        preLoadViews();
 
-        setupCheckBoxes(view);
-        setupRadioGroup(view);
+        setupCheckBoxes();
+        setupRadioGroup();
 
-        return view;
+        return binding.getRoot();
     }
 
-    private void preLoadViews(View view) {
-        findViews(view);
+    private void preLoadViews() {
+        findViews();
 
         SharedPreferences sharedPref = context.getSharedPreferences(Constants.QUESTION_SET_2_PREF_NAME, Context.MODE_PRIVATE);
 
@@ -156,32 +159,32 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         }
     }
 
-    private void findViews(View view) {
-        editTextWheelChair = view.findViewById(R.id.editTextHealthWheelchair);
-        editTextProsthetic = view.findViewById(R.id.editTextHealthProsthetic);
-        editTextOrthotic = view.findViewById(R.id.editTextHealthOrthotic);
-        editTextWR = view.findViewById(R.id.editTextHealthWR);
-        editTextReferralToHC = view.findViewById(R.id.editTextHealthReferralToHC);
-        editTextAdvice = view.findViewById(R.id.editTextHealthAdvice);
-        editTextAdvocacy = view.findViewById(R.id.editTextHealthAdvocacy);
-        editTextEncouragement = view.findViewById(R.id.editTextHealthEncouragement);
-        editTextHealthOutcome = view.findViewById(R.id.editTextHealthOutcome);
+    private void findViews() {
+        editTextWheelChair = binding.editTextHealthWheelchair;
+        editTextProsthetic = binding.editTextHealthProsthetic;
+        editTextOrthotic = binding.editTextHealthOrthotic;
+        editTextWR = binding.editTextHealthWR;
+        editTextReferralToHC = binding.editTextHealthReferralToHC;
+        editTextAdvice = binding.editTextHealthAdvice;
+        editTextAdvocacy = binding.editTextHealthAdvocacy;
+        editTextEncouragement = binding.editTextHealthEncouragement;
+        editTextHealthOutcome = binding.editTextHealthOutcome;
 
-        goalStatus = view.findViewById(R.id.radioGroupHealthGoalStatus);
+        goalStatus = binding.radioGroupHealthGoalStatus;
 
-        checkBoxWheelchair = view.findViewById(R.id.checkBoxHealthWheelchair);
-        checkBoxProsthetic = view.findViewById(R.id.checkBoxHealthProsthetic);
-        checkBoxOrthotic = view.findViewById(R.id.checkBoxHealthOrthotic);
-        checkBoxWR = view.findViewById(R.id.checkBoxHealthWR);
-        checkBoxReferralToHC = view.findViewById(R.id.checkBoxHealthReferralToHC);
-        checkBoxAdvice = view.findViewById(R.id.checkBoxHealthAdvice);
-        checkBoxAdvocacy = view.findViewById(R.id.checkBoxHealthAdvocacy);
-        checkBoxEncouragement = view.findViewById(R.id.checkBoxHealthEncouragement);
+        checkBoxWheelchair = binding.checkBoxHealthWheelchair;
+        checkBoxProsthetic = binding.checkBoxHealthProsthetic;
+        checkBoxOrthotic = binding.checkBoxHealthOrthotic;
+        checkBoxWR = binding.checkBoxHealthWR;
+        checkBoxReferralToHC = binding.checkBoxHealthReferralToHC;
+        checkBoxAdvice = binding.checkBoxHealthAdvice;
+        checkBoxAdvocacy = binding.checkBoxHealthAdvocacy;
+        checkBoxEncouragement = binding.checkBoxHealthEncouragement;
 
-        question10 = view.findViewById(R.id.textViewQ10);
+        question10 = binding.textViewQ10;
     }
 
-    private void setupRadioGroup(final View view) {
+    private void setupRadioGroup() {
 
 
         goalStatus.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -208,7 +211,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     }
 
 
-    private void setupCheckBoxes(final View view) {
+    private void setupCheckBoxes() {
 
         checkBoxWheelchair.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

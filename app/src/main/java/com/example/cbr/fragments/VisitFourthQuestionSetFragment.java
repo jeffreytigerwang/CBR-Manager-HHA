@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.cbr.R;
+import com.example.cbr.databinding.FragmentVisitFourthQuestionSetBinding;
 import com.example.cbr.models.Constants;
 import com.example.cbr.models.VisitCheckContainer;
 
@@ -36,14 +37,17 @@ import static com.example.cbr.models.Constants.SOCIAL_REF_DESC;
 
 public class VisitFourthQuestionSetFragment extends Fragment {
 
+    private FragmentVisitFourthQuestionSetBinding binding;
+
+    private final VisitCheckContainer visitCheckContainer;
+    private final Context context;
+
     private EditText editTextAdvice;
     private EditText editTextAdvocacy;
     private EditText editTextRef;
     private EditText editTextEncouragement;
     private EditText editTextSocialOutcome;
 
-    private final VisitCheckContainer visitCheckContainer;
-    private final Context context;
     private RadioGroup goalStatus;
     private CheckBox checkBoxAdvice;
     private CheckBox checkBoxAdvocacy;
@@ -61,18 +65,18 @@ public class VisitFourthQuestionSetFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_visit_fourth_question_set, container, false);
+        binding = FragmentVisitFourthQuestionSetBinding.inflate(inflater, container, false);
 
-        preLoadViews(view);
+        preLoadViews();
 
-        setupCheckBoxes(view);
-        setupRadioGroup(view);
+        setupCheckBoxes();
+        setupRadioGroup();
 
-        return view;
+        return binding.getRoot();
     }
 
-    private void preLoadViews(View view) {
-        findViews(view);
+    private void preLoadViews() {
+        findViews();
 
         SharedPreferences sharedPref = context.getSharedPreferences(Constants.QUESTION_SET_4_PREF_NAME, Context.MODE_PRIVATE);
 
@@ -119,24 +123,24 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         }
     }
 
-    private void findViews(View view) {
-        editTextAdvice = view.findViewById(R.id.editTextSocialAdvice);
-        editTextAdvocacy = view.findViewById(R.id.editTextSocialAdvocacy);
-        editTextRef = view.findViewById(R.id.editTextSocialRef);
-        editTextEncouragement = view.findViewById(R.id.editTextSocialEncouragement);
-        editTextSocialOutcome = view.findViewById(R.id.editTextSocialOutcome);
+    private void findViews() {
+        editTextAdvice = binding.editTextSocialAdvice;
+        editTextAdvocacy = binding.editTextSocialAdvocacy;
+        editTextRef = binding.editTextSocialRef;
+        editTextEncouragement = binding.editTextSocialEncouragement;
+        editTextSocialOutcome = binding.editTextSocialOutcome;
 
-        goalStatus = view.findViewById(R.id.radioGroupSocialGoalStatus);
+        goalStatus = binding.radioGroupSocialGoalStatus;
 
-        checkBoxAdvice = view.findViewById(R.id.checkBoxSocialAdvice);
-        checkBoxAdvocacy = view.findViewById(R.id.checkBoxSocialAdvocacy);
-        checkBoxRef = view.findViewById(R.id.checkBoxSocialRef);
-        checkBoxEncouragement = view.findViewById(R.id.checkBoxSocialEncouragement);
+        checkBoxAdvice = binding.checkBoxSocialAdvice;
+        checkBoxAdvocacy = binding.checkBoxSocialAdvocacy;
+        checkBoxRef = binding.checkBoxSocialRef;
+        checkBoxEncouragement = binding.checkBoxSocialEncouragement;
 
-        question16 = view.findViewById(R.id.textViewQ16);
+        question16 = binding.textViewQ16;
     }
 
-    private void setupRadioGroup(final View view) {
+    private void setupRadioGroup() {
 
         goalStatus.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -160,7 +164,7 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         });
     }
 
-    private void setupCheckBoxes(View view) {
+    private void setupCheckBoxes() {
 
         checkBoxAdvice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

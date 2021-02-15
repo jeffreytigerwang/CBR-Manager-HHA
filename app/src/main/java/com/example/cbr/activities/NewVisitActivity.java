@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.cbr.R;
+import com.example.cbr.databinding.ActivityNewVisitBinding;
 import com.example.cbr.fragments.VisitFirstQuestionSetFragment;
 import com.example.cbr.fragments.VisitFourthQuestionSetFragment;
 import com.example.cbr.fragments.VisitSecondQuestionSetFragment;
@@ -26,6 +27,8 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 public class NewVisitActivity extends AppCompatActivity {
+
+    private ActivityNewVisitBinding binding;
 
     private static final String VISIT_RECORD = "visitCheckContainer";
     private static final String CLIENT_ID = "clientID";
@@ -54,7 +57,10 @@ public class NewVisitActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_visit);
+        binding = ActivityNewVisitBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
 
         Intent intent = getIntent();
         final long clientID = intent.getLongExtra(CLIENT_ID, -1);
@@ -66,7 +72,7 @@ public class NewVisitActivity extends AppCompatActivity {
             Log.d(LOG_TAG, "onCreate: failed to get client ID");
         }
 
-        currentFragment = new VisitFirstQuestionSetFragment(visitCheckContainer);
+        currentFragment = new VisitFirstQuestionSetFragment(binding, visitCheckContainer);
         manageFragment(currentFragment);
         totalFragments += 1;
         pageNum = 1;
@@ -87,7 +93,8 @@ public class NewVisitActivity extends AppCompatActivity {
     }
 
     private void setupRecordButton() {
-        buttonRecord = findViewById(R.id.buttonVisitRecord);
+
+        buttonRecord = binding.buttonVisitRecord;
         // TODO: 2021-02-11 save data to db
 
         removeSavedSession();
@@ -114,7 +121,7 @@ public class NewVisitActivity extends AppCompatActivity {
     }
 
     private void setupBackButton() {
-        buttonBack = findViewById(R.id.buttonVisitBack);
+        buttonBack = binding.buttonVisitBack;
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,7 +147,7 @@ public class NewVisitActivity extends AppCompatActivity {
     }
 
     private void setupNextButton() {
-        buttonNext = findViewById(R.id.buttonVisitNext);
+        buttonNext = binding.buttonVisitNext;
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

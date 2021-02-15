@@ -3,9 +3,6 @@ module.exports = (sequelize, Sequelize) => {
         purpose: {
             type: Sequelize.STRING
         },
-        id: {
-            type: Sequelize.INTEGER
-        },
         life_aspect: {
             type: Sequelize.STRING
         },

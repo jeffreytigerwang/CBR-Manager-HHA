@@ -145,6 +145,8 @@ to end of models/index.js file
 
 4. copy *test_data.routes.js* file in the *routes* folder, and replace test_data with new class name.
 
+5. add `require("./app/routes/<model_name>.routes")(app);` line to end of server.js file
+
 
 
 ## Testing

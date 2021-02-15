@@ -6,9 +6,6 @@ module.exports = (sequelize, Sequelize) => {
         last_name: {
             type: Sequelize.STRING
         },
-        id: {
-            type: Sequelize.INTEGER
-        },
         location_gps: {
             type: Sequelize.STRING
         },
@@ -58,5 +55,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER
         }
 
-    })
+    });
+
+    return Client;
 };

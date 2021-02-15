@@ -12,9 +12,6 @@ module.exports = (sequelize, Sequelize) => {
         password: {
             type: Sequelize.STRING
         },
-        id: {
-            type: Sequelize.INTEGER
-        },
         priority_level: {
             type: Sequelize.STRING
         },

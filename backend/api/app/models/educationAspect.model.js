@@ -1,8 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
     const Education = sequelize.define("Education", {
-        id: {
-            type: Sequelize.STRING
-        },
         risk_level: {
             type: Sequelize.STRING
         },
@@ -13,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         progress_ids: {
-            
+
         }
 
     })

@@ -91,7 +91,13 @@ public class NewVisitActivity extends AppCompatActivity {
         // TODO: 2021-02-11 save data to db
 
         removeSavedSession();
-        finish();
+
+        buttonRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void removeSavedSession() {

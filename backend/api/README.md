@@ -148,3 +148,12 @@ Basically, start up your server and got to http://localhost:8080/api/test_data
 - using DELETE at */api/test_data* will delete all items, using postman
 - using GET at */api/test_data/active* will show all active items (active is just a property)
 
+## Docker Containers
+
+- install Docker
+
+`docker-compose up -d` to start mysql container
+`docker ps` to list active docker containers
+`docker stop < container id >` 
+
+

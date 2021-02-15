@@ -1,7 +1,7 @@
 {
-  "name": "tut-nodejs-backend-api",
+  "name": "nodejs-backend-api",
   "version": "1.0.0",
-  "description": "created using this tutorial https://bezkoder.com/node-js-express-sequelize-mysql/",
+  "description": "created using this tutorials listed in readme",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

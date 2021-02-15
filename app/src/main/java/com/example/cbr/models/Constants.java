@@ -33,8 +33,22 @@ public class Constants {
     public static final String HEALTH_ADVOCACY_DESC_KEY = "healthAdvocacyDesc";
     public static final String HEALTH_ENCOURAGEMENT_WR_DESC_KEY = "healthEncouragementWRDesc";
     public static final String HEALTH_OUTCOME_DESC_KEY = "healthOutcomeDesc";
+    public static final String HEALTH_GOAL_STATUS = "healthGoalStatus";
 
     public static final String CONCLUDED = "concluded";
     public static final String ONGOING = "ongoing";
     public static final String CANCELLED = "cancelled";
+
+    public static final String IS_EDUCATION_ADVICE_CHECKED = "isEducationAdviceChecked";
+    public static final String IS_EDUCATION_ADVOCACY_CHECKED = "isEducationAdvocacyChecked";
+    public static final String IS_EDUCATION_REF_CHECKED = "isEducationRefChecked";
+    public static final String IS_EDUCATION_ENCOURAGEMENT_CHECKED = "isEducationEncouragementChecked";
+    public static final String EDUCATION_ADVICE_DESC = "educationAdviceDesc";
+    public static final String EDUCATION_ADVOCACY_DESC = "educationAdvocacyDesc";
+    public static final String EDUCATION_REF_DESC = "educationRefDesc";
+    public static final String EDUCATION_ENCOURAGEMENT_DESC = "educationEncouragementDesc";
+    public static final String EDUCATION_OUTCOME_DESC = "educationOutcomeDesc";
+    public static final String EDUCATION_GOAL_STATUS = "educationGoalStatus";
+    public static final String QUESTION_SET_2_PREF_NAME = "questionSet2";
+    public static final String QUESTION_SET_3_PREF_NAME = "questionSet3";
 }

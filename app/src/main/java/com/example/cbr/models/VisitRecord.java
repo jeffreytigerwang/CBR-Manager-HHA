@@ -37,6 +37,13 @@ public class VisitRecord implements Serializable {
     private String healthOutcomeDescription;
     private String healthGoalStatus;
 
+    private boolean isEducationAdviceChecked;
+    private boolean isEducationAdvocacyChecked;
+    private boolean isEducationRefChecked;
+    private boolean isEducationEncouragementChecked;
+    private boolean isEducationOutcomeChecked;
+    private String educationGoalStatus;
+
     public VisitRecord() {
     }
 
@@ -262,5 +269,53 @@ public class VisitRecord implements Serializable {
 
     public void setHealthGoalStatus(String healthGoalStatus) {
         this.healthGoalStatus = healthGoalStatus;
+    }
+
+    public boolean isEducationAdviceChecked() {
+        return isEducationAdviceChecked;
+    }
+
+    public void setEducationAdviceChecked(boolean educationAdviceChecked) {
+        isEducationAdviceChecked = educationAdviceChecked;
+    }
+
+    public boolean isEducationAdvocacyChecked() {
+        return isEducationAdvocacyChecked;
+    }
+
+    public void setEducationAdvocacyChecked(boolean educationAdvocacyChecked) {
+        isEducationAdvocacyChecked = educationAdvocacyChecked;
+    }
+
+    public boolean isEducationEncouragementChecked() {
+        return isEducationEncouragementChecked;
+    }
+
+    public void setEducationEncouragementChecked(boolean educationEncouragementChecked) {
+        isEducationEncouragementChecked = educationEncouragementChecked;
+    }
+
+    public boolean isEducationOutcomeChecked() {
+        return isEducationOutcomeChecked;
+    }
+
+    public void setEducationOutcomeChecked(boolean educationOutcomeChecked) {
+        isEducationOutcomeChecked = educationOutcomeChecked;
+    }
+
+    public String getEducationGoalStatus() {
+        return educationGoalStatus;
+    }
+
+    public void setEducationGoalStatus(String educationGoalStatus) {
+        this.educationGoalStatus = educationGoalStatus;
+    }
+
+    public boolean isEducationRefChecked() {
+        return isEducationRefChecked;
+    }
+
+    public void setEducationRefChecked(boolean educationRefChecked) {
+        isEducationRefChecked = educationRefChecked;
     }
 }

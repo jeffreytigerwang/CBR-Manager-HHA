@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textViewQ14"
+            android:id="@+id/textViewQ11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Wheelchair repairs" />
+            android:text="Encouragement" />
 
         <EditText
             android:id="@+id/editTextEducationEncouragement"
@@ -88,7 +88,7 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/textViewQ15"
+            android:id="@+id/textViewQ12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -122,7 +122,7 @@
         </RadioGroup>
 
         <TextView
-            android:id="@+id/textViewQ16"
+            android:id="@+id/textViewQ13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

@@ -1,5 +1,6 @@
 package com.example.cbr.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +27,11 @@ public class VisitFourthQuestionSetFragment extends Fragment {
     private EditText editTextSocialOutcome;
 
     private final VisitRecord visitRecord;
+    private final Context context;
 
-    public VisitFourthQuestionSetFragment(VisitRecord visitRecord) {
+    public VisitFourthQuestionSetFragment(VisitRecord visitRecord, Context context) {
         this.visitRecord = visitRecord;
+        this.context = context;
     }
 
     @Nullable
@@ -51,7 +54,7 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         goalStatus.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                TextView question13 = view.findViewById(R.id.textViewQ14);
+                TextView question13 = view.findViewById(R.id.textViewQ11);
                 if (checkedId == R.id.radioButtonSocialConcluded) {
 
                     question13.setVisibility(View.VISIBLE);

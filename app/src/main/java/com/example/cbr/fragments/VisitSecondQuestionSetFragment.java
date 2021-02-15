@@ -17,13 +17,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.cbr.R;
+import com.example.cbr.models.Constants;
 import com.example.cbr.models.VisitRecord;
+
+import org.w3c.dom.Text;
 
 import static com.example.cbr.models.Constants.CANCELLED;
 import static com.example.cbr.models.Constants.CONCLUDED;
 import static com.example.cbr.models.Constants.HEALTH_ADVICE_DESC_KEY;
 import static com.example.cbr.models.Constants.HEALTH_ADVOCACY_DESC_KEY;
 import static com.example.cbr.models.Constants.HEALTH_ENCOURAGEMENT_WR_DESC_KEY;
+import static com.example.cbr.models.Constants.HEALTH_GOAL_STATUS;
 import static com.example.cbr.models.Constants.HEALTH_OUTCOME_DESC_KEY;
 import static com.example.cbr.models.Constants.IS_HEALTH_ADVICE_CHECKED_KEY;
 import static com.example.cbr.models.Constants.IS_HEALTH_ADVOCACY_CHECKED_KEY;
@@ -64,6 +68,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     private CheckBox checkBoxAdvice;
     private CheckBox checkBoxAdvocacy;
     private CheckBox checkBoxEncouragement;
+    private TextView question10;
 
     public VisitSecondQuestionSetFragment(VisitRecord visitRecord, Context context) {
         this.visitRecord = visitRecord;
@@ -80,7 +85,6 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         preLoadViews(view);
 
         setupCheckBoxes(view);
-        setupEditTexts(view);
         setupRadioGroup(view);
 
         return view;
@@ -89,7 +93,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     private void preLoadViews(View view) {
         findViews(view);
 
-        SharedPreferences sharedPref = context.getSharedPreferences("questionSet2", Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = context.getSharedPreferences(Constants.QUESTION_SET_2_PREF_NAME, Context.MODE_PRIVATE);
 
         boolean isWheelchairChecked = sharedPref.getBoolean(IS_WHEEL_CHAIR_CHECKED_KEY, false);
         boolean isProstheticChecked = sharedPref.getBoolean(IS_PROSTHETIC_CHECKED_KEY, false);
@@ -108,25 +112,24 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         String advocacyDesc = sharedPref.getString(HEALTH_ADVOCACY_DESC_KEY, "");
         String encouragementDesc = sharedPref.getString(HEALTH_ENCOURAGEMENT_WR_DESC_KEY, "");
         String healthOutcomeDesc = sharedPref.getString(HEALTH_OUTCOME_DESC_KEY, "");
-
-        String  goalStatus = visitRecord.getHealthGoalStatus();
+        String  goalStatus = sharedPref.getString(HEALTH_GOAL_STATUS, "");
 
         checkBoxWheelchair.setChecked(isWheelchairChecked);
-        loadVisibility(isWheelchairChecked, editTextWheelChair);
+        loadEditTextVisibility(isWheelchairChecked, editTextWheelChair);
         checkBoxProsthetic.setChecked(isProstheticChecked);
-        loadVisibility(isProstheticChecked, editTextProsthetic);
+        loadEditTextVisibility(isProstheticChecked, editTextProsthetic);
         checkBoxOrthotic.setChecked(isOrthoticChecked);
-        loadVisibility(isOrthoticChecked, editTextOrthotic);
+        loadEditTextVisibility(isOrthoticChecked, editTextOrthotic);
         checkBoxWR.setChecked(isWRChecked);
-        loadVisibility(isWRChecked, editTextWR);
+        loadEditTextVisibility(isWRChecked, editTextWR);
         checkBoxReferralToHC.setChecked(isReferralToHCChecked);
-        loadVisibility(isReferralToHCChecked, editTextReferralToHC);
+        loadEditTextVisibility(isReferralToHCChecked, editTextReferralToHC);
         checkBoxAdvice.setChecked(isAdviceChecked);
-        loadVisibility(isAdviceChecked, editTextAdvice);
+        loadEditTextVisibility(isAdviceChecked, editTextAdvice);
         checkBoxAdvocacy.setChecked(isAdvocacyChecked);
-        loadVisibility(isAdvocacyChecked, editTextAdvocacy);
+        loadEditTextVisibility(isAdvocacyChecked, editTextAdvocacy);
         checkBoxEncouragement.setChecked(isEncouragementChecked);
-        loadVisibility(isEncouragementChecked, editTextEncouragement);
+        loadEditTextVisibility(isEncouragementChecked, editTextEncouragement);
 
         editTextWheelChair.setText(wheelchairDesc);
         editTextProsthetic.setText(prostheticDesc);
@@ -138,21 +141,20 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         editTextEncouragement.setText(encouragementDesc);
         editTextHealthOutcome.setText(healthOutcomeDesc);
 
-        if (goalStatus != null) {
-            if (goalStatus.equalsIgnoreCase(CANCELLED)) {
-                this.goalStatus.check(R.id.radioButtonHealthCancelled);
-            } else if (goalStatus.equalsIgnoreCase(ONGOING)) {
-                this.goalStatus.check(R.id.radioButtonHealthOngoing);
-            } else if (goalStatus.equalsIgnoreCase(CONCLUDED)) {
-                this.goalStatus.check(R.id.radioButtonHealthConcluded);
-                editTextHealthOutcome.setVisibility(View.VISIBLE);
-            }
+        if (goalStatus.equalsIgnoreCase(CANCELLED)) {
+            this.goalStatus.check(R.id.radioButtonHealthCancelled);
+        } else if (goalStatus.equalsIgnoreCase(ONGOING)) {
+            this.goalStatus.check(R.id.radioButtonHealthOngoing);
+        } else if (goalStatus.equalsIgnoreCase(CONCLUDED)) {
+            this.goalStatus.check(R.id.radioButtonHealthConcluded);
+            question10.setVisibility(View.VISIBLE);
+            editTextHealthOutcome.setVisibility(View.VISIBLE);
         }
     }
 
-    private void loadVisibility(boolean isWheelchairChecked, EditText editTextWheelChair) {
-        if (isWheelchairChecked) {
-            editTextWheelChair.setVisibility(View.VISIBLE);
+    private void loadEditTextVisibility(boolean isChecked, EditText editText) {
+        if (isChecked) {
+            editText.setVisibility(View.VISIBLE);
         }
     }
 
@@ -177,6 +179,8 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         checkBoxAdvice = view.findViewById(R.id.checkBoxHealthAdvice);
         checkBoxAdvocacy = view.findViewById(R.id.checkBoxHealthAdvocacy);
         checkBoxEncouragement = view.findViewById(R.id.checkBoxHealthEncouragement);
+
+        question10 = view.findViewById(R.id.textViewQ10);
     }
 
     private void setupRadioGroup(final View view) {
@@ -206,11 +210,6 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         });
     }
 
-    private void setupEditTexts(View view) {
-
-
-
-    }
 
     private void setupCheckBoxes(final View view) {
 

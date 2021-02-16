@@ -5,5 +5,54 @@
     <string name="password">Password</string>
     <string name="terms_of_service_and_privacy_policy">Terms of Service and Privacy Policy</string>
     <string name="continue_text">continue</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="last_name">Last name</string>
+    <string name="village_number">Village number</string>
+    <string name="consent_to_interview">Consent to interview</string>
+    <string name="id_number">ID Number:</string>
+    <string name="gps_location">GPS Location</string>
+    <string name="date">Date</string>
+    <string name="first_name">First name</string>
+    <string name="age">Age</string>
+    <string name="contact_number">Contact number</string>
+    <string name="caregiver_present_for_interview">Caregiver present for interview</string>
+    <string name="caregiver_contact_number">Caregiver contact number</string>
+    <string name="record_client">Record Client</string>
+    <string name="don_t_know">Don\'t know</string>
+    <string name="other">Other</string>
+    <string name="hearing_impairment">Hearing impairment</string>
+    <string name="visual_impairment">Visual impairment</string>
+    <string name="hydrocephalus">Hydrocephalus</string>
+    <string name="spina_bifida">Spina bifida</string>
+    <string name="cerebral_palsy">Cerebral palsy</string>
+    <string name="amputee">Amputee</string>
+    <string name="polio">Polio</string>
+    <string name="spinal_cord_injury">Spinal cord injury</string>
+    <string name="please_describe_what_they_require">Please describe what they require</string>
+    <string name="set_individual_goal">Set individual goal</string>
+    <string name="location">Location</string>
+    <string name="type_of_disability">Type of disability</string>
+    <string name="please_rate_how_you_consider_the_client_s_health_to_be">Please rate how you consider the client\'s health to be:</string>
+    <string name="please_rate_how_you_consider_the_client_s_social_status_to_be">Please rate how you consider the client\'s social status to be:</string>
+    <string name="please_rate_how_you_consider_the_client_s_education_status_to_be">Please rate how you consider the client\'s education status to be:</string>
+    <string name="gender">Gender</string>
+    <string-array name="locations_array">
+        <item>BidiBidi Zone 1</item>
+        <item>BidiBidi Zone 2</item>
+        <item>BidiBidi Zone 3</item>
+        <item>BidiBidi Zone 4</item>
+        <item>BidiBidi Zone 5</item>
+        <item>Palorinya Basecamp</item>
+        <item>Palorinya Zone 1</item>
+        <item>Palorinya Zone 2</item>
+        <item>Palorinya Zone 3</item>
+    </string-array>
+    <string-array name="client_ratings_array">
+        <item>Critical risk</item>
+        <item>High risk</item>
+        <item>Medium risk</item>
+        <item>Low risk</item>
+    </string-array>
 
 </resources>

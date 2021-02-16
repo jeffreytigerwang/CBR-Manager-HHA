@@ -15,6 +15,7 @@ import com.example.cbr.fragments.clientlist.ClientListFragment;
 import com.example.cbr.fragments.discussion.DiscussionFragment;
 import com.example.cbr.fragments.notification.NotificationFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.cbr.fragments.newclient.NewClientFragment;
 
 public class HomeActivity extends BaseActivity
         implements TempHomeFragment.TempHomeFragmentInterface
@@ -71,6 +72,12 @@ public class HomeActivity extends BaseActivity
         ClientListFragment clientListFragment = ClientListFragment.newInstance();
         replaceFragment(R.id.homeFragmentContainer, clientListFragment, ClientListFragment.getFragmentTag());
 
+    }
+
+    @Override
+    public void swapToNewClient() {
+        NewClientFragment newClientFragment = NewClientFragment.newInstance();
+        replaceFragment(R.id.homeFragmentContainer, newClientFragment, NewClientFragment.getFragmentTag());
     }
 
 

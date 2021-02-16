@@ -114,5 +114,6 @@ public class TempHomeFragment extends Fragment {
     public interface TempHomeFragmentInterface {
         void swapToClientList();
         void swapToNewClient();
+        void swapToClientPage();
     }
 }

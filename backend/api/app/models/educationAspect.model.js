@@ -10,8 +10,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         progress_ids: {
-
+            type: Sequelize.ARRAY
         }
 
-    })
+    });
+
+    return Education;
 };

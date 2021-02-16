@@ -34,7 +34,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER
         },
         photo: {
-            type: Sequelize.BLOB
+            type: Sequelize.BLOB('long')
         },
         disability: {
             type: Sequelize.STRING

@@ -13,5 +13,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.ARRAY
         }
 
-    })
+    });
+
+    return Health;
 };

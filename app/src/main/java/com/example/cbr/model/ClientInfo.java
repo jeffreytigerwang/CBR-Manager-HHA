@@ -100,4 +100,248 @@ public class ClientInfo {
             this.setGoalForSocialStatus = setGoalForSocialStatus;
         }
 
+    public ClientInfo() {
+
+    }
+
+
+    public boolean isConsentToInterview() {
+        return consentToInterview;
+    }
+
+    public void setConsentToInterview(boolean consentToInterview) {
+        this.consentToInterview = consentToInterview;
+    }
+
+    public String getGpsLocation() {
+        return gpsLocation;
+    }
+
+    public void setGpsLocation(String gpsLocation) {
+        this.gpsLocation = gpsLocation;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getVillageNumber() {
+        return villageNumber;
+    }
+
+    public void setVillageNumber(String villageNumber) {
+        this.villageNumber = villageNumber;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public boolean isCaregiverPresentForInterview() {
+        return caregiverPresentForInterview;
+    }
+
+    public void setCaregiverPresentForInterview(boolean caregiverPresentForInterview) {
+        this.caregiverPresentForInterview = caregiverPresentForInterview;
+    }
+
+    public String getCaregiverContactNumber() {
+        return caregiverContactNumber;
+    }
+
+    public void setCaregiverContactNumber(String caregiverContactNumber) {
+        this.caregiverContactNumber = caregiverContactNumber;
+    }
+
+    public boolean isAmputeeDisability() {
+        return amputeeDisability;
+    }
+
+    public void setAmputeeDisability(boolean amputeeDisability) {
+        this.amputeeDisability = amputeeDisability;
+    }
+
+    public boolean isPolioDisability() {
+        return polioDisability;
+    }
+
+    public void setPolioDisability(boolean polioDisability) {
+        this.polioDisability = polioDisability;
+    }
+
+    public boolean isSpinalCordInjuryDisability() {
+        return spinalCordInjuryDisability;
+    }
+
+    public void setSpinalCordInjuryDisability(boolean spinalCordInjuryDisability) {
+        this.spinalCordInjuryDisability = spinalCordInjuryDisability;
+    }
+
+    public boolean isCerebralPalsyDisability() {
+        return cerebralPalsyDisability;
+    }
+
+    public void setCerebralPalsyDisability(boolean cerebralPalsyDisability) {
+        this.cerebralPalsyDisability = cerebralPalsyDisability;
+    }
+
+    public boolean isSpinaBifidaDisability() {
+        return spinaBifidaDisability;
+    }
+
+    public void setSpinaBifidaDisability(boolean spinaBifidaDisability) {
+        this.spinaBifidaDisability = spinaBifidaDisability;
+    }
+
+    public boolean isHydrocephalusDisability() {
+        return hydrocephalusDisability;
+    }
+
+    public void setHydrocephalusDisability(boolean hydrocephalusDisability) {
+        this.hydrocephalusDisability = hydrocephalusDisability;
+    }
+
+    public boolean isVisualImpairmentDisability() {
+        return visualImpairmentDisability;
+    }
+
+    public void setVisualImpairmentDisability(boolean visualImpairmentDisability) {
+        this.visualImpairmentDisability = visualImpairmentDisability;
+    }
+
+    public boolean isHearingImpairmentDisability() {
+        return hearingImpairmentDisability;
+    }
+
+    public void setHearingImpairmentDisability(boolean hearingImpairmentDisability) {
+        this.hearingImpairmentDisability = hearingImpairmentDisability;
+    }
+
+    public boolean isDoNotKnowDisability() {
+        return doNotKnowDisability;
+    }
+
+    public void setDoNotKnowDisability(boolean doNotKnowDisability) {
+        this.doNotKnowDisability = doNotKnowDisability;
+    }
+
+    public boolean isOtherDisability() {
+        return otherDisability;
+    }
+
+    public void setOtherDisability(boolean otherDisability) {
+        this.otherDisability = otherDisability;
+    }
+
+    public String getRateHealth() {
+        return rateHealth;
+    }
+
+    public void setRateHealth(String rateHealth) {
+        this.rateHealth = rateHealth;
+    }
+
+    public String getDescribeHealth() {
+        return describeHealth;
+    }
+
+    public void setDescribeHealth(String describeHealth) {
+        this.describeHealth = describeHealth;
+    }
+
+    public String getSetGoalForHealth() {
+        return setGoalForHealth;
+    }
+
+    public void setSetGoalForHealth(String setGoalForHealth) {
+        this.setGoalForHealth = setGoalForHealth;
+    }
+
+    public String getRateEducation() {
+        return rateEducation;
+    }
+
+    public void setRateEducation(String rateEducation) {
+        this.rateEducation = rateEducation;
+    }
+
+    public String getDescribeEducation() {
+        return describeEducation;
+    }
+
+    public void setDescribeEducation(String describeEducation) {
+        this.describeEducation = describeEducation;
+    }
+
+    public String getSetGoalForEducation() {
+        return setGoalForEducation;
+    }
+
+    public void setSetGoalForEducation(String setGoalForEducation) {
+        this.setGoalForEducation = setGoalForEducation;
+    }
+
+    public String getRateSocialStatus() {
+        return rateSocialStatus;
+    }
+
+    public void setRateSocialStatus(String rateSocialStatus) {
+        this.rateSocialStatus = rateSocialStatus;
+    }
+
+    public String getDescribeSocialStatus() {
+        return describeSocialStatus;
+    }
+
+    public void setDescribeSocialStatus(String describeSocialStatus) {
+        this.describeSocialStatus = describeSocialStatus;
+    }
+
+    public String getSetGoalForSocialStatus() {
+        return setGoalForSocialStatus;
+    }
+
+    public void setSetGoalForSocialStatus(String setGoalForSocialStatus) {
+        this.setGoalForSocialStatus = setGoalForSocialStatus;
+    }
 }

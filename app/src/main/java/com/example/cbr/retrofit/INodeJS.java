@@ -1,4 +1,4 @@
-package com.example.cbr.Retrofit;
+package com.example.cbr.retrofit;
 
 //import java.util.Observable;
 

@@ -12,26 +12,57 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.fragment.app.Fragment;
 
+import com.example.cbr.MainActivity;
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentNewclientBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.model.ClientInfo;
+import com.example.cbr.retrofit.JsonPlaceHolderApi;
+import com.example.cbr.retrofit.RetrofitInit;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class NewClientFragment extends BaseFragment implements NewClientContract.View {
 
     private FragmentNewclientBinding binding;
     private NewClientContract.Presenter newClientPresenter;
 
+    // Get all the information from EditText that need to POST to the database
+//    EditText newClient_firstNameEditText;
+//    EditText newClient_lastNameEditText;
+//    EditText newClient_ageEditText;
+
+    // Init API
+    Retrofit retrofit;
+    JsonPlaceHolderApi jsonPlaceHolderApi;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setPresenter(new NewClientPresenter(this));
         binding = FragmentNewclientBinding.inflate(inflater, container, false);
+
+        // In onCreate lifecycle, grab all the information from the UI part (i.e. EditText, RatioButton)
+        // Note: in fragment, you cannot use findViewById directly. Add getView() instead
+        // https://stackoverflow.com/questions/6495898/findviewbyid-in-fragment
+
+        // Init Retrofit & NodeJs stuff
+        retrofit = RetrofitInit.getInstance();
+        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+        // List of API calls like GET & POST
+
+
         populateLocationSpinner();
         populateRateClientHealthSpinner();
         populateRateClientEducationSpinner();
@@ -39,6 +70,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         setupRecordClientButton();
         return binding.getRoot();
     }
+
 
     private void populateLocationSpinner() {
         Spinner spinner = binding.newClientLocationSpinner;
@@ -135,9 +167,44 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                         rateSocialStatus,
                         describeSocialStatus,
                         setGoalForSocialStatus);
+
+                createClient(firstName, lastName);
+            }
+        });
+
+    }
+
+    private void createClient(String firstName, String lastName) {
+        ClientInfo clientInfo = new ClientInfo();
+        clientInfo.setFirstName(firstName);
+        clientInfo.setLastName(lastName);
+
+        System.out.println(clientInfo.getFirstName() + "-------------");
+
+        Call<ClientInfo> call = jsonPlaceHolderApi.createClient(firstName, lastName, 18);
+
+        call.enqueue(new Callback<ClientInfo>() {
+            @Override
+            public void onResponse(Call<ClientInfo> call, Response<ClientInfo> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), "" + response.code(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ClientInfo clientInfoResponse = response.body();
+                String content = "Code: " + response.code();
+                Toast.makeText(getActivity(), content + "firstName: " + clientInfoResponse.getFirstName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), content + "lastName: " + clientInfoResponse.getLastName(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ClientInfo> call, Throwable t) {
+
             }
         });
     }
+
 
     @Override
     public void setPresenter(NewClientContract.Presenter presenter) {

@@ -13,13 +13,12 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.example.cbr.Retrofit.INodeJS;
-import com.example.cbr.Retrofit.RetrofitClient;
+import com.example.cbr.retrofit.INodeJS;
+import com.example.cbr.retrofit.RetrofitInit;
 import com.example.cbr.activities.HomeActivity;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.google.android.material.button.MaterialButton;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Init API
-        Retrofit retrofit = RetrofitClient.getInstance();
+        Retrofit retrofit = RetrofitInit.getInstance();
         myAPI = retrofit.create(INodeJS.class);
 
         // Get button and edit text

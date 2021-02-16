@@ -7,17 +7,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ClientCardView" parent="@style/Widget.MaterialComponents.CardView">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.Cut</item>
-    </style>
-
-
-    <style name="ShapeAppearanceOverlay.MaterialCardView.Cut" parent="">
+    <style name="ClientPageCardView" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">0dp</item>
         <item name="cornerSizeTopLeft">0dp</item>
         <item name="cornerSizeBottomRight">40dp</item>
         <item name="cornerSizeBottomLeft">40dp</item>
+    </style>
+
+    <style name="RoundImageView" parent="">
+        <item name="cornerFamily">rounded</item>
     </style>
 
 </resources>

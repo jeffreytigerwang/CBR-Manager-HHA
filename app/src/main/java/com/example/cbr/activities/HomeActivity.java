@@ -14,6 +14,7 @@ import com.example.cbr.fragments.base.BaseActivity;
 import com.example.cbr.fragments.clientlist.ClientListFragment;
 import com.example.cbr.fragments.discussion.DiscussionFragment;
 import com.example.cbr.fragments.notification.NotificationFragment;
+import com.example.cbr.model.ClientInfo;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.cbr.fragments.clientpage.ClientPageFragment;
 
@@ -75,7 +76,14 @@ public class HomeActivity extends BaseActivity
 
     @Override
     public void swapToClientPage() {
-        ClientPageFragment clientPageFragment = ClientPageFragment.newInstance();
+        ClientInfo clientInfo = new ClientInfo();
+        clientInfo.setFirstName("Matthew");
+        clientInfo.setLastName("Teja");
+        clientInfo.setLocation("Canada");
+        clientInfo.setAge(20);
+        clientInfo.setVisualImpairmentDisability(true);
+
+        ClientPageFragment clientPageFragment = ClientPageFragment.newInstance(clientInfo);
         replaceFragment(R.id.homeFragmentContainer, clientPageFragment, ClientPageFragment.getFragmentTag());
     }
 

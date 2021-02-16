@@ -1,4 +1,18 @@
-## Instructions
+# Instructions
+
+To deploy the api:
+
+First, clone the repo.
+
+```
+cd repo
+npm install
+
+npm run pm2
+```
+
+
+# Initial Setup
 
 Clone Repo
 

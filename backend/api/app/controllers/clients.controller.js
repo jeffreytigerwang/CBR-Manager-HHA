@@ -50,10 +50,8 @@ exports.create = (req, res) => {
 
 // Retrieve all data from the database.
 exports.findAll = (req, res) => {
-  const first_name = req.query.first_name;
-  var condition = first_name ? { first_name: { [Op.like]: `%${first_name}%` } } : null;
 
-  Clients.findAll({ where: condition })
+  Clients.findAll()
     .then(data => {
       res.send(data);
     })

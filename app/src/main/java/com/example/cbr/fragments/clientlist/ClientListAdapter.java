@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import com.example.cbr.R;
 
 public class ClientListAdapter extends ArrayAdapter<ClientListClientInfo> {
 
-    private static final String TAG = "PersonListAdapter";
+    private static final String TAG = "ClientListAdapter";
 
     private Context mContext;
     private int mResource;
@@ -32,6 +33,7 @@ public class ClientListAdapter extends ArrayAdapter<ClientListClientInfo> {
         TextView name;
         TextView id;
         TextView location;
+        ImageView photo;
     }
 
     /**
@@ -49,16 +51,13 @@ public class ClientListAdapter extends ArrayAdapter<ClientListClientInfo> {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //get the persons information
+        //get the clients information
         String name = getItem(position).getName();
         String id = getItem(position).getId();
         String location = getItem(position).getLocation();
 
-        //Create the person object with the information
+        //Create the client object with the information
         ClientListClientInfo clientListClientInfo = new ClientListClientInfo(name,id,location);
-
-        //create the view result for showing the animation
-        final View result;
 
         //ViewHolder object
         ViewHolder holder;
@@ -71,25 +70,19 @@ public class ClientListAdapter extends ArrayAdapter<ClientListClientInfo> {
             holder.name = (TextView) convertView.findViewById(R.id.textView_clientlist_name);
             holder.location = (TextView) convertView.findViewById(R.id.textView_clientlist_location);
             holder.id = (TextView) convertView.findViewById(R.id.textview_clientlist_id);
-
-//            result = convertView;
+            holder.photo = (ImageView) convertView.findViewById(R.id.imageView_clientlist_Photo);
 
             convertView.setTag(holder);
         }
         else{
             holder = (ViewHolder) convertView.getTag();
-//            result = convertView;
         }
-
-
-//        Animation animation = AnimationUtils.loadAnimation(mContext,
-//                (position > lastPosition) ? R.anim.load_down_anim : R.anim.load_up_anim);
-//        result.startAnimation(animation);
-//        lastPosition = position;
 
         holder.name.setText(clientListClientInfo.getName());
         holder.id.setText(clientListClientInfo.getId());
         holder.location.setText(clientListClientInfo.getLocation());
+        holder.photo.setImageResource(clientListClientInfo.getPhoto());
+
 
 
         return convertView;

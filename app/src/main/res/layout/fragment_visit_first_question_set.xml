@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.VisitFirstQuestionSetFragment">
+    tools:context=".fragments.newvisit.VisitFirstQuestionSetFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,15 +12,15 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textViewQ1"
+            android:id="@+id/newVisit_Q1TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Purpose of visit*:"
+            android:text="@string/purpose_of_visit"
             android:textColor="#000000"
-            app:layout_constraintBottom_toTopOf="@+id/radioGroupPurpose"
+            app:layout_constraintBottom_toTopOf="@+id/newVisit_purposeRadioGroup"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.027"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +28,7 @@
             app:layout_constraintVertical_bias="0.028" />
 
         <RadioGroup
-            android:id="@+id/radioGroupPurpose"
+            android:id="@+id/newVisit_purposeRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -40,140 +40,147 @@
             app:layout_constraintVertical_bias="0.045">
 
             <RadioButton
-                android:id="@+id/radioButtonCBR"
+                android:id="@+id/newVisit_CBRRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CBR" />
+                android:text="@string/cbr" />
 
             <RadioButton
-                android:id="@+id/radioButtonDCR"
+                android:id="@+id/newVisit_DCRradioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Disability centre referral" />
+                android:text="@string/disability_centre_referral" />
 
             <RadioButton
-                android:id="@+id/radioButtonDCRFU"
+                android:id="@+id/newVisit_DCRFURadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Disability centre referral follow up" />
+                android:text="@string/disability_centre_referral_follow_up" />
 
         </RadioGroup>
 
         <TextView
-            android:id="@+id/textViewQ2"
+            android:id="@+id/newVisit_Q2TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="If CBR*:"
+            android:text="@string/if_cbr"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.022"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroupPurpose" />
+            app:layout_constraintTop_toBottomOf="@+id/newVisit_purposeRadioGroup" />
 
         <CheckBox
-            android:id="@+id/checkBoxHealth"
+            android:id="@+id/newVisit_healthCheckBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:textColor="@color/colorLocked"
             android:clickable="false"
-            android:text="Health" />
+            android:text="@string/health" />
 
         <CheckBox
-            android:id="@+id/checkBoxEducation"
+            android:id="@+id/newVisit_educationCheckBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:textColor="@color/colorLocked"
             android:clickable="false"
-            android:text="Education" />
+            android:text="@string/education" />
 
         <CheckBox
-            android:id="@+id/checkBoxSocial"
+            android:id="@+id/newVisit_socialCheckBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:textColor="@color/colorLocked"
             android:clickable="false"
-            android:text="Social" />
+            android:text="@string/social" />
 
         <TextView
-            android:id="@+id/textViewQ3"
+            android:id="@+id/newVisit_Q3textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Date of vist*:"
+            android:text="@string/date_of_vist"
             android:textColor="#000000" />
 
         <EditText
-            android:id="@+id/editTextDate"
+            android:id="@+id/newVisit_dateEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:ems="18"
-            android:inputType="date" />
+            android:inputType="date"
+            android:hint="@string/yyyy_mm_dd"
+            android:importantForAutofill="no" />
 
         <TextView
-            android:id="@+id/textViewQ4"
+            android:id="@+id/newVisit_Q4TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Name of CBR worker*:"
+            android:text="@string/name_of_cbr_worker"
             android:textColor="#000000" />
 
         <EditText
-            android:id="@+id/editTextPersonName"
+            android:id="@+id/newVisit_workerNameEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:ems="18"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:hint="@string/first_and_last_name"
+            android:importantForAutofill="no" />
 
         <TextView
-            android:id="@+id/textViewQ5"
+            android:id="@+id/newVisit_Q5TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Location of visit*:"
+            android:text="@string/location_of_visit"
             android:textColor="#000000" />
 
         <EditText
-            android:id="@+id/editTextLocationOfVisit"
+            android:id="@+id/newVisit_locationOfVisitEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:ems="18" />
+            android:ems="18"
+            android:importantForAutofill="no"
+            android:inputType="text" />
 
         <TextView
-            android:id="@+id/textViewQ6"
+            android:id="@+id/newVisit_Q6TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Location*:"
+            android:text="@string/new_vist_location"
             android:textColor="#000000" />
 
         <Spinner
-            android:id="@+id/spinnerLocation"
+            android:id="@+id/newVisit_locationspinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"/>
 
         <TextView
-            android:id="@+id/textViewQ7"
+            android:id="@+id/newVisit_Q7TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Village No.*:"
+            android:text="@string/village_no"
             android:textColor="#000000" />
 
         <EditText
-            android:id="@+id/editTextVillageNumber"
+            android:id="@+id/newVisit_villageNumberEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:ems="18"
-            android:inputType="number" />
+            android:inputType="number"
+            android:importantForAutofill="no" />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

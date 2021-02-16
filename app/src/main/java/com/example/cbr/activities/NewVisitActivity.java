@@ -16,10 +16,10 @@ import android.widget.EditText;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.ActivityNewVisitBinding;
-import com.example.cbr.fragments.VisitFirstQuestionSetFragment;
-import com.example.cbr.fragments.VisitFourthQuestionSetFragment;
-import com.example.cbr.fragments.VisitSecondQuestionSetFragment;
-import com.example.cbr.fragments.VisitThirdQuestionSetFragment;
+import com.example.cbr.fragments.newvisit.VisitFirstQuestionSetFragment;
+import com.example.cbr.fragments.newvisit.VisitFourthQuestionSetFragment;
+import com.example.cbr.fragments.newvisit.VisitSecondQuestionSetFragment;
+import com.example.cbr.fragments.newvisit.VisitThirdQuestionSetFragment;
 import com.example.cbr.models.Constants;
 import com.example.cbr.models.VisitCheckContainer;
 

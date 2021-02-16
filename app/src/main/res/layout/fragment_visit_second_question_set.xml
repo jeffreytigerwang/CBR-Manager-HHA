@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.VisitSecondQuestionSetFragment">
+    tools:context=".fragments.newvisit.VisitSecondQuestionSetFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,201 +11,219 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textViewQ8"
+            android:id="@+id/newVisit_Q8TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="For health what was provided?*:"
+            android:text="@string/for_health_what_was_provided"
             android:textColor="#000000" />
 
         <CheckBox
-            android:id="@+id/checkBoxHealthWheelchair"
+            android:id="@+id/newVisit_healthWheelchairCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Wheelchair" />
+            android:text="@string/wheelchair" />
 
         <EditText
-            android:id="@+id/editTextHealthWheelchair"
+            android:id="@+id/newVisit_healthWheelchairEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:ems="18"
-            android:hint="Description* (Max 100 characters)"
+            android:hint="@string/description_max_100_characters"
             android:maxLength="100"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:autofillHints="no"
+            android:inputType="text" />
 
         <CheckBox
-            android:id="@+id/checkBoxHealthProsthetic"
+            android:id="@+id/newVisit_healthProstheticCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Prosthetic" />
+            android:text="@string/prosthetic" />
 
         <EditText
-            android:id="@+id/editTextHealthProsthetic"
+            android:id="@+id/newVisit_healthProstheticEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:ems="18"
-            android:hint="Description* (Max 100 characters)"
+            android:hint="@string/description_max_100_characters"
             android:maxLength="100"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:autofillHints="no"
+            android:inputType="text" />
 
         <CheckBox
-            android:id="@+id/checkBoxHealthOrthotic"
+            android:id="@+id/newVisit_healthOrthoticCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Orthotic" />
+            android:text="@string/orthotic" />
 
         <EditText
-            android:id="@+id/editTextHealthOrthotic"
+            android:id="@+id/newVisit_healthOrthoticEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:ems="18"
-            android:hint="Description* (Max 100 characters)"
+            android:hint="@string/description_max_100_characters"
             android:maxLength="100"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:autofillHints="no"
+            android:inputType="text" />
 
         <CheckBox
-            android:id="@+id/checkBoxHealthWR"
+            android:id="@+id/newVisit_healthWRCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Wheelchair repairs" />
+            android:text="@string/wheelchair_repairs" />
 
         <EditText
-            android:id="@+id/editTextHealthWR"
+            android:id="@+id/newVisit_healthWREditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:ems="18"
-            android:hint="Description* (Max 100 characters)"
+            android:hint="@string/description_max_100_characters"
             android:maxLength="100"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:autofillHints="no"
+            android:inputType="text" />
 
         <CheckBox
-            android:id="@+id/checkBoxHealthReferralToHC"
+            android:id="@+id/newVisit_healthReferralToHCCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Referral to health centre" />
+            android:text="@string/referral_to_health_centre" />
 
         <EditText
-            android:id="@+id/editTextHealthReferralToHC"
+            android:id="@+id/newVisit_healthReferralToHCEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:ems="18"
-            android:hint="Description* (Max 100 characters)"
+            android:hint="@string/description_max_100_characters"
             android:maxLength="100"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:autofillHints="no"
+            android:inputType="text" />
 
         <CheckBox
-            android:id="@+id/checkBoxHealthAdvice"
+            android:id="@+id/newVisit_healthAdviceCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Advice" />
+            android:text="@string/advice" />
 
         <EditText
-            android:id="@+id/editTextHealthAdvice"
+            android:id="@+id/newVisit_healthAdviceEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:ems="18"
-            android:hint="Description* (Max 100 characters)"
+            android:hint="@string/description_max_100_characters"
             android:maxLength="100"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:autofillHints="no"
+            android:inputType="text" />
 
         <CheckBox
-            android:id="@+id/checkBoxHealthAdvocacy"
+            android:id="@+id/newVisit_healthAdvocacyCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Advocacy" />
+            android:text="@string/advocacy" />
 
         <EditText
-            android:id="@+id/editTextHealthAdvocacy"
+            android:id="@+id/newVisit_healthAdvocacyEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:ems="18"
-            android:hint="Description* (Max 100 characters)"
+            android:hint="@string/description_max_100_characters"
             android:maxLength="100"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:autofillHints="no"
+            android:inputType="text" />
 
         <CheckBox
-            android:id="@+id/checkBoxHealthEncouragement"
+            android:id="@+id/newVisit_healthEncouragementCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Encouragement" />
+            android:text="@string/encouragement" />
 
         <EditText
-            android:id="@+id/editTextHealthEncouragement"
+            android:id="@+id/newVisit_healthEncouragementEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:ems="18"
-            android:hint="Description* (Max 100 characters)"
+            android:hint="@string/description_max_100_characters"
             android:maxLength="100"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:autofillHints="no"
+            android:inputType="text" />
 
         <TextView
-            android:id="@+id/textViewQ9"
+            android:id="@+id/newVisit_Q9TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Goal met?*:"
+            android:text="@string/goal_met"
             android:textColor="#000000" />
 
         <RadioGroup
-            android:id="@+id/radioGroupHealthGoalStatus"
+            android:id="@+id/newVisit_healthGoalStatusRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp">
 
             <RadioButton
-                android:id="@+id/radioButtonHealthCancelled"
+                android:id="@+id/newVisit_healthCancelledRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cancelled" />
+                android:text="@string/cancelled" />
 
             <RadioButton
-                android:id="@+id/radioButtonHealthOngoing"
+                android:id="@+id/newVisit_healthOngoingRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ongoing" />
+                android:text="@string/ongoing" />
 
             <RadioButton
-                android:id="@+id/radioButtonHealthConcluded"
+                android:id="@+id/newVisit_healthConcludedRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Concluded" />
+                android:text="@string/concluded" />
 
         </RadioGroup>
 
         <TextView
-            android:id="@+id/textViewQ10"
+            android:id="@+id/newVisit_Q10TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="If concluded, what was the outcome:"
+            android:text="@string/if_concluded_what_was_the_outcome"
             android:textColor="#000000"
             android:visibility="gone" />
 
         <EditText
-            android:id="@+id/editTextHealthOutcome"
+            android:id="@+id/newVisit_healthOutcomeEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:ems="18"
-            android:hint="Description* (Max 100 characters)"
+            android:hint="@string/description_max_100_characters"
             android:maxLength="100"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:autofillHints="no"
+            android:inputType="text" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

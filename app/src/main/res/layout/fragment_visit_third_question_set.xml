@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.VisitThirdQuestionSetFragment">
+    tools:context=".fragments.newvisit.VisitThirdQuestionSetFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,133 +11,143 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textViewQ11"
+            android:id="@+id/newVisit_Q11TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="For education what was provided?*:"
+            android:text="@string/for_education_what_was_provided"
             android:textColor="#000000" />
 
         <CheckBox
-            android:id="@+id/checkBoxEducationAdvice"
+            android:id="@+id/newVisit_educationAdviceCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Advice" />
+            android:text="@string/advice" />
 
         <EditText
-            android:id="@+id/editTextEducationAdvice"
+            android:id="@+id/newVisit_educationAdviceEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:ems="18"
-            android:hint="Description* (Max 100 characters)"
+            android:hint="@string/description_max_100_characters"
             android:maxLength="100"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:autofillHints="no"
+            android:inputType="text" />
 
         <CheckBox
-            android:id="@+id/checkBoxEducationAdvocacy"
+            android:id="@+id/newVisit_educationAdvocacyCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Advocacy" />
+            android:text="@string/advocacy" />
 
         <EditText
-            android:id="@+id/editTextEducationAdvocacy"
+            android:id="@+id/newVisit_educationAdvocacyEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:ems="18"
-            android:hint="Description* (Max 100 characters)"
+            android:hint="@string/description_max_100_characters"
             android:maxLength="100"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:autofillHints="no"
+            android:inputType="text" />
 
         <CheckBox
-            android:id="@+id/checkBoxEducationRef"
+            android:id="@+id/newVisit_educationRefcheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Referral to other org." />
+            android:text="@string/referral_to_other_org" />
 
         <EditText
-            android:id="@+id/editTextEducationRef"
+            android:id="@+id/newVisit_educationRefEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:ems="18"
-            android:hint="Description* (Max 100 characters)"
+            android:hint="@string/description_max_100_characters"
             android:maxLength="100"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:autofillHints="no"
+            android:inputType="text" />
 
         <CheckBox
-            android:id="@+id/checkBoxEducationEncouragement"
+            android:id="@+id/newVisit_educationEncouragementCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Encouragement" />
+            android:text="@string/encouragement" />
 
         <EditText
-            android:id="@+id/editTextEducationEncouragement"
+            android:id="@+id/newVisit_educationEncouragementEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:autofillHints="no"
             android:ems="18"
-            android:hint="Description* (Max 100 characters)"
+            android:hint="@string/description_max_100_characters"
             android:maxLength="100"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:inputType="text" />
 
         <TextView
-            android:id="@+id/textViewQ12"
+            android:id="@+id/newVisit_Q12TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Goal met?*:"
+            android:text="@string/goal_met"
             android:textColor="#000000" />
 
         <RadioGroup
-            android:id="@+id/radioGroupEducationGoalStatus"
+            android:id="@+id/newVisit_educationGoalStatusRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp">
 
             <RadioButton
-                android:id="@+id/radioButtonEducationCancelled"
+                android:id="@+id/newVisit_educationCancelledRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cancelled" />
+                android:text="@string/cancelled" />
 
             <RadioButton
-                android:id="@+id/radioButtonEducationOngoing"
+                android:id="@+id/newVisit_educationOngoingRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ongoing" />
+                android:text="@string/ongoing" />
 
             <RadioButton
-                android:id="@+id/radioButtonEducationConcluded"
+                android:id="@+id/newVisit_educationConcludedRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Concluded" />
+                android:text="@string/concluded" />
 
         </RadioGroup>
 
         <TextView
-            android:id="@+id/textViewQ13"
+            android:id="@+id/newVisit_Q13TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="If concluded, what was the outcome:"
+            android:text="@string/if_concluded_what_was_the_outcome"
             android:textColor="#000000"
             android:visibility="gone" />
 
         <EditText
-            android:id="@+id/editTextEducationOutcome"
+            android:id="@+id/newVisit_EducationOutcomeEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:maxLength="100"
             android:ems="18"
-            android:hint="Description* (Max 100 characters)"
-            android:visibility="gone" />
+            android:hint="@string/description_max_100_characters"
+            android:visibility="gone"
+            android:autofillHints="no"
+            android:inputType="text" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

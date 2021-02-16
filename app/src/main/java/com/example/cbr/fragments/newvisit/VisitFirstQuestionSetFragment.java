@@ -1,4 +1,4 @@
-package com.example.cbr.fragments;
+package com.example.cbr.fragments.newvisit;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -29,40 +29,18 @@ import com.example.cbr.models.VisitCheckContainer;
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.example.cbr.models.Constants.CANCELLED;
 import static com.example.cbr.models.Constants.CBR;
-import static com.example.cbr.models.Constants.CONCLUDED;
 import static com.example.cbr.models.Constants.DATE_OF_VISIT_KEY;
 import static com.example.cbr.models.Constants.DCR;
 import static com.example.cbr.models.Constants.DCRFU;
-import static com.example.cbr.models.Constants.HEALTH_ADVICE_DESC_KEY;
-import static com.example.cbr.models.Constants.HEALTH_ADVOCACY_DESC_KEY;
-import static com.example.cbr.models.Constants.HEALTH_ENCOURAGEMENT_WR_DESC_KEY;
-import static com.example.cbr.models.Constants.HEALTH_GOAL_STATUS;
-import static com.example.cbr.models.Constants.HEALTH_OUTCOME_DESC_KEY;
 import static com.example.cbr.models.Constants.IS_EDUCATION_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_HEALTH_ADVICE_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_HEALTH_ADVOCACY_CHECKED_KEY;
 import static com.example.cbr.models.Constants.IS_HEALTH_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_HEALTH_ENCOURAGEMENT_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_ORTHOTIC_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_PROSTHETIC_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_REFERRAL_TO_HC_CHECKED_KEY;
 import static com.example.cbr.models.Constants.IS_SOCIAL_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_WHEEL_CHAIR_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_WR_CHECKED_KEY;
 import static com.example.cbr.models.Constants.LOCATION_OF_VISIT_KEY;
 import static com.example.cbr.models.Constants.NAME_OF_CBR_WORKER_KEY;
-import static com.example.cbr.models.Constants.ONGOING;
-import static com.example.cbr.models.Constants.ORTHOTIC_DESC_KEY;
-import static com.example.cbr.models.Constants.PROSTHETIC_DESC_KEY;
 import static com.example.cbr.models.Constants.PURPOSE_OF_VISIT_KEY;
-import static com.example.cbr.models.Constants.REFERRAL_TO_HC_DESC_KEY;
-import static com.example.cbr.models.Constants.SITE_LOCATION_KEY;
 import static com.example.cbr.models.Constants.SITE_LOCATION_SPINNER_SELECTED_POSITION_KEY;
 import static com.example.cbr.models.Constants.VILLAGE_NUMBER_KEY;
-import static com.example.cbr.models.Constants.WHEEL_CHAIR_DESC_KEY;
-import static com.example.cbr.models.Constants.WR_DESC_KEY;
 
 public class VisitFirstQuestionSetFragment extends Fragment {
 
@@ -129,15 +107,15 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         String villageNumber = sharedPref.getString(VILLAGE_NUMBER_KEY, "");
 
         if (purpose.equalsIgnoreCase(CBR)) {
-            questionOne.check(R.id.radioButtonCBR);
+            questionOne.check(R.id.newVisit_CBRRadioButton);
 
             int unlockedColor = ContextCompat.getColor(context, R.color.cbrBlack);
             toggleQuestionTwo(unlockedColor, true);
 
         } else if (purpose.equalsIgnoreCase(DCR)) {
-            questionOne.check(R.id.radioButtonDCR);
+            questionOne.check(R.id.newVisit_DCRradioButton);
         } else if (purpose.equalsIgnoreCase(DCRFU)) {
-            questionOne.check(R.id.radioButtonDCRFU);
+            questionOne.check(R.id.newVisit_DCRFURadioButton);
         }
         health.setChecked(isHealthChecked);
         education.setChecked(isEducationChecked);
@@ -161,20 +139,20 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     }
 
     private void findViews() {
-        date = binding.editTextDate;
-        cbrWorkerName = binding.editTextPersonName;
-        location = binding.editTextLocationOfVisit;
-        villageNumber = binding.editTextVillageNumber;
+        date = binding.newVisitDateEditText;
+        cbrWorkerName = binding.newVisitWorkerNameEditText;
+        location = binding.newVisitLocationOfVisitEditText;
+        villageNumber = binding.newVisitVillageNumberEditText;
 
-        questionOne = binding.radioGroupPurpose;
+        questionOne = binding.newVisitPurposeRadioGroup;
 
-        health = binding.checkBoxHealth;
-        education = binding.checkBoxEducation;
-        social = binding.checkBoxSocial;
+        health = binding.newVisitHealthCheckBox;
+        education = binding.newVisitEducationCheckBox;
+        social = binding.newVisitSocialCheckBox;
 
-        question2 = binding.textViewQ2;
+        question2 = binding.newVisitQ2TextView;
 
-        spinnerLocation = binding.spinnerLocation;
+        spinnerLocation = binding.newVisitLocationspinner;
     }
 
     private void setupSpinner() {
@@ -230,18 +208,18 @@ public class VisitFirstQuestionSetFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 resetQuestionTwo();
 
-                if (checkedId == R.id.radioButtonCBR) {
+                if (checkedId == R.id.newVisit_CBRRadioButton) {
                     visitCheckContainer.setPurposeOfVisit(CBR);
 
                     int unlockedColor = ContextCompat.getColor(getContext(), R.color.cbrBlack);
                     toggleQuestionTwo(unlockedColor, true);
                     toggleRecordButton(View.VISIBLE, View.GONE);
 
-                } else if (checkedId == R.id.radioButtonDCR) {
+                } else if (checkedId == R.id.newVisit_DCRradioButton) {
                     visitCheckContainer.setPurposeOfVisit(DCR);
                     toggleRecordButton(View.GONE, View.VISIBLE);
 
-                } else if (checkedId == R.id.radioButtonDCRFU) {
+                } else if (checkedId == R.id.newVisit_DCRFURadioButton) {
                     visitCheckContainer.setPurposeOfVisit(DCRFU);
                     toggleRecordButton(View.GONE, View.VISIBLE);
                 }

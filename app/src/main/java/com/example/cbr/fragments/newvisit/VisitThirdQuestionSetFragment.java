@@ -1,4 +1,4 @@
-package com.example.cbr.fragments;
+package com.example.cbr.fragments.newvisit;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -17,27 +17,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.cbr.R;
-import com.example.cbr.databinding.FragmentVisitFourthQuestionSetBinding;
+import com.example.cbr.databinding.FragmentVisitThirdQuestionSetBinding;
 import com.example.cbr.models.Constants;
 import com.example.cbr.models.VisitCheckContainer;
 
 import static com.example.cbr.models.Constants.CANCELLED;
 import static com.example.cbr.models.Constants.CONCLUDED;
-import static com.example.cbr.models.Constants.IS_SOCIAL_ADVICE_CHECKED;
-import static com.example.cbr.models.Constants.IS_SOCIAL_ADVOCACY_CHECKED;
-import static com.example.cbr.models.Constants.IS_SOCIAL_ENCOURAGEMENT_CHECKED;
-import static com.example.cbr.models.Constants.IS_SOCIAL_REF_CHECKED;
+import static com.example.cbr.models.Constants.EDUCATION_ADVICE_DESC;
+import static com.example.cbr.models.Constants.EDUCATION_ADVOCACY_DESC;
+import static com.example.cbr.models.Constants.EDUCATION_ENCOURAGEMENT_DESC;
+import static com.example.cbr.models.Constants.EDUCATION_GOAL_STATUS;
+import static com.example.cbr.models.Constants.EDUCATION_OUTCOME_DESC;
+import static com.example.cbr.models.Constants.EDUCATION_REF_DESC;
+import static com.example.cbr.models.Constants.IS_EDUCATION_ADVICE_CHECKED;
+import static com.example.cbr.models.Constants.IS_EDUCATION_ADVOCACY_CHECKED;
+import static com.example.cbr.models.Constants.IS_EDUCATION_ENCOURAGEMENT_CHECKED;
+import static com.example.cbr.models.Constants.IS_EDUCATION_REF_CHECKED;
 import static com.example.cbr.models.Constants.ONGOING;
-import static com.example.cbr.models.Constants.SOCIAL_ADVICE_DESC;
-import static com.example.cbr.models.Constants.SOCIAL_ADVOCACY_DESC;
-import static com.example.cbr.models.Constants.SOCIAL_ENCOURAGEMENT_DESC;
-import static com.example.cbr.models.Constants.SOCIAL_GOAL_STATUS;
-import static com.example.cbr.models.Constants.SOCIAL_OUTCOME_DESC;
-import static com.example.cbr.models.Constants.SOCIAL_REF_DESC;
 
-public class VisitFourthQuestionSetFragment extends Fragment {
+public class VisitThirdQuestionSetFragment extends Fragment {
 
-    private FragmentVisitFourthQuestionSetBinding binding;
+    private FragmentVisitThirdQuestionSetBinding binding;
 
     private final VisitCheckContainer visitCheckContainer;
     private final Context context;
@@ -46,16 +46,16 @@ public class VisitFourthQuestionSetFragment extends Fragment {
     private EditText editTextAdvocacy;
     private EditText editTextRef;
     private EditText editTextEncouragement;
-    private EditText editTextSocialOutcome;
+    private EditText editTextEducationOutcome;
 
-    private RadioGroup goalStatus;
+    private CheckBox checkBoxEncouragement;
     private CheckBox checkBoxAdvice;
     private CheckBox checkBoxAdvocacy;
     private CheckBox checkBoxRef;
-    private CheckBox checkBoxEncouragement;
-    private TextView question16;
+    private RadioGroup goalStatus;
+    private TextView question13;
 
-    public VisitFourthQuestionSetFragment(VisitCheckContainer visitCheckContainer, Context context) {
+    public VisitThirdQuestionSetFragment(VisitCheckContainer visitCheckContainer, Context context) {
         this.visitCheckContainer = visitCheckContainer;
         this.context = context;
     }
@@ -65,7 +65,7 @@ public class VisitFourthQuestionSetFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentVisitFourthQuestionSetBinding.inflate(inflater, container, false);
+        binding = FragmentVisitThirdQuestionSetBinding.inflate(inflater, container, false);
 
         preLoadViews();
 
@@ -78,18 +78,18 @@ public class VisitFourthQuestionSetFragment extends Fragment {
     private void preLoadViews() {
         findViews();
 
-        SharedPreferences sharedPref = context.getSharedPreferences(Constants.QUESTION_SET_4_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = context.getSharedPreferences(Constants.QUESTION_SET_3_PREF_NAME, Context.MODE_PRIVATE);
 
-        boolean isAdviceChecked = sharedPref.getBoolean(IS_SOCIAL_ADVICE_CHECKED, false);
-        boolean isAdvocacyChecked = sharedPref.getBoolean(IS_SOCIAL_ADVOCACY_CHECKED, false);
-        boolean isRefChecked = sharedPref.getBoolean(IS_SOCIAL_REF_CHECKED, false);
-        boolean isEncouragementChecked = sharedPref.getBoolean(IS_SOCIAL_ENCOURAGEMENT_CHECKED, false);
-        String adviceDesc = sharedPref.getString(SOCIAL_ADVICE_DESC, "");
-        String advocacyDesc = sharedPref.getString(SOCIAL_ADVOCACY_DESC, "");
-        String refDesc = sharedPref.getString(SOCIAL_REF_DESC, "");
-        String encouragementDesc = sharedPref.getString(SOCIAL_ENCOURAGEMENT_DESC, "");
-        String educationOutcomeDesc = sharedPref.getString(SOCIAL_OUTCOME_DESC, "");
-        String goalStatus = sharedPref.getString(SOCIAL_GOAL_STATUS, "");
+        boolean isAdviceChecked = sharedPref.getBoolean(IS_EDUCATION_ADVICE_CHECKED, false);
+        boolean isAdvocacyChecked = sharedPref.getBoolean(IS_EDUCATION_ADVOCACY_CHECKED, false);
+        boolean isRefChecked = sharedPref.getBoolean(IS_EDUCATION_REF_CHECKED, false);
+        boolean isEncouragementChecked = sharedPref.getBoolean(IS_EDUCATION_ENCOURAGEMENT_CHECKED, false);
+        String adviceDesc = sharedPref.getString(EDUCATION_ADVICE_DESC, "");
+        String advocacyDesc = sharedPref.getString(EDUCATION_ADVOCACY_DESC, "");
+        String refDesc = sharedPref.getString(EDUCATION_REF_DESC, "");
+        String encouragementDesc = sharedPref.getString(EDUCATION_ENCOURAGEMENT_DESC, "");
+        String educationOutcomeDesc = sharedPref.getString(EDUCATION_OUTCOME_DESC, "");
+        String goalStatus = sharedPref.getString(EDUCATION_GOAL_STATUS, "");
 
         checkBoxAdvice.setChecked(isAdviceChecked);
         loadEditTextVisibility(isAdviceChecked, editTextAdvice);
@@ -104,16 +104,16 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         editTextAdvocacy.setText(advocacyDesc);
         editTextRef.setText(refDesc);
         editTextEncouragement.setText(encouragementDesc);
-        editTextSocialOutcome.setText(educationOutcomeDesc);
+        editTextEducationOutcome.setText(educationOutcomeDesc);
 
         if (goalStatus.equalsIgnoreCase(CANCELLED)) {
-            this.goalStatus.check(R.id.radioButtonSocialCancelled);
+            this.goalStatus.check(R.id.newVisit_educationCancelledRadioButton);
         } else if (goalStatus.equalsIgnoreCase(ONGOING)) {
-            this.goalStatus.check(R.id.radioButtonSocialOngoing);
+            this.goalStatus.check(R.id.newVisit_educationOngoingRadioButton);
         } else if (goalStatus.equalsIgnoreCase(CONCLUDED)) {
-            this.goalStatus.check(R.id.radioButtonSocialConcluded);
-            question16.setVisibility(View.VISIBLE);
-            editTextSocialOutcome.setVisibility(View.VISIBLE);
+            this.goalStatus.check(R.id.newVisit_educationConcludedRadioButton);
+            question13.setVisibility(View.VISIBLE);
+            editTextEducationOutcome.setVisibility(View.VISIBLE);
         }
     }
 
@@ -124,57 +124,55 @@ public class VisitFourthQuestionSetFragment extends Fragment {
     }
 
     private void findViews() {
-        editTextAdvice = binding.editTextSocialAdvice;
-        editTextAdvocacy = binding.editTextSocialAdvocacy;
-        editTextRef = binding.editTextSocialRef;
-        editTextEncouragement = binding.editTextSocialEncouragement;
-        editTextSocialOutcome = binding.editTextSocialOutcome;
+        editTextAdvice = binding.newVisitEducationAdviceEditText;
+        editTextAdvocacy = binding.newVisitEducationAdvocacyEditText;
+        editTextRef = binding.newVisitEducationRefEditText;
+        editTextEncouragement = binding.newVisitEducationEncouragementEditText;
+        editTextEducationOutcome = binding.newVisitEducationOutcomeEditText;
 
-        goalStatus = binding.radioGroupSocialGoalStatus;
+        goalStatus = binding.newVisitEducationGoalStatusRadioGroup;
 
-        checkBoxAdvice = binding.checkBoxSocialAdvice;
-        checkBoxAdvocacy = binding.checkBoxSocialAdvocacy;
-        checkBoxRef = binding.checkBoxSocialRef;
-        checkBoxEncouragement = binding.checkBoxSocialEncouragement;
+        checkBoxAdvice = binding.newVisitEducationAdviceCheckBox;
+        checkBoxAdvocacy = binding.newVisitEducationAdvocacyCheckBox;
+        checkBoxRef = binding.newVisitEducationAdviceCheckBox;
+        checkBoxEncouragement = binding.newVisitEducationEncouragementCheckBox;
 
-        question16 = binding.textViewQ16;
+        question13 = binding.newVisitQ13TextView;
     }
 
     private void setupRadioGroup() {
-
         goalStatus.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-                if (checkedId == R.id.radioButtonSocialConcluded) {
-                    visitCheckContainer.setSocialGoalStatus(CONCLUDED);
-                    question16.setVisibility(View.VISIBLE);
-                    editTextSocialOutcome.setVisibility(View.VISIBLE);
+                if (checkedId == R.id.newVisit_educationConcludedRadioButton) {
+                    visitCheckContainer.setEducationGoalStatus(CONCLUDED);
+                    question13.setVisibility(View.VISIBLE);
+                    editTextEducationOutcome.setVisibility(View.VISIBLE);
                 } else {
-                    question16.setVisibility(View.GONE);
-                    editTextSocialOutcome.setVisibility(View.GONE);
+                    question13.setVisibility(View.GONE);
+                    editTextEducationOutcome.setVisibility(View.GONE);
                 }
-                if (checkedId == R.id.radioButtonSocialCancelled) {
-                    visitCheckContainer.setSocialGoalStatus(CANCELLED);
+                if (checkedId == R.id.newVisit_educationCancelledRadioButton) {
+                    visitCheckContainer.setEducationGoalStatus(CANCELLED);
                 }
-                if (checkedId == R.id.radioButtonSocialOngoing) {
-                    visitCheckContainer.setSocialGoalStatus(ONGOING);
+                if (checkedId == R.id.newVisit_educationOngoingRadioButton) {
+                    visitCheckContainer.setEducationGoalStatus(ONGOING);
                 }
             }
         });
     }
 
     private void setupCheckBoxes() {
-
         checkBoxAdvice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextAdvice.setVisibility(View.VISIBLE);
-                    visitCheckContainer.setSocialAdviceChecked(true);
+                    visitCheckContainer.setEducationAdviceChecked(true);
                 } else {
                     editTextAdvice.setVisibility(View.GONE);
-                    visitCheckContainer.setSocialAdviceChecked(false);
+                    visitCheckContainer.setEducationAdviceChecked(false);
                 }
             }
         });
@@ -183,10 +181,10 @@ public class VisitFourthQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextAdvocacy.setVisibility(View.VISIBLE);
-                    visitCheckContainer.setSocialAdvocacyChecked(true);
+                    visitCheckContainer.setEducationAdvocacyChecked(true);
                 } else {
                     editTextAdvocacy.setVisibility(View.GONE);
-                    visitCheckContainer.setSocialAdvocacyChecked(false);
+                    visitCheckContainer.setEducationAdvocacyChecked(false);
                 }
             }
         });
@@ -195,10 +193,10 @@ public class VisitFourthQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextRef.setVisibility(View.VISIBLE);
-                    visitCheckContainer.setSocialRefChecked(true);
+                    visitCheckContainer.setEducationRefChecked(true);
                 } else {
                     editTextRef.setVisibility(View.GONE);
-                    visitCheckContainer.setSocialRefChecked(false);
+                    visitCheckContainer.setEducationRefChecked(false);
                 }
             }
         });
@@ -207,10 +205,10 @@ public class VisitFourthQuestionSetFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editTextEncouragement.setVisibility(View.VISIBLE);
-                    visitCheckContainer.setSocialEncouragementChecked(true);
+                    visitCheckContainer.setEducationEncouragementChecked(true);
                 } else {
                     editTextEncouragement.setVisibility(View.GONE);
-                    visitCheckContainer.setSocialEncouragementChecked(false);
+                    visitCheckContainer.setEducationEncouragementChecked(false);
                 }
             }
         });
@@ -232,7 +230,7 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         return editTextEncouragement;
     }
 
-    public EditText getEditTextSocialOutcome() {
-        return editTextSocialOutcome;
+    public EditText getEditTextEducationOutcome() {
+        return editTextEducationOutcome;
     }
 }

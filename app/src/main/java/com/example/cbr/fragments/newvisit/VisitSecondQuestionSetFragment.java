@@ -1,4 +1,4 @@
-package com.example.cbr.fragments;
+package com.example.cbr.fragments.newvisit;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -143,11 +143,11 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         editTextHealthOutcome.setText(healthOutcomeDesc);
 
         if (goalStatus.equalsIgnoreCase(CANCELLED)) {
-            this.goalStatus.check(R.id.radioButtonHealthCancelled);
+            this.goalStatus.check(R.id.newVisit_healthCancelledRadioButton);
         } else if (goalStatus.equalsIgnoreCase(ONGOING)) {
-            this.goalStatus.check(R.id.radioButtonHealthOngoing);
+            this.goalStatus.check(R.id.newVisit_healthOngoingRadioButton);
         } else if (goalStatus.equalsIgnoreCase(CONCLUDED)) {
-            this.goalStatus.check(R.id.radioButtonHealthConcluded);
+            this.goalStatus.check(R.id.newVisit_healthConcludedRadioButton);
             question10.setVisibility(View.VISIBLE);
             editTextHealthOutcome.setVisibility(View.VISIBLE);
         }
@@ -160,28 +160,28 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     }
 
     private void findViews() {
-        editTextWheelChair = binding.editTextHealthWheelchair;
-        editTextProsthetic = binding.editTextHealthProsthetic;
-        editTextOrthotic = binding.editTextHealthOrthotic;
-        editTextWR = binding.editTextHealthWR;
-        editTextReferralToHC = binding.editTextHealthReferralToHC;
-        editTextAdvice = binding.editTextHealthAdvice;
-        editTextAdvocacy = binding.editTextHealthAdvocacy;
-        editTextEncouragement = binding.editTextHealthEncouragement;
-        editTextHealthOutcome = binding.editTextHealthOutcome;
+        editTextWheelChair = binding.newVisitHealthAdviceEditText;
+        editTextProsthetic = binding.newVisitHealthProstheticEditText;
+        editTextOrthotic = binding.newVisitHealthOrthoticEditText;
+        editTextWR = binding.newVisitHealthWREditText;
+        editTextReferralToHC = binding.newVisitHealthReferralToHCEditText;
+        editTextAdvice = binding.newVisitHealthAdviceEditText;
+        editTextAdvocacy = binding.newVisitHealthAdvocacyEditText;
+        editTextEncouragement = binding.newVisitHealthEncouragementEditText;
+        editTextHealthOutcome = binding.newVisitHealthOutcomeEditText;
 
-        goalStatus = binding.radioGroupHealthGoalStatus;
+        goalStatus = binding.newVisitHealthGoalStatusRadioGroup;
 
-        checkBoxWheelchair = binding.checkBoxHealthWheelchair;
-        checkBoxProsthetic = binding.checkBoxHealthProsthetic;
-        checkBoxOrthotic = binding.checkBoxHealthOrthotic;
-        checkBoxWR = binding.checkBoxHealthWR;
-        checkBoxReferralToHC = binding.checkBoxHealthReferralToHC;
-        checkBoxAdvice = binding.checkBoxHealthAdvice;
-        checkBoxAdvocacy = binding.checkBoxHealthAdvocacy;
-        checkBoxEncouragement = binding.checkBoxHealthEncouragement;
+        checkBoxWheelchair = binding.newVisitHealthWheelchairCheckBox;
+        checkBoxProsthetic = binding.newVisitHealthProstheticCheckBox;
+        checkBoxOrthotic = binding.newVisitHealthOrthoticCheckBox;
+        checkBoxWR = binding.newVisitHealthWRCheckBox;
+        checkBoxReferralToHC = binding.newVisitHealthReferralToHCCheckBox;
+        checkBoxAdvice = binding.newVisitHealthAdviceCheckBox;
+        checkBoxAdvocacy = binding.newVisitHealthAdvocacyCheckBox;
+        checkBoxEncouragement = binding.newVisitHealthEncouragementCheckBox;
 
-        question10 = binding.textViewQ10;
+        question10 = binding.newVisitQ10TextView;
     }
 
     private void setupRadioGroup() {
@@ -191,7 +191,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-                if (checkedId == R.id.radioButtonHealthConcluded) {
+                if (checkedId == R.id.newVisit_healthConcludedRadioButton) {
                     visitCheckContainer.setHealthGoalStatus(CONCLUDED);
 
                     question10.setVisibility(View.VISIBLE);
@@ -200,10 +200,10 @@ public class VisitSecondQuestionSetFragment extends Fragment {
                     question10.setVisibility(View.GONE);
                     editTextHealthOutcome.setVisibility(View.GONE);
                 }
-                if (checkedId == R.id.radioButtonHealthOngoing) {
+                if (checkedId == R.id.newVisit_healthOngoingRadioButton) {
                     visitCheckContainer.setHealthGoalStatus(ONGOING);
 
-                } else if (checkedId == R.id.radioButtonHealthCancelled) {
+                } else if (checkedId == R.id.newVisit_healthCancelledRadioButton) {
                     visitCheckContainer.setHealthGoalStatus(CANCELLED);
                 }
             }

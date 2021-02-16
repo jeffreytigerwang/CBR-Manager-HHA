@@ -6,8 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
+import com.example.cbr.adapters.ClientInfoAdapter;
 import com.example.cbr.databinding.FragmentClientpageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.model.ClientInfo;
@@ -18,6 +22,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
     private ClientPageContract.Presenter clientListPresenter;
 
     private ClientInfo clientInfo;
+    private ClientInfoAdapter clientInfoAdapter;
 
     private static final String CLIENT_PAGE_BUNDLE = "clientPageBundle";
 
@@ -27,7 +32,8 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         // View binding so that findViewById() doesn't have to be used
         binding = FragmentClientpageBinding.inflate(inflater, container, false);
 
-        setClientInfo();
+        setupClientInfoCard();
+        setupRecyclerView();
 
         return binding.getRoot();
     }
@@ -39,7 +45,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         binding = null;
     }
 
-    private void setClientInfo() {
+    private void setupClientInfoCard() {
         clientInfo = (ClientInfo) getArguments().getSerializable(CLIENT_PAGE_BUNDLE);
 
         binding.clientPageNameText.setText(clientInfo.getFullName());
@@ -47,6 +53,20 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         binding.clientPageAgeText.setText(getString(R.string.age_clientpage, clientInfo.getAge().toString()));
         binding.clientPageDisabilityText.setText(getString(R.string.disability_clientpage, clientInfo.getDisabilityList()));
     }
+
+    private void setupRecyclerView() {
+        RecyclerView recyclerView = binding.clientPageInfoList;
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+
+        recyclerView.setLayoutManager(linearLayoutManager);
+        clientInfoAdapter = new ClientInfoAdapter(getActivity(), clientInfo);
+        recyclerView.setAdapter(clientInfoAdapter);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                linearLayoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
+    }
+
 
     @Override
     public void setPresenter(ClientPageContract.Presenter presenter) {

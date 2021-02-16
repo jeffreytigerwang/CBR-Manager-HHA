@@ -2,7 +2,6 @@ package com.example.cbr.model;
 
 import com.example.cbr.util.Constants;
 
-import java.io.DataInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

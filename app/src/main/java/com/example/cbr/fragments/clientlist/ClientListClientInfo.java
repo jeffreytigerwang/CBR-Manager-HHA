@@ -13,7 +13,7 @@ public class ClientListClientInfo {
         this.id = id;
         this.name = name;
         this.location = location;
-        this.photo = R.drawable.ic_baseline_list_24;
+        this.photo = R.drawable.ic_baseline_person_24;
     }
 
     public String getId() {
@@ -44,7 +44,8 @@ public class ClientListClientInfo {
         return photo;
     }
 
-    private int matchLogo() {
+    // TODO: Fetch client name from database, compare name to display the correct photo.
+    private int matchPhoto() {
         //name = this.getName();
         return R.drawable.ic_baseline_list_24;
     }

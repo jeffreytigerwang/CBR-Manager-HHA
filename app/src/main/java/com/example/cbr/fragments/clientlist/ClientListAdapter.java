@@ -1,5 +1,5 @@
 /**
- * The following ListView Adapter is inspired Android Beginner Tutorial #8 - Custom ListView Adapter For Displaying Multiple Columns.
+ * The following ListView Adapter is inspired by Android Beginner Tutorial #8 - Custom ListView Adapter For Displaying Multiple Columns.
  * URL: https://www.youtube.com/watch?v=E6vE8fqQPTE
  */
 

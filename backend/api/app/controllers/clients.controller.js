@@ -14,24 +14,24 @@ exports.create = (req, res) => {
 
   // Create Item
   const client = {
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    location_gps: req.body.location_gps,
-    location_zone: req.body.location_zone,
-    village_number: req.body.village_number,
-    date_joined: req.body.date_joined,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    locationGps: req.body.locationGps,
+    locationZone: req.body.locationZone,
+    villageNumber: req.body.villageNumber,
+    dateJoined: req.body.dateJoined,
     gender: req.body.gender,
     age: req.body.age,
-    contact_number: req.body.contact_number,
-    caregiver_contact: req.body.caregiver_contact,
-    caregiver_present: req.body.caregiver_present,
+    contactNumber: req.body.contactNumber,
+    caregiverContact: req.body.caregiverContact,
+    caregiverPresent: req.body.caregiverPresent,
     photo: req.body.photo,
     disability: req.body.disability,
-    health_id: req.body.health_id,
-    education_id: req.body.education_id,
-    social_id: req.body.social_id,
-    visits_id: req.body.visits_id,
-    referral_id: req.body.referral_id
+    healthId: req.body.healthId,
+    educationId: req.body.educationId,
+    socialId: req.body.socialId,
+    visitsId: req.body.visitsId,
+    referralId: req.body.referralId
   };
 
   // Save item in database

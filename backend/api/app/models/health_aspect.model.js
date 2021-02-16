@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const Health = sequelize.define("Health", {
-        risk_level: {
+        riskLevel: {
             type: Sequelize.STRING
         },
         requirements: {
@@ -9,7 +9,7 @@ module.exports = (sequelize, Sequelize) => {
         goal: {
             type: Sequelize.STRING
         },
-        progress_ids: {
+        progressIds: {
             type: Sequelize.ARRAY(Sequelize.INTEGER)
         }
 

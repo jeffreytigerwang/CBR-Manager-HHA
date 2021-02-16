@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new data
 exports.create = (req, res) => {
   // Validate Request
-  if (!req.body.help_provided) {
+  if (!req.body.helpProvided) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -14,9 +14,9 @@ exports.create = (req, res) => {
 
   // Create Item
   const educationProgress = {
-    help_provided: req.body.help_provided,
-    goal_outcome: req.body.goal_outcome,
-    conclusion: req.body.goal_outcome
+    helpProvided: req.body.helpProvided,
+    goalOutcome: req.body.goalOutcome,
+    conclusion: req.body.conclusion
   };
 
   // Save item in database
@@ -35,7 +35,7 @@ exports.create = (req, res) => {
 
 // Retrieve all data from the database.
 exports.findAll = (req, res) => {
- 
+
   EducationProgress.findAll()
     .then(data => {
       res.send(data);

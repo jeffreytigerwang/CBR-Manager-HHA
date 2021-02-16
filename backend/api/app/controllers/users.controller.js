@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new data
 exports.create = (req, res) => {
   // Validate Request
-  if (!req.body.first_name) {
+  if (!req.body.firstName) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -14,11 +14,11 @@ exports.create = (req, res) => {
 
   // Create Item
   const user = {
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     email: req.body.email,
     password: req.body.password,
-    priority_level: req.body.priority_level,
+    priorityLevel: req.body.priorityLevel,
     zone: req.body.zone
   };
 
@@ -38,7 +38,7 @@ exports.create = (req, res) => {
 
 // Retrieve all data from the database.
 exports.findAll = (req, res) => {
- 
+
   Users.findAll()
     .then(data => {
       res.send(data);

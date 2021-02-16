@@ -15,15 +15,15 @@ exports.create = (req, res) => {
   // Create a visit
   const visit = {
     purpose: req.body.purpose,
-    life_aspect: req.body.life_aspect,
+    lifeAspect: req.body.lifeAspect,
     date: req.body.date,
-    worker_name: req.body.worker_name,
-    location_gps: req.body.location_gps,
-    location_zone: req.body.location_zone,
-    location_number: req.body.location_number,
-    health_progress_id: req.body.health_progress_id,
-    education_progress_id: req.body.education_progress_id,
-    social_progress_id: req.body.social_progress_id
+    workerName: req.body.workerName,
+    locationGps: req.body.locationGps,
+    locationZone: req.body.locationZone,
+    locationNumber: req.body.locationNumber,
+    healthProgressId: req.body.healthProgressId,
+    educationProgressId: req.body.educationProgressId,
+    socialProgressId: req.body.socialProgressId
   };
 
   // Save item in database

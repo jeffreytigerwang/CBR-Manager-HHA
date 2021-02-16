@@ -3,31 +3,31 @@ module.exports = (sequelize, Sequelize) => {
         purpose: {
             type: Sequelize.STRING
         },
-        life_aspect: {
+        lifeAspect: {
             type: Sequelize.STRING
         },
         date: {
             type: Sequelize.DATE
         },
-        worker_name: {
+        workerName: {
             type: Sequelize.STRING
         },
-        location_gps: {
+        locationGps: {
             type: Sequelize.STRING
         },
-        location_zone: {
+        locationZone: {
             type: Sequelize.STRING
         },
-        village_number: {
+        villageNumber: {
             type: Sequelize.INTEGER
         },
-        health_progress_id: {
+        healthProgressId: {
             type: Sequelize.INTEGER
         },
-        education_progress_id: {
+        educationProgressId: {
             type: Sequelize.INTEGER
         },
-        social_progress_id: {
+        socialProgressId: {
             type: Sequelize.INTEGER
         }
     });

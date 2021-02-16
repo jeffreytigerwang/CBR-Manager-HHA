@@ -1,9 +1,9 @@
 module.exports = (sequelize, Sequelize) => {
     const HealthProgress = sequelize.define("HealthProgress", {
-        help_provided: {
+        helpProvided: {
             type: Sequelize.STRING
         },
-        goal_outcome: {
+        goalOutcome: {
             type: Sequelize.STRING
         },
         conclusion: {

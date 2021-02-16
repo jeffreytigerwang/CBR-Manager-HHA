@@ -1,9 +1,9 @@
 module.exports = (sequelize, Sequelize) => {
     const EducationProgress = sequelize.define("EducationProgress", {
-        help_provided: {
+        helpProvided: {
             type: Sequelize.STRING
         },
-        goal_outcome: {
+        goalOutcome: {
             type: Sequelize.STRING
         },
         conclusion: {
@@ -11,6 +11,6 @@ module.exports = (sequelize, Sequelize) => {
         }
 
     });
-    
+
     return EducationProgress;
 };

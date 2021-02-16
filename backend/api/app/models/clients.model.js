@@ -1,21 +1,21 @@
 module.exports = (sequelize, Sequelize) => {
     const Client = sequelize.define("Client", {
-        first_name: {
+        firstName: {
             type: Sequelize.STRING
         },
-        last_name: {
+        lastName: {
             type: Sequelize.STRING
         },
-        location_gps: {
+        locationGps: {
             type: Sequelize.STRING
         },
-        location_zone: {
+        locationZone: {
             type: Sequelize.STRING
         },
-        village_number: {
+        villageNumber: {
             type: Sequelize.INTEGER
         },
-        date_joined: {
+        dateJoined: {
             type: Sequelize.DATE
         },
         gender: {
@@ -24,13 +24,13 @@ module.exports = (sequelize, Sequelize) => {
         age: {
             type: Sequelize.INTEGER
         },
-        contact_number: {
+        contactNumber: {
             type: Sequelize.STRING
         },
-        caregiver_present: {
+        caregiverPresent: {
             type: Sequelize.BOOLEAN
         },
-        caregiver_contact: {
+        caregiverContact: {
             type: Sequelize.INTEGER
         },
         photo: {
@@ -39,19 +39,19 @@ module.exports = (sequelize, Sequelize) => {
         disability: {
             type: Sequelize.STRING
         },
-        health_id: {
+        healthId: {
             type: Sequelize.INTEGER
         },
-        education_id: {
+        educationId: {
             type: Sequelize.INTEGER
         },
-        social_id: {
+        socialId: {
             type: Sequelize.INTEGER
         },
-        visits_id: {
+        visitsId: {
             type: Sequelize.INTEGER
         },
-        referral_id: {
+        referralId: {
             type: Sequelize.INTEGER
         }
 

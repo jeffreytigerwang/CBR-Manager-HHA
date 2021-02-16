@@ -37,6 +37,7 @@ db.sequelize = sequelize;
 
 db.test_data = require("./test_data.model.js")(sequelize, Sequelize);
 db.clients = require("./clients.model.js")(sequelize, Sequelize);
+db.visits = require("./clients.visits.js")(sequelize, Sequelize);
 
 module.exports = db;
 

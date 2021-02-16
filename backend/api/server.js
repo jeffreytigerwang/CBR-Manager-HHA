@@ -38,11 +38,11 @@ require("./app/routes/clients.routes")(app);
 require("./app/routes/visits.routes")(app);
 
 require("./app/routes/users.routes")(app);
-require("./app/routes/education_aspect.routes")(app);
+//require("./app/routes/education_aspect.routes")(app);
 require("./app/routes/education_progress.routes")(app);
-require("./app/routes/health_aspect.routes")(app);
+//require("./app/routes/health_aspect.routes")(app);
 require("./app/routes/health_progress.routes")(app);
-require("./app/routes/social_aspect.routes")(app);
+//require("./app/routes/social_aspect.routes")(app);
 require("./app/routes/social_progress.routes")(app);
 
 

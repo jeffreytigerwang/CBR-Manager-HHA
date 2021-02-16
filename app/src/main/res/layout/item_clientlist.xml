@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:text="@string/sample_id"
-            android:textColor="@color/cbrBlack"
+            android:textColor="@color/grey"
             android:textSize="12sp" />
 
         <TextView
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:text="@string/sample_location"
-            android:textColor="@color/cbrBlack"
+            android:textColor="@color/grey"
             android:textSize="12sp" />
 
     </LinearLayout>

@@ -98,7 +98,7 @@ public class TempHomeFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                tempHomeFragmentInterface.swapToNewClient();
             }
         });
     }
@@ -113,6 +113,6 @@ public class TempHomeFragment extends Fragment {
 
     public interface TempHomeFragmentInterface {
         void swapToClientList();
-        void swapToClientPage();
+        void swapToNewClient();
     }
 }

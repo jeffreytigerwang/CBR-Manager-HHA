@@ -30,5 +30,7 @@ module.exports = (sequelize, Sequelize) => {
         social_progress_id: {
             type: Sequelize.INTEGER
         }
-    })
+    });
+
+    return Visits;
 };

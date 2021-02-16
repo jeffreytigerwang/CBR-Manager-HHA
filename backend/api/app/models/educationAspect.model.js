@@ -13,5 +13,7 @@ module.exports = (sequelize, Sequelize) => {
 
         }
 
-    })
+    });
+
+    return Education;
 };

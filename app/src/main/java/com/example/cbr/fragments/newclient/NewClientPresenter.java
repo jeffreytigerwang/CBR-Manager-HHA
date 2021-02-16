@@ -13,7 +13,7 @@ public class NewClientPresenter implements NewClientContract.Presenter {
 
     @Override
     public void onButtonClicked() {
-        newClientView.displayString("Sample string, maybe get this from model");
+
     }
 
     @Override

@@ -139,11 +139,6 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         });
     }
 
-
-    @Override
-    public void displayString(String string) {
-    }
-
     @Override
     public void setPresenter(NewClientContract.Presenter presenter) {
         newClientPresenter = presenter;

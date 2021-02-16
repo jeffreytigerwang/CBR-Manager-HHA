@@ -12,7 +12,7 @@ public interface NewClientContract {
     }
 
     interface View extends BaseView<Presenter> {
-        void displayString(String string);
+
 
     }
 }

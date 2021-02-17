@@ -104,6 +104,7 @@ public class NewVisitActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO: 2021-02-11 save data to db
+                saveSession(pageNum);
                 finish();
             }
         });

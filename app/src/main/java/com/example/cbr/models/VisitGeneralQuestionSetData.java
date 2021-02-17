@@ -5,13 +5,13 @@ public class VisitGeneralQuestionSetData {
     private boolean isHealthChecked;
     private boolean isEducationChecked;
     private boolean isSocialChecked;
+
     private String purposeOfVisit;
     private String dateOfVisit;
     private String workerName;
     private String locationOfVisit;
     private String villageNumber;
     private String siteLocation;
-    private int siteLocationSpinnerSelectedPosition;
 
     public VisitGeneralQuestionSetData() {
         this.purposeOfVisit = "";
@@ -92,13 +92,5 @@ public class VisitGeneralQuestionSetData {
 
     public void setSiteLocation(String siteLocation) {
         this.siteLocation = siteLocation;
-    }
-
-    public int getSiteLocationSpinnerSelectedPosition() {
-        return siteLocationSpinnerSelectedPosition;
-    }
-
-    public void setSiteLocationSpinnerSelectedPosition(int siteLocationSpinnerSelectedPosition) {
-        this.siteLocationSpinnerSelectedPosition = siteLocationSpinnerSelectedPosition;
     }
 }

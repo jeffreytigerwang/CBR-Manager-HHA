@@ -9,6 +9,7 @@
     <color name="cbrViolet">#904e98</color>
     <color name="cbrBlack">#000000</color>
     <color name="white">#ffffff</color>
+    <color name="grey">#808080</color>
 
 
 </resources>

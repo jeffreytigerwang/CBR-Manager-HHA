@@ -24,7 +24,7 @@ import com.example.cbr.R;
 import com.example.cbr.databinding.ActivityNewVisitBinding;
 import com.example.cbr.databinding.FragmentVisitFirstQuestionSetBinding;
 import com.example.cbr.models.Constants;
-import com.example.cbr.models.VisitCheckContainer;
+import com.example.cbr.models.VisitGeneralQuestionSetData;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -49,9 +49,8 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     private final ActivityNewVisitBinding containerBinding;
     private FragmentVisitFirstQuestionSetBinding binding;
 
-    private final VisitCheckContainer visitCheckContainer;
+    private final VisitGeneralQuestionSetData dataContainer;
     private FragmentActivity activity;
-    private final Context context;
 
     private CheckBox health;
     private CheckBox education;
@@ -68,11 +67,9 @@ public class VisitFirstQuestionSetFragment extends Fragment {
 
     public VisitFirstQuestionSetFragment(
             ActivityNewVisitBinding containerBinding,
-            VisitCheckContainer visitCheckContainer,
-            Context context) {
+            VisitGeneralQuestionSetData dataContainer) {
         this.containerBinding = containerBinding;
-        this.visitCheckContainer = visitCheckContainer;
-        this.context = context;
+        this.dataContainer = dataContainer;
     }
 
     @Override
@@ -93,49 +90,10 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     private void preLoadViews() {
         findViews();
 
-        SharedPreferences sharedPref = context.getSharedPreferences(Constants.QUESTION_SET_1_PREF_NAME, Context.MODE_PRIVATE);
+        Date currentTime = Calendar.getInstance().getTime();
+        date.setText(currentTime.toString());
 
-        boolean isHealthChecked = sharedPref.getBoolean(IS_HEALTH_CHECKED_KEY, false);
-        boolean isEducationChecked = sharedPref.getBoolean(IS_EDUCATION_CHECKED_KEY, false);
-        boolean isSocialChecked = sharedPref.getBoolean(IS_SOCIAL_CHECKED_KEY, false);
-        String purpose = sharedPref.getString(PURPOSE_OF_VISIT_KEY, "");
-        String dateOfVisit = sharedPref.getString(DATE_OF_VISIT_KEY, "");
-        String workerName = sharedPref.getString(NAME_OF_CBR_WORKER_KEY, "");
-        String locationOfVisit = sharedPref.getString(LOCATION_OF_VISIT_KEY, "");
-        int siteLocationSpinnerSelectedPosition = sharedPref.getInt(
-                SITE_LOCATION_SPINNER_SELECTED_POSITION_KEY, 0);
-        String villageNumber = sharedPref.getString(VILLAGE_NUMBER_KEY, "");
-
-        if (purpose.equalsIgnoreCase(CBR)) {
-            questionOne.check(R.id.newVisit_CBRRadioButton);
-
-            int unlockedColor = ContextCompat.getColor(context, R.color.cbrBlack);
-            toggleQuestionTwo(unlockedColor, true);
-
-        } else if (purpose.equalsIgnoreCase(DCR)) {
-            questionOne.check(R.id.newVisit_DCRradioButton);
-        } else if (purpose.equalsIgnoreCase(DCRFU)) {
-            questionOne.check(R.id.newVisit_DCRFURadioButton);
-        }
-        health.setChecked(isHealthChecked);
-        education.setChecked(isEducationChecked);
-        social.setChecked(isSocialChecked);
-
-        if (dateOfVisit.isEmpty()) {
-            Date currentTime = Calendar.getInstance().getTime();
-            date.setText(currentTime.toString());
-        } else {
-            date.setText(dateOfVisit);
-        }
-
-        if (workerName.isEmpty()) {
-            // TODO: 2021-02-15 fill worker name
-        } else {
-            cbrWorkerName.setText(workerName);
-        }
-        this.location.setText(locationOfVisit);
-        spinnerLocation.setSelection(siteLocationSpinnerSelectedPosition);
-        this.villageNumber.setText(villageNumber);
+        cbrWorkerName.setText(dataContainer.getWorkerName());
     }
 
     private void findViews() {
@@ -156,48 +114,36 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     }
 
     private void setupSpinner() {
-        String[] locations = new String[] {
-                "BidiBidi Zone 1",
-                "BidiBidi Zone 2",
-                "BidiBidi Zone 3",
-                "BidiBidi Zone 4",
-                "BidiBidi Zone 5",
-                "Palorinya Basecamp",
-                "Palorinya Zone 1",
-                "Palorinya Zone 2",
-                "Palorinya Zone 3"
-        };
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 activity,
                 android.R.layout.simple_spinner_item,
-                locations
+                com.example.cbr.util.Constants.ZONES
         );
 
         spinnerLocation.setAdapter(adapter);
 
         String selectedItem = spinnerLocation.getSelectedItem().toString();
-        visitCheckContainer.setSiteLocation(selectedItem);
-        visitCheckContainer.setSiteLocationSpinnerSelectedPosition(spinnerLocation.getSelectedItemPosition());
+        dataContainer.setSiteLocation(selectedItem);
+        dataContainer.setSiteLocationSpinnerSelectedPosition(spinnerLocation.getSelectedItemPosition());
     }
 
     private void setupCheckBox() {
         health.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                visitCheckContainer.setHealthChecked(isChecked);
+                dataContainer.setHealthChecked(isChecked);
             }
         });
         education.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                visitCheckContainer.setEducationChecked(isChecked);
+                dataContainer.setEducationChecked(isChecked);
             }
         });
         social.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                visitCheckContainer.setSocialChecked(isChecked);
+                dataContainer.setSocialChecked(isChecked);
             }
         });
     }
@@ -209,18 +155,18 @@ public class VisitFirstQuestionSetFragment extends Fragment {
                 resetQuestionTwo();
 
                 if (checkedId == R.id.newVisit_CBRRadioButton) {
-                    visitCheckContainer.setPurposeOfVisit(CBR);
+                    dataContainer.setPurposeOfVisit(CBR);
 
                     int unlockedColor = ContextCompat.getColor(getContext(), R.color.cbrBlack);
                     toggleQuestionTwo(unlockedColor, true);
                     toggleRecordButton(View.VISIBLE, View.GONE);
 
                 } else if (checkedId == R.id.newVisit_DCRradioButton) {
-                    visitCheckContainer.setPurposeOfVisit(DCR);
+                    dataContainer.setPurposeOfVisit(DCR);
                     toggleRecordButton(View.GONE, View.VISIBLE);
 
                 } else if (checkedId == R.id.newVisit_DCRFURadioButton) {
-                    visitCheckContainer.setPurposeOfVisit(DCRFU);
+                    dataContainer.setPurposeOfVisit(DCRFU);
                     toggleRecordButton(View.GONE, View.VISIBLE);
                 }
             }
@@ -255,9 +201,9 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         education.setChecked(false);
         social.setChecked(false);
 
-        visitCheckContainer.setHealthChecked(false);
-        visitCheckContainer.setEducationChecked(false);
-        visitCheckContainer.setSocialChecked(false);
+        dataContainer.setHealthChecked(false);
+        dataContainer.setEducationChecked(false);
+        dataContainer.setSocialChecked(false);
     }
 
     public EditText getDate() {

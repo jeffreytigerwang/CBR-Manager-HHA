@@ -1,7 +1,5 @@
 package com.example.cbr.fragments.newvisit;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,36 +10,14 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentVisitSecondQuestionSetBinding;
-import com.example.cbr.models.Constants;
 import com.example.cbr.models.VisitHealthQuestionSetData;
-
-import static com.example.cbr.models.Constants.CANCELLED;
-import static com.example.cbr.models.Constants.CONCLUDED;
-import static com.example.cbr.models.Constants.HEALTH_ADVICE_DESC_KEY;
-import static com.example.cbr.models.Constants.HEALTH_ADVOCACY_DESC_KEY;
-import static com.example.cbr.models.Constants.HEALTH_ENCOURAGEMENT_WR_DESC_KEY;
-import static com.example.cbr.models.Constants.HEALTH_GOAL_STATUS;
-import static com.example.cbr.models.Constants.HEALTH_OUTCOME_DESC_KEY;
-import static com.example.cbr.models.Constants.IS_HEALTH_ADVICE_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_HEALTH_ADVOCACY_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_HEALTH_ENCOURAGEMENT_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_ORTHOTIC_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_PROSTHETIC_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_REFERRAL_TO_HC_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_WHEEL_CHAIR_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_WR_CHECKED_KEY;
-import static com.example.cbr.models.Constants.ONGOING;
-import static com.example.cbr.models.Constants.ORTHOTIC_DESC_KEY;
-import static com.example.cbr.models.Constants.PROSTHETIC_DESC_KEY;
-import static com.example.cbr.models.Constants.REFERRAL_TO_HC_DESC_KEY;
-import static com.example.cbr.models.Constants.WHEEL_CHAIR_DESC_KEY;
-import static com.example.cbr.models.Constants.WR_DESC_KEY;
+import com.example.cbr.util.Constants;
 
 public class VisitSecondQuestionSetFragment extends Fragment {
 
@@ -120,11 +96,11 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         editTextHealthOutcome.setText(dataContainer.getHealthOutcomeDesc());
 
         String goalStatus = dataContainer.getHealthGoalStatus();
-        if (goalStatus.equalsIgnoreCase(CANCELLED)) {
+        if (goalStatus.equalsIgnoreCase(Constants.CANCELLED)) {
             this.goalStatus.check(R.id.newVisit_healthCancelledRadioButton);
-        } else if (goalStatus.equalsIgnoreCase(ONGOING)) {
+        } else if (goalStatus.equalsIgnoreCase(Constants.ONGOING)) {
             this.goalStatus.check(R.id.newVisit_healthOngoingRadioButton);
-        } else if (goalStatus.equalsIgnoreCase(CONCLUDED)) {
+        } else if (goalStatus.equalsIgnoreCase(Constants.CONCLUDED)) {
             this.goalStatus.check(R.id.newVisit_healthConcludedRadioButton);
             question10.setVisibility(View.VISIBLE);
             editTextHealthOutcome.setVisibility(View.VISIBLE);
@@ -164,7 +140,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
                 if (checkedId == R.id.newVisit_healthConcludedRadioButton) {
-                    dataContainer.setHealthGoalStatus(CONCLUDED);
+                    dataContainer.setHealthGoalStatus(Constants.CONCLUDED);
 
                     question10.setVisibility(View.VISIBLE);
                     editTextHealthOutcome.setVisibility(View.VISIBLE);
@@ -173,10 +149,10 @@ public class VisitSecondQuestionSetFragment extends Fragment {
                     editTextHealthOutcome.setVisibility(View.GONE);
                 }
                 if (checkedId == R.id.newVisit_healthOngoingRadioButton) {
-                    dataContainer.setHealthGoalStatus(ONGOING);
+                    dataContainer.setHealthGoalStatus(Constants.ONGOING);
 
                 } else if (checkedId == R.id.newVisit_healthCancelledRadioButton) {
-                    dataContainer.setHealthGoalStatus(CANCELLED);
+                    dataContainer.setHealthGoalStatus(Constants.CANCELLED);
                 }
             }
         });

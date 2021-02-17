@@ -1,7 +1,5 @@
 package com.example.cbr.fragments.newvisit;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,24 +21,11 @@ import androidx.fragment.app.FragmentActivity;
 import com.example.cbr.R;
 import com.example.cbr.databinding.ActivityNewVisitBinding;
 import com.example.cbr.databinding.FragmentVisitFirstQuestionSetBinding;
-import com.example.cbr.models.Constants;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
+import com.example.cbr.util.Constants;
 
 import java.util.Calendar;
 import java.util.Date;
-
-import static com.example.cbr.models.Constants.CBR;
-import static com.example.cbr.models.Constants.DATE_OF_VISIT_KEY;
-import static com.example.cbr.models.Constants.DCR;
-import static com.example.cbr.models.Constants.DCRFU;
-import static com.example.cbr.models.Constants.IS_EDUCATION_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_HEALTH_CHECKED_KEY;
-import static com.example.cbr.models.Constants.IS_SOCIAL_CHECKED_KEY;
-import static com.example.cbr.models.Constants.LOCATION_OF_VISIT_KEY;
-import static com.example.cbr.models.Constants.NAME_OF_CBR_WORKER_KEY;
-import static com.example.cbr.models.Constants.PURPOSE_OF_VISIT_KEY;
-import static com.example.cbr.models.Constants.SITE_LOCATION_SPINNER_SELECTED_POSITION_KEY;
-import static com.example.cbr.models.Constants.VILLAGE_NUMBER_KEY;
 
 public class VisitFirstQuestionSetFragment extends Fragment {
 
@@ -155,18 +140,18 @@ public class VisitFirstQuestionSetFragment extends Fragment {
                 resetQuestionTwo();
 
                 if (checkedId == R.id.newVisit_CBRRadioButton) {
-                    dataContainer.setPurposeOfVisit(CBR);
+                    dataContainer.setPurposeOfVisit(Constants.CBR);
 
                     int unlockedColor = ContextCompat.getColor(getContext(), R.color.cbrBlack);
                     toggleQuestionTwo(unlockedColor, true);
                     toggleRecordButton(View.VISIBLE, View.GONE);
 
                 } else if (checkedId == R.id.newVisit_DCRradioButton) {
-                    dataContainer.setPurposeOfVisit(DCR);
+                    dataContainer.setPurposeOfVisit(Constants.DCR);
                     toggleRecordButton(View.GONE, View.VISIBLE);
 
                 } else if (checkedId == R.id.newVisit_DCRFURadioButton) {
-                    dataContainer.setPurposeOfVisit(DCRFU);
+                    dataContainer.setPurposeOfVisit(Constants.DCRFU);
                     toggleRecordButton(View.GONE, View.VISIBLE);
                 }
             }

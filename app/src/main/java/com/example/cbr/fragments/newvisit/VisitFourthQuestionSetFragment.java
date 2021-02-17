@@ -1,6 +1,5 @@
 package com.example.cbr.fragments.newvisit;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,17 +10,14 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentVisitFourthQuestionSetBinding;
 import com.example.cbr.models.VisitSocialQuestionSetData;
-
-import static com.example.cbr.models.Constants.CANCELLED;
-import static com.example.cbr.models.Constants.CONCLUDED;
-import static com.example.cbr.models.Constants.ONGOING;
+import com.example.cbr.util.Constants;
 
 public class VisitFourthQuestionSetFragment extends Fragment {
 
@@ -77,11 +73,11 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         editTextSocialOutcome.setText(dataContainer.getSocialOutcomeDesc());
 
         String goalStatus = dataContainer.getSocialGoalStatus();
-        if (goalStatus.equalsIgnoreCase(CANCELLED)) {
+        if (goalStatus.equalsIgnoreCase(Constants.CANCELLED)) {
             this.goalStatus.check(R.id.newVisit_healthCancelledRadioButton);
-        } else if (goalStatus.equalsIgnoreCase(ONGOING)) {
+        } else if (goalStatus.equalsIgnoreCase(Constants.ONGOING)) {
             this.goalStatus.check(R.id.newVisit_healthOngoingRadioButton);
-        } else if (goalStatus.equalsIgnoreCase(CONCLUDED)) {
+        } else if (goalStatus.equalsIgnoreCase(Constants.CONCLUDED)) {
             this.goalStatus.check(R.id.newVisit_healthConcludedRadioButton);
             question16.setVisibility(View.VISIBLE);
             editTextSocialOutcome.setVisibility(View.VISIBLE);
@@ -120,7 +116,7 @@ public class VisitFourthQuestionSetFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
                 if (checkedId == R.id.newVisit_socialConcludedRadioButton) {
-                    dataContainer.setSocialGoalStatus(CONCLUDED);
+                    dataContainer.setSocialGoalStatus(Constants.CONCLUDED);
                     question16.setVisibility(View.VISIBLE);
                     editTextSocialOutcome.setVisibility(View.VISIBLE);
                 } else {
@@ -128,10 +124,10 @@ public class VisitFourthQuestionSetFragment extends Fragment {
                     editTextSocialOutcome.setVisibility(View.GONE);
                 }
                 if (checkedId == R.id.newVisit_socialCancelledRadioButton) {
-                    dataContainer.setSocialGoalStatus(CANCELLED);
+                    dataContainer.setSocialGoalStatus(Constants.CANCELLED);
                 }
                 if (checkedId == R.id.newVisit_socialOngoingRadioButton) {
-                    dataContainer.setSocialGoalStatus(ONGOING);
+                    dataContainer.setSocialGoalStatus(Constants.ONGOING);
                 }
             }
         });

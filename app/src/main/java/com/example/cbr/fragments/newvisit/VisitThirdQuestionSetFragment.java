@@ -1,7 +1,5 @@
 package com.example.cbr.fragments.newvisit;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,28 +10,14 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentVisitThirdQuestionSetBinding;
-import com.example.cbr.models.Constants;
 import com.example.cbr.models.VisitEducationQuestionSetData;
-
-import static com.example.cbr.models.Constants.CANCELLED;
-import static com.example.cbr.models.Constants.CONCLUDED;
-import static com.example.cbr.models.Constants.EDUCATION_ADVICE_DESC;
-import static com.example.cbr.models.Constants.EDUCATION_ADVOCACY_DESC;
-import static com.example.cbr.models.Constants.EDUCATION_ENCOURAGEMENT_DESC;
-import static com.example.cbr.models.Constants.EDUCATION_GOAL_STATUS;
-import static com.example.cbr.models.Constants.EDUCATION_OUTCOME_DESC;
-import static com.example.cbr.models.Constants.EDUCATION_REF_DESC;
-import static com.example.cbr.models.Constants.IS_EDUCATION_ADVICE_CHECKED;
-import static com.example.cbr.models.Constants.IS_EDUCATION_ADVOCACY_CHECKED;
-import static com.example.cbr.models.Constants.IS_EDUCATION_ENCOURAGEMENT_CHECKED;
-import static com.example.cbr.models.Constants.IS_EDUCATION_REF_CHECKED;
-import static com.example.cbr.models.Constants.ONGOING;
+import com.example.cbr.util.Constants;
 
 public class VisitThirdQuestionSetFragment extends Fragment {
 
@@ -89,11 +73,11 @@ public class VisitThirdQuestionSetFragment extends Fragment {
         editTextEducationOutcome.setText(dataContainer.getEducationOutcomeDesc());
 
         String goalStatus = dataContainer.getEducationGoalStatus();
-        if (goalStatus.equalsIgnoreCase(CANCELLED)) {
+        if (goalStatus.equalsIgnoreCase(Constants.CANCELLED)) {
             this.goalStatus.check(R.id.newVisit_healthCancelledRadioButton);
-        } else if (goalStatus.equalsIgnoreCase(ONGOING)) {
+        } else if (goalStatus.equalsIgnoreCase(Constants.ONGOING)) {
             this.goalStatus.check(R.id.newVisit_healthOngoingRadioButton);
-        } else if (goalStatus.equalsIgnoreCase(CONCLUDED)) {
+        } else if (goalStatus.equalsIgnoreCase(Constants.CONCLUDED)) {
             this.goalStatus.check(R.id.newVisit_healthConcludedRadioButton);
             question13.setVisibility(View.VISIBLE);
             editTextEducationOutcome.setVisibility(View.VISIBLE);
@@ -131,7 +115,7 @@ public class VisitThirdQuestionSetFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
                 if (checkedId == R.id.newVisit_educationConcludedRadioButton) {
-                    dataContainer.setEducationGoalStatus(CONCLUDED);
+                    dataContainer.setEducationGoalStatus(Constants.CONCLUDED);
                     question13.setVisibility(View.VISIBLE);
                     editTextEducationOutcome.setVisibility(View.VISIBLE);
                 } else {
@@ -139,10 +123,10 @@ public class VisitThirdQuestionSetFragment extends Fragment {
                     editTextEducationOutcome.setVisibility(View.GONE);
                 }
                 if (checkedId == R.id.newVisit_educationCancelledRadioButton) {
-                    dataContainer.setEducationGoalStatus(CANCELLED);
+                    dataContainer.setEducationGoalStatus(Constants.CANCELLED);
                 }
                 if (checkedId == R.id.newVisit_educationOngoingRadioButton) {
-                    dataContainer.setEducationGoalStatus(ONGOING);
+                    dataContainer.setEducationGoalStatus(Constants.ONGOING);
                 }
             }
         });

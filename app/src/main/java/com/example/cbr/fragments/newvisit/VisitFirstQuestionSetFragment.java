@@ -102,7 +102,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 activity,
                 android.R.layout.simple_spinner_item,
-                com.example.cbr.util.Constants.ZONES
+                getResources().getStringArray(R.array.locations_array)
         );
 
         spinnerLocation.setAdapter(adapter);

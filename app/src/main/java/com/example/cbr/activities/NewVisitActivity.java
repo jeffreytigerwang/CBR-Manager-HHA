@@ -31,7 +31,6 @@ public class NewVisitActivity extends AppCompatActivity {
 
     private ActivityNewVisitBinding binding;
 
-    private static final String VISIT_RECORD = "visitCheckContainer";
     private static final String CLIENT_ID = "clientID";
     private static final String LOG_TAG = "NewVisitActivity";
 

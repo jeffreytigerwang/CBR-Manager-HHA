@@ -1,6 +1,7 @@
 package com.example.cbr.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,7 +12,9 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.cbr.activities.NewVisitActivity;
 import com.example.cbr.databinding.FragmentHomeBinding;
+import com.example.cbr.models.VisitCheckContainer;
 
 public class TempHomeFragment extends Fragment {
 
@@ -87,7 +90,12 @@ public class TempHomeFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = NewVisitActivity.makeLaunchIntent(
+                        getActivity(),
+                        -1,
+                        new VisitCheckContainer()
+                );
+                startActivity(intent);
             }
         });
     }

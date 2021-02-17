@@ -21,9 +21,7 @@ exports.create = (req, res) => {
     locationGps: req.body.locationGps,
     locationZone: req.body.locationZone,
     locationNumber: req.body.locationNumber,
-    healthProgressId: req.body.healthProgressId,
-    educationProgressId: req.body.educationProgressId,
-    socialProgressId: req.body.socialProgressId
+    clientId: req.body.clientId
   };
 
   // Save item in database

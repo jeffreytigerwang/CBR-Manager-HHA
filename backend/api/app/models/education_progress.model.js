@@ -8,6 +8,12 @@ module.exports = (sequelize, Sequelize) => {
         },
         conclusion: {
             type: Sequelize.STRING
+        },
+        clientId: {
+            type: Sequelize.INTEGER
+        },        
+        visitId: {
+            type: Sequelize.STRING
         }
 
     });

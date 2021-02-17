@@ -17,8 +17,7 @@ exports.create = (req, res) => {
     riskLevel: req.body.riskLevel,
     requirements: req.body.requirements,
     goal: req.body.goal,
-    progressIds: req.body.progressIds
-
+    clientId: req.body.clientId
   };
 
   // Save item in database

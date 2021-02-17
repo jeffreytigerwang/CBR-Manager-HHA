@@ -21,15 +21,10 @@ module.exports = (sequelize, Sequelize) => {
         villageNumber: {
             type: Sequelize.INTEGER
         },
-        healthProgressId: {
-            type: Sequelize.INTEGER
-        },
-        educationProgressId: {
-            type: Sequelize.INTEGER
-        },
-        socialProgressId: {
+        clientId: {
             type: Sequelize.INTEGER
         }
+
     });
 
     return Visits;

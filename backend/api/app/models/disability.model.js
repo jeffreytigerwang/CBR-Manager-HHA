@@ -1,7 +1,8 @@
 module.exports = (sequelize, Sequelize) => {
     const Disability = sequelize.define("Disability", {
         clientId: {
-            type: Sequelize.INTEGER},
+            type: Sequelize.INTEGER
+        },
         amputeeDisability: {
             type: Sequelize.BOOLEAN
         },
@@ -31,7 +32,11 @@ module.exports = (sequelize, Sequelize) => {
         },
         otherDisability: {
             type: Sequelize.BOOLEAN
+        },
+        specifyDisability: {
+            type: Sequelize.STRING
         }
+        
     });
 
     return Disability;

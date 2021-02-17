@@ -9,8 +9,8 @@ module.exports = (sequelize, Sequelize) => {
         goal: {
             type: Sequelize.STRING
         },
-        progressIds: {
-            type: Sequelize.ARRAY(Sequelize.INTEGER)
+        clientId: {
+            type: Sequelize.INTEGER
         }
 
     });

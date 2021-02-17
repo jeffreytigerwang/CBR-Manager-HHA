@@ -16,7 +16,9 @@ exports.create = (req, res) => {
   const healthProgress = {
     helpProvided: req.body.helpProvided,
     goalOutcome: req.body.goalOutcome,
-    conclusion: req.body.conclusion
+    conclusion: req.body.conclusion,
+    clientId: req.body.clientId,
+    visitId: req.body.visitId
   };
 
   // Save item in database

@@ -35,22 +35,8 @@ module.exports = (sequelize, Sequelize) => {
         },
         photo: {
             type: Sequelize.BLOB('long')
-        },
-        healthId: {
-            type: Sequelize.INTEGER
-        },
-        educationId: {
-            type: Sequelize.INTEGER
-        },
-        socialId: {
-            type: Sequelize.INTEGER
-        },
-        visitsId: {
-            type: Sequelize.INTEGER
-        },
-        referralId: {
-            type: Sequelize.INTEGER
         }
+        
 
     });
 

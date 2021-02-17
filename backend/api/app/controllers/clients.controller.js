@@ -25,12 +25,7 @@ exports.create = (req, res) => {
     contactNumber: req.body.contactNumber,
     caregiverContact: req.body.caregiverContact,
     caregiverPresent: req.body.caregiverPresent,
-    photo: req.body.photo,
-    healthId: req.body.healthId,
-    educationId: req.body.educationId,
-    socialId: req.body.socialId,
-    visitsId: req.body.visitsId,
-    referralId: req.body.referralId
+    photo: req.body.photo
   };
 
   // Save item in database

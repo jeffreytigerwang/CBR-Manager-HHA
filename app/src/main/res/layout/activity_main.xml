@@ -52,13 +52,14 @@
             android:background="@drawable/login_border"
             android:drawableLeft="@drawable/ic_baseline_person_24"
             android:ems="10"
-            android:inputType="textPersonName"
             android:paddingLeft="10dp"
-            android:text="@string/user_name"
             android:textColor="#03AAE1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_sign_in" />
+            app:layout_constraintTop_toBottomOf="@+id/text_sign_in"
+            android:hint="Email"
+            android:ellipsize="end"
+            android:textColorHint="@color/grey" />
 
         <EditText
             android:id="@+id/edt_password"
@@ -69,14 +70,17 @@
             android:background="@drawable/login_border"
             android:drawableLeft="@drawable/ic_baseline_lock_24"
             android:ems="10"
-            android:inputType="textPersonName"
             android:paddingLeft="10dp"
-            android:text="@string/password"
+            android:hint="@string/password"
+            android:inputType="textPassword"
             android:textColor="#03AAE1"
+            android:textColorHint="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.511"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_username" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_username"
+            android:ellipsize="end"
+            android:autofillHints="Password" />
 
         <TextView
             android:id="@+id/textView_terms"
@@ -90,35 +94,32 @@
             app:layout_constraintTop_toBottomOf="@+id/edt_password"
             app:layout_constraintVertical_bias="0.772" />
 
-        <com.google.android.material.button.MaterialButton
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:id="@+id/btn_register"-->
+<!--            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"-->
+<!--            android:layout_width="94dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginStart="124dp"-->
+<!--            android:layout_marginTop="13dp"-->
+<!--            android:layout_marginBottom="34dp"-->
+<!--            android:text="REGISTER"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/textView_terms"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/edt_password"-->
+<!--            app:layout_constraintVertical_bias="1.0" />-->
+
+        <Button
             android:id="@+id/btn_register"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="94dp"
             android:layout_height="40dp"
-            android:layout_marginStart="36dp"
+            android:layout_marginStart="124dp"
             android:layout_marginTop="13dp"
-            android:layout_marginEnd="40dp"
             android:layout_marginBottom="34dp"
             android:text="REGISTER"
             app:layout_constraintBottom_toTopOf="@+id/textView_terms"
-            app:layout_constraintEnd_toStartOf="@+id/btn_login"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_password" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_login"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-            android:layout_width="94dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginBottom="34dp"
-            android:text="LOGIN"
-            app:layout_constraintBottom_toTopOf="@+id/textView_terms"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_register"
-            app:layout_constraintTop_toBottomOf="@+id/edt_password" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_password"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -127,7 +128,7 @@
         android:layout_width="344dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_login"
-        android:text="@string/continue_text"
+        android:text="@string/Login"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"

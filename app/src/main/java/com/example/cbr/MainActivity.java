@@ -23,6 +23,8 @@ import com.example.cbr.activities.HomeActivity;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.google.android.material.button.MaterialButton;
 
+import java.util.List;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -39,11 +41,9 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
     Retrofit retrofit;
     JsonPlaceHolderApi jsonPlaceHolderApi;
 
-    INodeJS myAPI;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     Button btn_register;
-    Button btn_login;
     EditText edt_username;
     EditText edt_password;
 
@@ -69,18 +69,13 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         // Get button and edit text
-        btn_register = (MaterialButton) findViewById(R.id.btn_register);
-        btn_login = (MaterialButton) findViewById(R.id.btn_login);
+//        btn_register = (MaterialButton) findViewById(R.id.btn_register);
+        btn_register = (Button) findViewById(R.id.btn_register);
 
         edt_username = findViewById(R.id.edt_username);
         edt_password = findViewById(R.id.edt_password);
 
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                registerUser();
-            }
-        });
+        setupRegisterButton();
 
         setupLoginButton();
     }
@@ -91,14 +86,69 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = HomeActivity.makeIntent(MainActivity.this);
-                startActivity(intent);
+                userLogin(edt_username.getText().toString(), edt_password.getText().toString());
             }
         });
     }
 
-    private void userLogin(String email, String password) {
+    private void setupRegisterButton() {
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                registerUser();
+            }
+        });
+    }
 
+
+    // API call for user login functionality including check password
+    private void userLogin(final String email, final String password) {
+
+        Call<List<Users>> call = jsonPlaceHolderApi.getUserEmail(email);
+
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                List<Users> userResponse = response.body();
+
+                int successfulLogin = 0;
+                int checkPassword = 0;
+
+                for (Users users: userResponse) {
+                    if (users.getEmail().equals(email)) {
+                        if (!users.getPassword().equals(password)) {
+                            checkPassword = 1;
+                            Toast.makeText(MainActivity.this, "You Enter the Wrong Password", Toast.LENGTH_SHORT).show();
+                        } else {
+                            successfulLogin = 1;
+
+                            Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = HomeActivity.makeIntent(MainActivity.this);
+                            startActivity(intent);
+                        }
+                    }
+                }
+
+                if (successfulLogin == 0)
+                    if (checkPassword == 1)
+                        Toast.makeText(MainActivity.this, "You Enter the Wrong Password", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(MainActivity.this, "Please Register First!", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+
+            }
+        });
     }
 
 
@@ -116,8 +166,6 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
     // API call for registration users
     private void createUser(String firstName, String lastName, String email, String password) {
         Users users = new Users(firstName, lastName, email, password);
-
-        System.out.println(users.getFirstName() + "-------------");
 
         Call<Users> call = jsonPlaceHolderApi.createUser(users);
 
@@ -149,73 +197,3 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-//    private void registerUser(final String email, final String password) {
-//        final View enter_name_view = LayoutInflater.from(this).inflate(R.layout.enter_name_layout, null);
-//
-//        new MaterialStyledDialog.Builder(this)
-//                .setTitle("Register")
-//                .setDescription("One more step!")
-//                .setCustomView(enter_name_view)
-//                .setNegativeText("Cancel")
-//                .onNegative(new MaterialDialog.SingleButtonCallback() {
-//                    @Override
-//                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-//                        dialog.dismiss();
-//                    }
-//                })
-//                .setPositiveText("Register")
-//                .onPositive(new MaterialDialog.SingleButtonCallback() {
-//                    @Override
-//                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-//                        // Get the value from edt)name
-//                        EditText edt_name = (EditText)enter_name_view.findViewById(R.id.edt_name);
-//
-//                        compositeDisposable.add(myAPI.registerUser(email, edt_name.getText().toString(), password)
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(new Consumer<String>() {
-//                            @Override
-//                            public void accept(String s) throws Exception {
-//                                Toast.makeText(MainActivity.this, ""+s, Toast.LENGTH_SHORT).show();
-//                            }
-//                        }));
-//                    }
-//                }).show();
-//    }
-
-
-//    private void loginUser(String email, String password) {
-//        compositeDisposable.add(myAPI.loginUser(email, password)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<String>() {
-//                    @Override
-//                    public void accept(String s) throws Exception {
-//                        if (s.contains("password"))
-//                            Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_LONG).show();
-//                        else
-//                            Toast.makeText(MainActivity.this, "" + s, Toast.LENGTH_LONG).show();
-//                    }
-//                })
-//        );
-//    }
-//
-
-//        btn_login.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                loginUser(edt_username.getText().toString(), edt_password.getText().toString());
-//            }
-//        });

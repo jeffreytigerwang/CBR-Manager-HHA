@@ -74,6 +74,7 @@
     <string name="for_education_what_was_provided">For education what was provided?*:</string>
     <string name="referral_to_other_org">Referral to other org.</string>
     <string name="for_social_what_was_provided">For social what was provided?*:</string>
+    <string name="Login">Login</string>
     <string-array name="locations_array">
         <item>BidiBidi Zone 1</item>
         <item>BidiBidi Zone 2</item>

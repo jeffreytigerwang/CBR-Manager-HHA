@@ -61,10 +61,6 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         recyclerView.setLayoutManager(linearLayoutManager);
         clientInfoAdapter = new ClientInfoAdapter(getActivity(), clientInfo);
         recyclerView.setAdapter(clientInfoAdapter);
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                linearLayoutManager.getOrientation());
-        recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
 

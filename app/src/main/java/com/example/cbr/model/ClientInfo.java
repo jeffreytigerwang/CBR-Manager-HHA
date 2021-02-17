@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientInfo implements Serializable {
-    private boolean consentToInterview;
+    private Boolean consentToInterview;
 
     private String gpsLocation;
     private String location;
@@ -18,7 +18,7 @@ public class ClientInfo implements Serializable {
     private Integer age;
     private String contactNumber;
 
-    private boolean caregiverPresentForInterview;
+    private Boolean caregiverPresentForInterview;
     private String caregiverContactNumber;
 
     private boolean amputeeDisability;
@@ -56,7 +56,7 @@ public class ClientInfo implements Serializable {
                       String lastName,
                       Integer age,
                       String contactNumber,
-                      boolean caregiverPresentForInterview,
+                      Boolean caregiverPresentForInterview,
                       String caregiverContactNumber,
                       boolean amputeeDisability,
                       boolean polioDisability,
@@ -109,7 +109,7 @@ public class ClientInfo implements Serializable {
         this.setGoalForSocialStatus = setGoalForSocialStatus;
     }
 
-    public boolean isConsentToInterview() {
+    public Boolean isConsentToInterview() {
         return consentToInterview;
     }
 
@@ -149,7 +149,7 @@ public class ClientInfo implements Serializable {
         return contactNumber;
     }
 
-    public boolean isCaregiverPresentForInterview() {
+    public Boolean isCaregiverPresentForInterview() {
         return caregiverPresentForInterview;
     }
 
@@ -159,6 +159,11 @@ public class ClientInfo implements Serializable {
 
     public List<String> getDisabilityList() {
         List<String> disabilityList = new ArrayList<>();
+        if (isDoNotKnowDisability()) {
+            disabilityList.add(Constants.UNKNOWN_DISABILITY);
+            return disabilityList;
+        }
+
         if (isAmputeeDisability()) disabilityList.add(Constants.AMPUTEE_DISABILITY);
         if (isPolioDisability()) disabilityList.add(Constants.POLIO_DISABILITY);
         if (isSpinalCordInjuryDisability()) disabilityList.add(Constants.SPINAL_CORD_INJURY_DISABILITY);
@@ -167,7 +172,6 @@ public class ClientInfo implements Serializable {
         if (isHydrocephalusDisability()) disabilityList.add(Constants.HYDROCEPHALUS_DISABILITY);
         if (isVisualImpairmentDisability()) disabilityList.add(Constants.VISUAL_IMPAIRMENT_DISABILITY);
         if (isHearingImpairmentDisability()) disabilityList.add(Constants.HEARING_IMPAIRMENT_DISABILITY);
-        if (isDoNotKnowDisability()) disabilityList.add(Constants.UNKNOWN_DISABILITY);
         if (isOtherDisability()) disabilityList.add(Constants.OTHER_DISABILITY);
 
         return disabilityList;

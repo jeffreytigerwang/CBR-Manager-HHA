@@ -45,6 +45,7 @@ db.education_progress = require("./education_progress.model.js")(sequelize, Sequ
 db.health_progress = require("./health_progress.model.js")(sequelize, Sequelize);
 //db.social_aspects = require("./social_aspect.model.js")(sequelize, Sequelize);
 db.social_progress = require("./social_progress.model.js")(sequelize, Sequelize);
+db.disability = require("./disability.model.js")(sequelize, Sequelize);
 
 module.exports = db;
 

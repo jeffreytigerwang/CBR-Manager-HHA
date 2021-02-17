@@ -1,11 +1,11 @@
 const db = require("../models");
-const Clients = db.clients;
+const Disability = db.disability;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new data
 exports.create = (req, res) => {
   // Validate Request
-  if (!req.body.first_name) {
+  if (!req.body.clientId) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -13,35 +13,29 @@ exports.create = (req, res) => {
   }
 
   // Create Item
-  const client = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    locationGps: req.body.locationGps,
-    locationZone: req.body.locationZone,
-    villageNumber: req.body.villageNumber,
-    dateJoined: req.body.dateJoined,
-    gender: req.body.gender,
-    age: req.body.age,
-    contactNumber: req.body.contactNumber,
-    caregiverContact: req.body.caregiverContact,
-    caregiverPresent: req.body.caregiverPresent,
-    photo: req.body.photo,
-    healthId: req.body.healthId,
-    educationId: req.body.educationId,
-    socialId: req.body.socialId,
-    visitsId: req.body.visitsId,
-    referralId: req.body.referralId
+  const disability = {
+    clientId: req.body.clientId,
+    amputeeDisability: req.body.amputeeDisability,
+    polioDisability: req.body.polioDisability,
+    spinalCordInjuryDisability: req.body.spinalCordInjuryDisability,
+    cerebralPalsyDisability: req.body.cerebralPalsyDisability,
+    spinalBifidaDisability: req.body.spinalBifidaDisability,
+    hydrocephalusDisability: req.body.hydrocephalusDisability,
+    visualImpairmentDisability: req.body.visualImpairmentDisability,
+    hearingImpairmentDisability: req.body.hearingImpairmentDisability,
+    doNotKnowDisability: req.body.doNotKnowDisability,
+    otherDisability: req.body.otherDisability
   };
 
   // Save item in database
-  Clients.create(client)
+  Disability.create(disability)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Error occured creating a client."
+          err.message || "Error occured creating a disabilities model."
       });
     });
 
@@ -50,29 +44,29 @@ exports.create = (req, res) => {
 // Retrieve all data from the database.
 exports.findAll = (req, res) => {
 
-  Clients.findAll()
+  Disability.findAll()
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving clients."
+          err.message || "Some error occurred while retrieving disabilities."
       });
     });
 };
 
-// Find a single client with an id
+// Find a single item with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Clients.findByPk(id)
+  Disability.findByPk(id)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving Client with id=" + id
+        message: "Error retrieving disability with id=" + id
       });
     });
 };
@@ -81,23 +75,23 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Clients.update(req.body, {
+  Disability.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "client was updated successfully."
+          message: "Disability was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update client with id=${id}. Maybe item was not found or req.body is empty!`
+          message: `Cannot update Disability with id=${id}. Maybe item was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating client with id=" + id
+        message: "Error updating Disability with id=" + id
       });
     });
 };
@@ -106,35 +100,35 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Clients.destroy({
+  Disability.destroy({
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "client was deleted successfully!"
+          message: "Disability was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete client with id=${id}. Maybe item was not found!`
+          message: `Cannot delete Disability with id=${id}. Maybe item was not found!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not client with id=" + id
+        message: "Could not delete disability with id=" + id
       });
     });
 };
 
 // Delete all data from the database.
 exports.deleteAll = (req, res) => {
-  Clients.destroy({
+  Disability.destroy({
     where: {},
     truncate: false
   })
     .then(nums => {
-      res.send({ message: `${nums} clients were deleted successfully!` });
+      res.send({ message: `${nums} Disabilities were deleted successfully!` });
     })
     .catch(err => {
       res.status(500).send({

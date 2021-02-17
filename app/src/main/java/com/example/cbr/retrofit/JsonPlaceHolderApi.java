@@ -1,6 +1,7 @@
 package com.example.cbr.retrofit;
 
-import com.example.cbr.model.ClientInfo;
+import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.Users;
 
 import java.util.List;
 
@@ -29,4 +30,10 @@ public interface JsonPlaceHolderApi {
             @Field("last_name") String last_name,
             @Field("age") int age
     );
+
+    @POST("api/users")
+    Call<Users> createUser(@Body Users users);
+
+
+
 }

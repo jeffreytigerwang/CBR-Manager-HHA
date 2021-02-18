@@ -15,6 +15,7 @@ public class ClientInfo implements Serializable {
     private String date;
     private String firstName;
     private String lastName;
+    //private String id;
     private Integer age;
     private String contactNumber;
 
@@ -25,7 +26,6 @@ public class ClientInfo implements Serializable {
     private boolean polioDisability;
     private boolean spinalCordInjuryDisability;
     private boolean cerebralPalsyDisability;
-
     private boolean spinaBifidaDisability;
     private boolean hydrocephalusDisability;
     private boolean visualImpairmentDisability;
@@ -45,15 +45,16 @@ public class ClientInfo implements Serializable {
     private String describeSocialStatus;
     private String setGoalForSocialStatus;
 
+
     public ClientInfo() {}
 
-    public ClientInfo(Boolean consentToInterview,
+    public ClientInfo(boolean consentToInterview,
                       String gpsLocation,
                       String location,
                       String villageNumber,
                       String date,
                       String firstName,
-                      String lastName,
+                      String lastName,//String id,
                       Integer age,
                       String contactNumber,
                       Boolean caregiverPresentForInterview,
@@ -278,7 +279,7 @@ public class ClientInfo implements Serializable {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = lastName;//this.id = id;
     }
 
     public void setAge(Integer age) {

@@ -1,5 +1,5 @@
 const db = require("../models");
-const EducationAspects = db.education_aspects;
+const EducationAspect = db.education_aspect;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new data
@@ -21,7 +21,7 @@ exports.create = (req, res) => {
   };
 
   // Save item in database
-  EducationAspects.create(educationAspect)
+  EducationAspect.create(educationAspect)
     .then(data => {
       res.send(data);
     })
@@ -37,7 +37,7 @@ exports.create = (req, res) => {
 // Retrieve all data from the database.
 exports.findAll = (req, res) => {
 
-  EducationAspects.findAll()
+  EducationAspect.findAll()
     .then(data => {
       res.send(data);
     })
@@ -53,7 +53,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  EducationAspects.findByPk(id)
+  EducationAspect.findByPk(id)
     .then(data => {
       res.send(data);
     })
@@ -68,7 +68,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  EducationAspects.update(req.body, {
+  EducationAspect.update(req.body, {
     where: { id: id }
   })
     .then(num => {
@@ -93,7 +93,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  EducationAspects.destroy({
+  EducationAspect.destroy({
     where: { id: id }
   })
     .then(num => {
@@ -116,7 +116,7 @@ exports.delete = (req, res) => {
 
 // Delete all data from the database.
 exports.deleteAll = (req, res) => {
-  EducationAspects.destroy({
+  EducationAspect.destroy({
     where: {},
     truncate: false
   })

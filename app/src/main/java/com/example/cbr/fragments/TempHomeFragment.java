@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cbr.activities.NewVisitActivity;
 import com.example.cbr.databinding.FragmentHomeBinding;
-import com.example.cbr.models.VisitCheckContainer;
 
 public class TempHomeFragment extends Fragment {
 
@@ -92,8 +91,7 @@ public class TempHomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = NewVisitActivity.makeLaunchIntent(
                         getActivity(),
-                        -1,
-                        new VisitCheckContainer()
+                        -1
                 );
                 startActivity(intent);
             }

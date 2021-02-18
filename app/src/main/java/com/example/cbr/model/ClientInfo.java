@@ -143,6 +143,9 @@ public class ClientInfo implements Serializable {
     }
 
     public Integer getAge() {
+        if (age == null) {
+            return -1;
+        }
         return age;
     }
 

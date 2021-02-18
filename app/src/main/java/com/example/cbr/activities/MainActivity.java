@@ -1,4 +1,4 @@
-package com.example.cbr;
+package com.example.cbr.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.cbr.activities.HomeActivity;
+import com.example.cbr.R;
 
 public class MainActivity extends AppCompatActivity {
 

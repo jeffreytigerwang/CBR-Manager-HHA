@@ -68,14 +68,6 @@ public class HomeActivity extends BaseActivity implements
                 }
             };
 
-
-
-    @Override
-    public void swapToClientList() {
-        ClientListFragment clientListFragment = ClientListFragment.newInstance();
-        replaceFragment(R.id.homeFragmentContainer, clientListFragment, ClientListFragment.getFragmentTag());
-    }
-
     @Override
     public void swapToClientPage(ClientInfo clientInfo) {
         ClientPageFragment clientPageFragment = ClientPageFragment.newInstance(clientInfo);

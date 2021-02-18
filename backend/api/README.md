@@ -190,4 +190,18 @@ Basically, start up your server and got to http://localhost:8080/api/test_data
 `docker ps` to list active docker containers
 `docker stop <container id>` or `docker rm -f <container_id>` 
 
+## Routes Available
+
+`142.58.21.129/api/clients`
+`142.58.21.129/api/disability`
+`142.58.21.129/api/educationAspect`
+`142.58.21.129/api/educationProgress`
+`142.58.21.129/api/healthAspect`
+`142.58.21.129/api/healthProgress`
+`142.58.21.129/api/socialAspect`
+`142.58.21.129/api/socialProgress`
+`142.58.21.129/api/users`
+`142.58.21.129/api/visits`
+`142.58.21.129/api/clients`
+`142.58.21.129/api/test_data`
 

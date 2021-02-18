@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a visit
 exports.create = (req, res) => {
   // Validate Request
-  if (!req.body.date) {
+  if (!req.body.dateOfVisit) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -14,13 +14,15 @@ exports.create = (req, res) => {
 
   // Create a visit
   const visit = {
-    purpose: req.body.purpose,
-    lifeAspect: req.body.lifeAspect,
-    date: req.body.date,
+    isHealthChecked: req.body.isHealthChecked,
+    isEducationChecked: req.body.isEducationChecked,
+    isSocialChecked: req.body.isSocialChecked,
+    purposeOfVisit: req.body.purposeOfVisit,
+    dateOfVisit: req.body.dateOfVisit,
     workerName: req.body.workerName,
-    locationGps: req.body.locationGps,
-    locationZone: req.body.locationZone,
-    locationNumber: req.body.locationNumber,
+    visitGpsLocation: req.body.visitGpsLocation,
+    visitZoneLocation: req.body.visitZoneLocation,
+    villageNumber: req.body.villageNumber,
     clientId: req.body.clientId
   };
 

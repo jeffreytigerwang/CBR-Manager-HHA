@@ -1,21 +1,27 @@
 module.exports = (sequelize, Sequelize) => {
     const Visits = sequelize.define("Visit", {
-        purpose: {
+        isHealthChecked: {
+            type: Sequelize.BOOLEAN
+        },
+        isEducationChecked: {
+            type: Sequelize.BOOLEAN
+        },
+        isSocialChecked: {
+            type: Sequelize.BOOLEAN
+        },
+        purposeOfVisit: {
             type: Sequelize.STRING
         },
-        lifeAspect: {
-            type: Sequelize.STRING
-        },
-        date: {
+        dateOfVisit: {
             type: Sequelize.DATE
         },
         workerName: {
             type: Sequelize.STRING
         },
-        locationGps: {
+        visitGpsLocation: {
             type: Sequelize.STRING
         },
-        locationZone: {
+        visitZoneLocation: {
             type: Sequelize.STRING
         },
         villageNumber: {

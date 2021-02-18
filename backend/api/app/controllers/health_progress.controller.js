@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new data
 exports.create = (req, res) => {
   // Validate Request
-  if (!req.body.helpProvided) {
+  if (!req.body.clientId) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -14,9 +14,24 @@ exports.create = (req, res) => {
 
   // Create Item
   const healthProgress = {
-    helpProvided: req.body.helpProvided,
-    goalOutcome: req.body.goalOutcome,
-    conclusion: req.body.conclusion,
+    isWheelChairChecked: req.body.isWheelChairChecked,
+    isProstheticChecked: req.body.isProstheticChecked,
+    isOrthoticChecked: req.body.isOrthoticChecked,
+    isWheelChairRepairChecked: req.body.isWheelChairRepairChecked,
+    isReferralToHCChecked: req.body.isReferralToHCChecked,
+    isHealthAdviceChecked: req.body.isHealthAdviceChecked,
+    isHealthAdvocacyChecked: req.body.isHealthAdvocacyChecked,
+    isHealthEncouragementChecked: req.body.isHealthEncouragementChecked,
+    wheelChairDesc: req.body.wheelChairDesc,
+    prostheticDesc: req.body.prostheticDesc,
+    orthoticDesc: req.body.orthoticDesc,
+    wheelChairRepairDesc: req.body.wheelChairRepairDesc,
+    referralToHCDesc: req.body.referralToHCDesc,
+    healthAdviceDesc: req.body.healthAdviceDesc,
+    healthAdvocacyDesc: req.body.healthAdvocacyDesc,
+    healthEncouragementDesc: req.body.healthEncouragementDesc,
+    healthOutcomeDesc: req.body.healthOutcomeDesc,
+    healthGoalStatus: req.body.healthGoalStatus,
     clientId: req.body.clientId,
     visitId: req.body.visitId
   };

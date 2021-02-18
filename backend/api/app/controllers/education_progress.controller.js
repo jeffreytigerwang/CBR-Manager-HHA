@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new data
 exports.create = (req, res) => {
   // Validate Request
-  if (!req.body.helpProvided) {
+  if (!req.body.clientId) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -14,9 +14,14 @@ exports.create = (req, res) => {
 
   // Create Item
   const educationProgress = {
-    helpProvided: req.body.helpProvided,
-    goalOutcome: req.body.goalOutcome,
-    conclusion: req.body.conclusion,
+    isEducationAdviceChecked: req.body.isEducationAdviceChecked,
+    isEducationAdvocacyChecked: req.body.isEducationAdvocacyChecked,
+    isEducationReferralChecked: req.body.isEducationReferralChecked,
+    isEducationEncouragementChecked: req.body.isEducationEncouragementChecked,
+    educationAdviceDesc: req.body.educationAdviceDesc,
+    educationAdvocacyDesc: req.body.educationAdvocacyDesc,
+    educationReferralDesc: req.body.educationReferralDesc,
+    educationEncouragementDesc: req.body.educationEncouragementDesc,
     clientId: req.body.clientId,
     visitId: req.body.visitId
   };

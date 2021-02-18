@@ -9,7 +9,7 @@
 
 
     <EditText
-        android:id="@+id/edt_firstName"
+        android:id="@+id/registration_firstName"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -22,7 +22,7 @@
 
 
     <EditText
-        android:id="@+id/edt_lastName"
+        android:id="@+id/registration_lastName"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -31,10 +31,10 @@
         android:hint="Last Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_firstName" />
+        app:layout_constraintTop_toBottomOf="@+id/registration_firstName" />
 
     <EditText
-        android:id="@+id/edt_email"
+        android:id="@+id/registration_email"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -45,10 +45,10 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_lastName" />
+        app:layout_constraintTop_toBottomOf="@+id/registration_lastName" />
 
     <EditText
-        android:id="@+id/edt_password"
+        android:id="@+id/registration_password"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -59,7 +59,7 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_email" />
+        app:layout_constraintTop_toBottomOf="@+id/registration_email" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

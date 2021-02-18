@@ -38,14 +38,14 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
 
 
     // Init API
-    Retrofit retrofit;
-    JsonPlaceHolderApi jsonPlaceHolderApi;
+    private Retrofit retrofit;
+    private JsonPlaceHolderApi jsonPlaceHolderApi;
 
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    Button btn_register;
-    EditText edt_username;
-    EditText edt_password;
+    private Button btn_register;
+    private EditText edt_username;
+    private EditText edt_password;
 
     @Override
     protected void onStop() {
@@ -69,11 +69,10 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         // Get button and edit text
-//        btn_register = (MaterialButton) findViewById(R.id.btn_register);
         btn_register = (Button) findViewById(R.id.btn_register);
 
-        edt_username = findViewById(R.id.edt_username);
-        edt_password = findViewById(R.id.edt_password);
+        edt_username = findViewById(R.id.mainActivity_username);
+        edt_password = findViewById(R.id.mainActivity_password);
 
         setupRegisterButton();
 

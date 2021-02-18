@@ -52,10 +52,10 @@ public class RegisterDialog extends AppCompatDialogFragment {
                     }
                 });
 
-        edt_firstName = view.findViewById(R.id.edt_firstName);
-        edt_lastName = view.findViewById(R.id.edt_lastName);
-        edt_email = view.findViewById(R.id.edt_email);
-        edt_password = view.findViewById(R.id.edt_password);
+        edt_firstName = view.findViewById(R.id.registration_firstName);
+        edt_lastName = view.findViewById(R.id.registration_lastName);
+        edt_email = view.findViewById(R.id.registration_email);
+        edt_password = view.findViewById(R.id.registration_password);
 
         return builder.create();
     }

@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new data
 exports.create = (req, res) => {
   // Validate Request
-  if (!req.body.riskLevel) {
+  if (!req.body.rateHealth) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -14,9 +14,9 @@ exports.create = (req, res) => {
 
   // Create Item
   const healthAspect = {
-    riskLevel: req.body.riskLevel,
-    requirements: req.body.requirements,
-    goal: req.body.goal,
+    rateHealth: req.body.rateHealth,
+    describeHealth: req.body.describeHealth,
+    setGoalForHealth: req.body.setGoalForHealth,
     clientId: req.body.clientId
   };
 

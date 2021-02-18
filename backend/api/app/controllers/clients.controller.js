@@ -16,15 +16,15 @@ exports.create = (req, res) => {
   const client = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    locationGps: req.body.locationGps,
-    locationZone: req.body.locationZone,
+    gpsLocation: req.body.gpsLocation,
+    zoneLocation: req.body.zoneLocation,
     villageNumber: req.body.villageNumber,
     dateJoined: req.body.dateJoined,
     gender: req.body.gender,
     age: req.body.age,
     contactNumber: req.body.contactNumber,
-    caregiverContact: req.body.caregiverContact,
-    caregiverPresent: req.body.caregiverPresent,
+    caregiverContactNumber: req.body.caregiverContactNumber,
+    caregiverPresentForInterview: req.body.caregiverPresentForInterview,
     photo: req.body.photo
   };
 

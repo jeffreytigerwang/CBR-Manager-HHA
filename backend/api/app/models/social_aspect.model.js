@@ -1,12 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
     const Social = sequelize.define("Social", {
-        riskLevel: {
+        rateSocialStatus: {
             type: Sequelize.STRING
         },
-        requirements: {
+        describeSocialStatus: {
             type: Sequelize.STRING
         },
-        goal: {
+        setGoalForSocialStatus: {
             type: Sequelize.STRING
         },
         clientId: {

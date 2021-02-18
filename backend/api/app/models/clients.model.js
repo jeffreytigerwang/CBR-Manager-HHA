@@ -6,10 +6,10 @@ module.exports = (sequelize, Sequelize) => {
         lastName: {
             type: Sequelize.STRING
         },
-        locationGps: {
+        gpsLocation: {
             type: Sequelize.STRING
         },
-        locationZone: {
+        zoneLocation: {
             type: Sequelize.STRING
         },
         villageNumber: {
@@ -27,16 +27,16 @@ module.exports = (sequelize, Sequelize) => {
         contactNumber: {
             type: Sequelize.STRING
         },
-        caregiverPresent: {
+        caregiverPresentForInterview: {
             type: Sequelize.BOOLEAN
         },
-        caregiverContact: {
+        caregiverContactNumber: {
             type: Sequelize.INTEGER
         },
         photo: {
             type: Sequelize.BLOB('long')
         }
-        
+
 
     });
 

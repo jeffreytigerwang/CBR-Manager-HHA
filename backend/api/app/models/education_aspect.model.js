@@ -1,12 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
     const Education = sequelize.define("Education", {
-        riskLevel: {
+        rateEducation: {
             type: Sequelize.STRING
         },
-        requirements: {
+        describeEducation: {
             type: Sequelize.STRING
         },
-        goal: {
+        setGoalForEducation: {
             type: Sequelize.STRING
         },
         clientId: {

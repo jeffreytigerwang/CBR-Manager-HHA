@@ -1,12 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
     const Health = sequelize.define("Health", {
-        riskLevel: {
+        rateHealth: {
             type: Sequelize.STRING
         },
-        requirements: {
+        describeHealth: {
             type: Sequelize.STRING
         },
-        goal: {
+        setGoalForHealth: {
             type: Sequelize.STRING
         },
         clientId: {

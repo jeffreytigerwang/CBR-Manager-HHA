@@ -1,4 +1,8 @@
 <resources>
+    <string name="sample_name">Sample Name</string>
+    <string name="sample_id">Sample id</string>
+    <string name="sample_location">Sample Location</string>
+
     <string name="app_name">CBR</string>
     <string name="sign_in">SIGN IN</string>
     <string name="user_name">User Name</string>

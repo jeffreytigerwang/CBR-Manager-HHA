@@ -1,5 +1,6 @@
 package com.example.cbr.fragments.clientpage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
+import com.example.cbr.activities.NewVisitActivity;
 import com.example.cbr.adapters.ClientInfoAdapter;
 import com.example.cbr.databinding.FragmentClientpageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
@@ -52,6 +54,14 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         binding.clientPageLocationText.setText(clientInfo.getLocation());
         binding.clientPageAgeText.setText(getString(R.string.age_clientpage, clientInfo.getAge().toString()));
         binding.clientPageDisabilityText.setText(getString(R.string.disability_clientpage, clientInfo.getDisabilityList()));
+
+        binding.clientPageNewVisitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = NewVisitActivity.makeLaunchIntent(getActivity(), -1);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setupRecyclerView() {

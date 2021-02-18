@@ -17,8 +17,6 @@
     <string name="disability_clientpage">Disability: %1$s</string>
     <string name="disabilities">Disabilities</string>
     <string name="basic_information">Basic information</string>
-    <string name="health">Health</string>
-    <string name="education">Education</string>
     <string name="social_status">Social status</string>
 
     <!-- New client -->

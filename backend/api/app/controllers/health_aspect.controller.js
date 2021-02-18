@@ -1,5 +1,5 @@
 const db = require("../models");
-const HealthAspects = db.health_aspects;
+const HealthAspects = db.health_aspect;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new data

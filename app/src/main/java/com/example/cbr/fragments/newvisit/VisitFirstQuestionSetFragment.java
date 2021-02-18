@@ -157,8 +157,8 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     }
 
     private void toggleRecordButton(int nextVisibility, int recordVisibility) {
-        Button next = containerBinding.buttonVisitNext;
-        Button record = containerBinding.buttonVisitRecord;
+        Button next = containerBinding.newVisitNextButton;
+        Button record = containerBinding.newVisitRecordButton;
 
         next.setVisibility(nextVisibility);
         record.setVisibility(recordVisibility);

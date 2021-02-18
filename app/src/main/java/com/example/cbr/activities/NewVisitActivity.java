@@ -98,7 +98,7 @@ public class NewVisitActivity extends AppCompatActivity {
     }
 
     private void setupRecordButton() {
-        buttonRecord = binding.buttonVisitRecord;
+        buttonRecord = binding.newVisitRecordButton;
 
         buttonRecord.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +111,7 @@ public class NewVisitActivity extends AppCompatActivity {
     }
 
     private void setupBackButton() {
-        buttonBack = binding.buttonVisitBack;
+        buttonBack = binding.newVisitBackButton;
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,7 +137,7 @@ public class NewVisitActivity extends AppCompatActivity {
     }
 
     private void setupNextButton() {
-        buttonNext = binding.buttonVisitNext;
+        buttonNext = binding.newVisitNextButton;
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -279,7 +279,7 @@ public class NewVisitActivity extends AppCompatActivity {
     private void manageFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameVisitQuestion, fragment);
+        fragmentTransaction.replace(R.id.newVisit_questionFrame, fragment);
         fragmentTransaction.commit();
     }
 }

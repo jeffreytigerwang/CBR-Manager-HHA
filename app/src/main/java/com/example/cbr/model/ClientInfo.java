@@ -15,7 +15,7 @@ public class ClientInfo implements Serializable {
     private String date;
     private String firstName;
     private String lastName;
-    //private String id;
+    private String id;
     private Integer age;
     private String contactNumber;
 
@@ -374,4 +374,11 @@ public class ClientInfo implements Serializable {
         this.setGoalForSocialStatus = setGoalForSocialStatus;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

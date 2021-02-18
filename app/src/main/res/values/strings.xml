@@ -18,7 +18,7 @@
     <string name="bidibidi_zone_3">BidiBidi, Zone 3</string>
     <string name="gender_clientpage">Gender: %1$s</string>
     <string name="age_clientpage">Age: %1$s</string>
-    <string name="disability_clientpage">Disability: %1$s</string>
+    <string name="disability_clientpage">Disabilities: %1$s</string>
     <string name="disabilities">Disabilities</string>
     <string name="basic_information">Basic information</string>
     <string name="social_status">Social status</string>

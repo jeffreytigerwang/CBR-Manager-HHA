@@ -21,20 +21,6 @@ public class TempHomeFragment extends Fragment {
     private TempHomeFragmentInterface tempHomeFragmentInterface;
 
     @Override
-    public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-
-        setupAddNewClientButton();
-        setupAddNewVisitButton();
-        setupDashboardButton();
-        setupAddNewReferralButton();
-        setupViewAllClientsButton();
-        setupSyncButton();
-
-        return binding.getRoot();
-    }
-
-    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
@@ -44,14 +30,17 @@ public class TempHomeFragment extends Fragment {
         }
     }
 
-    private void setupSyncButton() {
-        Button button = binding.buttonSync;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tempHomeFragmentInterface.swapToClientPage();
-            }
-        });
+    @Override
+    public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+
+        setupAddNewClientButton();
+        setupAddNewVisitButton();
+        setupDashboardButton();
+        setupAddNewReferralButton();
+        setupViewAllClientsButton();
+
+        return binding.getRoot();
     }
 
     private void setupViewAllClientsButton() {
@@ -120,6 +109,5 @@ public class TempHomeFragment extends Fragment {
     public interface TempHomeFragmentInterface {
         void swapToClientList();
         void swapToNewClient();
-        void swapToClientPage();
     }
 }

@@ -19,8 +19,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.cbr.fragments.clientpage.ClientPageFragment;
 import com.example.cbr.fragments.newclient.NewClientFragment;
 
-public class HomeActivity extends BaseActivity
-        implements TempHomeFragment.TempHomeFragmentInterface
+public class HomeActivity extends BaseActivity implements
+        TempHomeFragment.TempHomeFragmentInterface,
+        ClientListFragment.ClientListFragmentInterface
 {
 
     @Override
@@ -76,14 +77,7 @@ public class HomeActivity extends BaseActivity
     }
 
     @Override
-    public void swapToClientPage() {
-        ClientInfo clientInfo = new ClientInfo();
-        clientInfo.setFirstName("Matthew");
-        clientInfo.setLastName("Teja");
-        clientInfo.setLocation("Canada");
-        clientInfo.setAge(20);
-        clientInfo.setVisualImpairmentDisability(true);
-
+    public void swapToClientPage(ClientInfo clientInfo) {
         ClientPageFragment clientPageFragment = ClientPageFragment.newInstance(clientInfo);
         replaceFragment(R.id.homeFragmentContainer, clientPageFragment, ClientPageFragment.getFragmentTag());
     }

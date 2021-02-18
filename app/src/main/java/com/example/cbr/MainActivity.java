@@ -136,9 +136,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
                 }
 
                 if (successfulLogin == 0)
-                    if (checkPassword == 1)
-                        Toast.makeText(MainActivity.this, "You Enter the Wrong Password", Toast.LENGTH_SHORT).show();
-                    else
+                    if (checkPassword == 0)
                         Toast.makeText(MainActivity.this, "Please Register First!", Toast.LENGTH_SHORT).show();
 
             }

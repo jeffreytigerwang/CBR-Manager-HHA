@@ -1,25 +1,25 @@
 module.exports = app => {
-    const social_aspects = require("../controllers/social_aspect.controller.js");
+    const social_aspect = require("../controllers/social_aspect.controller.js");
 
     var router = require("express").Router();
 
     // Create a new item
-    router.post("/", social_aspects.create);
+    router.post("/", social_aspect.create);
 
     // Retrieve all items
-    router.get("/", social_aspects.findAll);
+    router.get("/", social_aspect.findAll);
 
     // Retrieve a single item with id
-    router.get("/:id", social_aspects.findOne);
+    router.get("/:id", social_aspect.findOne);
 
     // Update a item with id
-    router.put("/:id", social_aspects.update);
+    router.put("/:id", social_aspect.update);
 
     // Delete a item with id
-    router.delete("/:id", social_aspects.delete);
+    router.delete("/:id", social_aspect.delete);
 
     // Delete all items
-    router.delete("/", social_aspects.deleteAll);
+    router.delete("/", social_aspect.deleteAll);
 
     app.use('/api/socialAspect', router);
   };

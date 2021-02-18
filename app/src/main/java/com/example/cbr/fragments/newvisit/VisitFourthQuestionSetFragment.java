@@ -64,11 +64,14 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         toggleEditTextVisibility(dataContainer.isSocialAdviceChecked(), editTextAdvice);
         checkBoxAdvocacy.setChecked(dataContainer.isSocialAdvocacyChecked());
         toggleEditTextVisibility(dataContainer.isSocialAdvocacyChecked(), editTextAdvocacy);
+        checkBoxRef.setChecked(dataContainer.isSocialRefChecked());
+        toggleEditTextVisibility(dataContainer.isSocialRefChecked(), editTextRef);
         checkBoxEncouragement.setChecked(dataContainer.isSocialEncouragementChecked());
         toggleEditTextVisibility(dataContainer.isSocialEncouragementChecked(), editTextEncouragement);
 
         editTextAdvice.setText(dataContainer.getSocialAdviceDesc());
         editTextAdvocacy.setText(dataContainer.getSocialAdvocacyDesc());
+        editTextRef.setText(dataContainer.getSocialRefDesc());
         editTextEncouragement.setText(dataContainer.getSocialEncouragementDesc());
         editTextSocialOutcome.setText(dataContainer.getSocialOutcomeDesc());
 

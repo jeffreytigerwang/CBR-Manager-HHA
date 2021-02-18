@@ -18,8 +18,9 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 
 import com.example.cbr.R;
+import com.example.cbr.model.ClientInfo;
 
-public class ClientListAdapter extends ArrayAdapter<ClientListClientInfo> {
+public class ClientListAdapter extends ArrayAdapter<com.example.cbr.model.ClientInfo> {
 
     private static final String TAG = "ClientListAdapter";
 
@@ -33,7 +34,7 @@ public class ClientListAdapter extends ArrayAdapter<ClientListClientInfo> {
         TextView name;
         TextView id;
         TextView location;
-        ImageView photo;
+        //ImageView photo;
     }
 
     /**
@@ -42,7 +43,7 @@ public class ClientListAdapter extends ArrayAdapter<ClientListClientInfo> {
      * @param resource
      * @param objects
      */
-    public ClientListAdapter(Context context, int resource, ArrayList<ClientListClientInfo> objects) {
+    public ClientListAdapter(Context context, int resource, ArrayList<com.example.cbr.model.ClientInfo> objects) {
         super(context, resource, objects);
         mContext = context;
         mResource = resource;
@@ -52,12 +53,34 @@ public class ClientListAdapter extends ArrayAdapter<ClientListClientInfo> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //get the clients information
-        String name = getItem(position).getName();
-        String id = getItem(position).getId();
+        String gpsLocation = getItem(position).getGpsLocation();
         String location = getItem(position).getLocation();
+        String villageNumber = getItem(position).getVillageNumber();
+        String date = getItem(position).getDate();
+        String firstName = getItem(position).getFirstName();
+        String lastName = getItem(position).getLastName();
+        Integer age = getItem(position).getAge();
+        String contactNumber = getItem(position).getContactNumber();
+
+        String caregiverContactNumber = getItem(position).getCaregiverContactNumber();
+
+        String rateHealth = getItem(position).getRateHealth();
+        String describeHealth = getItem(position).getDescribeHealth();
+        String setGoalForHealth = getItem(position).getSetGoalForHealth();
+        String rateEducation = getItem(position).getRateEducation();
+        String describeEducation = getItem(position).getDescribeEducation();
+        String setGoalForEducation = getItem(position).getSetGoalForEducation();
+        String rateSocialStatus = getItem(position).getRateSocialStatus();
+        String describeSocialStatus = getItem(position).getDescribeSocialStatus();
+        String setGoalForSocialStatus = getItem(position).getSetGoalForSocialStatus();
+
 
         //Create the client object with the information
-        ClientListClientInfo clientListClientInfo = new ClientListClientInfo(name,id,location);
+        ClientInfo clientInfo = new ClientInfo(true, gpsLocation, location, villageNumber, date,
+                firstName, lastName, age, contactNumber, true, caregiverContactNumber, true, true
+                , true, true, true, true, true, true, true, true, rateHealth, describeHealth,
+                setGoalForHealth, rateEducation, describeEducation, setGoalForEducation,
+                rateSocialStatus, describeSocialStatus, setGoalForSocialStatus);
 
         //ViewHolder object
         ViewHolder holder;
@@ -70,7 +93,7 @@ public class ClientListAdapter extends ArrayAdapter<ClientListClientInfo> {
             holder.name = (TextView) convertView.findViewById(R.id.textView_clientlist_name);
             holder.location = (TextView) convertView.findViewById(R.id.textView_clientlist_location);
             holder.id = (TextView) convertView.findViewById(R.id.textview_clientlist_id);
-            holder.photo = (ImageView) convertView.findViewById(R.id.imageView_clientlist_Photo);
+            //holder.photo = (ImageView) convertView.findViewById(R.id.imageView_clientlist_Photo);
 
             convertView.setTag(holder);
         }
@@ -78,10 +101,9 @@ public class ClientListAdapter extends ArrayAdapter<ClientListClientInfo> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.name.setText(clientListClientInfo.getName());
-        holder.id.setText(clientListClientInfo.getId());
-        holder.location.setText(clientListClientInfo.getLocation());
-        holder.photo.setImageResource(clientListClientInfo.getPhoto());
+        holder.name.setText(clientInfo.getFirstName());
+        holder.location.setText(clientInfo.getLocation());
+        //holder.photo.setImageResource(clientInfo.getPhoto());
 
 
 

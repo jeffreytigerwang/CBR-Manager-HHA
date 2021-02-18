@@ -9,17 +9,17 @@ public class VisitGeneralQuestionSetData {
     private String purposeOfVisit;
     private String dateOfVisit;
     private String workerName;
-    private String locationOfVisit;
+    private String visitGPSLocation;
     private String villageNumber;
-    private String siteLocation;
+    private String visitZoneLocation;
 
     public VisitGeneralQuestionSetData() {
         this.purposeOfVisit = "";
         this.dateOfVisit = "";
         this.workerName = "";
-        this.locationOfVisit = "";
+        this.visitGPSLocation = "";
         this.villageNumber = "";
-        this.siteLocation = "";
+        this.visitZoneLocation = "";
     }
 
     public boolean isHealthChecked() {
@@ -70,12 +70,12 @@ public class VisitGeneralQuestionSetData {
         this.workerName = workerName;
     }
 
-    public String getLocationOfVisit() {
-        return locationOfVisit;
+    public String getVisitGPSLocation() {
+        return visitGPSLocation;
     }
 
-    public void setLocationOfVisit(String locationOfVisit) {
-        this.locationOfVisit = locationOfVisit;
+    public void setVisitGPSLocation(String visitGPSLocation) {
+        this.visitGPSLocation = visitGPSLocation;
     }
 
     public String getVillageNumber() {
@@ -86,11 +86,11 @@ public class VisitGeneralQuestionSetData {
         this.villageNumber = villageNumber;
     }
 
-    public String getSiteLocation() {
-        return siteLocation;
+    public String getVisitZoneLocation() {
+        return visitZoneLocation;
     }
 
-    public void setSiteLocation(String siteLocation) {
-        this.siteLocation = siteLocation;
+    public void setVisitZoneLocation(String visitZoneLocation) {
+        this.visitZoneLocation = visitZoneLocation;
     }
 }

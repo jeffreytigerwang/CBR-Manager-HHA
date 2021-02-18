@@ -107,7 +107,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
 
         spinnerLocation.setAdapter(adapter);
 
-        dataContainer.setSiteLocation(spinnerLocation.getSelectedItem().toString());
+        dataContainer.setVisitZoneLocation(spinnerLocation.getSelectedItem().toString());
     }
 
     private void setupCheckBox() {

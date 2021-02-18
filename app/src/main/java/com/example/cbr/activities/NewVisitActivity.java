@@ -217,7 +217,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         socialQuestionSetData.setSocialAdviceDesc(socialAdvice.getText().toString());
         socialQuestionSetData.setSocialAdvocacyDesc(socialAdvocacy.getText().toString());
-        socialQuestionSetData.setSocialRefDesc(socialRef.getText().toString());
+        socialQuestionSetData.setSocialReferralDesc(socialRef.getText().toString());
         socialQuestionSetData.setSocialEncouragementDesc(socialEncouragement.getText().toString());
         socialQuestionSetData.setSocialOutcomeDesc(socialOutcome.getText().toString());
     }
@@ -233,7 +233,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         educationQuestionSetData.setEducationAdviceDesc(educationAdvice.getText().toString());
         educationQuestionSetData.setEducationAdvocacyDesc(educationAdvocacy.getText().toString());
-        educationQuestionSetData.setEducationRefDesc(educationRef.getText().toString());
+        educationQuestionSetData.setEducationReferralDesc(educationRef.getText().toString());
         educationQuestionSetData.setEducationEncouragementDesc(educationEncouragement.getText().toString());
         educationQuestionSetData.setEducationOutcomeDesc(educationOutcome.getText().toString());
     }
@@ -254,7 +254,7 @@ public class NewVisitActivity extends AppCompatActivity {
         healthQuestionSetData.setWheelChairDesc(wheelChairDesc.getText().toString());
         healthQuestionSetData.setProstheticDesc(prostheticDesc.getText().toString());
         healthQuestionSetData.setOrthoticDesc(orthoticDesc.getText().toString());
-        healthQuestionSetData.setWRDesc(WRDesc.getText().toString());
+        healthQuestionSetData.setWheelchairRepairDesc(WRDesc.getText().toString());
         healthQuestionSetData.setReferralToHCDesc(referralToHCDesc.getText().toString());
         healthQuestionSetData.setHealthAdviceDesc(healthAdviceDesc.getText().toString());
         healthQuestionSetData.setHealthAdvocacyDesc(healthAdvocacyDesc.getText().toString());
@@ -272,7 +272,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         generalQuestionSetData.setDateOfVisit(dateOfVisit.getText().toString());
         generalQuestionSetData.setWorkerName(workerName.getText().toString());
-        generalQuestionSetData.setLocationOfVisit(locationOfVisit.getText().toString());
+        generalQuestionSetData.setVisitGPSLocation(locationOfVisit.getText().toString());
         generalQuestionSetData.setVillageNumber(villageNumberString.getText().toString());
     }
 

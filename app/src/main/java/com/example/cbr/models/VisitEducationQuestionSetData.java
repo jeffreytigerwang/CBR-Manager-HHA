@@ -4,11 +4,11 @@ public class VisitEducationQuestionSetData {
 
     private boolean isEducationAdviceChecked;
     private boolean isEducationAdvocacyChecked;
-    private boolean isEducationRefChecked;
+    private boolean isEducationReferralChecked;
     private boolean isEducationEncouragementChecked;
     private String educationAdviceDesc;
     private String educationAdvocacyDesc;
-    private String educationRefDesc;
+    private String educationReferralDesc;
     private String educationEncouragementDesc;
     private String educationOutcomeDesc;
     private String educationGoalStatus;
@@ -16,7 +16,7 @@ public class VisitEducationQuestionSetData {
     public VisitEducationQuestionSetData() {
         this.educationAdviceDesc = "";
         this.educationAdvocacyDesc = "";
-        this.educationRefDesc = "";
+        this.educationReferralDesc = "";
         this.educationEncouragementDesc = "";
         this.educationOutcomeDesc = "";
         this.educationGoalStatus = "";
@@ -38,12 +38,12 @@ public class VisitEducationQuestionSetData {
         isEducationAdvocacyChecked = educationAdvocacyChecked;
     }
 
-    public boolean isEducationRefChecked() {
-        return isEducationRefChecked;
+    public boolean isEducationReferralChecked() {
+        return isEducationReferralChecked;
     }
 
-    public void setEducationRefChecked(boolean educationRefChecked) {
-        isEducationRefChecked = educationRefChecked;
+    public void setEducationReferralChecked(boolean educationReferralChecked) {
+        isEducationReferralChecked = educationReferralChecked;
     }
 
     public boolean isEducationEncouragementChecked() {
@@ -70,12 +70,12 @@ public class VisitEducationQuestionSetData {
         this.educationAdvocacyDesc = educationAdvocacyDesc;
     }
 
-    public String getEducationRefDesc() {
-        return educationRefDesc;
+    public String getEducationReferralDesc() {
+        return educationReferralDesc;
     }
 
-    public void setEducationRefDesc(String educationRefDesc) {
-        this.educationRefDesc = educationRefDesc;
+    public void setEducationReferralDesc(String educationReferralDesc) {
+        this.educationReferralDesc = educationReferralDesc;
     }
 
     public String getEducationEncouragementDesc() {

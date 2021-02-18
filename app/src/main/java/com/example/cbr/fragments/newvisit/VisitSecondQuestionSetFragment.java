@@ -74,8 +74,8 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         toggleEditTextVisibility(dataContainer.isProstheticChecked(), editTextProsthetic);
         checkBoxOrthotic.setChecked(dataContainer.isOrthoticChecked());
         toggleEditTextVisibility(dataContainer.isOrthoticChecked(), editTextOrthotic);
-        checkBoxWR.setChecked(dataContainer.isWRChecked());
-        toggleEditTextVisibility(dataContainer.isWRChecked(), editTextWR);
+        checkBoxWR.setChecked(dataContainer.isWheelChairRepairChecked());
+        toggleEditTextVisibility(dataContainer.isWheelChairRepairChecked(), editTextWR);
         checkBoxReferralToHC.setChecked(dataContainer.isReferralToHCChecked());
         toggleEditTextVisibility(dataContainer.isReferralToHCChecked(), editTextReferralToHC);
         checkBoxAdvice.setChecked(dataContainer.isReferralToHCChecked());
@@ -88,7 +88,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         editTextWheelChair.setText(dataContainer.getWheelChairDesc());
         editTextProsthetic.setText(dataContainer.getProstheticDesc());
         editTextOrthotic.setText(dataContainer.getOrthoticDesc());
-        editTextWR.setText(dataContainer.getWRDesc());
+        editTextWR.setText(dataContainer.getWheelchairRepairDesc());
         editTextReferralToHC.setText(dataContainer.getReferralToHCDesc());
         editTextAdvice.setText(dataContainer.getHealthAdviceDesc());
         editTextAdvocacy.setText(dataContainer.getHealthAdvocacyDesc());
@@ -185,7 +185,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         checkBoxWR.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dataContainer.setWRChecked(isChecked);
+                dataContainer.setWheelChairRepairChecked(isChecked);
                 toggleEditTextVisibility(isChecked, editTextWR);
             }
         });

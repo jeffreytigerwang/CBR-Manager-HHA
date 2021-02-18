@@ -4,11 +4,11 @@ public class VisitSocialQuestionSetData {
 
     private boolean isSocialAdviceChecked;
     private boolean isSocialAdvocacyChecked;
-    private boolean isSocialRefChecked;
+    private boolean isSocialReferralChecked;
     private boolean isSocialEncouragementChecked;
     private String socialAdviceDesc;
     private String socialAdvocacyDesc;
-    private String socialRefDesc;
+    private String socialReferralDesc;
     private String socialEncouragementDesc;
     private String socialOutcomeDesc;
     private String socialGoalStatus;
@@ -16,7 +16,7 @@ public class VisitSocialQuestionSetData {
     public VisitSocialQuestionSetData() {
         this.socialAdviceDesc = "";
         this.socialAdvocacyDesc = "";
-        this.socialRefDesc = "";
+        this.socialReferralDesc = "";
         this.socialEncouragementDesc = "";
         this.socialOutcomeDesc = "";
         this.socialGoalStatus = "";
@@ -38,12 +38,12 @@ public class VisitSocialQuestionSetData {
         isSocialAdvocacyChecked = socialAdvocacyChecked;
     }
 
-    public boolean isSocialRefChecked() {
-        return isSocialRefChecked;
+    public boolean isSocialReferralChecked() {
+        return isSocialReferralChecked;
     }
 
-    public void setSocialRefChecked(boolean socialRefChecked) {
-        isSocialRefChecked = socialRefChecked;
+    public void setSocialReferralChecked(boolean socialReferralChecked) {
+        isSocialReferralChecked = socialReferralChecked;
     }
 
     public boolean isSocialEncouragementChecked() {
@@ -70,12 +70,12 @@ public class VisitSocialQuestionSetData {
         this.socialAdvocacyDesc = socialAdvocacyDesc;
     }
 
-    public String getSocialRefDesc() {
-        return socialRefDesc;
+    public String getSocialReferralDesc() {
+        return socialReferralDesc;
     }
 
-    public void setSocialRefDesc(String socialRefDesc) {
-        this.socialRefDesc = socialRefDesc;
+    public void setSocialReferralDesc(String socialReferralDesc) {
+        this.socialReferralDesc = socialReferralDesc;
     }
 
     public String getSocialEncouragementDesc() {

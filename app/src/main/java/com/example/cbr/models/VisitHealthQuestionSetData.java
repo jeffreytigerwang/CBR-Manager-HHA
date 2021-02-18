@@ -5,7 +5,7 @@ public class VisitHealthQuestionSetData {
     private boolean isWheelChairChecked;
     private boolean isProstheticChecked;
     private boolean isOrthoticChecked;
-    private boolean isWRChecked;
+    private boolean isWheelChairRepairChecked;
     private boolean isReferralToHCChecked;
     private boolean isHealthAdviceChecked;
     private boolean isHealthAdvocacyChecked;
@@ -13,7 +13,7 @@ public class VisitHealthQuestionSetData {
     private String wheelChairDesc;
     private String prostheticDesc;
     private String orthoticDesc;
-    private String WRDesc;
+    private String wheelchairRepairDesc;
     private String referralToHCDesc;
     private String healthAdviceDesc;
     private String healthAdvocacyDesc;
@@ -25,7 +25,7 @@ public class VisitHealthQuestionSetData {
         this.wheelChairDesc = "";
         this.prostheticDesc = "";
         this.orthoticDesc = "";
-        this.WRDesc = "";
+        this.wheelchairRepairDesc = "";
         this.referralToHCDesc = "";
         this.healthAdviceDesc = "";
         this.healthAdvocacyDesc = "";
@@ -58,12 +58,12 @@ public class VisitHealthQuestionSetData {
         isOrthoticChecked = orthoticChecked;
     }
 
-    public boolean isWRChecked() {
-        return isWRChecked;
+    public boolean isWheelChairRepairChecked() {
+        return isWheelChairRepairChecked;
     }
 
-    public void setWRChecked(boolean WRChecked) {
-        isWRChecked = WRChecked;
+    public void setWheelChairRepairChecked(boolean wheelChairRepairChecked) {
+        isWheelChairRepairChecked = wheelChairRepairChecked;
     }
 
     public boolean isReferralToHCChecked() {
@@ -122,12 +122,12 @@ public class VisitHealthQuestionSetData {
         this.orthoticDesc = orthoticDesc;
     }
 
-    public String getWRDesc() {
-        return WRDesc;
+    public String getWheelchairRepairDesc() {
+        return wheelchairRepairDesc;
     }
 
-    public void setWRDesc(String WRDesc) {
-        this.WRDesc = WRDesc;
+    public void setWheelchairRepairDesc(String wheelchairRepairDesc) {
+        this.wheelchairRepairDesc = wheelchairRepairDesc;
     }
 
     public String getReferralToHCDesc() {

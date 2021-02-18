@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.ActivityNewVisitBinding;
@@ -25,6 +26,7 @@ import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.models.VisitSocialQuestionSetData;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
 
 public class NewVisitActivity extends AppCompatActivity {
@@ -105,7 +107,24 @@ public class NewVisitActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO: 2021-02-11 save data to db
                 saveSession(pageNum);
-                finish();
+                final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
+                if (emptyGeneralQuestions.isEmpty()){
+                    finish();
+                } else {
+                    TextView textViewRecordError = binding.newVisitRecordErrorTextView;
+                    TextView textViewQuestionNumbers = binding.newVisitQuestionNumbersTextView;
+
+                    textViewRecordError.setVisibility(View.VISIBLE);
+                    textViewQuestionNumbers.setVisibility(View.VISIBLE);
+
+                    StringBuilder questionNumbers = new StringBuilder();
+                    for (int i = 0; i < emptyGeneralQuestions.size(); i++) {
+                        questionNumbers.append(emptyGeneralQuestions.get(i)).append(" ");
+                    }
+                    Log.d(LOG_TAG, "questionNumbers: " + questionNumbers);
+                    Log.d(LOG_TAG, "generalQuestion toString: " + generalQuestionSetData.toString());
+                    textViewQuestionNumbers.setText(questionNumbers.toString());
+                }
             }
         });
     }

@@ -35,7 +35,7 @@
     <FrameLayout
         android:id="@+id/newVisit_questionFrame"
         android:layout_width="match_parent"
-        android:layout_height="562dp"
+        android:layout_height="541dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.695"

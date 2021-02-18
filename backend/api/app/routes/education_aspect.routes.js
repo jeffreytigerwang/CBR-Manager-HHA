@@ -21,6 +21,6 @@ module.exports = app => {
     // Delete all items
     router.delete("/", education_aspects.deleteAll);
 
-    app.use('/api/educationAspects', router);
+    app.use('/api/educationAspect', router);
   };
 

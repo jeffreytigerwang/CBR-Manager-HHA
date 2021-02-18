@@ -21,6 +21,6 @@ module.exports = app => {
     // Delete all items
     router.delete("/", social_aspects.deleteAll);
 
-    app.use('/api/socialAspects', router);
+    app.use('/api/socialAspect', router);
   };
 

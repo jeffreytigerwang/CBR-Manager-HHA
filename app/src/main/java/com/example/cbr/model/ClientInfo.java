@@ -4,9 +4,9 @@ public class ClientInfo {
     private boolean consentToInterview;
 
     private String gpsLocation;
-    private String location;
+    private String zoneLocation;
     private String villageNumber;
-    private String date;
+    private String dateJoined;
     private String firstName;
     private String lastName;
     private Integer age;
@@ -40,9 +40,9 @@ public class ClientInfo {
 
         public ClientInfo(Boolean consentToInterview,
                           String gpsLocation,
-                          String location,
+                          String zoneLocation,
                           String villageNumber,
-                          String date,
+                          String dateJoined,
                           String firstName,
                           String lastName,
                           Integer age,
@@ -70,9 +70,9 @@ public class ClientInfo {
                           String setGoalForSocialStatus) {
             this.consentToInterview = consentToInterview;
             this.gpsLocation = gpsLocation;
-            this.location = location;
+            this.zoneLocation = zoneLocation;
             this.villageNumber = villageNumber;
-            this.date = date;
+            this.dateJoined = dateJoined;
             this.firstName = firstName;
             this.lastName = lastName;
             this.age = age;

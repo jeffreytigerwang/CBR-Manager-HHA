@@ -43,15 +43,15 @@
                 android:hint="@string/gps_location" />
 
             <TextView
-                android:id="@+id/newClient_locationTextView"
+                android:id="@+id/newClient_zoneLocationTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="4dp"
-                android:text="@string/location" />
+                android:text="@string/zone_location" />
 
             <Spinner
-                android:id="@+id/newClient_locationSpinner"
+                android:id="@+id/newClient_zoneLocationSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp" />

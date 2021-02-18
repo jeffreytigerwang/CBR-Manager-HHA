@@ -24,7 +24,7 @@ public class Constants {
             "Palorinya Zone 1",
             "Palorinya Zone 2",
             "Palorinya Zone 3"));
-    public static final ArrayList<String> CLIENTRATINGS = new ArrayList<>(Arrays.asList(
+    public static final ArrayList<String> CLIENT_RATINGS = new ArrayList<>(Arrays.asList(
             "Critical risk",
             "High risk",
             "Medium risk",

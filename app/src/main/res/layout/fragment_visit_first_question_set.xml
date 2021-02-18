@@ -148,6 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:ems="18"
+            android:hint="@string/gps_location"
             android:importantForAutofill="no"
             android:inputType="text" />
 
@@ -160,7 +161,7 @@
             android:textColor="#000000" />
 
         <Spinner
-            android:id="@+id/newVisit_locationspinner"
+            android:id="@+id/newVisit_locationSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"/>
@@ -178,7 +179,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:ems="18"
+            android:ems="4"
+            android:hint="@string/e_g_5"
             android:inputType="number"
             android:importantForAutofill="no" />
     </LinearLayout>

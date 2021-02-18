@@ -95,7 +95,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
 
         question2 = binding.newVisitQ2TextView;
 
-        spinnerLocation = binding.newVisitLocationspinner;
+        spinnerLocation = binding.newVisitLocationSpinner;
     }
 
     private void setupSpinner() {

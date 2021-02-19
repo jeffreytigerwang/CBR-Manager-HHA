@@ -17,6 +17,7 @@ import com.example.cbr.models.ClientSocialAspect;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,8 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     JsonPlaceHolderApi jsonPlaceHolderApi;
 
     private ArrayList<com.example.cbr.models.ClientInfo> clientInfoArrayList;
+
+    private ClientListAdapter adapter;
 
     private FragmentClientlistBinding binding;
     private ClientListContract.Presenter clientListPresenter;
@@ -54,7 +57,9 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         binding = FragmentClientlistBinding.inflate(inflater, container, false);
         displayString("Patient List");
 
+
         getClientsInfo();
+
 
 //        System.out.println(clientInfoArrayList.get(0).getFirstName());
 //        System.out.println(clientInfoArrayList.get(0).getLastName());
@@ -79,7 +84,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         peopleList.add(john2);
 
 
-        ClientListAdapter adapter = new ClientListAdapter(getActivity(), R.layout.item_clientlist, peopleList);
+        adapter = new ClientListAdapter(getActivity(), R.layout.item_clientlist, peopleList);
         listView.setAdapter(adapter);
 
         View view = binding.getRoot();
@@ -104,6 +109,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
                 for (com.example.cbr.models.ClientInfo clientInfo: clientInfoList) {
                     clientInfoArrayList.add(clientInfo);
                 }
+
             }
 
             @Override
@@ -112,6 +118,13 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
             }
         });
     }
+
+//    private void getClientsInfo() throws IOException {
+//        Call<List<ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
+//
+//        Response<List<ClientInfo>> response = call.execute();
+//
+//    }
 
 
     @Override

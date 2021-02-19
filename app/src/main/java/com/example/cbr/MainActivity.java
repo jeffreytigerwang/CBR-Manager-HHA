@@ -162,7 +162,11 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
 
     // API call for registration users
     private void createUser(String firstName, String lastName, String email, String password) {
-        Users users = new Users(firstName, lastName, email, password);
+        Users users = Users.getInstance();
+        users.setFirstName(firstName);
+        users.setLastName(lastName);
+        users.setEmail(email);
+        users.setPassword(password);
 
         Call<Users> call = jsonPlaceHolderApi.createUser(users);
 

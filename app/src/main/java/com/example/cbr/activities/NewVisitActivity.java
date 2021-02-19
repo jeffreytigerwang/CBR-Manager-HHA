@@ -22,6 +22,7 @@
     import com.example.cbr.fragments.newvisit.VisitFourthQuestionSetFragment;
     import com.example.cbr.fragments.newvisit.VisitSecondQuestionSetFragment;
     import com.example.cbr.fragments.newvisit.VisitThirdQuestionSetFragment;
+    import com.example.cbr.models.Users;
     import com.example.cbr.models.VisitEducationQuestionSetData;
     import com.example.cbr.models.VisitGeneralQuestionSetData;
     import com.example.cbr.models.VisitHealthQuestionSetData;
@@ -89,9 +90,7 @@ public class NewVisitActivity extends AppCompatActivity {
         Intent intent = getIntent();
         clientId = intent.getIntExtra(CLIENT_ID, -1);
 
-        if (clientId != -1) {
-            // TODO: 2021-02-09 get client info from DB
-        } else {
+        if (clientId == -1) {
             Log.d(LOG_TAG, "onCreate: failed to get client ID");
         }
 
@@ -99,6 +98,8 @@ public class NewVisitActivity extends AppCompatActivity {
         healthQuestionSetData = new VisitHealthQuestionSetData();
         educationQuestionSetData = new VisitEducationQuestionSetData();
         socialQuestionSetData = new VisitSocialQuestionSetData();
+
+        setWorkerName();
 
         currentFragment = new VisitFirstQuestionSetFragment(
                 binding,
@@ -114,6 +115,12 @@ public class NewVisitActivity extends AppCompatActivity {
         setupNextButton();
         setupBackButton();
         setupRecordButton();
+    }
+
+    private void setWorkerName() {
+        Users users = Users.getInstance();
+        final String workerName = users.getFirstName() + " " + users.getLastName();
+        generalQuestionSetData.setWorkerName(workerName);
     }
 
     @Override

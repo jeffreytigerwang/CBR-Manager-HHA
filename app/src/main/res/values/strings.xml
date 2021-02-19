@@ -45,7 +45,7 @@
     <string name="cbr">CBR</string>
     <string name="disability_centre_referral">Disability centre referral</string>
     <string name="disability_centre_referral_follow_up">Disability centre referral follow up</string>
-    <string name="if_cbr">2. If CBR*:</string>
+    <string name="if_cbr">2. If CBR* (check all that apply):</string>
     <string name="health">Health</string>
     <string name="education">Education</string>
     <string name="social">Social</string>
@@ -56,7 +56,7 @@
     <string name="location_of_visit">5. Location of visit*:</string>
     <string name="new_vist_location">6. Location*:</string>
     <string name="village_no">7. Village No.*:</string>
-    <string name="for_health_what_was_provided">8. For health what was provided?*:</string>
+    <string name="for_health_what_was_provided">8. For health what was provided?* (check all that apply):</string>
     <string name="wheelchair">Wheelchair</string>
     <string name="description_max_100_characters">Description* (Max 100 characters)</string>
     <string name="description_max_100_characters_optional">Description (Max 100 characters)</string>
@@ -76,9 +76,9 @@
     <string name="if_concluded_what_was_the_outcome_10">10. If concluded, what was the outcome:</string>
     <string name="if_concluded_what_was_the_outcome_13">13. If concluded, what was the outcome:</string>
     <string name="if_concluded_what_was_the_outcome_16">16. If concluded, what was the outcome:</string>
-    <string name="for_education_what_was_provided">11. For education what was provided?*:</string>
+    <string name="for_education_what_was_provided">11. For education what was provided?* (check all that apply):</string>
     <string name="referral_to_other_org">Referral to other org.</string>
-    <string name="for_social_what_was_provided">14. For social what was provided?*:</string>
+    <string name="for_social_what_was_provided">14. For social what was provided?* (check all that apply):</string>
     <string name="next">Next</string>
     <string name="back">Back</string>
     <string name="record">Record</string>

@@ -5,6 +5,9 @@ import java.util.List;
 
 public class VisitHealthQuestionSetData {
 
+    private Integer clientId;
+    private Integer visitId;
+
     private boolean isWheelChairChecked;
     private boolean isProstheticChecked;
     private boolean isOrthoticChecked;
@@ -77,6 +80,22 @@ public class VisitHealthQuestionSetData {
             questionNumbers.add("9.");
         }
         return questionNumbers;
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
+    }
+
+    public Integer getVisitId() {
+        return visitId;
+    }
+
+    public void setVisitId(Integer visitId) {
+        this.visitId = visitId;
     }
 
     public boolean isWheelChairChecked() {

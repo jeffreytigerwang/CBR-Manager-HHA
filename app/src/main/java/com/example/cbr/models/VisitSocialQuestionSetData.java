@@ -5,6 +5,9 @@ import java.util.List;
 
 public class VisitSocialQuestionSetData {
 
+    private Integer clientId;
+    private Integer visitId;
+
     private boolean isSocialAdviceChecked;
     private boolean isSocialAdvocacyChecked;
     private boolean isSocialReferralChecked;
@@ -53,6 +56,22 @@ public class VisitSocialQuestionSetData {
             questionNumbers.add("15.");
         }
         return questionNumbers;
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
+    }
+
+    public Integer getVisitId() {
+        return visitId;
+    }
+
+    public void setVisitId(Integer visitId) {
+        this.visitId = visitId;
     }
 
     public boolean isSocialAdviceChecked() {

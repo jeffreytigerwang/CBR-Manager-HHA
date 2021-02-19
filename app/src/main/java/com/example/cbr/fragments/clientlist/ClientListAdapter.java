@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -18,9 +17,9 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 
 import com.example.cbr.R;
-import com.example.cbr.model.ClientInfo;
+import com.example.cbr.models.ClientInfo;
 
-public class ClientListAdapter extends ArrayAdapter<com.example.cbr.model.ClientInfo> {
+public class ClientListAdapter extends ArrayAdapter<ClientInfo> {
 
     private static final String TAG = "ClientListAdapter";
 
@@ -43,7 +42,7 @@ public class ClientListAdapter extends ArrayAdapter<com.example.cbr.model.Client
      * @param resource
      * @param objects
      */
-    public ClientListAdapter(Context context, int resource, ArrayList<com.example.cbr.model.ClientInfo> objects) {
+    public ClientListAdapter(Context context, int resource, ArrayList<ClientInfo> objects) {
         super(context, resource, objects);
         mContext = context;
         mResource = resource;
@@ -53,17 +52,27 @@ public class ClientListAdapter extends ArrayAdapter<com.example.cbr.model.Client
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //get the clients information
+        boolean consentToInterView = getItem(position).isConsentToInterview();
         String gpsLocation = getItem(position).getGpsLocation();
-        String location = getItem(position).getLocation();
+        String location = getItem(position).getZoneLocation();
         String villageNumber = getItem(position).getVillageNumber();
-        String date = getItem(position).getDate();
+        String date = getItem(position).getDateJoined();
         String firstName = getItem(position).getFirstName();
         String lastName = getItem(position).getLastName();
         Integer age = getItem(position).getAge();
         String contactNumber = getItem(position).getContactNumber();
-
+        boolean caregiverPresentForInterview = getItem(position).isCaregiverPresentForInterview();
         String caregiverContactNumber = getItem(position).getCaregiverContactNumber();
-
+        boolean amputeeDisability = getItem(position).isAmputeeDisability();
+        boolean polioDisability = getItem(position).isPolioDisability();
+        boolean spinalCordInjuryDisability = getItem(position).isSpinalCordInjuryDisability();
+        boolean cerebralPalsyDisability = getItem(position).isCerebralPalsyDisability();
+        boolean spinaBifidaDisability = getItem(position).isSpinaBifidaDisability();
+        boolean hydrocephalusDisability = getItem(position).isHydrocephalusDisability();
+        boolean visualImpairmentDisability = getItem(position).isVisualImpairmentDisability();
+        boolean hearingImpairmentDisability = getItem(position).isHearingImpairmentDisability();
+        boolean doNotKnowDisability = getItem(position).isDoNotKnowDisability();
+        boolean otherDisability = getItem(position).isOtherDisability();
         String rateHealth = getItem(position).getRateHealth();
         String describeHealth = getItem(position).getDescribeHealth();
         String setGoalForHealth = getItem(position).getSetGoalForHealth();
@@ -76,11 +85,18 @@ public class ClientListAdapter extends ArrayAdapter<com.example.cbr.model.Client
 
 
         //Create the client object with the information
-        ClientInfo clientInfo = new ClientInfo(true, gpsLocation, location, villageNumber, date,
-                firstName, lastName, age, contactNumber, true, caregiverContactNumber, true, true
-                , true, true, true, true, true, true, true, true, rateHealth, describeHealth,
+        ClientInfo clientInfo = new ClientInfo(consentToInterView, gpsLocation, location, villageNumber, date,
+                firstName, lastName, age, contactNumber, caregiverPresentForInterview,
+                caregiverContactNumber, amputeeDisability, polioDisability
+                , spinalCordInjuryDisability, cerebralPalsyDisability, spinaBifidaDisability, hydrocephalusDisability,
+                visualImpairmentDisability, hearingImpairmentDisability, doNotKnowDisability,
+                otherDisability, rateHealth,
+                describeHealth,
                 setGoalForHealth, rateEducation, describeEducation, setGoalForEducation,
                 rateSocialStatus, describeSocialStatus, setGoalForSocialStatus);
+
+
+        System.out.println("+++++" + firstName);
 
         //ViewHolder object
         ViewHolder holder;
@@ -102,7 +118,7 @@ public class ClientListAdapter extends ArrayAdapter<com.example.cbr.model.Client
         }
 
         holder.name.setText(clientInfo.getFirstName());
-        holder.location.setText(clientInfo.getLocation());
+        holder.location.setText(clientInfo.getZoneLocation());
         //holder.photo.setImageResource(clientInfo.getPhoto());
 
 

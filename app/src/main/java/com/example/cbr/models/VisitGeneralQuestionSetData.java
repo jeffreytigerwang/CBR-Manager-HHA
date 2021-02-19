@@ -10,6 +10,9 @@ import java.util.List;
 
 public class VisitGeneralQuestionSetData {
 
+    private Integer clientId;
+    private Integer visitId;
+
     private boolean isHealthChecked;
     private boolean isEducationChecked;
     private boolean isSocialChecked;
@@ -64,6 +67,22 @@ public class VisitGeneralQuestionSetData {
             questionNumbers.add("7.");
         }
         return questionNumbers;
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
+    }
+
+    public Integer getVisitId() {
+        return visitId;
+    }
+
+    public void setVisitId(Integer visitId) {
+        this.visitId = visitId;
     }
 
     public boolean isHealthChecked() {

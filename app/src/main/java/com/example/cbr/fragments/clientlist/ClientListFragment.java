@@ -1,6 +1,7 @@
 package com.example.cbr.fragments.clientlist;
 
 import android.os.Bundle;
+import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,21 @@ import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentClientlistBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.model.ClientInfo;
+import com.example.cbr.retrofit.JsonPlaceHolderApi;
+import com.example.cbr.retrofit.RetrofitInit;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Retrofit;
 
 public class ClientListFragment extends BaseFragment implements ClientListContract.View {
+
+    // Init API
+    Retrofit retrofit;
+    JsonPlaceHolderApi jsonPlaceHolderApi;
+
+    private ArrayList<ClientInfo> clientInfoArrayList;
 
     private FragmentClientlistBinding binding;
     private ClientListContract.Presenter clientListPresenter;
@@ -28,6 +40,11 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setPresenter(new ClientListPresenter(this));
 
+        // Init Retrofit & NodeJs stuff
+        retrofit = RetrofitInit.getInstance();
+        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+        clientInfoArrayList = new ArrayList<>();
 
         // View binding so that findViewById() doesn't have to be used
         binding = FragmentClientlistBinding.inflate(inflater, container, false);
@@ -58,6 +75,10 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         return view;
     }
 
+
+//    private void getClientsInfo() {
+//        Call<List<ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
+//    }
 
 
     @Override

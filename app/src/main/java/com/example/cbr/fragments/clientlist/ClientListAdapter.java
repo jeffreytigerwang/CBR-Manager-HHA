@@ -53,6 +53,7 @@ public class ClientListAdapter extends ArrayAdapter<com.example.cbr.model.Client
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //get the clients information
+        boolean consentToInterView = getItem(position).isConsentToInterview();
         String gpsLocation = getItem(position).getGpsLocation();
         String location = getItem(position).getLocation();
         String villageNumber = getItem(position).getVillageNumber();
@@ -61,9 +62,18 @@ public class ClientListAdapter extends ArrayAdapter<com.example.cbr.model.Client
         String lastName = getItem(position).getLastName();
         Integer age = getItem(position).getAge();
         String contactNumber = getItem(position).getContactNumber();
-
+        boolean caregiverPresentForInterview = getItem(position).isCaregiverPresentForInterview();
         String caregiverContactNumber = getItem(position).getCaregiverContactNumber();
-
+        boolean amputeeDisability = getItem(position).isAmputeeDisability();
+        boolean polioDisability = getItem(position).isPolioDisability();
+        boolean spinalCordInjuryDisability = getItem(position).isSpinalCordInjuryDisability();
+        boolean cerebralPalsyDisability = getItem(position).isCerebralPalsyDisability();
+        boolean spinaBifidaDisability = getItem(position).isSpinaBifidaDisability();
+        boolean hydrocephalusDisability = getItem(position).isHydrocephalusDisability();
+        boolean visualImpairmentDisability = getItem(position).isVisualImpairmentDisability();
+        boolean hearingImpairmentDisability = getItem(position).isHearingImpairmentDisability();
+        boolean doNotKnowDisability = getItem(position).isDoNotKnowDisability();
+        boolean otherDisability = getItem(position).isOtherDisability();
         String rateHealth = getItem(position).getRateHealth();
         String describeHealth = getItem(position).getDescribeHealth();
         String setGoalForHealth = getItem(position).getSetGoalForHealth();
@@ -76,9 +86,13 @@ public class ClientListAdapter extends ArrayAdapter<com.example.cbr.model.Client
 
 
         //Create the client object with the information
-        ClientInfo clientInfo = new ClientInfo(true, gpsLocation, location, villageNumber, date,
-                firstName, lastName, age, contactNumber, true, caregiverContactNumber, true, true
-                , true, true, true, true, true, true, true, true, rateHealth, describeHealth,
+        ClientInfo clientInfo = new ClientInfo(consentToInterView, gpsLocation, location, villageNumber, date,
+                firstName, lastName, age, contactNumber, caregiverPresentForInterview,
+                caregiverContactNumber, amputeeDisability, polioDisability
+                , spinalCordInjuryDisability, cerebralPalsyDisability, spinaBifidaDisability, hydrocephalusDisability,
+                visualImpairmentDisability, hearingImpairmentDisability, doNotKnowDisability,
+                otherDisability, rateHealth,
+                describeHealth,
                 setGoalForHealth, rateEducation, describeEducation, setGoalForEducation,
                 rateSocialStatus, describeSocialStatus, setGoalForSocialStatus);
 

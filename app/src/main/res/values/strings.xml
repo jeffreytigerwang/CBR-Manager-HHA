@@ -59,6 +59,7 @@
     <string name="for_health_what_was_provided">8. For health what was provided?*:</string>
     <string name="wheelchair">Wheelchair</string>
     <string name="description_max_100_characters">Description* (Max 100 characters)</string>
+    <string name="description_max_100_characters_optional">Description (Max 100 characters)</string>
     <string name="prosthetic">Prosthetic</string>
     <string name="orthotic">Orthotic</string>
     <string name="wheelchair_repairs">Wheelchair repairs</string>

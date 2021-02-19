@@ -145,7 +145,7 @@
             android:layout_marginStart="8dp"
             android:maxLength="100"
             android:ems="18"
-            android:hint="@string/description_max_100_characters"
+            android:hint="@string/description_max_100_characters_optional"
             android:visibility="gone"
             android:autofillHints="no"
             android:inputType="text" />

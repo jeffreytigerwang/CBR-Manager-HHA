@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="@string/back"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/newVisit_nextButton"
         app:layout_constraintHorizontal_bias="1.0"

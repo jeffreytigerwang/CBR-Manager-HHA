@@ -1,45 +1,45 @@
     package com.example.cbr.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+    import android.content.Context;
+    import android.content.Intent;
+    import android.os.Bundle;
+    import android.util.Log;
+    import android.view.View;
+    import android.widget.Button;
+    import android.widget.EditText;
+    import android.widget.TextView;
+    import android.widget.Toast;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+    import androidx.annotation.NonNull;
+    import androidx.appcompat.app.AppCompatActivity;
+    import androidx.fragment.app.Fragment;
+    import androidx.fragment.app.FragmentManager;
+    import androidx.fragment.app.FragmentTransaction;
 
-import com.example.cbr.R;
-import com.example.cbr.databinding.ActivityNewVisitBinding;
-import com.example.cbr.fragments.newvisit.VisitFirstQuestionSetFragment;
-import com.example.cbr.fragments.newvisit.VisitFourthQuestionSetFragment;
-import com.example.cbr.fragments.newvisit.VisitSecondQuestionSetFragment;
-import com.example.cbr.fragments.newvisit.VisitThirdQuestionSetFragment;
-import com.example.cbr.models.ClientSocialAspect;
-import com.example.cbr.models.VisitEducationQuestionSetData;
-import com.example.cbr.models.VisitHealthQuestionSetData;
-import com.example.cbr.models.VisitGeneralQuestionSetData;
-import com.example.cbr.models.VisitSocialQuestionSetData;
-import com.example.cbr.util.Constants;
-import com.example.cbr.retrofit.JsonPlaceHolderApi;
-import com.example.cbr.retrofit.RetrofitInit;
+    import com.example.cbr.R;
+    import com.example.cbr.databinding.ActivityNewVisitBinding;
+    import com.example.cbr.fragments.newvisit.VisitFirstQuestionSetFragment;
+    import com.example.cbr.fragments.newvisit.VisitFourthQuestionSetFragment;
+    import com.example.cbr.fragments.newvisit.VisitSecondQuestionSetFragment;
+    import com.example.cbr.fragments.newvisit.VisitThirdQuestionSetFragment;
+    import com.example.cbr.models.VisitEducationQuestionSetData;
+    import com.example.cbr.models.VisitGeneralQuestionSetData;
+    import com.example.cbr.models.VisitHealthQuestionSetData;
+    import com.example.cbr.models.VisitSocialQuestionSetData;
+    import com.example.cbr.retrofit.JsonPlaceHolderApi;
+    import com.example.cbr.retrofit.RetrofitInit;
+    import com.example.cbr.util.Constants;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
-import java.util.concurrent.ThreadLocalRandom;
+    import java.util.ArrayList;
+    import java.util.LinkedList;
+    import java.util.List;
+    import java.util.Stack;
+    import java.util.concurrent.ThreadLocalRandom;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
+    import retrofit2.Call;
+    import retrofit2.Callback;
+    import retrofit2.Response;
+    import retrofit2.Retrofit;
 
 public class NewVisitActivity extends AppCompatActivity {
 
@@ -69,7 +69,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
     public static Intent makeLaunchIntent(
             Context context,
-            final long clientID) {
+            final int clientID) {
         Intent intent = new Intent(context, NewVisitActivity.class);
         intent.putExtra(CLIENT_ID, clientID);
         return intent;
@@ -87,9 +87,9 @@ public class NewVisitActivity extends AppCompatActivity {
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         Intent intent = getIntent();
-        final long clientID = intent.getLongExtra(CLIENT_ID, -1);
+        clientId = intent.getIntExtra(CLIENT_ID, -1);
 
-        if (clientID != -1) {
+        if (clientId != -1) {
             // TODO: 2021-02-09 get client info from DB
         } else {
             Log.d(LOG_TAG, "onCreate: failed to get client ID");
@@ -127,25 +127,19 @@ public class NewVisitActivity extends AppCompatActivity {
         buttonRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 2021-02-11 save data to db
-
                 visitId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
 
                 generalQuestionSetData.setClientId(clientId);
                 generalQuestionSetData.setVisitId(visitId);
-                // createVisitGeneralQuestionSetData(generalQuestionSetData);
 
                 healthQuestionSetData.setClientId(clientId);
                 healthQuestionSetData.setVisitId(visitId);
-                // createVisitHealthQuestionSetData(healthQuestionSetData);
 
                 educationQuestionSetData.setClientId(clientId);
                 educationQuestionSetData.setVisitId(visitId);
-                // createVisitEducationQuestionSetData(educationQuestionSetData);
 
                 socialQuestionSetData.setClientId(clientId);
                 socialQuestionSetData.setVisitId(visitId);
-                // createVisitSocialQuestionSetData(socialQuestionSetData);
 
                 saveSession(pageNum);
                 final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
@@ -159,13 +153,16 @@ public class NewVisitActivity extends AppCompatActivity {
                 final boolean isSocialChecked = generalQuestionSetData.isSocialChecked();
 
                 if (!purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
-                    if (emptyGeneralQuestions.isEmpty()){
+                    if (emptyGeneralQuestions.isEmpty()) {
+                        createVisitGeneralQuestionSetData(generalQuestionSetData);
                         finish();
                     } else {
                         displayNumberEmpty(emptyGeneralQuestions);
                     }
                 } else if (isHealthChecked && !isEducationChecked && !isSocialChecked) {
-                    if (emptyGeneralQuestions.isEmpty() && emptyHealthQuestions.isEmpty()){
+                    if (emptyGeneralQuestions.isEmpty() && emptyHealthQuestions.isEmpty()) {
+                        createVisitGeneralQuestionSetData(generalQuestionSetData);
+                        createVisitHealthQuestionSetData(healthQuestionSetData);
                         finish();
                     } else {
                         emptyQuestions.addAll(emptyHealthQuestions);
@@ -173,6 +170,8 @@ public class NewVisitActivity extends AppCompatActivity {
                     }
                 } else if (!isHealthChecked && isEducationChecked && !isSocialChecked) {
                     if (emptyGeneralQuestions.isEmpty() && emptyEducationQuestions.isEmpty()) {
+                        createVisitGeneralQuestionSetData(generalQuestionSetData);
+                        createVisitEducationQuestionSetData(educationQuestionSetData);
                         finish();
                     } else {
                         emptyQuestions.addAll(emptyEducationQuestions);
@@ -180,6 +179,8 @@ public class NewVisitActivity extends AppCompatActivity {
                     }
                 } else if (!isHealthChecked && !isEducationChecked && isSocialChecked) {
                     if (emptyGeneralQuestions.isEmpty() && emptySocialQuestions.isEmpty()) {
+                        createVisitGeneralQuestionSetData(generalQuestionSetData);
+                        createVisitSocialQuestionSetData(socialQuestionSetData);
                         finish();
                     } else {
                         emptyQuestions.addAll(emptySocialQuestions);
@@ -188,6 +189,9 @@ public class NewVisitActivity extends AppCompatActivity {
                 } else if (isHealthChecked && isEducationChecked && !isSocialChecked) {
                     if (emptyGeneralQuestions.isEmpty()
                             && emptyHealthQuestions.isEmpty() && emptyEducationQuestions.isEmpty()) {
+                        createVisitGeneralQuestionSetData(generalQuestionSetData);
+                        createVisitHealthQuestionSetData(healthQuestionSetData);
+                        createVisitEducationQuestionSetData(educationQuestionSetData);
                         finish();
                     } else {
                         emptyQuestions.addAll(emptyHealthQuestions);
@@ -197,6 +201,9 @@ public class NewVisitActivity extends AppCompatActivity {
                 } else if (!isHealthChecked && isEducationChecked) {
                     if (emptyGeneralQuestions.isEmpty()
                             && emptySocialQuestions.isEmpty() && emptyEducationQuestions.isEmpty()) {
+                        createVisitGeneralQuestionSetData(generalQuestionSetData);
+                        createVisitEducationQuestionSetData(educationQuestionSetData);
+                        createVisitSocialQuestionSetData(socialQuestionSetData);
                         finish();
                     } else {
                         emptyQuestions.addAll(emptyEducationQuestions);
@@ -206,6 +213,9 @@ public class NewVisitActivity extends AppCompatActivity {
                 } else if (isHealthChecked && !isEducationChecked) {
                     if (emptyGeneralQuestions.isEmpty()
                             && emptyHealthQuestions.isEmpty() && emptySocialQuestions.isEmpty()) {
+                        createVisitGeneralQuestionSetData(generalQuestionSetData);
+                        createVisitHealthQuestionSetData(healthQuestionSetData);
+                        createVisitSocialQuestionSetData(socialQuestionSetData);
                         finish();
                     } else {
                         emptyQuestions.addAll(emptyHealthQuestions);
@@ -216,6 +226,10 @@ public class NewVisitActivity extends AppCompatActivity {
                     if (emptyGeneralQuestions.isEmpty()
                             && emptyHealthQuestions.isEmpty()
                             && emptyEducationQuestions.isEmpty() && emptySocialQuestions.isEmpty()) {
+                        createVisitGeneralQuestionSetData(generalQuestionSetData);
+                        createVisitHealthQuestionSetData(healthQuestionSetData);
+                        createVisitEducationQuestionSetData(educationQuestionSetData);
+                        createVisitSocialQuestionSetData(socialQuestionSetData);
                         finish();
                     } else {
                         emptyQuestions.addAll(emptyHealthQuestions);
@@ -248,7 +262,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<VisitGeneralQuestionSetData>() {
             @Override
-            public void onResponse(Call<VisitGeneralQuestionSetData> call, Response<VisitGeneralQuestionSetData> response) {
+            public void onResponse(@NonNull Call<VisitGeneralQuestionSetData> call, @NonNull Response<VisitGeneralQuestionSetData> response) {
 
                 if (!response.isSuccessful()) {
                     Toast.makeText(NewVisitActivity.this, "General Question Record Fail", Toast.LENGTH_SHORT).show();
@@ -260,7 +274,7 @@ public class NewVisitActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<VisitGeneralQuestionSetData> call, Throwable t) {
+            public void onFailure(@NonNull Call<VisitGeneralQuestionSetData> call, Throwable t) {
 
             }
         });
@@ -272,7 +286,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<VisitHealthQuestionSetData>() {
             @Override
-            public void onResponse(Call<VisitHealthQuestionSetData> call, Response<VisitHealthQuestionSetData> response) {
+            public void onResponse(@NonNull Call<VisitHealthQuestionSetData> call, @NonNull Response<VisitHealthQuestionSetData> response) {
 
                 if (!response.isSuccessful()) {
                     Toast.makeText(NewVisitActivity.this, "Health Question Record Fail", Toast.LENGTH_SHORT).show();
@@ -284,7 +298,7 @@ public class NewVisitActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<VisitHealthQuestionSetData> call, Throwable t) {
+            public void onFailure(@NonNull Call<VisitHealthQuestionSetData> call, @NonNull Throwable t) {
 
             }
         });
@@ -295,7 +309,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<VisitEducationQuestionSetData>() {
             @Override
-            public void onResponse(Call<VisitEducationQuestionSetData> call, Response<VisitEducationQuestionSetData> response) {
+            public void onResponse(@NonNull Call<VisitEducationQuestionSetData> call, @NonNull Response<VisitEducationQuestionSetData> response) {
 
                 if (!response.isSuccessful()) {
                     Toast.makeText(NewVisitActivity.this, "Education Question Record Fail", Toast.LENGTH_SHORT).show();
@@ -307,7 +321,7 @@ public class NewVisitActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<VisitEducationQuestionSetData> call, Throwable t) {
+            public void onFailure(@NonNull Call<VisitEducationQuestionSetData> call, @NonNull Throwable t) {
 
             }
         });
@@ -318,7 +332,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<VisitSocialQuestionSetData>() {
             @Override
-            public void onResponse(Call<VisitSocialQuestionSetData> call, Response<VisitSocialQuestionSetData> response) {
+            public void onResponse(@NonNull Call<VisitSocialQuestionSetData> call, @NonNull Response<VisitSocialQuestionSetData> response) {
 
                 if (!response.isSuccessful()) {
                     Toast.makeText(NewVisitActivity.this, "Social Question Record Fail", Toast.LENGTH_SHORT).show();
@@ -330,7 +344,7 @@ public class NewVisitActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<VisitSocialQuestionSetData> call, Throwable t) {
+            public void onFailure(@NonNull Call<VisitSocialQuestionSetData> call, @NonNull Throwable t) {
 
             }
         });

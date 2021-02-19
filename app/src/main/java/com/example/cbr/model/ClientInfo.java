@@ -4,13 +4,13 @@ public class ClientInfo {
     private boolean consentToInterview;
 
     private String gpsLocation;
-    private String location;
+    private String zoneLocation;
     private String villageNumber;
-    private String date;
+    private String dateJoined;
     private String firstName;
     private String lastName;
-    //private String id;
     private Integer age;
+    private String gender;
     private String contactNumber;
 
     private boolean caregiverPresentForInterview;
@@ -39,15 +39,14 @@ public class ClientInfo {
     private String describeSocialStatus;
     private String setGoalForSocialStatus;
 
-
     public ClientInfo(boolean consentToInterview,
                       String gpsLocation,
-                      String location,
+                      String zoneLocation,
                       String villageNumber,
-                      String date,
+                      String dateJoined,
                       String firstName,
                       String lastName,
-                      //String id,
+                      String gender,
                       Integer age,
                       String contactNumber,
                       boolean caregiverPresentForInterview,
@@ -73,12 +72,12 @@ public class ClientInfo {
                       String setGoalForSocialStatus) {
             this.consentToInterview = consentToInterview;
             this.gpsLocation = gpsLocation;
-            this.location = location;
+            this.zoneLocation = zoneLocation;
             this.villageNumber = villageNumber;
-            this.date = date;
+            this.dateJoined = dateJoined;
             this.firstName = firstName;
             this.lastName = lastName;
-            //this.id = id;
+            this.gender = gender;
             this.age = age;
             this.contactNumber = contactNumber;
             this.caregiverPresentForInterview = caregiverPresentForInterview;
@@ -104,10 +103,6 @@ public class ClientInfo {
             this.setGoalForSocialStatus = setGoalForSocialStatus;
         }
 
-//    public void setId(String id) {
-//        this.id = id;
-//    }
-
     public boolean isConsentToInterview() {
         return consentToInterview;
     }
@@ -125,11 +120,11 @@ public class ClientInfo {
     }
 
     public String getLocation() {
-        return location;
+        return zoneLocation;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLocation(String zoneLocation) {
+        this.zoneLocation = zoneLocation;
     }
 
     public String getVillageNumber() {
@@ -141,11 +136,11 @@ public class ClientInfo {
     }
 
     public String getDate() {
-        return date;
+        return dateJoined;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDate(String dateJoined) {
+        this.dateJoined = dateJoined;
     }
 
     public String getFirstName() {
@@ -164,9 +159,13 @@ public class ClientInfo {
         this.lastName = lastName;
     }
 
-//    public String getId() {
-//        return id;
-//    }
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
     public Integer getAge() {
         return age;

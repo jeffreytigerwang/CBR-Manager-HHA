@@ -35,14 +35,14 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
 
         ListView listView = binding.listViewClientlist;
         ClientInfo john = new ClientInfo(true, "Sample text", "Sample text", "Sample text",
-                "Sample text", "Sample text", "Sample text", 40, "Sample text",
+                "Sample text", "Sample text", "Sample text", "male", 40, "Sample text",
                 true, "Sample text", true, true, true, true, true, true, true, true, true, true, "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text");
 
         ClientInfo john1 = new ClientInfo(true, "Sample text", "Sample text", "Sample text",
-                "Sample text", "Sample text", "Sample text", 40, "Sample text",
+                "Sample text", "Sample text", "Sample text", "male",40, "Sample text",
                 true, "Sample text", true, true, true, true, true, true, true, true, true, true, "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text");
         ClientInfo john2 = new ClientInfo(true, "Sample text", "Sample text", "Sample text",
-                "Sample text", "Sample text", "Sample text", 40, "Sample text",
+                "Sample text", "Sample text", "Sample text", "male",40, "Sample text",
                 true, "Sample text", true, true, true, true, true, true, true, true, true, true, "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text");
 
         ArrayList<ClientInfo> peopleList = new ArrayList<>();

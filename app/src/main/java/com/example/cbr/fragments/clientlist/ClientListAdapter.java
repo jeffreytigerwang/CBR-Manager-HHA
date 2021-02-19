@@ -54,11 +54,12 @@ public class ClientListAdapter extends ArrayAdapter<com.example.cbr.model.Client
     public View getView(int position, View convertView, ViewGroup parent) {
         //get the clients information
         String gpsLocation = getItem(position).getGpsLocation();
-        String location = getItem(position).getLocation();
+        String zoneLocation = getItem(position).getLocation();
         String villageNumber = getItem(position).getVillageNumber();
         String date = getItem(position).getDate();
         String firstName = getItem(position).getFirstName();
         String lastName = getItem(position).getLastName();
+        String gender = getItem(position).getGender();
         Integer age = getItem(position).getAge();
         String contactNumber = getItem(position).getContactNumber();
 
@@ -76,8 +77,8 @@ public class ClientListAdapter extends ArrayAdapter<com.example.cbr.model.Client
 
 
         //Create the client object with the information
-        ClientInfo clientInfo = new ClientInfo(true, gpsLocation, location, villageNumber, date,
-                firstName, lastName, age, contactNumber, true, caregiverContactNumber, true, true
+        ClientInfo clientInfo = new ClientInfo(true, gpsLocation, zoneLocation, villageNumber, date,
+                firstName, lastName, gender, age, contactNumber, true, caregiverContactNumber, true, true
                 , true, true, true, true, true, true, true, true, rateHealth, describeHealth,
                 setGoalForHealth, rateEducation, describeEducation, setGoalForEducation,
                 rateSocialStatus, describeSocialStatus, setGoalForSocialStatus);

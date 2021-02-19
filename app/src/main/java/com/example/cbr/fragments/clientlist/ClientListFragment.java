@@ -1,24 +1,28 @@
 package com.example.cbr.fragments.clientlist;
 
 import android.os.Bundle;
-import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentClientlistBinding;
 import com.example.cbr.fragments.base.BaseFragment;
-import com.example.cbr.model.ClientInfo;
+import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.ClientSocialAspect;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class ClientListFragment extends BaseFragment implements ClientListContract.View {
@@ -27,7 +31,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     Retrofit retrofit;
     JsonPlaceHolderApi jsonPlaceHolderApi;
 
-    private ArrayList<ClientInfo> clientInfoArrayList;
+    private ArrayList<com.example.cbr.models.ClientInfo> clientInfoArrayList;
 
     private FragmentClientlistBinding binding;
     private ClientListContract.Presenter clientListPresenter;
@@ -49,6 +53,13 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         // View binding so that findViewById() doesn't have to be used
         binding = FragmentClientlistBinding.inflate(inflater, container, false);
         displayString("Patient List");
+
+        getClientsInfo();
+
+//        System.out.println(clientInfoArrayList.get(0).getFirstName());
+//        System.out.println(clientInfoArrayList.get(0).getLastName());
+//        System.out.println(clientInfoArrayList.get(0).getCaregiverContactNumber());
+//        System.out.println(clientInfoArrayList.get(0).getGpsLocation());
 
         ListView listView = binding.listViewClientlist;
         ClientInfo john = new ClientInfo(true, "Sample text", "Sample text", "Sample text",
@@ -76,9 +87,31 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     }
 
 
-//    private void getClientsInfo() {
-//        Call<List<ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
-//    }
+    private void getClientsInfo() {
+        Call<List<com.example.cbr.models.ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
+
+        call.enqueue(new Callback<List<com.example.cbr.models.ClientInfo>>() {
+            @Override
+            public void onResponse(Call<List<com.example.cbr.models.ClientInfo>> call, Response<List<com.example.cbr.models.ClientInfo>> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), "ClientInfo Get Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                List<com.example.cbr.models.ClientInfo> clientInfoList = response.body();
+
+                for (com.example.cbr.models.ClientInfo clientInfo: clientInfoList) {
+                    clientInfoArrayList.add(clientInfo);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<com.example.cbr.models.ClientInfo>> call, Throwable t) {
+
+            }
+        });
+    }
 
 
     @Override

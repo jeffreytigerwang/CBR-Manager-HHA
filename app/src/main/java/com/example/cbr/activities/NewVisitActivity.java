@@ -254,7 +254,7 @@ public class NewVisitActivity extends AppCompatActivity {
         healthQuestionSetData.setWheelChairDesc(wheelChairDesc.getText().toString());
         healthQuestionSetData.setProstheticDesc(prostheticDesc.getText().toString());
         healthQuestionSetData.setOrthoticDesc(orthoticDesc.getText().toString());
-        healthQuestionSetData.setWheelchairRepairDesc(WRDesc.getText().toString());
+        healthQuestionSetData.setWheelChairRepairDesc(WRDesc.getText().toString());
         healthQuestionSetData.setReferralToHCDesc(referralToHCDesc.getText().toString());
         healthQuestionSetData.setHealthAdviceDesc(healthAdviceDesc.getText().toString());
         healthQuestionSetData.setHealthAdvocacyDesc(healthAdvocacyDesc.getText().toString());
@@ -272,7 +272,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         generalQuestionSetData.setDateOfVisit(dateOfVisit.getText().toString());
         generalQuestionSetData.setWorkerName(workerName.getText().toString());
-        generalQuestionSetData.setVisitGPSLocation(locationOfVisit.getText().toString());
+        generalQuestionSetData.setVisitGpsLocation(locationOfVisit.getText().toString());
         generalQuestionSetData.setVillageNumber(villageNumberString.getText().toString());
     }
 

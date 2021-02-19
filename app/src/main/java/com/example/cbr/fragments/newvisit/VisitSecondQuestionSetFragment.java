@@ -88,7 +88,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         editTextWheelChair.setText(dataContainer.getWheelChairDesc());
         editTextProsthetic.setText(dataContainer.getProstheticDesc());
         editTextOrthotic.setText(dataContainer.getOrthoticDesc());
-        editTextWR.setText(dataContainer.getWheelchairRepairDesc());
+        editTextWR.setText(dataContainer.getWheelChairRepairDesc());
         editTextReferralToHC.setText(dataContainer.getReferralToHCDesc());
         editTextAdvice.setText(dataContainer.getHealthAdviceDesc());
         editTextAdvocacy.setText(dataContainer.getHealthAdvocacyDesc());

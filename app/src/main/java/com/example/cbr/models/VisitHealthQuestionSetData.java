@@ -13,7 +13,7 @@ public class VisitHealthQuestionSetData {
     private String wheelChairDesc;
     private String prostheticDesc;
     private String orthoticDesc;
-    private String wheelchairRepairDesc;
+    private String wheelChairRepairDesc;
     private String referralToHCDesc;
     private String healthAdviceDesc;
     private String healthAdvocacyDesc;
@@ -25,7 +25,7 @@ public class VisitHealthQuestionSetData {
         this.wheelChairDesc = "";
         this.prostheticDesc = "";
         this.orthoticDesc = "";
-        this.wheelchairRepairDesc = "";
+        this.wheelChairRepairDesc = "";
         this.referralToHCDesc = "";
         this.healthAdviceDesc = "";
         this.healthAdvocacyDesc = "";
@@ -122,12 +122,12 @@ public class VisitHealthQuestionSetData {
         this.orthoticDesc = orthoticDesc;
     }
 
-    public String getWheelchairRepairDesc() {
-        return wheelchairRepairDesc;
+    public String getWheelChairRepairDesc() {
+        return wheelChairRepairDesc;
     }
 
-    public void setWheelchairRepairDesc(String wheelchairRepairDesc) {
-        this.wheelchairRepairDesc = wheelchairRepairDesc;
+    public void setWheelChairRepairDesc(String wheelChairRepairDesc) {
+        this.wheelChairRepairDesc = wheelChairRepairDesc;
     }
 
     public String getReferralToHCDesc() {

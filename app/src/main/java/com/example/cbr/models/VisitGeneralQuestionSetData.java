@@ -9,7 +9,7 @@ public class VisitGeneralQuestionSetData {
     private String purposeOfVisit;
     private String dateOfVisit;
     private String workerName;
-    private String visitGPSLocation;
+    private String visitGpsLocation;
     private String villageNumber;
     private String visitZoneLocation;
 
@@ -17,7 +17,7 @@ public class VisitGeneralQuestionSetData {
         this.purposeOfVisit = "";
         this.dateOfVisit = "";
         this.workerName = "";
-        this.visitGPSLocation = "";
+        this.visitGpsLocation = "";
         this.villageNumber = "";
         this.visitZoneLocation = "";
     }
@@ -70,12 +70,12 @@ public class VisitGeneralQuestionSetData {
         this.workerName = workerName;
     }
 
-    public String getVisitGPSLocation() {
-        return visitGPSLocation;
+    public String getVisitGpsLocation() {
+        return visitGpsLocation;
     }
 
-    public void setVisitGPSLocation(String visitGPSLocation) {
-        this.visitGPSLocation = visitGPSLocation;
+    public void setVisitGpsLocation(String visitGpsLocation) {
+        this.visitGpsLocation = visitGpsLocation;
     }
 
     public String getVillageNumber() {

@@ -24,7 +24,9 @@ import com.example.cbr.models.VisitEducationQuestionSetData;
 import com.example.cbr.models.VisitHealthQuestionSetData;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.models.VisitSocialQuestionSetData;
+import com.example.cbr.util.Constants;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -108,25 +110,97 @@ public class NewVisitActivity extends AppCompatActivity {
                 // TODO: 2021-02-11 save data to db
                 saveSession(pageNum);
                 final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
-                if (emptyGeneralQuestions.isEmpty()){
-                    finish();
-                } else {
-                    TextView textViewRecordError = binding.newVisitRecordErrorTextView;
-                    TextView textViewQuestionNumbers = binding.newVisitQuestionNumbersTextView;
+                final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();
+                final List<String> emptyEducationQuestions = educationQuestionSetData.getEmptyQuestions();
+                final List<String> emptySocialQuestions = socialQuestionSetData.getEmptyQuestions();
+                final List<String> emptyQuestions = new ArrayList<>(emptyGeneralQuestions);
+                final String purposeOfVisit = generalQuestionSetData.getPurposeOfVisit();
+                final boolean isHealthChecked = generalQuestionSetData.isHealthChecked();
+                final boolean isEducationChecked = generalQuestionSetData.isEducationChecked();
+                final boolean isSocialChecked = generalQuestionSetData.isSocialChecked();
 
-                    textViewRecordError.setVisibility(View.VISIBLE);
-                    textViewQuestionNumbers.setVisibility(View.VISIBLE);
-
-                    StringBuilder questionNumbers = new StringBuilder();
-                    for (int i = 0; i < emptyGeneralQuestions.size(); i++) {
-                        questionNumbers.append(emptyGeneralQuestions.get(i)).append(" ");
+                if (!purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
+                    if (emptyGeneralQuestions.isEmpty()){
+                        finish();
+                    } else {
+                        displayNumberEmpty(emptyGeneralQuestions);
                     }
-                    Log.d(LOG_TAG, "questionNumbers: " + questionNumbers);
-                    Log.d(LOG_TAG, "generalQuestion toString: " + generalQuestionSetData.toString());
-                    textViewQuestionNumbers.setText(questionNumbers.toString());
+                } else if (isHealthChecked && !isEducationChecked && !isSocialChecked) {
+                    if (emptyGeneralQuestions.isEmpty() && emptyHealthQuestions.isEmpty()){
+                        finish();
+                    } else {
+                        emptyQuestions.addAll(emptyHealthQuestions);
+                        displayNumberEmpty(emptyQuestions);
+                    }
+                } else if (!isHealthChecked && isEducationChecked && !isSocialChecked) {
+                    if (emptyGeneralQuestions.isEmpty() && emptyEducationQuestions.isEmpty()) {
+                        finish();
+                    } else {
+                        emptyQuestions.addAll(emptyEducationQuestions);
+                        displayNumberEmpty(emptyQuestions);
+                    }
+                } else if (!isHealthChecked && !isEducationChecked && isSocialChecked) {
+                    if (emptyGeneralQuestions.isEmpty() && emptySocialQuestions.isEmpty()) {
+                        finish();
+                    } else {
+                        emptyQuestions.addAll(emptySocialQuestions);
+                        displayNumberEmpty(emptyQuestions);
+                    }
+                } else if (isHealthChecked && isEducationChecked && !isSocialChecked) {
+                    if (emptyGeneralQuestions.isEmpty()
+                            && emptyHealthQuestions.isEmpty() && emptyEducationQuestions.isEmpty()) {
+                        finish();
+                    } else {
+                        emptyQuestions.addAll(emptyHealthQuestions);
+                        emptyQuestions.addAll(emptyEducationQuestions);
+                        displayNumberEmpty(emptyQuestions);
+                    }
+                } else if (!isHealthChecked && isEducationChecked) {
+                    if (emptyGeneralQuestions.isEmpty()
+                            && emptySocialQuestions.isEmpty() && emptyEducationQuestions.isEmpty()) {
+                        finish();
+                    } else {
+                        emptyQuestions.addAll(emptyEducationQuestions);
+                        emptyQuestions.addAll(emptySocialQuestions);
+                        displayNumberEmpty(emptyQuestions);
+                    }
+                } else if (isHealthChecked && !isEducationChecked) {
+                    if (emptyGeneralQuestions.isEmpty()
+                            && emptyHealthQuestions.isEmpty() && emptySocialQuestions.isEmpty()) {
+                        finish();
+                    } else {
+                        emptyQuestions.addAll(emptyHealthQuestions);
+                        emptyQuestions.addAll(emptySocialQuestions);
+                        displayNumberEmpty(emptyQuestions);
+                    }
+                } else {
+                    if (emptyGeneralQuestions.isEmpty()
+                            && emptyHealthQuestions.isEmpty()
+                            && emptyEducationQuestions.isEmpty() && emptySocialQuestions.isEmpty()) {
+                        finish();
+                    } else {
+                        emptyQuestions.addAll(emptyHealthQuestions);
+                        emptyQuestions.addAll(emptyEducationQuestions);
+                        emptyQuestions.addAll(emptySocialQuestions);
+                        displayNumberEmpty(emptyQuestions);
+                    }
                 }
             }
         });
+    }
+
+    private void displayNumberEmpty(List<String> emptyQuestions) {
+        TextView textViewRecordError = binding.newVisitRecordErrorTextView;
+        TextView textViewQuestionNumbers = binding.newVisitQuestionNumbersTextView;
+
+        textViewRecordError.setVisibility(View.VISIBLE);
+        textViewQuestionNumbers.setVisibility(View.VISIBLE);
+
+        StringBuilder questionNumbers = new StringBuilder();
+        for (int i = 0; i < emptyQuestions.size(); i++) {
+            questionNumbers.append(emptyQuestions.get(i)).append(" ");
+        }
+        textViewQuestionNumbers.setText(questionNumbers.toString());
     }
 
     private void setupBackButton() {
@@ -273,7 +347,7 @@ public class NewVisitActivity extends AppCompatActivity {
         healthQuestionSetData.setWheelChairDesc(wheelChairDesc.getText().toString());
         healthQuestionSetData.setProstheticDesc(prostheticDesc.getText().toString());
         healthQuestionSetData.setOrthoticDesc(orthoticDesc.getText().toString());
-        healthQuestionSetData.setWheelchairRepairDesc(WRDesc.getText().toString());
+        healthQuestionSetData.setWheelChairRepairDesc(WRDesc.getText().toString());
         healthQuestionSetData.setReferralToHCDesc(referralToHCDesc.getText().toString());
         healthQuestionSetData.setHealthAdviceDesc(healthAdviceDesc.getText().toString());
         healthQuestionSetData.setHealthAdvocacyDesc(healthAdvocacyDesc.getText().toString());
@@ -291,7 +365,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         generalQuestionSetData.setDateOfVisit(dateOfVisit.getText().toString());
         generalQuestionSetData.setWorkerName(workerName.getText().toString());
-        generalQuestionSetData.setVisitGPSLocation(locationOfVisit.getText().toString());
+        generalQuestionSetData.setVisitGpsLocation(locationOfVisit.getText().toString());
         generalQuestionSetData.setVillageNumber(villageNumberString.getText().toString());
     }
 

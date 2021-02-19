@@ -1,5 +1,8 @@
 package com.example.cbr.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VisitEducationQuestionSetData {
 
     private boolean isEducationAdviceChecked;
@@ -20,6 +23,36 @@ public class VisitEducationQuestionSetData {
         this.educationEncouragementDesc = "";
         this.educationOutcomeDesc = "";
         this.educationGoalStatus = "";
+    }
+
+    public List<String> getEmptyQuestions() {
+        List<String> questionNumbers = new ArrayList<>();
+
+        boolean isQuestionElevenChecked = isEducationAdviceChecked
+                || isEducationAdvocacyChecked
+                || isEducationReferralChecked
+                || isEducationEncouragementChecked;
+        boolean isQuestionTwelveEmpty = educationGoalStatus.isEmpty();
+
+        boolean isEducationAdviceEmpty = educationAdviceDesc.isEmpty();
+        boolean isEducationAdvocacyDescEmpty = educationAdvocacyDesc.isEmpty();
+        boolean isEducationReferralDescEmpty = educationReferralDesc.isEmpty();
+        boolean isEducationEncouragementDescEmpty = educationEncouragementDesc.isEmpty();
+
+        boolean missingDesc = (isEducationAdviceChecked && isEducationAdviceEmpty)
+                || (isEducationAdvocacyChecked && isEducationAdvocacyDescEmpty)
+                || (isEducationReferralChecked && isEducationReferralDescEmpty)
+                || (isEducationEncouragementChecked && isEducationEncouragementDescEmpty);
+
+        if (!isQuestionElevenChecked) {
+            questionNumbers.add("11.");
+        } else if (missingDesc) {
+            questionNumbers.add("11.");
+        }
+        if (isQuestionTwelveEmpty) {
+            questionNumbers.add("12.");
+        }
+        return questionNumbers;
     }
 
     public boolean isEducationAdviceChecked() {

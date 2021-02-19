@@ -1,7 +1,5 @@
 package com.example.cbr.models;
 
-import android.util.Log;
-
 import com.example.cbr.util.Constants;
 
 import java.util.ArrayList;
@@ -16,7 +14,7 @@ public class VisitGeneralQuestionSetData {
     private String purposeOfVisit;
     private String dateOfVisit;
     private String workerName;
-    private String visitGPSLocation;
+    private String visitGpsLocation;
     private String villageNumber;
     private String visitZoneLocation;
 
@@ -24,32 +22,10 @@ public class VisitGeneralQuestionSetData {
         this.purposeOfVisit = "";
         this.dateOfVisit = "";
         this.workerName = "";
-        this.visitGPSLocation = "";
+        this.visitGpsLocation = "";
         this.villageNumber = "";
         this.visitZoneLocation = "";
     }
-
-//    public boolean isRequiredFieldEmpty() {
-//        boolean isQuestionOneFilled = purposeOfVisit.isEmpty();
-//        boolean isQuestionTwoFilled;
-//        if (purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
-//            isQuestionTwoFilled = isHealthChecked || isEducationChecked || isSocialChecked;
-//        } else {
-//            isQuestionTwoFilled = true;
-//        }
-//        boolean isQuestionThreeFilled = dateOfVisit.isEmpty();
-//        boolean isQuestionFourFilled = workerName.isEmpty();
-//        boolean isQuestionFiveFilled = visitGPSLocation.isEmpty();
-//        boolean isQuestionSixFilled = visitZoneLocation.isEmpty();
-//        boolean isQuestionSevenFilled = villageNumber.isEmpty();
-//        return isQuestionOneFilled
-//                && isQuestionTwoFilled
-//                && isQuestionThreeFilled
-//                && isQuestionFourFilled
-//                && isQuestionFiveFilled
-//                && isQuestionSixFilled
-//                && isQuestionSevenFilled;
-//    }
 
     public List<String> getEmptyQuestions() {
         List<String> questionNumbers = new ArrayList<>();
@@ -63,7 +39,7 @@ public class VisitGeneralQuestionSetData {
         }
         boolean isQuestionThreeEmpty = dateOfVisit.isEmpty();
         boolean isQuestionFourEmpty = workerName.isEmpty();
-        boolean isQuestionFiveEmpty = visitGPSLocation.isEmpty();
+        boolean isQuestionFiveEmpty = visitGpsLocation.isEmpty();
         boolean isQuestionSixEmpty = visitZoneLocation.isEmpty();
         boolean isQuestionSevenEmpty = villageNumber.isEmpty();
 
@@ -139,12 +115,12 @@ public class VisitGeneralQuestionSetData {
         this.workerName = workerName;
     }
 
-    public String getVisitGPSLocation() {
-        return visitGPSLocation;
+    public String getVisitGpsLocation() {
+        return visitGpsLocation;
     }
 
-    public void setVisitGPSLocation(String visitGPSLocation) {
-        this.visitGPSLocation = visitGPSLocation;
+    public void setVisitGpsLocation(String visitGpsLocation) {
+        this.visitGpsLocation = visitGpsLocation;
     }
 
     public String getVillageNumber() {
@@ -172,7 +148,7 @@ public class VisitGeneralQuestionSetData {
                 ", purposeOfVisit='" + purposeOfVisit + '\'' +
                 ", dateOfVisit='" + dateOfVisit + '\'' +
                 ", workerName='" + workerName + '\'' +
-                ", visitGPSLocation='" + visitGPSLocation + '\'' +
+                ", visitGPSLocation='" + visitGpsLocation + '\'' +
                 ", villageNumber='" + villageNumber + '\'' +
                 ", visitZoneLocation='" + visitZoneLocation + '\'' +
                 '}';

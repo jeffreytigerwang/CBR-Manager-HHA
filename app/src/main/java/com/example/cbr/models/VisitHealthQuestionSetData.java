@@ -1,5 +1,8 @@
 package com.example.cbr.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VisitHealthQuestionSetData {
 
     private boolean isWheelChairChecked;
@@ -13,7 +16,7 @@ public class VisitHealthQuestionSetData {
     private String wheelChairDesc;
     private String prostheticDesc;
     private String orthoticDesc;
-    private String wheelchairRepairDesc;
+    private String wheelChairRepairDesc;
     private String referralToHCDesc;
     private String healthAdviceDesc;
     private String healthAdvocacyDesc;
@@ -25,13 +28,55 @@ public class VisitHealthQuestionSetData {
         this.wheelChairDesc = "";
         this.prostheticDesc = "";
         this.orthoticDesc = "";
-        this.wheelchairRepairDesc = "";
+        this.wheelChairRepairDesc = "";
         this.referralToHCDesc = "";
         this.healthAdviceDesc = "";
         this.healthAdvocacyDesc = "";
         this.healthEncouragementDesc = "";
         this.healthOutcomeDesc = "";
         this.healthGoalStatus = "";
+    }
+
+    public List<String> getEmptyQuestions() {
+        List<String> questionNumbers = new ArrayList<>();
+
+        boolean isQuestionEightChecked = isWheelChairChecked
+                || isProstheticChecked
+                || isOrthoticChecked
+                || isWheelChairRepairChecked
+                || isReferralToHCChecked
+                || isHealthAdviceChecked
+                || isHealthAdvocacyChecked
+                || isHealthEncouragementChecked;
+        boolean isQuestionNineEmpty = healthGoalStatus.isEmpty();
+
+        boolean isWheelChairDescEmpty = wheelChairDesc.isEmpty();
+        boolean isProstheticDescEmpty = prostheticDesc.isEmpty();
+        boolean isOrthoticDescEmpty = orthoticDesc.isEmpty();
+        boolean isWheelChairRepairDescEmpty = wheelChairRepairDesc.isEmpty();
+        boolean isReferralToHCDescEmpty = referralToHCDesc.isEmpty();
+        boolean isHealthAdviceDescEmpty = healthAdviceDesc.isEmpty();
+        boolean isHealthAdvocacyDescEmpty = healthAdvocacyDesc.isEmpty();
+        boolean isHealthEncouragementDescEmpty = healthEncouragementDesc.isEmpty();
+
+        boolean missingDesc = (isWheelChairChecked && isWheelChairDescEmpty)
+                || (isProstheticChecked && isProstheticDescEmpty)
+                || (isOrthoticChecked && isOrthoticDescEmpty)
+                || (isWheelChairRepairChecked && isWheelChairRepairDescEmpty)
+                || (isReferralToHCChecked && isReferralToHCDescEmpty)
+                || (isHealthAdviceChecked && isHealthAdviceDescEmpty)
+                || (isHealthAdvocacyChecked && isHealthAdvocacyDescEmpty)
+                || (isHealthEncouragementChecked && isHealthEncouragementDescEmpty);
+
+        if (!isQuestionEightChecked) {
+            questionNumbers.add("8.");
+        } else if (missingDesc) {
+            questionNumbers.add("8.");
+        }
+        if (isQuestionNineEmpty) {
+            questionNumbers.add("9.");
+        }
+        return questionNumbers;
     }
 
     public boolean isWheelChairChecked() {
@@ -122,12 +167,12 @@ public class VisitHealthQuestionSetData {
         this.orthoticDesc = orthoticDesc;
     }
 
-    public String getWheelchairRepairDesc() {
-        return wheelchairRepairDesc;
+    public String getWheelChairRepairDesc() {
+        return wheelChairRepairDesc;
     }
 
-    public void setWheelchairRepairDesc(String wheelchairRepairDesc) {
-        this.wheelchairRepairDesc = wheelchairRepairDesc;
+    public void setWheelChairRepairDesc(String wheelChairRepairDesc) {
+        this.wheelChairRepairDesc = wheelChairRepairDesc;
     }
 
     public String getReferralToHCDesc() {

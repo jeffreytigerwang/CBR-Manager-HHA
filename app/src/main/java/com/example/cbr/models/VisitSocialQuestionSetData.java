@@ -1,5 +1,8 @@
 package com.example.cbr.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VisitSocialQuestionSetData {
 
     private boolean isSocialAdviceChecked;
@@ -20,6 +23,36 @@ public class VisitSocialQuestionSetData {
         this.socialEncouragementDesc = "";
         this.socialOutcomeDesc = "";
         this.socialGoalStatus = "";
+    }
+
+    public List<String> getEmptyQuestions() {
+        List<String> questionNumbers = new ArrayList<>();
+
+        boolean isQuestionFourteenChecked = isSocialAdviceChecked
+                || isSocialAdvocacyChecked
+                || isSocialReferralChecked
+                || isSocialEncouragementChecked;
+        boolean isQuestionFifteenEmpty = socialGoalStatus.isEmpty();
+
+        boolean isSocialAdviceEmpty = socialAdviceDesc.isEmpty();
+        boolean isSocialAdvocacyDescEmpty = socialAdvocacyDesc.isEmpty();
+        boolean isSocialReferralDescEmpty = socialReferralDesc.isEmpty();
+        boolean isSocialEncouragementDescEmpty = socialEncouragementDesc.isEmpty();
+
+        boolean missingDesc = (isSocialAdviceChecked && isSocialAdviceEmpty)
+                || (isSocialAdvocacyChecked && isSocialAdvocacyDescEmpty)
+                || (isSocialReferralChecked && isSocialReferralDescEmpty)
+                || (isSocialEncouragementChecked && isSocialEncouragementDescEmpty);
+
+        if (!isQuestionFourteenChecked) {
+            questionNumbers.add("14.");
+        } else if (missingDesc) {
+            questionNumbers.add("14.");
+        }
+        if (isQuestionFifteenEmpty) {
+            questionNumbers.add("15.");
+        }
+        return questionNumbers;
     }
 
     public boolean isSocialAdviceChecked() {

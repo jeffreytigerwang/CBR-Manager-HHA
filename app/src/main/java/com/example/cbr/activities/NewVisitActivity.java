@@ -83,8 +83,8 @@ public class NewVisitActivity extends AppCompatActivity {
 
         currentFragment = new VisitFirstQuestionSetFragment(
                 binding,
-                generalQuestionSetData
-        );
+                generalQuestionSetData,
+                NewVisitActivity.this);
         manageFragment(currentFragment);
         totalFragments += 1;
         pageNum = 1;
@@ -367,12 +367,10 @@ public class NewVisitActivity extends AppCompatActivity {
     private void saveFirstQuestionSet() {
         VisitFirstQuestionSetFragment firstFragment = (VisitFirstQuestionSetFragment) currentFragment;
 
-        EditText dateOfVisit = firstFragment.getDate();
         EditText workerName = firstFragment.getCbrWorkerName();
         EditText locationOfVisit = firstFragment.getLocation();
         EditText villageNumberString = firstFragment.getVillageNumber();
 
-        generalQuestionSetData.setDateOfVisit(dateOfVisit.getText().toString());
         generalQuestionSetData.setWorkerName(workerName.getText().toString());
         generalQuestionSetData.setVisitGpsLocation(locationOfVisit.getText().toString());
         generalQuestionSetData.setVillageNumber(villageNumberString.getText().toString());

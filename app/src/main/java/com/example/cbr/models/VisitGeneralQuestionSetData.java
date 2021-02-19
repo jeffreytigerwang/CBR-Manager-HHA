@@ -1,8 +1,11 @@
 package com.example.cbr.models;
 
+import androidx.annotation.NonNull;
+
 import com.example.cbr.util.Constants;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class VisitGeneralQuestionSetData {
@@ -12,7 +15,7 @@ public class VisitGeneralQuestionSetData {
     private boolean isSocialChecked;
 
     private String purposeOfVisit;
-    private String dateOfVisit;
+    private final Date dateOfVisit;
     private String workerName;
     private String visitGpsLocation;
     private String villageNumber;
@@ -20,7 +23,7 @@ public class VisitGeneralQuestionSetData {
 
     public VisitGeneralQuestionSetData() {
         this.purposeOfVisit = "";
-        this.dateOfVisit = "";
+        this.dateOfVisit = new Date();
         this.workerName = "";
         this.visitGpsLocation = "";
         this.villageNumber = "";
@@ -37,7 +40,6 @@ public class VisitGeneralQuestionSetData {
         } else {
             isQuestionTwoChecked = true;
         }
-        boolean isQuestionThreeEmpty = dateOfVisit.isEmpty();
         boolean isQuestionFourEmpty = workerName.isEmpty();
         boolean isQuestionFiveEmpty = visitGpsLocation.isEmpty();
         boolean isQuestionSixEmpty = visitZoneLocation.isEmpty();
@@ -48,9 +50,6 @@ public class VisitGeneralQuestionSetData {
         }
         if (!isQuestionTwoChecked) {
             questionNumbers.add("2.");
-        }
-        if (isQuestionThreeEmpty) {
-            questionNumbers.add("3.");
         }
         if (isQuestionFourEmpty) {
             questionNumbers.add("4.");
@@ -99,12 +98,8 @@ public class VisitGeneralQuestionSetData {
         this.purposeOfVisit = purposeOfVisit;
     }
 
-    public String getDateOfVisit() {
+    public Date getDateOfVisit() {
         return dateOfVisit;
-    }
-
-    public void setDateOfVisit(String dateOfVisit) {
-        this.dateOfVisit = dateOfVisit;
     }
 
     public String getWorkerName() {
@@ -139,6 +134,7 @@ public class VisitGeneralQuestionSetData {
         this.visitZoneLocation = visitZoneLocation;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "VisitGeneralQuestionSetData{" +

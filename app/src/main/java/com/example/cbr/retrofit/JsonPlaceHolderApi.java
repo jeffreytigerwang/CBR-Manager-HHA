@@ -6,6 +6,10 @@ import com.example.cbr.models.ClientHealthAspect;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ClientSocialAspect;
 import com.example.cbr.models.Users;
+import com.example.cbr.models.VisitEducationQuestionSetData;
+import com.example.cbr.models.VisitGeneralQuestionSetData;
+import com.example.cbr.models.VisitHealthQuestionSetData;
+import com.example.cbr.models.VisitSocialQuestionSetData;
 
 import java.util.List;
 
@@ -51,6 +55,19 @@ public interface JsonPlaceHolderApi {
             @Field("caregiverContactNumber") Integer caregiverContactNumber
     );
 
+
+    @POST("api/visits")
+    Call<VisitGeneralQuestionSetData> createVisitGeneralQuestionSetData(@Body VisitGeneralQuestionSetData visitGeneralQuestionSetData);
+
+    @POST("api/healthProgress")
+    Call<VisitHealthQuestionSetData> createVisitHealthQuestionSetData(@Body VisitHealthQuestionSetData visitHealthQuestionSetData);
+
+    @POST("api/educationProgress")
+    Call<VisitEducationQuestionSetData> createVisitEducationQuestionSetData(@Body VisitEducationQuestionSetData visitEducationQuestionSetData);
+
+    @POST("api/socialProgress")
+    Call<VisitSocialQuestionSetData> createVisitSocialQuestionSetData(@Body VisitSocialQuestionSetData visitSocialQuestionSetData);
+
     @GET("api/users")
     Call<List<Users>> getUserEmail(@Query("email") String email);
 
@@ -58,3 +75,28 @@ public interface JsonPlaceHolderApi {
     Call<Users> createUser(@Body Users users);
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,6 +2,9 @@ package com.example.cbr.models;
 
 public class VisitGeneralQuestionSetData {
 
+    private Integer clientId;
+    private Integer visitId;
+
     private boolean isHealthChecked;
     private boolean isEducationChecked;
     private boolean isSocialChecked;
@@ -20,6 +23,22 @@ public class VisitGeneralQuestionSetData {
         this.locationOfVisit = "";
         this.villageNumber = "";
         this.siteLocation = "";
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
+    }
+
+    public Integer getVisitId() {
+        return visitId;
+    }
+
+    public void setVisitId(Integer visitId) {
+        this.visitId = visitId;
     }
 
     public boolean isHealthChecked() {

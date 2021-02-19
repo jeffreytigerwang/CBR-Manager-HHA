@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.ActivityNewVisitBinding;
@@ -19,20 +20,36 @@ import com.example.cbr.fragments.newvisit.VisitFirstQuestionSetFragment;
 import com.example.cbr.fragments.newvisit.VisitFourthQuestionSetFragment;
 import com.example.cbr.fragments.newvisit.VisitSecondQuestionSetFragment;
 import com.example.cbr.fragments.newvisit.VisitThirdQuestionSetFragment;
+import com.example.cbr.models.ClientSocialAspect;
 import com.example.cbr.models.VisitEducationQuestionSetData;
 import com.example.cbr.models.VisitHealthQuestionSetData;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.models.VisitSocialQuestionSetData;
+import com.example.cbr.retrofit.JsonPlaceHolderApi;
+import com.example.cbr.retrofit.RetrofitInit;
 
 import java.util.LinkedList;
 import java.util.Stack;
+import java.util.concurrent.ThreadLocalRandom;
 
-public class NewVisitActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+    public class NewVisitActivity extends AppCompatActivity {
 
     private ActivityNewVisitBinding binding;
 
     private static final String CLIENT_ID = "clientID";
     private static final String LOG_TAG = "NewVisitActivity";
+
+    private int clientId;
+    private int visitId;
+
+    // Init API
+    Retrofit retrofit;
+    JsonPlaceHolderApi jsonPlaceHolderApi;
 
     private Fragment currentFragment;
     private VisitGeneralQuestionSetData generalQuestionSetData;
@@ -61,6 +78,10 @@ public class NewVisitActivity extends AppCompatActivity {
         binding = ActivityNewVisitBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        // Init Retrofit & NodeJs stuff
+        retrofit = RetrofitInit.getInstance();
+        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         Intent intent = getIntent();
         final long clientID = intent.getLongExtra(CLIENT_ID, -1);
@@ -104,11 +125,126 @@ public class NewVisitActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO: 2021-02-11 save data to db
+
+                visitId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
+
+                generalQuestionSetData.setClientId(clientId);
+                generalQuestionSetData.setVisitId(visitId);
+                // createVisitGeneralQuestionSetData(generalQuestionSetData);
+
+                healthQuestionSetData.setClientId(clientId);
+                healthQuestionSetData.setVisitId(visitId);
+                // createVisitHealthQuestionSetData(healthQuestionSetData);
+
+                educationQuestionSetData.setClientId(clientId);
+                educationQuestionSetData.setVisitId(visitId);
+                // createVisitEducationQuestionSetData(educationQuestionSetData);
+
+                socialQuestionSetData.setClientId(clientId);
+                socialQuestionSetData.setVisitId(visitId);
+                // createVisitSocialQuestionSetData(socialQuestionSetData);
+
                 saveSession(pageNum);
                 finish();
             }
         });
     }
+
+
+    private void createVisitGeneralQuestionSetData(VisitGeneralQuestionSetData visitGeneralQuestionSetData) {
+        Call<VisitGeneralQuestionSetData> call = jsonPlaceHolderApi.createVisitGeneralQuestionSetData(visitGeneralQuestionSetData);
+
+        call.enqueue(new Callback<VisitGeneralQuestionSetData>() {
+            @Override
+            public void onResponse(Call<VisitGeneralQuestionSetData> call, Response<VisitGeneralQuestionSetData> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(NewVisitActivity.this, "General Question Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                VisitGeneralQuestionSetData visitResponse = response.body();
+                Toast.makeText(NewVisitActivity.this,  "General Question Record Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<VisitGeneralQuestionSetData> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+    private void createVisitHealthQuestionSetData(VisitHealthQuestionSetData visitHealthQuestionSetData) {
+        Call<VisitHealthQuestionSetData> call = jsonPlaceHolderApi.createVisitHealthQuestionSetData(visitHealthQuestionSetData);
+
+        call.enqueue(new Callback<VisitHealthQuestionSetData>() {
+            @Override
+            public void onResponse(Call<VisitHealthQuestionSetData> call, Response<VisitHealthQuestionSetData> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(NewVisitActivity.this, "Health Question Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                VisitHealthQuestionSetData visitResponse = response.body();
+                Toast.makeText(NewVisitActivity.this,  "Health Question Record Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<VisitHealthQuestionSetData> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void createVisitEducationQuestionSetData(VisitEducationQuestionSetData visitEducationQuestionSetData) {
+        Call<VisitEducationQuestionSetData> call = jsonPlaceHolderApi.createVisitEducationQuestionSetData(visitEducationQuestionSetData);
+
+        call.enqueue(new Callback<VisitEducationQuestionSetData>() {
+            @Override
+            public void onResponse(Call<VisitEducationQuestionSetData> call, Response<VisitEducationQuestionSetData> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(NewVisitActivity.this, "Education Question Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                VisitEducationQuestionSetData visitResponse = response.body();
+                Toast.makeText(NewVisitActivity.this,  "Education Question Record Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<VisitEducationQuestionSetData> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void createVisitSocialQuestionSetData(VisitSocialQuestionSetData visitSocialQuestionSetData) {
+        Call<VisitSocialQuestionSetData> call = jsonPlaceHolderApi.createVisitSocialQuestionSetData(visitSocialQuestionSetData);
+
+        call.enqueue(new Callback<VisitSocialQuestionSetData>() {
+            @Override
+            public void onResponse(Call<VisitSocialQuestionSetData> call, Response<VisitSocialQuestionSetData> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(NewVisitActivity.this, "Social Question Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                VisitSocialQuestionSetData visitResponse = response.body();
+                Toast.makeText(NewVisitActivity.this,  "Social Question Record Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<VisitSocialQuestionSetData> call, Throwable t) {
+
+            }
+        });
+    }
+
+
 
     private void setupBackButton() {
         buttonBack = binding.buttonVisitBack;

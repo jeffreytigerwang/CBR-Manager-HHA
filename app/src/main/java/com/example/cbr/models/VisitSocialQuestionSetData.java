@@ -2,6 +2,9 @@ package com.example.cbr.models;
 
 public class VisitSocialQuestionSetData {
 
+    private Integer clientId;
+    private Integer visitId;
+
     private boolean isSocialAdviceChecked;
     private boolean isSocialAdvocacyChecked;
     private boolean isSocialRefChecked;
@@ -20,6 +23,22 @@ public class VisitSocialQuestionSetData {
         this.socialEncouragementDesc = "";
         this.socialOutcomeDesc = "";
         this.socialGoalStatus = "";
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
+    }
+
+    public Integer getVisitId() {
+        return visitId;
+    }
+
+    public void setVisitId(Integer visitId) {
+        this.visitId = visitId;
     }
 
     public boolean isSocialAdviceChecked() {

@@ -36,16 +36,9 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
     private FragmentNewclientBinding binding;
     private NewClientContract.Presenter newClientPresenter;
 
-    // Get all the information from EditText that need to POST to the database
-//    EditText newClient_firstNameEditText;
-//    EditText newClient_lastNameEditText;
-//    EditText newClient_ageEditText;
-
     // Init API
     Retrofit retrofit;
     JsonPlaceHolderApi jsonPlaceHolderApi;
-
-    int id;
 
     @Nullable
     @Override

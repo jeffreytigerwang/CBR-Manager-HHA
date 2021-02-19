@@ -1,4 +1,4 @@
-package com.example.cbr.model;
+package com.example.cbr.models;
 
 public class ClientInfo {
     private boolean consentToInterview;

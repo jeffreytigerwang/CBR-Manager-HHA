@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentClientlistBinding;
 import com.example.cbr.fragments.base.BaseFragment;
-import com.example.cbr.model.ClientInfo;
+import com.example.cbr.models.ClientInfo;
 
 import java.util.ArrayList;
 

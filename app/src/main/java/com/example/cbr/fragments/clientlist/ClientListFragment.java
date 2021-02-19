@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentClientlistBinding;
 import com.example.cbr.fragments.base.BaseFragment;
+import com.example.cbr.model.ClientInfo;
 
 import java.util.ArrayList;
 
@@ -31,34 +32,24 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         // View binding so that findViewById() doesn't have to be used
         binding = FragmentClientlistBinding.inflate(inflater, container, false);
         displayString("Patient List");
-        //setupButton();
 
         ListView listView = binding.listViewClientlist;
-        ClientListClientInfo john = new ClientListClientInfo("John","1234567890","Detailed location");
-        ClientListClientInfo john1 = new ClientListClientInfo("John","1234567890","Detailed location");
-        ClientListClientInfo john2 = new ClientListClientInfo("John","1234567890","Detailed location");
-        ClientListClientInfo john3 = new ClientListClientInfo("John","1234567890","Detailed location");
-        ClientListClientInfo john4 = new ClientListClientInfo("John","1234567890","Detailed location");
-        ClientListClientInfo john5 = new ClientListClientInfo("John","1234567890","Detailed location");
-        ClientListClientInfo john6 = new ClientListClientInfo("John","1234567890","Detailed location");
-        ClientListClientInfo john7 = new ClientListClientInfo("John","1234567890","Detailed location");
-        ClientListClientInfo john8 = new ClientListClientInfo("John","1234567890","Detailed location");
-        ClientListClientInfo john9 = new ClientListClientInfo("John","1234567890","Detailed location");
-        ClientListClientInfo john0 = new ClientListClientInfo("John","1234567890","Detailed location");
+        ClientInfo john = new ClientInfo(true, "Sample text", "Sample text", "Sample text",
+                "Sample text", "Sample text", "Sample text", 40, "Sample text",
+                true, "Sample text", true, true, true, true, true, true, true, true, true, true, "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text");
 
+        ClientInfo john1 = new ClientInfo(true, "Sample text", "Sample text", "Sample text",
+                "Sample text", "Sample text", "Sample text", 40, "Sample text",
+                true, "Sample text", true, true, true, true, true, true, true, true, true, true, "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text");
+        ClientInfo john2 = new ClientInfo(true, "Sample text", "Sample text", "Sample text",
+                "Sample text", "Sample text", "Sample text", 40, "Sample text",
+                true, "Sample text", true, true, true, true, true, true, true, true, true, true, "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text", "Sample text");
 
-        ArrayList<ClientListClientInfo> peopleList = new ArrayList<>();
+        ArrayList<ClientInfo> peopleList = new ArrayList<>();
         peopleList.add(john);
         peopleList.add(john1);
         peopleList.add(john2);
-        peopleList.add(john3);
-        peopleList.add(john4);
-        peopleList.add(john5);
-        peopleList.add(john6);
-        peopleList.add(john7);
-        peopleList.add(john8);
-        peopleList.add(john9);
-        peopleList.add(john0);
+
 
         ClientListAdapter adapter = new ClientListAdapter(getActivity(), R.layout.item_clientlist, peopleList);
         listView.setAdapter(adapter);
@@ -75,15 +66,6 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         // destroy references to view
         binding = null;
     }
-
-//    private void setupButton() {
-//        binding.sampleButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                clientListPresenter.onButtonClicked();
-//            }
-//        });
-//    }
 
     @Override
     public void displayString(String string) {

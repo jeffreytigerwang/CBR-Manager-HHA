@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.ActivityNewVisitBinding;
@@ -256,6 +257,14 @@ public class NewVisitActivity extends AppCompatActivity {
                         nextFragments.offer(new VisitFourthQuestionSetFragment(
                                 socialQuestionSetData));
                         totalFragments += 1;
+                    }
+                    if (generalQuestionSetData.getPurposeOfVisit().equalsIgnoreCase(Constants.CBR)
+                            && (!generalQuestionSetData.isHealthChecked()
+                            && !generalQuestionSetData.isEducationChecked()
+                            && !generalQuestionSetData.isSocialChecked())) {
+                        Toast.makeText(NewVisitActivity.this,
+                                getString(R.string.question_2_not_filled),
+                                Toast.LENGTH_SHORT).show();
                     }
                 }
 

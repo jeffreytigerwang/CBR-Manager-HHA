@@ -85,6 +85,7 @@
     <string name="required_field">*: required field.</string>
     <string name="please_fill_in">Please fill in number(s): </string>
     <string name="e_g_5">E.g., 5</string>
+    <string name="question_2_not_filled">Question 2 not filled.</string>
     <string-array name="locations_array">
         <item>BidiBidi Zone 1</item>
         <item>BidiBidi Zone 2</item>

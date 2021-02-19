@@ -1,3 +1,4 @@
+
 package com.example.cbr.model;
 
 public class ClientInfo {
@@ -38,7 +39,6 @@ public class ClientInfo {
     private String rateSocialStatus;
     private String describeSocialStatus;
     private String setGoalForSocialStatus;
-
 
     public ClientInfo(boolean consentToInterview,
                       String gpsLocation,

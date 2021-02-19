@@ -6,32 +6,60 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SwitchCompat;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentNewclientBinding;
 import com.example.cbr.fragments.base.BaseFragment;
-import com.example.cbr.model.ClientInfo;
+import com.example.cbr.models.ClientDisability;
+import com.example.cbr.models.ClientInfo;
+import com.example.cbr.retrofit.JsonPlaceHolderApi;
+import com.example.cbr.retrofit.RetrofitInit;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class NewClientFragment extends BaseFragment implements NewClientContract.View {
 
+    private int clientId;
+
     private FragmentNewclientBinding binding;
     private NewClientContract.Presenter newClientPresenter;
+
+    // Get all the information from EditText that need to POST to the database
+//    EditText newClient_firstNameEditText;
+//    EditText newClient_lastNameEditText;
+//    EditText newClient_ageEditText;
+
+    // Init API
+    Retrofit retrofit;
+    JsonPlaceHolderApi jsonPlaceHolderApi;
+
+    int id;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setPresenter(new NewClientPresenter(this));
         binding = FragmentNewclientBinding.inflate(inflater, container, false);
+
+        // In onCreate lifecycle, grab all the information from the UI part (i.e. EditText, RatioButton)
+        // Note: in fragment, you cannot use findViewById directly. Add getView() instead
+        // https://stackoverflow.com/questions/6495898/findviewbyid-in-fragment
+
+        // Init Retrofit & NodeJs stuff
+        retrofit = RetrofitInit.getInstance();
+        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+        // List of API calls like GET & POST
+
+
         populateLocationSpinner();
         populateRateClientHealthSpinner();
         populateRateClientEducationSpinner();
@@ -39,6 +67,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         setupRecordClientButton();
         return binding.getRoot();
     }
+
 
     private void populateLocationSpinner() {
         Spinner spinner = binding.newClientLocationSpinner;
@@ -76,14 +105,32 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                 Boolean consentToInterview = binding.newClientConsentToInterviewCheckBox.isChecked();
                 String gpsLocation = binding.newClientGpsLocationEditText.getText().toString();
                 String location = binding.newClientLocationSpinner.getSelectedItem().toString();
-                String villageNumber = binding.newClientVillageNumberEditText.getText().toString();
+
+                if (binding.newClientVillageNumberEditText.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "Village Number cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Integer villageNumber = Integer.parseInt(binding.newClientVillageNumberEditText.getText().toString());
                 String dateText = binding.newClientDateEditText.getText().toString();
                 String firstName = binding.newClientFirstNameEditText.getText().toString();
                 String lastName = binding.newClientLastNameEditText.getText().toString();
+
+                if (binding.newClientAgeEditText.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "Age cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Integer age = Integer.parseInt(binding.newClientAgeEditText.getText().toString());
                 String contactNumber = binding.newClientContactNumberEditText.getText().toString();
                 boolean caregiverPresentForInterview = binding.newClientCaregiverIsPresentCheckBox.isChecked();
-                String caregiverContactNumber = binding.newClientCaregiverContactNumberEditText.getText().toString();
+
+                if (binding.newClientCaregiverContactNumberEditText.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "Caregiver Contact Number cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Integer caregiverContactNumber = Integer.parseInt(binding.newClientCaregiverContactNumberEditText.getText().toString());
+
                 boolean amputeeDisability = binding.newClientAmputeeDisabilityCheckBox.isChecked();
                 boolean polioDisability = binding.newClientPolioDisabilityCheckBox.isChecked();
                 boolean spinalCordInjuryDisability = binding.newClientSpinalCordInjuryDisabilityCheckBox.isChecked();
@@ -104,40 +151,74 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                 String describeSocialStatus = binding.newClientDescribeClientSocialStatusEditText.getText().toString();
                 String setGoalForSocialStatus = binding.newClientSetGoalForClientSocialStatusEditText.getText().toString();
 
-                ClientInfo clientInfo = new ClientInfo(
-                        consentToInterview,
-                        gpsLocation,
-                        location,
-                        villageNumber,
-                        dateText,
-                        firstName,
-                        lastName,
-                        age,
-                        contactNumber,
-                        caregiverPresentForInterview,
-                        caregiverContactNumber,
-                        amputeeDisability,
-                        polioDisability,
-                        spinalCordInjuryDisability,
-                        cerebralPalsyDisability,
-                        spinaBifidaDisability,
-                        hydrocephalusDisability,
-                        visualImpairmentDisability,
-                        hearingImpairmentDisability,
-                        doNotKnowDisability,
-                        otherDisability,
-                        rateHealth,
-                        describeHealth,
-                        setGoalForHealth,
-                        rateEducation,
-                        describeEducation,
-                        setGoalForEducation,
-                        rateSocialStatus,
-                        describeSocialStatus,
-                        setGoalForSocialStatus);
+                createClientBasicInfo(firstName, lastName, gpsLocation, location, villageNumber,
+                        age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
+
+                System.out.println(clientId + "---------------");
+
+                ClientDisability clientDisability = new ClientDisability(clientId, amputeeDisability, polioDisability, spinalCordInjuryDisability, cerebralPalsyDisability,
+                        spinaBifidaDisability, hydrocephalusDisability, visualImpairmentDisability, hearingImpairmentDisability, doNotKnowDisability, otherDisability);
+                
+                createClientDisability(clientDisability);
+            }
+        });
+
+    }
+
+    private void createClientDisability(ClientDisability clientDisability) {
+
+        Call<ClientDisability> call = jsonPlaceHolderApi.createClientDisability(clientDisability);
+
+        call.enqueue(new Callback<ClientDisability>() {
+            @Override
+            public void onResponse(Call<ClientDisability> call, Response<ClientDisability> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Disability Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ClientDisability clientInfoResponse = response.body();
+                Toast.makeText(getActivity(),  "Disability Record Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ClientDisability> call, Throwable t) {
+
             }
         });
     }
+
+    private void createClientBasicInfo(String firstName, String lastName, String gpsLocation, String location,
+                                       Integer villageNumber, Integer age, String contactNumber, boolean caregiverPresentForInterview,
+                                       Integer caregiverContactNumber) {
+
+        Call<ClientInfo> call = jsonPlaceHolderApi.createClient(firstName, lastName, gpsLocation, location,
+                villageNumber, age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
+
+        call.enqueue(new Callback<ClientInfo>() {
+            @Override
+            public void onResponse(Call<ClientInfo> call, Response<ClientInfo> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ClientInfo clientInfoResponse = response.body();
+                Toast.makeText(getActivity(), clientInfoResponse.getFirstName() + " " +
+                        clientInfoResponse.getLastName() + "\n" + "Record Successful", Toast.LENGTH_SHORT).show();
+
+                clientId = response.body().getId();
+            }
+
+            @Override
+            public void onFailure(Call<ClientInfo> call, Throwable t) {
+
+            }
+        });
+    }
+
 
     @Override
     public void setPresenter(NewClientContract.Presenter presenter) {

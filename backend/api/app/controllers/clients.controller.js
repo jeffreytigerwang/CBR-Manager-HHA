@@ -16,6 +16,7 @@ exports.create = (req, res) => {
   const client = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
+    clientId: req.body.clientId,
     gpsLocation: req.body.gpsLocation,
     zoneLocation: req.body.zoneLocation,
     villageNumber: req.body.villageNumber,

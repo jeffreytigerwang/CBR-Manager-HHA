@@ -6,6 +6,9 @@ module.exports = (sequelize, Sequelize) => {
         lastName: {
             type: Sequelize.STRING
         },
+        clientId: {
+            type: Sequelize.INTEGER
+        },
         gpsLocation: {
             type: Sequelize.STRING
         },

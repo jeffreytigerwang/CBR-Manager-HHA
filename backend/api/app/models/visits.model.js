@@ -29,6 +29,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         clientId: {
             type: Sequelize.INTEGER
+        },
+        visitId: {
+            type: Sequelize.INTEGER
         }
 
     });

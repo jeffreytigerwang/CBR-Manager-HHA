@@ -23,7 +23,8 @@ exports.create = (req, res) => {
     visitGpsLocation: req.body.visitGpsLocation,
     visitZoneLocation: req.body.visitZoneLocation,
     villageNumber: req.body.villageNumber,
-    clientId: req.body.clientId
+    clientId: req.body.clientId,
+    visitId: req.body.visitId
   };
 
   // Save item in database

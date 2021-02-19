@@ -14,16 +14,16 @@ exports.create = (req, res) => {
 
   // Create Item
   const socialProgress = {
-    isSocialAdviceChecked = req.body.isSocialAdviceChecked,
-    isSocialAdvocacyChecked = req.body.isSocialAdvocacyChecked,
-    isSocialRefChecked = req.body.isSocialRefChecked,
-    isSocialEncouragementChecked = req.body.isSocialEncouragementChecked,
-    socialAdviceDesc = req.body.socialAdviceDesc,
-    socialAdvocacyDesc = req.body.socialAdvocacyDesc,
-    socialRefDesc = req.body.socialRefDesc,
-    socialEncouragementDesc = req.body.socialEncouragementDesc,
-    socialOutcomeDesc = req.body.socialOutcomeDesc,
-    socialGoalStatus = req.body.socialGoalStatus,
+    isSocialAdviceChecked: req.body.isSocialAdviceChecked,
+    isSocialAdvocacyChecked: req.body.isSocialAdvocacyChecked,
+    isSocialRefChecked: req.body.isSocialRefChecked,
+    isSocialEncouragementChecked: req.body.isSocialEncouragementChecked,
+    socialAdviceDesc: req.body.socialAdviceDesc,
+    socialAdvocacyDesc: req.body.socialAdvocacyDesc,
+    socialRefDesc: req.body.socialRefDesc,
+    socialEncouragementDesc: req.body.socialEncouragementDesc,
+    socialOutcomeDesc: req.body.socialOutcomeDesc,
+    socialGoalStatus: req.body.socialGoalStatus,
     clientId: req.body.clientId,
     visitId: req.body.visitId
   };

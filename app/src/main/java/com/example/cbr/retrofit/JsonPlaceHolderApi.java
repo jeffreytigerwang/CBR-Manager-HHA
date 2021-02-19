@@ -1,7 +1,10 @@
 package com.example.cbr.retrofit;
 
 import com.example.cbr.models.ClientDisability;
+import com.example.cbr.models.ClientEducationAspect;
+import com.example.cbr.models.ClientHealthAspect;
 import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.ClientSocialAspect;
 import com.example.cbr.models.Users;
 
 import java.util.List;
@@ -21,17 +24,24 @@ public interface JsonPlaceHolderApi {
     @GET("api/clients")
     Call<List<ClientInfo>> getClientsInfo();
 
-//    @POST("api/clients")
-//    Call<ClientInfo> createClient(@Body ClientInfo clientInfo);
-
     @POST("api/disability")
     Call<ClientDisability> createClientDisability(@Body ClientDisability clientDisability);
+
+    @POST("api/healthAspect")
+    Call<ClientHealthAspect> createClientHealthAspect(@Body ClientHealthAspect clientHealthAspect);
+
+    @POST("api/educationAspect")
+    Call<ClientEducationAspect> createClientEducationAspect(@Body ClientEducationAspect clientEducationAspect);
+
+    @POST("api/socialAspect")
+    Call<ClientSocialAspect> createClientSocialAspect(@Body ClientSocialAspect clientSocialAspect);
 
     @FormUrlEncoded
     @POST("api/clients")
     Call<ClientInfo> createClient(
-            @Field("firstName") String first_name,
-            @Field("lastName") String last_name,
+            @Field("clientId") Integer clientId,
+            @Field("firstName") String firstName,
+            @Field("lastName") String lastName,
             @Field("gpsLocation") String gpsLocation,
             @Field("zoneLocation") String zoneLocation,
             @Field("villageNumber") Integer villageNumber,
@@ -46,7 +56,5 @@ public interface JsonPlaceHolderApi {
 
     @POST("api/users")
     Call<Users> createUser(@Body Users users);
-
-
 
 }

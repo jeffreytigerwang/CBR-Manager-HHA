@@ -48,19 +48,19 @@ public class HomeActivity extends BaseActivity implements
                     Fragment selectedFragment = null;
                     switch (item.getItemId()){
                         case R.id.fragmentClientList:
-                            selectedFragment = new ClientListFragment();
+                            selectedFragment = ClientListFragment.newInstance();
                             break;
 
                         case R.id.fragmentHome:
-                            selectedFragment = new TempHomeFragment();
+                            selectedFragment = TempHomeFragment.newInstance();
                             break;
 
                         case R.id.fragmentDiscussion:
-                            selectedFragment = new DiscussionFragment();
+                            selectedFragment = DiscussionFragment.newInstance();
                             break;
 
                         case R.id.fragmentNotification:
-                            selectedFragment = new NotificationFragment();
+                            selectedFragment = NotificationFragment.newInstance();
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.homeFragmentContainer, selectedFragment).commit();

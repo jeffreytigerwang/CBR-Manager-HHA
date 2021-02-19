@@ -27,10 +27,6 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     private FragmentClientlistBinding binding;
     private ClientListFragmentInterface clientListFragmentInterface;
     private ClientListContract.Presenter clientListPresenter;
-    ListView listView;
-    String mTitle[] = {"Facebook", "Whatsapp", "Twitter", "Instagram", "Youtube"};
-    String mDescription[] = {"Facebook Description", "Whatsapp Description", "Twitter Description", "Instagram Description", "Youtube Description"};
-    int images[] = {R.drawable.ic_baseline_home_24, R.drawable.ic_baseline_notifications_24, R.drawable.ic_baseline_list_24, R.drawable.ic_baseline_home_24, R.drawable.ic_baseline_home_24};
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -48,7 +44,6 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
 
         // View binding so that findViewById() doesn't have to be used
         binding = FragmentClientlistBinding.inflate(inflater, container, false);
-        displayString("Patient List");
 
         ClientInfo john = new ClientInfo(true, "Sample text0", "sample text0", "sample text0",
                 "sample text0", "sample text0", "sample text0", 40, "sample text0",
@@ -93,19 +88,11 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        // destroy references to view
         binding = null;
     }
 
     @Override
-    public void displayString(String string) {
-        binding.sampleText.setText(string);
-    }
-
-
-    @Override
     public void setPresenter(ClientListContract.Presenter presenter) {
-        // set the presenter so the view can communicate with the presenter
         clientListPresenter = presenter;
     }
 
@@ -114,7 +101,6 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     }
 
     public static String getFragmentTag() {
-        // return the name of the fragment as a tag, primarily for switching between fragments
         return ClientListFragment.class.getSimpleName();
     }
 

@@ -5,11 +5,9 @@ import com.example.cbr.fragments.base.BaseView;
 
 public interface ClientPageContract {
 
-    // methods communicating from view to presenter
     interface Presenter extends BasePresenter {
     }
 
-    // methods communicating from presenter to view
     interface View extends BaseView<Presenter> {
     }
 }

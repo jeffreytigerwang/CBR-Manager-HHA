@@ -31,7 +31,6 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
     @Override
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setPresenter(new ClientPagePresenter(this));
-        // View binding so that findViewById() doesn't have to be used
         binding = FragmentClientpageBinding.inflate(inflater, container, false);
 
         setupClientInfoCard();
@@ -43,7 +42,6 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        // destroy references to view
         binding = null;
     }
 
@@ -76,7 +74,6 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
 
     @Override
     public void setPresenter(ClientPageContract.Presenter presenter) {
-        // set the presenter so the view can communicate with the presenter
         clientListPresenter = presenter;
     }
 
@@ -91,7 +88,6 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
     }
 
     public static String getFragmentTag() {
-        // return the name of the fragment as a tag, primarily for switching between fragments
         return ClientPageFragment.class.getSimpleName();
     }
 }

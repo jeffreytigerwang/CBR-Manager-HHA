@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentNewclientBinding;
 import com.example.cbr.fragments.base.BaseFragment;
+import com.example.cbr.models.ClientDisability;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
@@ -25,6 +26,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class NewClientFragment extends BaseFragment implements NewClientContract.View {
+
+    private int clientId;
 
     private FragmentNewclientBinding binding;
     private NewClientContract.Presenter newClientPresenter;
@@ -37,6 +40,8 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
     // Init API
     Retrofit retrofit;
     JsonPlaceHolderApi jsonPlaceHolderApi;
+
+    int id;
 
     @Nullable
     @Override
@@ -100,14 +105,32 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                 Boolean consentToInterview = binding.newClientConsentToInterviewCheckBox.isChecked();
                 String gpsLocation = binding.newClientGpsLocationEditText.getText().toString();
                 String location = binding.newClientLocationSpinner.getSelectedItem().toString();
-                String villageNumber = binding.newClientVillageNumberEditText.getText().toString();
+
+                if (binding.newClientVillageNumberEditText.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "Village Number cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Integer villageNumber = Integer.parseInt(binding.newClientVillageNumberEditText.getText().toString());
                 String dateText = binding.newClientDateEditText.getText().toString();
                 String firstName = binding.newClientFirstNameEditText.getText().toString();
                 String lastName = binding.newClientLastNameEditText.getText().toString();
+
+                if (binding.newClientAgeEditText.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "Age cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Integer age = Integer.parseInt(binding.newClientAgeEditText.getText().toString());
                 String contactNumber = binding.newClientContactNumberEditText.getText().toString();
                 boolean caregiverPresentForInterview = binding.newClientCaregiverIsPresentCheckBox.isChecked();
-                String caregiverContactNumber = binding.newClientCaregiverContactNumberEditText.getText().toString();
+
+                if (binding.newClientCaregiverContactNumberEditText.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "Caregiver Contact Number cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Integer caregiverContactNumber = Integer.parseInt(binding.newClientCaregiverContactNumberEditText.getText().toString());
+
                 boolean amputeeDisability = binding.newClientAmputeeDisabilityCheckBox.isChecked();
                 boolean polioDisability = binding.newClientPolioDisabilityCheckBox.isChecked();
                 boolean spinalCordInjuryDisability = binding.newClientSpinalCordInjuryDisabilityCheckBox.isChecked();
@@ -128,66 +151,65 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                 String describeSocialStatus = binding.newClientDescribeClientSocialStatusEditText.getText().toString();
                 String setGoalForSocialStatus = binding.newClientSetGoalForClientSocialStatusEditText.getText().toString();
 
-                ClientInfo clientInfo = new ClientInfo(
-                        consentToInterview,
-                        gpsLocation,
-                        location,
-                        villageNumber,
-                        dateText,
-                        firstName,
-                        lastName,
-                        age,
-                        contactNumber,
-                        caregiverPresentForInterview,
-                        caregiverContactNumber,
-                        amputeeDisability,
-                        polioDisability,
-                        spinalCordInjuryDisability,
-                        cerebralPalsyDisability,
-                        spinaBifidaDisability,
-                        hydrocephalusDisability,
-                        visualImpairmentDisability,
-                        hearingImpairmentDisability,
-                        doNotKnowDisability,
-                        otherDisability,
-                        rateHealth,
-                        describeHealth,
-                        setGoalForHealth,
-                        rateEducation,
-                        describeEducation,
-                        setGoalForEducation,
-                        rateSocialStatus,
-                        describeSocialStatus,
-                        setGoalForSocialStatus);
+                createClientBasicInfo(firstName, lastName, gpsLocation, location, villageNumber,
+                        age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
 
-                createClient(firstName, lastName);
+                System.out.println(clientId + "---------------");
+
+                ClientDisability clientDisability = new ClientDisability(clientId, amputeeDisability, polioDisability, spinalCordInjuryDisability, cerebralPalsyDisability,
+                        spinaBifidaDisability, hydrocephalusDisability, visualImpairmentDisability, hearingImpairmentDisability, doNotKnowDisability, otherDisability);
+                
+                createClientDisability(clientDisability);
             }
         });
 
     }
 
-    private void createClient(String firstName, String lastName) {
-        ClientInfo clientInfo = new ClientInfo();
-        clientInfo.setFirstName(firstName);
-        clientInfo.setLastName(lastName);
+    private void createClientDisability(ClientDisability clientDisability) {
 
-        System.out.println(clientInfo.getFirstName() + "-------------");
+        Call<ClientDisability> call = jsonPlaceHolderApi.createClientDisability(clientDisability);
 
-        Call<ClientInfo> call = jsonPlaceHolderApi.createClient(firstName, lastName, 18);
+        call.enqueue(new Callback<ClientDisability>() {
+            @Override
+            public void onResponse(Call<ClientDisability> call, Response<ClientDisability> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Disability Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ClientDisability clientInfoResponse = response.body();
+                Toast.makeText(getActivity(),  "Disability Record Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ClientDisability> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void createClientBasicInfo(String firstName, String lastName, String gpsLocation, String location,
+                                       Integer villageNumber, Integer age, String contactNumber, boolean caregiverPresentForInterview,
+                                       Integer caregiverContactNumber) {
+
+        Call<ClientInfo> call = jsonPlaceHolderApi.createClient(firstName, lastName, gpsLocation, location,
+                villageNumber, age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
 
         call.enqueue(new Callback<ClientInfo>() {
             @Override
             public void onResponse(Call<ClientInfo> call, Response<ClientInfo> response) {
 
                 if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), "" + response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Record Fail", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 ClientInfo clientInfoResponse = response.body();
-                String content = "Code: " + response.code();
-                Toast.makeText(getActivity(), content + "firstName: " + clientInfoResponse.getFirstName(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(), content + "lastName: " + clientInfoResponse.getLastName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), clientInfoResponse.getFirstName() + " " +
+                        clientInfoResponse.getLastName() + "\n" + "Record Successful", Toast.LENGTH_SHORT).show();
+
+                clientId = response.body().getId();
             }
 
             @Override

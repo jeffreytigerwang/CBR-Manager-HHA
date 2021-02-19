@@ -1,12 +1,14 @@
 package com.example.cbr.models;
 
 public class ClientInfo {
+    private int id;
+
     private boolean consentToInterview;
 
     private String gpsLocation;
-    private String location;
+    private String zoneLocation;
     private String villageNumber;
-    private String date;
+    private String dateJoined;
     private String firstName;
     private String lastName;
     private Integer age;
@@ -38,72 +40,80 @@ public class ClientInfo {
     private String describeSocialStatus;
     private String setGoalForSocialStatus;
 
-        public ClientInfo(Boolean consentToInterview,
-                          String gpsLocation,
-                          String location,
-                          String villageNumber,
-                          String date,
-                          String firstName,
-                          String lastName,
-                          Integer age,
-                          String contactNumber,
-                          boolean caregiverPresentForInterview,
-                          String caregiverContactNumber,
-                          boolean amputeeDisability,
-                          boolean polioDisability,
-                          boolean spinalCordInjuryDisability,
-                          boolean cerebralPalsyDisability,
-                          boolean spinaBifidaDisability,
-                          boolean hydrocephalusDisability,
-                          boolean visualImpairmentDisability,
-                          boolean hearingImpairmentDisability,
-                          boolean doNotKnowDisability,
-                          boolean otherDisability,
-                          String rateHealth,
-                          String describeHealth,
-                          String setGoalForHealth,
-                          String rateEducation,
-                          String describeEducation,
-                          String setGoalForEducation,
-                          String rateSocialStatus,
-                          String describeSocialStatus,
-                          String setGoalForSocialStatus) {
-            this.consentToInterview = consentToInterview;
-            this.gpsLocation = gpsLocation;
-            this.location = location;
-            this.villageNumber = villageNumber;
-            this.date = date;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.age = age;
-            this.contactNumber = contactNumber;
-            this.caregiverPresentForInterview = caregiverPresentForInterview;
-            this.caregiverContactNumber = caregiverContactNumber;
-            this.amputeeDisability = amputeeDisability;
-            this.polioDisability = polioDisability;
-            this.spinalCordInjuryDisability = spinalCordInjuryDisability;
-            this.cerebralPalsyDisability = cerebralPalsyDisability;
-            this.spinaBifidaDisability = spinaBifidaDisability;
-            this.hydrocephalusDisability = hydrocephalusDisability;
-            this.visualImpairmentDisability = visualImpairmentDisability;
-            this.hearingImpairmentDisability = hearingImpairmentDisability;
-            this.doNotKnowDisability = doNotKnowDisability;
-            this.otherDisability = otherDisability;
-            this.rateHealth = rateHealth;
-            this.describeHealth = describeHealth;
-            this.setGoalForHealth = setGoalForHealth;
-            this.rateEducation = rateEducation;
-            this.describeEducation = describeEducation;
-            this.setGoalForEducation = setGoalForEducation;
-            this.rateSocialStatus = rateSocialStatus;
-            this.describeSocialStatus = describeSocialStatus;
-            this.setGoalForSocialStatus = setGoalForSocialStatus;
-        }
+    public ClientInfo(Boolean consentToInterview,
+                      String gpsLocation,
+                      String zoneLocation,
+                      String villageNumber,
+                      String dateJoined,
+                      String firstName,
+                      String lastName,
+                      Integer age,
+                      String contactNumber,
+                      boolean caregiverPresentForInterview,
+                      String caregiverContactNumber,
+                      boolean amputeeDisability,
+                      boolean polioDisability,
+                      boolean spinalCordInjuryDisability,
+                      boolean cerebralPalsyDisability,
+                      boolean spinaBifidaDisability,
+                      boolean hydrocephalusDisability,
+                      boolean visualImpairmentDisability,
+                      boolean hearingImpairmentDisability,
+                      boolean doNotKnowDisability,
+                      boolean otherDisability,
+                      String rateHealth,
+                      String describeHealth,
+                      String setGoalForHealth,
+                      String rateEducation,
+                      String describeEducation,
+                      String setGoalForEducation,
+                      String rateSocialStatus,
+                      String describeSocialStatus,
+                      String setGoalForSocialStatus) {
+        this.consentToInterview = consentToInterview;
+        this.gpsLocation = gpsLocation;
+        this.zoneLocation = zoneLocation;
+        this.villageNumber = villageNumber;
+        this.dateJoined = dateJoined;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.contactNumber = contactNumber;
+        this.caregiverPresentForInterview = caregiverPresentForInterview;
+        this.caregiverContactNumber = caregiverContactNumber;
+        this.amputeeDisability = amputeeDisability;
+        this.polioDisability = polioDisability;
+        this.spinalCordInjuryDisability = spinalCordInjuryDisability;
+        this.cerebralPalsyDisability = cerebralPalsyDisability;
+        this.spinaBifidaDisability = spinaBifidaDisability;
+        this.hydrocephalusDisability = hydrocephalusDisability;
+        this.visualImpairmentDisability = visualImpairmentDisability;
+        this.hearingImpairmentDisability = hearingImpairmentDisability;
+        this.doNotKnowDisability = doNotKnowDisability;
+        this.otherDisability = otherDisability;
+        this.rateHealth = rateHealth;
+        this.describeHealth = describeHealth;
+        this.setGoalForHealth = setGoalForHealth;
+        this.rateEducation = rateEducation;
+        this.describeEducation = describeEducation;
+        this.setGoalForEducation = setGoalForEducation;
+        this.rateSocialStatus = rateSocialStatus;
+        this.describeSocialStatus = describeSocialStatus;
+        this.setGoalForSocialStatus = setGoalForSocialStatus;
+    }
+
 
     public ClientInfo() {
 
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public boolean isConsentToInterview() {
         return consentToInterview;
@@ -121,12 +131,12 @@ public class ClientInfo {
         this.gpsLocation = gpsLocation;
     }
 
-    public String getLocation() {
-        return location;
+    public String getZoneLocation() {
+        return zoneLocation;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setZoneLocation(String zoneLocation) {
+        this.zoneLocation = zoneLocation;
     }
 
     public String getVillageNumber() {
@@ -137,12 +147,12 @@ public class ClientInfo {
         this.villageNumber = villageNumber;
     }
 
-    public String getDate() {
-        return date;
+    public String getDateJoined() {
+        return dateJoined;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDateJoined(String dateJoined) {
+        this.dateJoined = dateJoined;
     }
 
     public String getFirstName() {

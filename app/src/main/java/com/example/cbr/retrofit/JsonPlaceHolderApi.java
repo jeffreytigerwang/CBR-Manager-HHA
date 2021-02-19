@@ -1,5 +1,6 @@
 package com.example.cbr.retrofit;
 
+import com.example.cbr.models.ClientDisability;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.Users;
 
@@ -23,13 +24,21 @@ public interface JsonPlaceHolderApi {
 //    @POST("api/clients")
 //    Call<ClientInfo> createClient(@Body ClientInfo clientInfo);
 
+    @POST("api/disability")
+    Call<ClientDisability> createClientDisability(@Body ClientDisability clientDisability);
 
     @FormUrlEncoded
     @POST("api/clients")
     Call<ClientInfo> createClient(
-            @Field("first_name") String first_name,
-            @Field("last_name") String last_name,
-            @Field("age") int age
+            @Field("firstName") String first_name,
+            @Field("lastName") String last_name,
+            @Field("gpsLocation") String gpsLocation,
+            @Field("zoneLocation") String zoneLocation,
+            @Field("villageNumber") Integer villageNumber,
+            @Field("age") Integer age,
+            @Field("contactNumber") String contactNumber,
+            @Field("caregiverPresentForInterview") boolean caregiverPresentForInterview,
+            @Field("caregiverContactNumber") Integer caregiverContactNumber
     );
 
     @GET("api/users")

@@ -95,9 +95,6 @@ public class ClientListAdapter extends ArrayAdapter<ClientInfo> {
                 setGoalForHealth, rateEducation, describeEducation, setGoalForEducation,
                 rateSocialStatus, describeSocialStatus, setGoalForSocialStatus);
 
-
-        System.out.println("+++++" + firstName);
-
         //ViewHolder object
         ViewHolder holder;
 

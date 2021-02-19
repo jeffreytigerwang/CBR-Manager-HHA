@@ -1,6 +1,7 @@
 package com.example.cbr.fragments.clientlist;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,11 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setPresenter(new ClientListPresenter(this));
 
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         // Init Retrofit & NodeJs stuff
         retrofit = RetrofitInit.getInstance();
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
@@ -58,13 +64,17 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         displayString("Patient List");
 
 
-        getClientsInfo();
+        try {
+            getClientsInfo();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
-//        System.out.println(clientInfoArrayList.get(0).getFirstName());
-//        System.out.println(clientInfoArrayList.get(0).getLastName());
-//        System.out.println(clientInfoArrayList.get(0).getCaregiverContactNumber());
-//        System.out.println(clientInfoArrayList.get(0).getGpsLocation());
+        System.out.println(clientInfoArrayList.get(0).getFirstName());
+        System.out.println(clientInfoArrayList.get(0).getLastName());
+        System.out.println(clientInfoArrayList.get(0).getCaregiverContactNumber());
+        System.out.println(clientInfoArrayList.get(0).getGpsLocation());
 
         ListView listView = binding.listViewClientlist;
         ClientInfo john = new ClientInfo(true, "Sample text", "Sample text", "Sample text",
@@ -84,7 +94,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         peopleList.add(john2);
 
 
-        adapter = new ClientListAdapter(getActivity(), R.layout.item_clientlist, peopleList);
+        adapter = new ClientListAdapter(getActivity(), R.layout.item_clientlist, clientInfoArrayList);
         listView.setAdapter(adapter);
 
         View view = binding.getRoot();
@@ -92,39 +102,41 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     }
 
 
-    private void getClientsInfo() {
-        Call<List<com.example.cbr.models.ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
-
-        call.enqueue(new Callback<List<com.example.cbr.models.ClientInfo>>() {
-            @Override
-            public void onResponse(Call<List<com.example.cbr.models.ClientInfo>> call, Response<List<com.example.cbr.models.ClientInfo>> response) {
-
-                if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), "ClientInfo Get Fail", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                List<com.example.cbr.models.ClientInfo> clientInfoList = response.body();
-
-                for (com.example.cbr.models.ClientInfo clientInfo: clientInfoList) {
-                    clientInfoArrayList.add(clientInfo);
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<com.example.cbr.models.ClientInfo>> call, Throwable t) {
-
-            }
-        });
-    }
-
-//    private void getClientsInfo() throws IOException {
-//        Call<List<ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
+//    private void getClientsInfo() {
+//        Call<List<com.example.cbr.models.ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
 //
-//        Response<List<ClientInfo>> response = call.execute();
+//        call.enqueue(new Callback<List<com.example.cbr.models.ClientInfo>>() {
+//            @Override
+//            public void onResponse(Call<List<com.example.cbr.models.ClientInfo>> call, Response<List<com.example.cbr.models.ClientInfo>> response) {
 //
+//                if (!response.isSuccessful()) {
+//                    Toast.makeText(getActivity(), "ClientInfo Get Fail", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                List<com.example.cbr.models.ClientInfo> clientInfoList = response.body();
+//
+//                for (com.example.cbr.models.ClientInfo clientInfo: clientInfoList) {
+//                    clientInfoArrayList.add(clientInfo);
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<com.example.cbr.models.ClientInfo>> call, Throwable t) {
+//
+//            }
+//        });
 //    }
+
+    private void getClientsInfo() throws IOException {
+        Call<List<ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
+
+        Response<List<ClientInfo>> response = call.execute();
+        List<ClientInfo> clientInfoList = response.body();
+
+        clientInfoArrayList.addAll(clientInfoList);
+    }
 
 
     @Override

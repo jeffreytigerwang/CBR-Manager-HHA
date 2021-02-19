@@ -1,72 +1,89 @@
 package com.example.cbr.activities;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+
 import com.example.cbr.R;
 import com.example.cbr.fragments.TempHomeFragment;
 import com.example.cbr.fragments.base.BaseActivity;
 import com.example.cbr.fragments.clientlist.ClientListFragment;
+import com.example.cbr.fragments.clientpage.ClientPageFragment;
 import com.example.cbr.fragments.discussion.DiscussionFragment;
+import com.example.cbr.fragments.newclient.NewClientFragment;
 import com.example.cbr.fragments.notification.NotificationFragment;
 import com.example.cbr.model.ClientInfo;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.example.cbr.fragments.clientpage.ClientPageFragment;
-import com.example.cbr.fragments.newclient.NewClientFragment;
 
 public class HomeActivity extends BaseActivity implements
         TempHomeFragment.TempHomeFragmentInterface,
         ClientListFragment.ClientListFragmentInterface
 {
 
+    BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
-
+        setupBottomNav();
         swapToHomeFragment();
+    }
+
+    @Override
+    public void onBackPressed() {
+        String currentFragment = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 1).getName();
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+            finish();
+        } else if (currentFragment.equals(ClientListFragment.getFragmentTag()) ||
+                currentFragment.equals(DiscussionFragment.getFragmentTag()) ||
+                currentFragment.equals(NotificationFragment.getFragmentTag())) {
+            getSupportFragmentManager().popBackStack(currentFragment, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            bottomNavigationView.getMenu().getItem(0).setChecked(true);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private void setupBottomNav() {
+        BottomNavigationView.OnNavigationItemSelectedListener navListener =
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.fragmentHome:
+                                addFragment(R.id.homeFragmentContainer, TempHomeFragment.newInstance(), TempHomeFragment.getFragmentTag());
+                                break;
+
+                            case R.id.fragmentClientList:
+                                addFragment(R.id.homeFragmentContainer, ClientListFragment.newInstance(), ClientListFragment.getFragmentTag());
+                                break;
+
+                            case R.id.fragmentDiscussion:
+                                addFragment(R.id.homeFragmentContainer, DiscussionFragment.newInstance(), DiscussionFragment.getFragmentTag());
+                                break;
+
+                            case R.id.fragmentNotification:
+                                addFragment(R.id.homeFragmentContainer, NotificationFragment.newInstance(), NotificationFragment.getFragmentTag());
+                                break;
+                        }
+                        return true;
+                    }
+                };
+
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
     }
 
     public void swapToHomeFragment() {
         TempHomeFragment tempHomeFragment = TempHomeFragment.newInstance();
         addFragment(R.id.homeFragmentContainer, tempHomeFragment, TempHomeFragment.getFragmentTag());
     }
-
-
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = null;
-                    switch (item.getItemId()){
-                        case R.id.fragmentClientList:
-                            selectedFragment = ClientListFragment.newInstance();
-                            break;
-
-                        case R.id.fragmentHome:
-                            selectedFragment = TempHomeFragment.newInstance();
-                            break;
-
-                        case R.id.fragmentDiscussion:
-                            selectedFragment = DiscussionFragment.newInstance();
-                            break;
-
-                        case R.id.fragmentNotification:
-                            selectedFragment = NotificationFragment.newInstance();
-                            break;
-                    }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.homeFragmentContainer, selectedFragment).commit();
-                    return true;
-                }
-            };
 
     @Override
     public void swapToClientPage(ClientInfo clientInfo) {

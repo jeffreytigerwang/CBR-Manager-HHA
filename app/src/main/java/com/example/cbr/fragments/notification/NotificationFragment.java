@@ -21,4 +21,8 @@ public class NotificationFragment extends Fragment {
     public static NotificationFragment newInstance() {
         return new NotificationFragment();
     }
+
+    public static String getFragmentTag() {
+        return NotificationFragment.class.getSimpleName();
+    }
 }

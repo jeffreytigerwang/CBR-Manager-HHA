@@ -21,4 +21,8 @@ public class DiscussionFragment extends Fragment {
     public static DiscussionFragment newInstance() {
         return new DiscussionFragment();
     }
+
+    public static String getFragmentTag() {
+        return DiscussionFragment.class.getSimpleName();
+    }
 }

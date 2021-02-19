@@ -57,19 +57,19 @@ public class HomeActivity extends BaseActivity implements
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.fragmentHome:
-                                addFragment(R.id.homeFragmentContainer, TempHomeFragment.newInstance(), TempHomeFragment.getFragmentTag());
+                                replaceFragment(R.id.homeFragmentContainer, TempHomeFragment.newInstance(), TempHomeFragment.getFragmentTag());
                                 break;
 
                             case R.id.fragmentClientList:
-                                addFragment(R.id.homeFragmentContainer, ClientListFragment.newInstance(), ClientListFragment.getFragmentTag());
+                                replaceFragment(R.id.homeFragmentContainer, ClientListFragment.newInstance(), ClientListFragment.getFragmentTag());
                                 break;
 
                             case R.id.fragmentDiscussion:
-                                addFragment(R.id.homeFragmentContainer, DiscussionFragment.newInstance(), DiscussionFragment.getFragmentTag());
+                                replaceFragment(R.id.homeFragmentContainer, DiscussionFragment.newInstance(), DiscussionFragment.getFragmentTag());
                                 break;
 
                             case R.id.fragmentNotification:
-                                addFragment(R.id.homeFragmentContainer, NotificationFragment.newInstance(), NotificationFragment.getFragmentTag());
+                                replaceFragment(R.id.homeFragmentContainer, NotificationFragment.newInstance(), NotificationFragment.getFragmentTag());
                                 break;
                         }
                         return true;

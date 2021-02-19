@@ -1,12 +1,33 @@
 module.exports = (sequelize, Sequelize) => {
     const SocialProgress = sequelize.define("SocialProgress", {
-        helpProvided: {
+        isSocialAdviceChecked: {
+            type: Sequelize.BOOLEAN
+        },
+        isSocialAdvocacyChecked: {
+            type: Sequelize.BOOLEAN
+        },
+        isSocialRefChecked: {
+            type: Sequelize.BOOLEAN
+        },
+        isSocialEncouragementChecked: {
+            type: Sequelize.BOOLEAN
+        },
+        socialAdviceDesc: {
+            type: Sequelize.STRING  
+        },
+        socialAdvocacyDesc: {
             type: Sequelize.STRING
         },
-        goalOutcome: {
+        socialRefDesc:{
             type: Sequelize.STRING
         },
-        conclusion: {
+        socialEncouragementDesc: {
+            type: Sequelize.STRING
+        },
+        socialOutcomeDesc: {
+            type: Sequelize.STRING
+        },
+        socialGoalStatus: {
             type: Sequelize.STRING
         },
         clientId: {
@@ -15,7 +36,6 @@ module.exports = (sequelize, Sequelize) => {
         visitId: {
             type: Sequelize.INTEGER
         }
-
 
     });
 

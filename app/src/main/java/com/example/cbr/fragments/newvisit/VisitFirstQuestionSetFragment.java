@@ -139,7 +139,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
                 if (checkedId == R.id.newVisit_CBRRadioButton) {
                     dataContainer.setPurposeOfVisit(Constants.CBR);
 
-                    int unlockedColor = ContextCompat.getColor(parentContext, R.color.cbrBlack);
+                    int unlockedColor = ContextCompat.getColor(parentContext, R.color.black);
                     toggleQuestionTwo(unlockedColor, true);
                     toggleRecordButton(View.VISIBLE, View.GONE);
 

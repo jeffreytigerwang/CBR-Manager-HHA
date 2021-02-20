@@ -1,8 +1,11 @@
-package com.example.cbr;
-
+package com.example.cbr.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-package com.example.cbr.activities;
+
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.cbr.R;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,9 +50,6 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
     private Button btn_register;
     private EditText edt_username;
     private EditText edt_password;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.cbr.R;
 
     @Override
     protected void onStop() {

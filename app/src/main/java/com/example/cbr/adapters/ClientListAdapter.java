@@ -70,7 +70,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Vi
         public void bind(final ClientInfo clientInfo) {
             nameText.setText(clientInfo.getFullName());
             idText.setText(clientInfo.getId());
-            locationText.setText(clientInfo.getLocation());
+            locationText.setText(clientInfo.getZoneLocation());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

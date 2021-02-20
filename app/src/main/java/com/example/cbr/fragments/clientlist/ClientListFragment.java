@@ -43,15 +43,15 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         binding = FragmentClientlistBinding.inflate(inflater, container, false);
 
         ClientInfo john = new ClientInfo(true, "Sample text0", "sample text0", "sample text0",
-                "sample text0", "sample text0", "sample text0", 40, "sample text0",
+                "sample text0", "sample text0", "sample text0", "male", 40, "sample text0",
                 true, "sample text0", true, true, true, true, true, true, true, true, true, true, "sample text0", "sample text0", "sample text0", "sample text0", "sample text0", "sample text0", "sample text0", "sample text0", "sample text0");
 
         ClientInfo john1 = new ClientInfo(true, "sample text1", "sample text1", "sample text1",
-                "sample text1", "sample text1", "sample text1", 40, "sample text1",
+                "sample text1", "sample text1", "sample text1", "male", 40, "sample text1",
                 true, "sample text1", true, true, true, true, true, true, true, true, true, true, "sample text1", "sample text1", "sample text1", "sample text1", "sample text1", "sample text1", "sample text1", "sample text1", "sample text1");
 
         ClientInfo john2 = new ClientInfo(true, "sample text2", "sample text2", "sample text2",
-                "sample text2", "sample text2", "sample text2", 40, "sample text2",
+                "sample text2", "sample text2", "sample text2", "male", 40, "sample text2",
                 true, "sample text2", true, true, true, true, true, true, true, true, false, true, "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2");
 
         ClientInfo empty = new ClientInfo();

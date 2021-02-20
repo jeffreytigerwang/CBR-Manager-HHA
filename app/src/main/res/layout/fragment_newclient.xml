@@ -30,72 +30,42 @@
                 android:text="@string/consent_to_interview" />
 
             <EditText
-                android:id="@+id/newClient_gpsLocationEditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="@string/gps_location"
-                android:background="@drawable/edit_text_border"
-                android:padding="7dp"
-                android:minWidth="200dp"/>
-
-            <TextView
-                android:id="@+id/newClient_zoneLocationTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="4dp"
-                android:text="@string/zone_location"/>
-
-            <Spinner
-                android:id="@+id/newClient_zoneLocationSpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
-
-            <EditText
-                android:id="@+id/newClient_villageNumberEditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="@string/village_number"
-                android:inputType="number" />
-
-            <EditText
                 android:id="@+id/newClient_dateEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:hint="@string/date"
-                android:inputType="date" />
+                android:inputType="date"
+                android:background="@drawable/edit_text_border"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:minWidth="200dp"/>
+
+            <include
+                layout="@layout/recyclerview_divider"/>
 
             <EditText
                 android:id="@+id/newClient_firstNameEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="@string/first_name" />
+                android:hint="@string/first_name"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp"
+                android:minWidth="200dp"/>
 
             <EditText
                 android:id="@+id/newClient_lastNameEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/last_name" />
-
-            <TextView
-                android:id="@+id/newClient_genderTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="4dp"
-                android:text="@string/gender" />
+                android:hint="@string/last_name"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp"
+                android:minWidth="200dp"/>
 
             <RadioGroup
                 android:id="@+id/newClient_genderRadioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <RadioButton
@@ -112,12 +82,44 @@
             </RadioGroup>
 
             <EditText
+                android:id="@+id/newClient_gpsLocationEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/gps_location"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp"
+                android:minWidth="200dp"/>
+
+            <Spinner
+                android:id="@+id/newClient_zoneLocationSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:background="@drawable/edit_text_border"
+                android:minWidth="200dp"/>
+
+            <EditText
+                android:id="@+id/newClient_villageNumberEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/village_number"
+                android:inputType="number"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp"
+                android:minWidth="200dp"/>
+
+            <EditText
                 android:id="@+id/newClient_ageEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/age"
-                android:inputType="number" />
+                android:inputType="number"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp"
+                android:minWidth="200dp"/>
 
             <EditText
                 android:id="@+id/newClient_contactNumberEditText"
@@ -125,22 +127,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/contact_number"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp"
+                android:minWidth="200dp"/>
 
             <CheckBox
                 android:id="@+id/newClient_caregiverIsPresentCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:text="@string/caregiver_present_for_interview" />
 
             <EditText
                 android:id="@+id/newClient_caregiverContactNumberEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:hint="@string/caregiver_contact_number"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp"
+                android:minWidth="200dp"/>
 
             <ImageView
                 android:id="@+id/newClient_photoOfClientImageView"
@@ -149,13 +155,15 @@
                 android:layout_marginTop="10dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
+            <include
+                layout="@layout/recyclerview_divider"/>
+
             <TextView
                 android:id="@+id/newClient_typeOfDisabilityTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="4dp"
-                android:text="@string/type_of_disability" />
+                android:text="@string/type_of_disability"
+                android:textColor="@color/black"/>
 
             <CheckBox
                 android:id="@+id/newClient_amputeeDisabilityCheckBox"
@@ -227,95 +235,173 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/other" />
 
+            <include
+                layout="@layout/recyclerview_divider"/>
+
             <TextView
                 android:id="@+id/newClient_rateClientHealthTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="4dp"
-                android:text="@string/please_rate_how_you_consider_the_client_s_health_to_be" />
+                android:text="@string/please_rate_how_you_consider_the_client_s_health_to_be"
+                android:textColor="@color/black"/>
 
             <Spinner
                 android:id="@+id/newClient_rateClientHealthSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp"
+                android:layout_marginTop="10dp"
+                android:minWidth="100dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Please describe what they require"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"/>
 
             <EditText
                 android:id="@+id/newClient_describeClientHealthEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/please_describe_what_they_require" />
+                android:hint="@string/please_describe_what_they_require"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp"
+                android:minWidth="365dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set individual goal"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"/>
 
             <EditText
                 android:id="@+id/newClient_setGoalForClientHealthEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/set_individual_goal" />
+                android:hint="@string/set_individual_goal"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp"
+                android:minWidth="365dp"/>
+
+            <include
+                layout="@layout/recyclerview_divider"/>
 
             <TextView
                 android:id="@+id/newClient_rateClientEducationTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="4dp"
-                android:text="@string/please_rate_how_you_consider_the_client_s_education_status_to_be" />
+                android:text="@string/please_rate_how_you_consider_the_client_s_education_status_to_be"
+                android:textColor="@color/black"/>
 
             <Spinner
                 android:id="@+id/newClient_rateClientEducationSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp"
+                android:layout_marginTop="10dp"
+                android:minWidth="100dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Please describe what they require"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"/>
 
             <EditText
                 android:id="@+id/newClient_describeClientEducationEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/please_describe_what_they_require" />
+                android:hint="@string/please_describe_what_they_require"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp"
+                android:minWidth="365dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set individual goal"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp" />
 
             <EditText
                 android:id="@+id/newClient_setGoalForClientEducationEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/set_individual_goal" />
+                android:hint="@string/set_individual_goal"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp"
+                android:minWidth="365dp"/>
+
+            <include
+                layout="@layout/recyclerview_divider"/>
 
             <TextView
                 android:id="@+id/newClient_rateClientSocialStatusTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="4dp"
-                android:text="@string/please_rate_how_you_consider_the_client_s_social_status_to_be" />
+                android:text="@string/please_rate_how_you_consider_the_client_s_social_status_to_be"
+                android:textColor="@color/black"/>
 
             <Spinner
                 android:id="@+id/newClient_rateClientSocialStatusSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp"
+                android:layout_marginTop="10dp"
+                android:minWidth="100dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Please describe what they require"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"/>
 
             <EditText
                 android:id="@+id/newClient_describeClientSocialStatusEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/please_describe_what_they_require" />
+                android:hint="@string/please_describe_what_they_require"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp"
+                android:minWidth="365dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set individual goal"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"/>
 
             <EditText
                 android:id="@+id/newClient_setGoalForClientSocialStatusEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/set_individual_goal" />
+                android:hint="@string/set_individual_goal"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp"
+                android:minWidth="365dp"/>
 
             <Button
                 android:id="@+id/newClient_recordClientButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/record_client" />
 
         </LinearLayout>

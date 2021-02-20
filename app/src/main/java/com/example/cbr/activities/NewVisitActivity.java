@@ -152,7 +152,7 @@ public class NewVisitActivity extends AppCompatActivity {
                 socialQuestionSetData.setClientId(clientId);
                 socialQuestionSetData.setVisitId(visitId);
 
-                saveSession(pageNum);
+                saveSession(currentFragment);
                 final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
                 final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();
                 final List<String> emptyEducationQuestions = educationQuestionSetData.getEmptyQuestions();
@@ -372,7 +372,7 @@ public class NewVisitActivity extends AppCompatActivity {
                     Log.d(LOG_TAG, "pagNum-1: " + (pageNum-1));
                     buttonBack.setVisibility(View.GONE);
                 }
-                saveSession(pageNum);
+                saveSession(currentFragment);
                 Log.d(LOG_TAG, "pagNum onBack: " + pageNum);
 
                 nextFragments.addFirst(currentFragment);
@@ -394,7 +394,7 @@ public class NewVisitActivity extends AppCompatActivity {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveSession(pageNum);
+                saveSession(currentFragment);
 
                 if (pageNum == 1) {
                     prevFragments.clear();
@@ -450,21 +450,16 @@ public class NewVisitActivity extends AppCompatActivity {
         });
     }
 
-    private void saveSession(byte pageNum) {
-        switch (pageNum) {
-            case 1:
+    private void saveSession(Fragment currentFragment) {
+            if (currentFragment instanceof VisitFirstQuestionSetFragment) {
                 saveFirstQuestionSet();
-                break;
-            case 2:
+            } else if (currentFragment instanceof VisitSecondQuestionSetFragment) {
                 saveSecondQuestionSetDesc();
-                break;
-            case 3:
+            } else if (currentFragment instanceof VisitThirdQuestionSetFragment) {
                 saveThirdQuestionSetDesc();
-                break;
-            case 4:
+            } else {
                 saveFourthQuestionSetDesc();
-                break;
-        }
+            }
     }
 
     private void saveFourthQuestionSetDesc() {

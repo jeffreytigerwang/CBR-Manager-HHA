@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp"
-    >
+    android:background="?android:attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/imageView_clientlist_Photo"
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:text="@string/sample_name"
-            android:textColor="@color/cbrBlack"
+            android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold" />
 

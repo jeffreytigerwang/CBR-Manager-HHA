@@ -1,9 +1,9 @@
-package com.example.cbr.fragments.clientlist;
+package com.example.cbr.fragments.clientpage;
 
 import com.example.cbr.fragments.base.BasePresenter;
 import com.example.cbr.fragments.base.BaseView;
 
-public interface ClientListContract {
+public interface ClientPageContract {
 
     interface Presenter extends BasePresenter {
     }

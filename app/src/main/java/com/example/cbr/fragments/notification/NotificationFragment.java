@@ -17,4 +17,12 @@ public class NotificationFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_notification, container, false);
     }
+
+    public static NotificationFragment newInstance() {
+        return new NotificationFragment();
+    }
+
+    public static String getFragmentTag() {
+        return NotificationFragment.class.getSimpleName();
+    }
 }

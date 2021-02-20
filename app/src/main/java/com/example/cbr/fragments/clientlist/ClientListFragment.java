@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cbr.adapters.ClientListAdapter;
 import com.example.cbr.databinding.FragmentClientlistBinding;
 import com.example.cbr.fragments.base.BaseFragment;
-import com.example.cbr.model.ClientInfo;
+import com.example.cbr.models.ClientInfo;
 
 import java.util.ArrayList;
 

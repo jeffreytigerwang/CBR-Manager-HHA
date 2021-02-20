@@ -17,4 +17,12 @@ public class DiscussionFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_dicussion, container, false);
     }
+
+    public static DiscussionFragment newInstance() {
+        return new DiscussionFragment();
+    }
+
+    public static String getFragmentTag() {
+        return DiscussionFragment.class.getSimpleName();
+    }
 }

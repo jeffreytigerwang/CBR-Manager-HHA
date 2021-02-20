@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/listbackground">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,14 +13,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="120dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:orientation="vertical">
 
             <CheckBox
                 android:id="@+id/newClient_consentToInterviewCheckBox"
@@ -29,26 +27,31 @@
                 android:layout_height="20dp"
                 android:text="@string/consent_to_interview" />
 
+            <TextView
+                android:id="@+id/newClient_idNumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/id_number" />
+
             <EditText
                 android:id="@+id/newClient_gpsLocationEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/gps_location"
-                android:background="@drawable/edit_text_border"
-                android:padding="7dp"
-                android:minWidth="200dp"/>
+                android:hint="@string/gps_location" />
 
             <TextView
-                android:id="@+id/newClient_zoneLocationTextView"
+                android:id="@+id/newClient_locationTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="4dp"
-                android:text="@string/zone_location"/>
+                android:text="@string/location" />
 
             <Spinner
-                android:id="@+id/newClient_zoneLocationSpinner"
+                android:id="@+id/newClient_locationSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp" />
@@ -99,13 +102,11 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/newClient_maleRadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/male" />
 
                 <RadioButton
-                    android:id="@+id/newClient_femaleRadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/female" />
@@ -319,7 +320,7 @@
                 android:text="@string/record_client" />
 
         </LinearLayout>
-
     </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

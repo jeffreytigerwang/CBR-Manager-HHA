@@ -1,7 +1,6 @@
 package com.example.cbr.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,27 +11,12 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.cbr.activities.NewVisitActivity;
 import com.example.cbr.databinding.FragmentHomeBinding;
 
 public class TempHomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private TempHomeFragmentInterface tempHomeFragmentInterface;
-
-    @Override
-    public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-
-        setupAddNewClientButton();
-        setupAddNewVisitButton();
-        setupDashboardButton();
-        setupAddNewReferralButton();
-        setupViewAllClientsButton();
-        setupSyncButton();
-
-        return binding.getRoot();
-    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -44,58 +28,13 @@ public class TempHomeFragment extends Fragment {
         }
     }
 
-    private void setupSyncButton() {
-        Button button = binding.buttonSync;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @Override
+    public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-            }
-        });
-    }
+        setupAddNewClientButton();
 
-    private void setupViewAllClientsButton() {
-        Button button = binding.buttonClientList;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tempHomeFragmentInterface.swapToClientList();
-            }
-        });
-    }
-
-    private void setupAddNewReferralButton() {
-        Button button = binding.buttonNewReferral;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-    }
-
-    private void setupDashboardButton() {
-        Button button = binding.buttonDashboard;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-    }
-
-    private void setupAddNewVisitButton() {
-        Button button = binding.buttonNewVisit;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = NewVisitActivity.makeLaunchIntent(
-                        getActivity(),
-                        -1
-                );
-                startActivity(intent);
-            }
-        });
+        return binding.getRoot();
     }
 
     private void setupAddNewClientButton() {
@@ -118,8 +57,6 @@ public class TempHomeFragment extends Fragment {
     }
 
     public interface TempHomeFragmentInterface {
-        void swapToClientList();
         void swapToNewClient();
     }
-
 }

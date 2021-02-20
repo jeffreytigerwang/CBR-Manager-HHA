@@ -9,6 +9,21 @@
     <string name="password">Password</string>
     <string name="terms_of_service_and_privacy_policy">Terms of Service and Privacy Policy</string>
     <string name="continue_text">continue</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="na">N/A</string>
+
+    <!-- Client page -->
+    <string name="agnes_kenyi">Agnes Kenyi</string>
+    <string name="bidibidi_zone_3">BidiBidi, Zone 3</string>
+    <string name="gender_clientpage">Gender: %1$s</string>
+    <string name="age_clientpage">Age: %1$s</string>
+    <string name="disability_clientpage">Disabilities: %1$s</string>
+    <string name="disabilities">Disabilities</string>
+    <string name="basic_information">Basic information</string>
+    <string name="social_status">Social status</string>
+
+    <!-- New client -->
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="last_name">Last name</string>
@@ -35,6 +50,7 @@
     <string name="spinal_cord_injury">Spinal cord injury</string>
     <string name="please_describe_what_they_require">Please describe what they require</string>
     <string name="set_individual_goal">Set individual goal</string>
+    <string name="individual_goal">Individual goal</string>
     <string name="location">Location</string>
     <string name="type_of_disability">Type of disability</string>
     <string name="please_rate_how_you_consider_the_client_s_health_to_be">Please rate how you consider the client\'s health to be:</string>

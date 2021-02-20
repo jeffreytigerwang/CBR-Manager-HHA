@@ -2,6 +2,7 @@ package com.example.cbr;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+package com.example.cbr.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
     private Button btn_register;
     private EditText edt_username;
     private EditText edt_password;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.cbr.R;
 
     @Override
     protected void onStop() {
@@ -144,6 +148,9 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
 
+                Intent intent = HomeActivity.makeIntent(MainActivity.this);
+                startActivity(intent);
+                finish();
             }
         });
     }

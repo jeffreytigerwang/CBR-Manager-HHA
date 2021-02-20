@@ -15,6 +15,13 @@
     import androidx.fragment.app.Fragment;
     import androidx.fragment.app.FragmentManager;
     import androidx.fragment.app.FragmentTransaction;
+    import android.content.Context;
+    import android.content.Intent;
+    import android.os.Bundle;
+    import android.util.Log;
+    import android.view.View;
+    import android.widget.Button;
+    import android.widget.EditText;
 
     import com.example.cbr.R;
     import com.example.cbr.databinding.ActivityNewVisitBinding;
@@ -30,6 +37,21 @@
     import com.example.cbr.retrofit.JsonPlaceHolderApi;
     import com.example.cbr.retrofit.RetrofitInit;
     import com.example.cbr.util.Constants;
+    import androidx.appcompat.app.AppCompatActivity;
+    import androidx.fragment.app.Fragment;
+    import androidx.fragment.app.FragmentManager;
+    import androidx.fragment.app.FragmentTransaction;
+
+    import com.example.cbr.R;
+    import com.example.cbr.databinding.ActivityNewVisitBinding;
+    import com.example.cbr.fragments.newvisit.VisitFirstQuestionSetFragment;
+    import com.example.cbr.fragments.newvisit.VisitFourthQuestionSetFragment;
+    import com.example.cbr.fragments.newvisit.VisitSecondQuestionSetFragment;
+    import com.example.cbr.fragments.newvisit.VisitThirdQuestionSetFragment;
+    import com.example.cbr.models.VisitEducationQuestionSetData;
+    import com.example.cbr.models.VisitGeneralQuestionSetData;
+    import com.example.cbr.models.VisitHealthQuestionSetData;
+    import com.example.cbr.models.VisitSocialQuestionSetData;
 
     import java.util.ArrayList;
     import java.util.LinkedList;

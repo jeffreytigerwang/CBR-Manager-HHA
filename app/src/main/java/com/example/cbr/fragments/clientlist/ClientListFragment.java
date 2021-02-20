@@ -17,14 +17,20 @@ import com.example.cbr.adapters.ClientListAdapter;
 import com.example.cbr.databinding.FragmentClientlistBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.models.ClientInfo;
+import com.example.cbr.retrofit.JsonPlaceHolderApi;
+import com.example.cbr.retrofit.RetrofitInit;
 
 import java.util.ArrayList;
+
+import retrofit2.Retrofit;
 
 public class ClientListFragment extends BaseFragment implements ClientListContract.View {
 
     private FragmentClientlistBinding binding;
     private ClientListFragmentInterface clientListFragmentInterface;
     private ClientListContract.Presenter clientListPresenter;
+    private Retrofit retrofit;
+    private JsonPlaceHolderApi jsonPlaceHolderApi;
 
     @Override
     public void onAttach(@NonNull Context context) {

@@ -1,9 +1,5 @@
 package com.example.cbr.models;
 
-public class ClientInfo {
-    private int id;
-
-    private boolean consentToInterview;
 import com.example.cbr.util.Constants;
 
 import java.io.Serializable;
@@ -49,17 +45,15 @@ public class ClientInfo implements Serializable {
     private String describeSocialStatus;
     private String setGoalForSocialStatus;
 
-    public ClientInfo(Boolean consentToInterview,
 
     public ClientInfo() {}
 
     public ClientInfo(boolean consentToInterview,
                       String gpsLocation,
-                      String zoneLocation,
+                      String location,
                       String villageNumber,
-                      String dateJoined,
+                      String date,
                       String firstName,
-                      String lastName,
                       String lastName,//String id,
                       Integer age,
                       String contactNumber,
@@ -86,40 +80,9 @@ public class ClientInfo implements Serializable {
                       String setGoalForSocialStatus) {
         this.consentToInterview = consentToInterview;
         this.gpsLocation = gpsLocation;
-        this.zoneLocation = zoneLocation;
+        this.zoneLocation = location;
         this.villageNumber = villageNumber;
-        this.dateJoined = dateJoined;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.contactNumber = contactNumber;
-        this.caregiverPresentForInterview = caregiverPresentForInterview;
-        this.caregiverContactNumber = caregiverContactNumber;
-        this.amputeeDisability = amputeeDisability;
-        this.polioDisability = polioDisability;
-        this.spinalCordInjuryDisability = spinalCordInjuryDisability;
-        this.cerebralPalsyDisability = cerebralPalsyDisability;
-        this.spinaBifidaDisability = spinaBifidaDisability;
-        this.hydrocephalusDisability = hydrocephalusDisability;
-        this.visualImpairmentDisability = visualImpairmentDisability;
-        this.hearingImpairmentDisability = hearingImpairmentDisability;
-        this.doNotKnowDisability = doNotKnowDisability;
-        this.otherDisability = otherDisability;
-        this.rateHealth = rateHealth;
-        this.describeHealth = describeHealth;
-        this.setGoalForHealth = setGoalForHealth;
-        this.rateEducation = rateEducation;
-        this.describeEducation = describeEducation;
-        this.setGoalForEducation = setGoalForEducation;
-        this.rateSocialStatus = rateSocialStatus;
-        this.describeSocialStatus = describeSocialStatus;
-        this.setGoalForSocialStatus = setGoalForSocialStatus;
-    }
-        this.consentToInterview = consentToInterview;
-        this.gpsLocation = gpsLocation;
-        this.location = location;
-        this.villageNumber = villageNumber;
-        this.date = date;
+        this.dateJoined = date;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -147,20 +110,6 @@ public class ClientInfo implements Serializable {
         this.setGoalForSocialStatus = setGoalForSocialStatus;
     }
 
-
-    public ClientInfo() {
-
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public boolean isConsentToInterview() {
     public Boolean isConsentToInterview() {
         return consentToInterview;
     }
@@ -169,36 +118,18 @@ public class ClientInfo implements Serializable {
         return gpsLocation;
     }
 
-    public String getLocation() {
-        return location;
-    public void setGpsLocation(String gpsLocation) {
-        this.gpsLocation = gpsLocation;
-    }
-
     public String getZoneLocation() {
         return zoneLocation;
-    }
-
-    public void setZoneLocation(String zoneLocation) {
-        this.zoneLocation = zoneLocation;
     }
 
     public String getVillageNumber() {
         return villageNumber;
     }
 
-    public void setVillageNumber(String villageNumber) {
-        this.villageNumber = villageNumber;
-    }
-
     public String getDateJoined() {
         return dateJoined;
-    public String getDate() {
-        return date;
     }
 
-    public void setDateJoined(String dateJoined) {
-        this.dateJoined = dateJoined;
     public String getFullName() {
         return getFirstName() + " " + getLastName();
     }
@@ -209,10 +140,6 @@ public class ClientInfo implements Serializable {
 
     public String getLastName() {
         return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public Integer getAge() {
@@ -339,7 +266,7 @@ public class ClientInfo implements Serializable {
     }
 
     public void setLocation(String location) {
-        this.location = location;
+        this.zoneLocation = location;
     }
 
     public void setVillageNumber(String villageNumber) {
@@ -347,7 +274,7 @@ public class ClientInfo implements Serializable {
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.dateJoined = date;
     }
 
     public void setFirstName(String firstName) {

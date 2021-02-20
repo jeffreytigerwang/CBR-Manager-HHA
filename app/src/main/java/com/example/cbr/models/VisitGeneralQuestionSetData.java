@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/*
+* Data container for VisitFirstQuestionSetFragment
+* */
+
 public class VisitGeneralQuestionSetData {
 
     private Integer clientId;

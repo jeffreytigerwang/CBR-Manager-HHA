@@ -20,7 +20,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <CheckBox
                 android:id="@+id/newClient_consentToInterviewCheckBox"
@@ -33,7 +34,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/gps_location" />
+                android:hint="@string/gps_location"
+                android:background="@drawable/edit_text_border"
+                android:padding="7dp"
+                android:minWidth="200dp"/>
 
             <TextView
                 android:id="@+id/newClient_zoneLocationTextView"
@@ -41,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="4dp"
-                android:text="@string/location" />
+                android:text="@string/zone_location"/>
 
             <Spinner
                 android:id="@+id/newClient_zoneLocationSpinner"

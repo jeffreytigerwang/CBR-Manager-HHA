@@ -42,8 +42,6 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     private FragmentClientlistBinding binding;
     private ClientListFragmentInterface clientListFragmentInterface;
     private ClientListContract.Presenter clientListPresenter;
-    private Retrofit retrofit;
-    private JsonPlaceHolderApi jsonPlaceHolderApi;
 
     @Override
     public void onAttach(@NonNull Context context) {

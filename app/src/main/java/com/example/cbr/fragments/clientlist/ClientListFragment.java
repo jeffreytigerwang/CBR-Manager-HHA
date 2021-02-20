@@ -20,11 +20,24 @@ import com.example.cbr.models.ClientInfo;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+import com.example.cbr.R;
 
 import retrofit2.Retrofit;
 
 public class ClientListFragment extends BaseFragment implements ClientListContract.View {
+
+    Retrofit retrofit;
+    JsonPlaceHolderApi jsonPlaceHolderApi;
+
+    private ArrayList<ClientInfo> clientInfoArrayList;
 
     private FragmentClientlistBinding binding;
     private ClientListFragmentInterface clientListFragmentInterface;
@@ -76,6 +89,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         ClientInfo john2 = new ClientInfo(true, "sample text2", "sample text2", "sample text2",
                 "sample text2", "sample text2", "sample text2", 40, "sample text2",
                 true, "sample text2", true, true, true, true, true, true, true, true, false, true, "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2");
+
         System.out.println(clientInfoArrayList.get(0).getFirstName());
         System.out.println(clientInfoArrayList.get(0).getLastName());
         System.out.println(clientInfoArrayList.get(0).getCaregiverContactNumber());
@@ -98,14 +112,14 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         RecyclerView recyclerView = binding.recyclerViewClientlist;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
-        ClientListAdapter adapter = new ClientListAdapter(getActivity(), peopleList, clientListFragmentInterface);
+        ClientListAdapter adapter = new ClientListAdapter(getActivity(), clientInfoArrayList, clientListFragmentInterface);
         recyclerView.setAdapter(adapter);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                linearLayoutManager.getOrientation());
-        recyclerView.addItemDecoration(dividerItemDecoration);
-        adapter = new ClientListAdapter(getActivity(), R.layout.item_clientlist, clientInfoArrayList);
-        listView.setAdapter(adapter);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+//                linearLayoutManager.getOrientation());
+//        recyclerView.addItemDecoration(dividerItemDecoration);
+//        adapter = new ClientListAdapter(getActivity(), R.layout.item_clientlist, clientInfoArrayList);
+//        listView.setAdapter(adapter);
 
         View view = binding.getRoot();
         return view;

@@ -42,8 +42,12 @@ exports.create = (req, res) => {
 
 // Retrieve all data from the database.
 exports.findAll = (req, res) => {
+  const clientId = req.query.clientId;
+  var condition = clientId ? { clientId: { [Op.like]: `%${clientId}%` }} : null;
+  console.log('clientId: ' + clientId);
+  console.log('condition: ' + condition);
 
-  EducationProgress.findAll()
+  EducationProgress.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })

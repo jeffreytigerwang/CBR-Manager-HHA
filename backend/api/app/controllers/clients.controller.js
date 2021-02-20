@@ -45,8 +45,20 @@ exports.create = (req, res) => {
 
 // Retrieve all data from the database.
 exports.findAll = (req, res) => {
+  const firstName = req.query.firstName;
+  const lastName = req.query.lastName;
+  const contactNumber = req.query.contactNumber;
+  var condition = firstName && lastName && contactNumber ? {
+    firstName: { [Op.like]: `%${firstName}%` },
+    lastName: { [Op.like]: `%${lastName}%` },
+    contactNumber: { [Op.like]: `%${contactNumber}%` }
+  } : null;
+  console.log('firstName: ' + firstName);
+  console.log('lastName: ' + lastName);
+  console.log('contactNumber: ' + contactNumber);
+  console.log('condition: ' + condition);
 
-  Clients.findAll()
+  Clients.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })

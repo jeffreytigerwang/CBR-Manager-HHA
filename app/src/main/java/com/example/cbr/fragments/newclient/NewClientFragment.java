@@ -6,13 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,51 +15,30 @@ import androidx.annotation.Nullable;
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentNewclientBinding;
 import com.example.cbr.fragments.base.BaseFragment;
-import com.example.cbr.model.ClientInfo;
+import com.example.cbr.models.ClientDisability;
+import com.example.cbr.models.ClientEducationAspect;
+import com.example.cbr.models.ClientHealthAspect;
+import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.ClientSocialAspect;
+import com.example.cbr.retrofit.JsonPlaceHolderApi;
+import com.example.cbr.retrofit.RetrofitInit;
 
-import java.util.Calendar;
-import java.util.Date;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class NewClientFragment extends BaseFragment implements NewClientContract.View {
+
+    private int clientId;
 
     private FragmentNewclientBinding binding;
     private NewClientContract.Presenter newClientPresenter;
 
-    private CheckBox consentToInterview;
-    private CheckBox caregiverPresentForInterview;
-    private CheckBox amputee;
-    private CheckBox polio;
-    private CheckBox spinalCordInjury;
-    private CheckBox cerebralPalsy;
-    private CheckBox spinaBifida;
-    private CheckBox hydrocephalus;
-    private CheckBox visualImpairment;
-    private CheckBox hearingImpairment;
-    private CheckBox doNotKnow;
-    private CheckBox other;
-
-    private EditText gpsLocation;
-    private EditText villageNumber;
-    private EditText dateJoined;
-    private EditText firstName;
-    private EditText lastName;
-    private EditText age;
-    private EditText contactNumber;
-    private EditText caregiverContactNumber;
-    private EditText describeHealth;
-    private EditText setGoalForHealth;
-    private EditText describeEducation;
-    private EditText setGoalForEducation;
-    private EditText describeSocialStatus;
-    private EditText setGoalForSocialStatus;
-
-    private Spinner zoneLocation;
-    private Spinner rateHealth;
-    private Spinner rateEducation;
-    private Spinner rateSocialStatus;
-
-    private RadioGroup gender;
-    private String chosenGender;
+    // Init API
+    private Retrofit retrofit;
+    private JsonPlaceHolderApi jsonPlaceHolderApi;
 
     @Nullable
     @Override
@@ -73,94 +46,51 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         setPresenter(new NewClientPresenter(this));
         binding = FragmentNewclientBinding.inflate(inflater, container, false);
 
-        preLoadViews();
-        setupZoneLocationSpinner();
-        setupRateHealthSpinner();
-        setupRateEducationSpinner();
-        setupRateSocialStatusSpinner();
+        // In onCreate lifecycle, grab all the information from the UI part (i.e. EditText, RatioButton)
+        // Note: in fragment, you cannot use findViewById directly. Add getView() instead
+        // https://stackoverflow.com/questions/6495898/findviewbyid-in-fragment
+
+        // Init Retrofit & NodeJs stuff
+        retrofit = RetrofitInit.getInstance();
+        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+        // List of API calls like GET & POST
+
+        populateLocationSpinner();
+        populateRateClientHealthSpinner();
+        populateRateClientEducationSpinner();
+        populateRateClientSocialStatusSpinner();
         setupRecordClientButton();
         return binding.getRoot();
     }
 
-    private void preLoadViews() {
-        findViews();
 
-        Date currentTime = Calendar.getInstance().getTime();
-        dateJoined.setText(currentTime.toString());
-    }
-
-    private void findViews() {
-        consentToInterview = binding.newClientConsentToInterviewCheckBox;
-        caregiverPresentForInterview = binding.newClientCaregiverIsPresentCheckBox;
-        amputee = binding.newClientAmputeeDisabilityCheckBox;
-        polio = binding.newClientPolioDisabilityCheckBox;
-        spinalCordInjury = binding.newClientSpinalCordInjuryDisabilityCheckBox;
-        cerebralPalsy = binding.newClientCerebralPalsyDisabilityCheckBox;
-        spinaBifida = binding.newClientSpinaBifidaDisabilityCheckBox;
-        hydrocephalus = binding.newClientHydrocephalusDisabilityCheckBox;
-        visualImpairment = binding.newClientVisualImpairmentDisabilityCheckBox;
-        hearingImpairment = binding.newClientHearingImpairmentDisabilityCheckBox;
-        doNotKnow = binding.newClientDoNotKnowDisabilityCheckBox;
-        other = binding.newClientOtherDisabilityCheckBox;
-
-        gpsLocation = binding.newClientGpsLocationEditText;
-        villageNumber = binding.newClientVillageNumberEditText;
-        dateJoined = binding.newClientDateEditText;
-        firstName = binding.newClientFirstNameEditText;
-        lastName = binding.newClientLastNameEditText;
-        age = binding.newClientAgeEditText;
-        contactNumber = binding.newClientContactNumberEditText;
-        caregiverContactNumber = binding.newClientCaregiverContactNumberEditText;
-        describeHealth = binding.newClientDescribeClientHealthEditText;
-        setGoalForHealth = binding.newClientSetGoalForClientHealthEditText;
-        describeEducation = binding.newClientDescribeClientEducationEditText;
-        setGoalForEducation = binding.newClientSetGoalForClientEducationEditText;
-        describeSocialStatus = binding.newClientDescribeClientSocialStatusEditText;
-        setGoalForSocialStatus = binding.newClientSetGoalForClientSocialStatusEditText;
-
-        zoneLocation = binding.newClientZoneLocationSpinner;
-        rateHealth = binding.newClientRateClientHealthSpinner;
-        rateEducation = binding.newClientRateClientEducationSpinner;
-        rateSocialStatus = binding.newClientRateClientSocialStatusSpinner;
-
-        gender = binding.newClientGenderRadioGroup;
-    }
-
-    private void setupZoneLocationSpinner() {
+    private void populateLocationSpinner() {
+        Spinner spinner = binding.newClientZoneLocationSpinner;
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.zone_locations_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        zoneLocation.setAdapter(adapter);
+        spinner.setAdapter(adapter);
     }
 
-    private void setupRateHealthSpinner() {
+    private void populateRateClientHealthSpinner() {
+        Spinner spinner = binding.newClientRateClientHealthSpinner;
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.client_ratings_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        rateHealth.setAdapter(adapter);
+        spinner.setAdapter(adapter);
     }
 
-    private void setupRateEducationSpinner() {
+    private void populateRateClientEducationSpinner() {
+        Spinner spinner = binding.newClientRateClientEducationSpinner;
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.client_ratings_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        rateEducation.setAdapter(adapter);
+        spinner.setAdapter(adapter);
     }
 
-    private void setupRateSocialStatusSpinner() {
+    private void populateRateClientSocialStatusSpinner() {
+        Spinner spinner = binding.newClientRateClientSocialStatusSpinner;
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.client_ratings_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        rateSocialStatus.setAdapter(adapter);
-    }
-
-    private void setupRadioGroup() {
-        gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.newClient_maleRadioButton) {
-                    chosenGender = "male";
-                } else if (checkedId == R.id.newClient_femaleRadioButton) {
-                    chosenGender = "female";
-                }
-            }
-        });
+        spinner.setAdapter(adapter);
     }
 
     private void setupRecordClientButton() {
@@ -168,41 +98,203 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ClientInfo clientInfo = new ClientInfo(
-                        consentToInterview.isChecked(),
-                        gpsLocation.getText().toString(),
-                        zoneLocation.getSelectedItem().toString(),
-                        villageNumber.getText().toString(),
-                        dateJoined.getText().toString(),
-                        firstName.getText().toString(),
-                        lastName.getText().toString(),
-                        chosenGender,
-                        Integer.parseInt(age.getText().toString()),
-                        contactNumber.getText().toString(),
-                        caregiverPresentForInterview.isChecked(),
-                        caregiverContactNumber.getText().toString(),
-                        amputee.isChecked(),
-                        polio.isChecked(),
-                        spinalCordInjury.isChecked(),
-                        cerebralPalsy.isChecked(),
-                        spinaBifida.isChecked(),
-                        hydrocephalus.isChecked(),
-                        visualImpairment.isChecked(),
-                        hearingImpairment.isChecked(),
-                        doNotKnow.isChecked(),
-                        other.isChecked(),
-                        rateHealth.getSelectedItem().toString(),
-                        describeHealth.getText().toString(),
-                        setGoalForHealth.getText().toString(),
-                        rateEducation.getSelectedItem().toString(),
-                        describeEducation.getText().toString(),
-                        setGoalForEducation.getText().toString(),
-                        rateSocialStatus.getSelectedItem().toString(),
-                        describeSocialStatus.getText().toString(),
-                        setGoalForSocialStatus.getText().toString());
+                Boolean consentToInterview = binding.newClientConsentToInterviewCheckBox.isChecked();
+                String gpsLocation = binding.newClientGpsLocationEditText.getText().toString();
+                String location = binding.newClientZoneLocationSpinner.getSelectedItem().toString();
+
+                if (binding.newClientVillageNumberEditText.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "Village Number cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Integer villageNumber = Integer.parseInt(binding.newClientVillageNumberEditText.getText().toString());
+                String dateText = binding.newClientDateEditText.getText().toString();
+                String firstName = binding.newClientFirstNameEditText.getText().toString();
+                String lastName = binding.newClientLastNameEditText.getText().toString();
+
+                if (binding.newClientAgeEditText.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "Age cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Integer age = Integer.parseInt(binding.newClientAgeEditText.getText().toString());
+                String contactNumber = binding.newClientContactNumberEditText.getText().toString();
+                boolean caregiverPresentForInterview = binding.newClientCaregiverIsPresentCheckBox.isChecked();
+
+                if (binding.newClientCaregiverContactNumberEditText.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "Caregiver Contact Number cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Integer caregiverContactNumber = Integer.parseInt(binding.newClientCaregiverContactNumberEditText.getText().toString());
+
+                boolean amputeeDisability = binding.newClientAmputeeDisabilityCheckBox.isChecked();
+                boolean polioDisability = binding.newClientPolioDisabilityCheckBox.isChecked();
+                boolean spinalCordInjuryDisability = binding.newClientSpinalCordInjuryDisabilityCheckBox.isChecked();
+                boolean cerebralPalsyDisability = binding.newClientCerebralPalsyDisabilityCheckBox.isChecked();
+                boolean spinaBifidaDisability = binding.newClientSpinaBifidaDisabilityCheckBox.isChecked();
+                boolean hydrocephalusDisability = binding.newClientHydrocephalusDisabilityCheckBox.isChecked();
+                boolean visualImpairmentDisability = binding.newClientVisualImpairmentDisabilityCheckBox.isChecked();
+                boolean hearingImpairmentDisability = binding.newClientHearingImpairmentDisabilityCheckBox.isChecked();
+                boolean doNotKnowDisability = binding.newClientDoNotKnowDisabilityCheckBox.isChecked();
+                boolean otherDisability = binding.newClientOtherDisabilityCheckBox.isChecked();
+                String rateHealth = binding.newClientRateClientHealthSpinner.getSelectedItem().toString();
+                String describeHealth = binding.newClientDescribeClientHealthEditText.getText().toString();
+                String setGoalForHealth = binding.newClientSetGoalForClientHealthEditText.getText().toString();
+                String rateEducation = binding.newClientRateClientEducationSpinner.getSelectedItem().toString();
+                String describeEducation = binding.newClientDescribeClientEducationEditText.getText().toString();
+                String setGoalForEducation = binding.newClientSetGoalForClientEducationEditText.getText().toString();
+                String rateSocialStatus = binding.newClientRateClientSocialStatusSpinner.getSelectedItem().toString();
+                String describeSocialStatus = binding.newClientDescribeClientSocialStatusEditText.getText().toString();
+                String setGoalForSocialStatus = binding.newClientSetGoalForClientSocialStatusEditText.getText().toString();
+
+                clientId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
+
+                createClientBasicInfo(clientId, firstName, lastName, gpsLocation, location, villageNumber,
+                        age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
+
+                ClientDisability clientDisability = new ClientDisability(clientId, amputeeDisability, polioDisability, spinalCordInjuryDisability, cerebralPalsyDisability,
+                        spinaBifidaDisability, hydrocephalusDisability, visualImpairmentDisability, hearingImpairmentDisability, doNotKnowDisability, otherDisability);
+
+                ClientHealthAspect clientHealthAspect = new ClientHealthAspect(clientId, rateHealth, describeHealth, setGoalForHealth);
+
+                ClientEducationAspect clientEducationAspect = new ClientEducationAspect(clientId, rateEducation, describeEducation, setGoalForEducation);
+
+                ClientSocialAspect clientSocialAspect = new ClientSocialAspect(clientId, rateSocialStatus, describeSocialStatus, setGoalForSocialStatus);
+
+                createClientDisability(clientDisability);
+
+                createClientHealthAspect(clientHealthAspect);
+
+                createClientEducationAspect(clientEducationAspect);
+
+                createClientSocialAspect(clientSocialAspect);
+            }
+        });
+
+    }
+
+    private void createClientSocialAspect(ClientSocialAspect clientSocialAspect) {
+        Call<ClientSocialAspect> call = jsonPlaceHolderApi.createClientSocialAspect(clientSocialAspect);
+
+        call.enqueue(new Callback<ClientSocialAspect>() {
+            @Override
+            public void onResponse(Call<ClientSocialAspect> call, Response<ClientSocialAspect> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Social Aspect Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ClientSocialAspect clientSocialAspectResponse = response.body();
+                Toast.makeText(getActivity(),  "Social Aspect Record Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ClientSocialAspect> call, Throwable t) {
+
             }
         });
     }
+
+    private void createClientEducationAspect(ClientEducationAspect clientEducationAspect) {
+        Call<ClientEducationAspect> call = jsonPlaceHolderApi.createClientEducationAspect(clientEducationAspect);
+
+        call.enqueue(new Callback<ClientEducationAspect>() {
+            @Override
+            public void onResponse(Call<ClientEducationAspect> call, Response<ClientEducationAspect> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Education Aspect Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ClientEducationAspect clientEducationAspectResponse = response.body();
+                Toast.makeText(getActivity(),  "Education Aspect Record Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ClientEducationAspect> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void createClientHealthAspect(ClientHealthAspect clientHealthAspect) {
+        Call<ClientHealthAspect> call = jsonPlaceHolderApi.createClientHealthAspect(clientHealthAspect);
+
+        call.enqueue(new Callback<ClientHealthAspect>() {
+            @Override
+            public void onResponse(Call<ClientHealthAspect> call, Response<ClientHealthAspect> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Health Aspect Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ClientHealthAspect clientHealthAspectResponse = response.body();
+                Toast.makeText(getActivity(),  "Health Aspect Record Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ClientHealthAspect> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+    private void createClientDisability(ClientDisability clientDisability) {
+
+        Call<ClientDisability> call = jsonPlaceHolderApi.createClientDisability(clientDisability);
+
+        call.enqueue(new Callback<ClientDisability>() {
+            @Override
+            public void onResponse(Call<ClientDisability> call, Response<ClientDisability> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Disability Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ClientDisability clientInfoResponse = response.body();
+                Toast.makeText(getActivity(),  "Disability Record Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ClientDisability> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void createClientBasicInfo(Integer clientId, String firstName, String lastName, String gpsLocation, String location,
+                                       Integer villageNumber, Integer age, String contactNumber, boolean caregiverPresentForInterview,
+                                       Integer caregiverContactNumber) {
+
+        Call<ClientInfo> call = jsonPlaceHolderApi.createClient(clientId, firstName, lastName, gpsLocation, location,
+                villageNumber, age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
+
+        call.enqueue(new Callback<ClientInfo>() {
+            @Override
+            public void onResponse(Call<ClientInfo> call, Response<ClientInfo> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ClientInfo clientInfoResponse = response.body();
+                Toast.makeText(getActivity(), clientInfoResponse.getFirstName() + " " +
+                        clientInfoResponse.getLastName() + "\n" + "Record Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ClientInfo> call, Throwable t) {
+
+            }
+        });
+    }
+
 
     @Override
     public void setPresenter(NewClientContract.Presenter presenter) {

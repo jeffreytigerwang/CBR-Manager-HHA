@@ -15,7 +15,7 @@ import com.example.cbr.activities.NewVisitActivity;
 import com.example.cbr.adapters.ClientInfoAdapter;
 import com.example.cbr.databinding.FragmentClientpageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
-import com.example.cbr.model.ClientInfo;
+import com.example.cbr.models.ClientInfo;
 
 public class ClientPageFragment extends BaseFragment implements ClientPageContract.View {
 

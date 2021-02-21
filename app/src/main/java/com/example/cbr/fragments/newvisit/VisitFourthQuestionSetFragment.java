@@ -64,14 +64,14 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         toggleEditTextVisibility(dataContainer.isSocialAdviceChecked(), editTextAdvice);
         checkBoxAdvocacy.setChecked(dataContainer.isSocialAdvocacyChecked());
         toggleEditTextVisibility(dataContainer.isSocialAdvocacyChecked(), editTextAdvocacy);
-        checkBoxRef.setChecked(dataContainer.isSocialRefChecked());
-        toggleEditTextVisibility(dataContainer.isSocialRefChecked(), editTextRef);
+        checkBoxRef.setChecked(dataContainer.isSocialReferralChecked());
+        toggleEditTextVisibility(dataContainer.isSocialReferralChecked(), editTextRef);
         checkBoxEncouragement.setChecked(dataContainer.isSocialEncouragementChecked());
         toggleEditTextVisibility(dataContainer.isSocialEncouragementChecked(), editTextEncouragement);
 
         editTextAdvice.setText(dataContainer.getSocialAdviceDesc());
         editTextAdvocacy.setText(dataContainer.getSocialAdvocacyDesc());
-        editTextRef.setText(dataContainer.getSocialRefDesc());
+        editTextRef.setText(dataContainer.getSocialReferralDesc());
         editTextEncouragement.setText(dataContainer.getSocialEncouragementDesc());
         editTextSocialOutcome.setText(dataContainer.getSocialOutcomeDesc());
 
@@ -155,7 +155,7 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         checkBoxRef.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dataContainer.setSocialRefChecked(isChecked);
+                dataContainer.setSocialReferralChecked(isChecked);
                 toggleEditTextVisibility(isChecked, editTextRef);
             }
         });

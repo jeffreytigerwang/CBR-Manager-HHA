@@ -7,35 +7,35 @@
     tools:context=".activities.NewVisitActivity">
 
     <Button
-        android:id="@+id/buttonVisitNext"
+        android:id="@+id/newVisit_nextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Next"
+        android:text="@string/next"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonVisitRecord"
+        app:layout_constraintEnd_toStartOf="@+id/newVisit_recordButton"
         app:layout_constraintTop_toTopOf="@+id/guideline4"
         app:layout_constraintVertical_bias="0.504" />
 
     <Button
-        android:id="@+id/buttonVisitBack"
+        android:id="@+id/newVisit_backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Back"
+        android:text="@string/back"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonVisitNext"
+        app:layout_constraintEnd_toStartOf="@+id/newVisit_nextButton"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline4"
         app:layout_constraintVertical_bias="0.504" />
 
     <FrameLayout
-        android:id="@+id/frameVisitQuestion"
+        android:id="@+id/newVisit_questionFrame"
         android:layout_width="match_parent"
-        android:layout_height="562dp"
+        android:layout_height="541dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.695"
@@ -50,18 +50,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="562dp" />
+        app:layout_constraintGuide_begin="541dp" />
 
     <Button
-        android:id="@+id/buttonVisitRecord"
+        android:id="@+id/newVisit_recordButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Record"
+        android:text="@string/record"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline4"
         app:layout_constraintVertical_bias="0.504" />
+
+    <TextView
+        android:id="@+id/newVisit_requiredFieldTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/required_field"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newVisit_questionFrame" />
+
+    <TextView
+        android:id="@+id/newVisit_recordErrorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/please_fill_in"
+        android:textColor="@color/errorRed"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newVisit_requiredFieldTextView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/newVisit_questionNumbersTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="4"
+        android:textColor="@color/errorRed"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/newVisit_recordErrorTextView"
+        app:layout_constraintStart_toEndOf="@+id/newVisit_recordErrorTextView"
+        app:layout_constraintTop_toTopOf="@+id/newVisit_recordErrorTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

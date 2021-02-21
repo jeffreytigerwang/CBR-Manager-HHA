@@ -1,6 +1,5 @@
 package com.example.cbr.retrofit;
 
-//import java.util.Observable;
 
 import io.reactivex.Observable;
 //import android.database.Observable;

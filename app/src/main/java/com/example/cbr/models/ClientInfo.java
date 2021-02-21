@@ -15,6 +15,7 @@ public class ClientInfo implements Serializable {
     private String dateJoined;
     private String firstName;
     private String lastName;
+    private String gender;
     private String id;
     private Integer age;
     private String contactNumber;
@@ -50,11 +51,12 @@ public class ClientInfo implements Serializable {
 
     public ClientInfo(boolean consentToInterview,
                       String gpsLocation,
-                      String location,
+                      String zoneLocation,
                       String villageNumber,
-                      String date,
+                      String dateJoined,
                       String firstName,
-                      String lastName,//String id,
+                      String lastName,
+                      String gender,
                       Integer age,
                       String contactNumber,
                       Boolean caregiverPresentForInterview,
@@ -80,11 +82,12 @@ public class ClientInfo implements Serializable {
                       String setGoalForSocialStatus) {
         this.consentToInterview = consentToInterview;
         this.gpsLocation = gpsLocation;
-        this.zoneLocation = location;
+        this.zoneLocation = zoneLocation;
         this.villageNumber = villageNumber;
-        this.dateJoined = date;
+        this.dateJoined = dateJoined;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.gender = gender;
         this.age = age;
         this.contactNumber = contactNumber;
         this.caregiverPresentForInterview = caregiverPresentForInterview;
@@ -265,16 +268,16 @@ public class ClientInfo implements Serializable {
         this.gpsLocation = gpsLocation;
     }
 
-    public void setLocation(String location) {
-        this.zoneLocation = location;
+    public void setZoneLocation(String zoneLocation) {
+        this.zoneLocation = zoneLocation;
     }
 
     public void setVillageNumber(String villageNumber) {
         this.villageNumber = villageNumber;
     }
 
-    public void setDate(String date) {
-        this.dateJoined = date;
+    public void setDateJoined(String dateJoined) {
+        this.dateJoined = dateJoined;
     }
 
     public void setFirstName(String firstName) {
@@ -383,5 +386,29 @@ public class ClientInfo implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Boolean getConsentToInterview() {
+        return consentToInterview;
+    }
+
+    public void setConsentToInterview(Boolean consentToInterview) {
+        this.consentToInterview = consentToInterview;
+    }
+
+    public Boolean getCaregiverPresentForInterview() {
+        return caregiverPresentForInterview;
+    }
+
+    public void setCaregiverPresentForInterview(Boolean caregiverPresentForInterview) {
+        this.caregiverPresentForInterview = caregiverPresentForInterview;
     }
 }

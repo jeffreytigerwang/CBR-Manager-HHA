@@ -30,7 +30,7 @@
     <string name="village_number">Village number</string>
     <string name="consent_to_interview">Consent to interview</string>
     <string name="id_number">ID Number:</string>
-    <string name="gps_location">GPS Location</string>
+    <string name="gps_location">GPS location</string>
     <string name="date">Date</string>
     <string name="first_name">First name</string>
     <string name="age">Age</string>
@@ -53,9 +53,9 @@
     <string name="individual_goal">Individual goal</string>
     <string name="location">Location</string>
     <string name="type_of_disability">Type of disability</string>
-    <string name="please_rate_how_you_consider_the_client_s_health_to_be">Please rate how you consider the client\'s health to be:</string>
-    <string name="please_rate_how_you_consider_the_client_s_social_status_to_be">Please rate how you consider the client\'s social status to be:</string>
-    <string name="please_rate_how_you_consider_the_client_s_education_status_to_be">Please rate how you consider the client\'s education status to be:</string>
+    <string name="please_rate_how_you_consider_the_client_s_health_to_be">Please rate how you consider the client\'s health to be</string>
+    <string name="please_rate_how_you_consider_the_client_s_social_status_to_be">Please rate how you consider the client\'s social status to be</string>
+    <string name="please_rate_how_you_consider_the_client_s_education_status_to_be">Please rate how you consider the client\'s education status to be</string>
     <string name="gender">Gender</string>
     <string name="purpose_of_visit">1. Purpose of visit*:</string>
     <string name="cbr">CBR</string>
@@ -94,6 +94,7 @@
     <string name="if_concluded_what_was_the_outcome_16">16. If concluded, what was the outcome:</string>
     <string name="for_education_what_was_provided">11. For education what was provided?* (check all that apply):</string>
     <string name="referral_to_other_org">Referral to other org.</string>
+    <string name="zone_location">Zone location</string>
     <string name="for_social_what_was_provided">14. For social what was provided?* (check all that apply):</string>
     <string name="next">Next</string>
     <string name="back">Back</string>
@@ -104,8 +105,9 @@
     <string name="question_2_not_filled">Question 2 not filled.</string>
     <string name="Login">Login</string>
     <string name="new_visit">New Visit</string>
+    <string name="new_client">New Client</string>
     <string name="patient_list">Patient List</string>
-    <string-array name="locations_array">
+    <string-array name="zone_locations_array">
         <item>BidiBidi Zone 1</item>
         <item>BidiBidi Zone 2</item>
         <item>BidiBidi Zone 3</item>

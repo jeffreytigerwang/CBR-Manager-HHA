@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
@@ -47,8 +47,8 @@
                 android:id="@+id/newClient_locationTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/location" />
 
             <Spinner
@@ -91,8 +91,8 @@
                 android:id="@+id/newClient_genderTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/gender" />
 
             <RadioGroup
@@ -155,8 +155,8 @@
                 android:id="@+id/newClient_typeOfDisabilityTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/type_of_disability" />
 
             <CheckBox
@@ -233,8 +233,8 @@
                 android:id="@+id/newClient_rateClientHealthTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/please_rate_how_you_consider_the_client_s_health_to_be" />
 
             <Spinner
@@ -261,8 +261,8 @@
                 android:id="@+id/newClient_rateClientEducationTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/please_rate_how_you_consider_the_client_s_education_status_to_be" />
 
             <Spinner
@@ -289,8 +289,8 @@
                 android:id="@+id/newClient_rateClientSocialStatusTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="4dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/please_rate_how_you_consider_the_client_s_social_status_to_be" />
 
             <Spinner

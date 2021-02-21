@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cbr.adapters.OutstandingListAdapter;
 import com.example.cbr.adapters.PriorityListAdapter;
 import com.example.cbr.databinding.FragmentHomeBinding;
-import com.example.cbr.model.ClientInfo;
+import com.example.cbr.models.ClientInfo;
 
 import java.util.ArrayList;
 

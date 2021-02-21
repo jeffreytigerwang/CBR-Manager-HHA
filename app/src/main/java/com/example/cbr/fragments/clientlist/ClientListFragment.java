@@ -86,11 +86,6 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
                 "sample text2", "sample text2", "sample text2", 40, "sample text2",
                 true, "sample text2", true, true, true, true, true, true, true, true, false, true, "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2");
 
-        System.out.println(clientInfoArrayList.get(0).getFirstName());
-        System.out.println(clientInfoArrayList.get(0).getLastName());
-        System.out.println(clientInfoArrayList.get(0).getCaregiverContactNumber());
-        System.out.println(clientInfoArrayList.get(0).getGpsLocation());
-
         ClientInfo empty = new ClientInfo();
         ClientInfo empty1 = new ClientInfo();
         ClientInfo empty2 = new ClientInfo();
@@ -111,43 +106,10 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         ClientListAdapter adapter = new ClientListAdapter(getActivity(), clientInfoArrayList, clientListFragmentInterface);
         recyclerView.setAdapter(adapter);
 
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-//                linearLayoutManager.getOrientation());
-//        recyclerView.addItemDecoration(dividerItemDecoration);
-//        adapter = new ClientListAdapter(getActivity(), R.layout.item_clientlist, clientInfoArrayList);
-//        listView.setAdapter(adapter);
-
         View view = binding.getRoot();
         return view;
     }
 
-
-//    private void getClientsInfo() {
-//        Call<List<com.example.cbr.models.ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
-//
-//        call.enqueue(new Callback<List<com.example.cbr.models.ClientInfo>>() {
-//            @Override
-//            public void onResponse(Call<List<com.example.cbr.models.ClientInfo>> call, Response<List<com.example.cbr.models.ClientInfo>> response) {
-//
-//                if (!response.isSuccessful()) {
-//                    Toast.makeText(getActivity(), "ClientInfo Get Fail", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                List<com.example.cbr.models.ClientInfo> clientInfoList = response.body();
-//
-//                for (com.example.cbr.models.ClientInfo clientInfo: clientInfoList) {
-//                    clientInfoArrayList.add(clientInfo);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<com.example.cbr.models.ClientInfo>> call, Throwable t) {
-//
-//            }
-//        });
-//    }
 
     private void getClientsInfo() throws IOException {
         Call<List<ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();

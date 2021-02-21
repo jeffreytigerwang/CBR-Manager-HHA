@@ -184,6 +184,10 @@ public class ClientInfo implements Serializable {
         return disabilityList;
     }
 
+    public String getDisabilityListFormatted() {
+        return getDisabilityList().toString().replace("[", "").replace("]", "");
+    }
+
     public boolean isAmputeeDisability() {
         return amputeeDisability;
     }

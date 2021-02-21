@@ -28,6 +28,9 @@ public interface JsonPlaceHolderApi {
     @GET("api/clients")
     Call<List<ClientInfo>> getClientsInfo();
 
+    @GET("api/visits")
+    Call<List<VisitGeneralQuestionSetData>> getVisitGeneralQuestionSetData();
+
     @POST("api/disability")
     Call<ClientDisability> createClientDisability(@Body ClientDisability clientDisability);
 

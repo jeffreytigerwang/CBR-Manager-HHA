@@ -1,14 +1,20 @@
 package com.example.cbr.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VisitSocialQuestionSetData {
+
+    private Integer clientId;
+    private Integer visitId;
 
     private boolean isSocialAdviceChecked;
     private boolean isSocialAdvocacyChecked;
-    private boolean isSocialRefChecked;
+    private boolean isSocialReferralChecked;
     private boolean isSocialEncouragementChecked;
     private String socialAdviceDesc;
     private String socialAdvocacyDesc;
-    private String socialRefDesc;
+    private String socialReferralDesc;
     private String socialEncouragementDesc;
     private String socialOutcomeDesc;
     private String socialGoalStatus;
@@ -16,10 +22,56 @@ public class VisitSocialQuestionSetData {
     public VisitSocialQuestionSetData() {
         this.socialAdviceDesc = "";
         this.socialAdvocacyDesc = "";
-        this.socialRefDesc = "";
+        this.socialReferralDesc = "";
         this.socialEncouragementDesc = "";
         this.socialOutcomeDesc = "";
         this.socialGoalStatus = "";
+    }
+
+    public List<String> getEmptyQuestions() {
+        List<String> questionNumbers = new ArrayList<>();
+
+        boolean isQuestionFourteenChecked = isSocialAdviceChecked
+                || isSocialAdvocacyChecked
+                || isSocialReferralChecked
+                || isSocialEncouragementChecked;
+        boolean isQuestionFifteenEmpty = socialGoalStatus.isEmpty();
+
+        boolean isSocialAdviceEmpty = socialAdviceDesc.isEmpty();
+        boolean isSocialAdvocacyDescEmpty = socialAdvocacyDesc.isEmpty();
+        boolean isSocialReferralDescEmpty = socialReferralDesc.isEmpty();
+        boolean isSocialEncouragementDescEmpty = socialEncouragementDesc.isEmpty();
+
+        boolean missingDesc = (isSocialAdviceChecked && isSocialAdviceEmpty)
+                || (isSocialAdvocacyChecked && isSocialAdvocacyDescEmpty)
+                || (isSocialReferralChecked && isSocialReferralDescEmpty)
+                || (isSocialEncouragementChecked && isSocialEncouragementDescEmpty);
+
+        if (!isQuestionFourteenChecked) {
+            questionNumbers.add("14.");
+        } else if (missingDesc) {
+            questionNumbers.add("14.");
+        }
+        if (isQuestionFifteenEmpty) {
+            questionNumbers.add("15.");
+        }
+        return questionNumbers;
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
+    }
+
+    public Integer getVisitId() {
+        return visitId;
+    }
+
+    public void setVisitId(Integer visitId) {
+        this.visitId = visitId;
     }
 
     public boolean isSocialAdviceChecked() {
@@ -38,12 +90,12 @@ public class VisitSocialQuestionSetData {
         isSocialAdvocacyChecked = socialAdvocacyChecked;
     }
 
-    public boolean isSocialRefChecked() {
-        return isSocialRefChecked;
+    public boolean isSocialReferralChecked() {
+        return isSocialReferralChecked;
     }
 
-    public void setSocialRefChecked(boolean socialRefChecked) {
-        isSocialRefChecked = socialRefChecked;
+    public void setSocialReferralChecked(boolean socialReferralChecked) {
+        isSocialReferralChecked = socialReferralChecked;
     }
 
     public boolean isSocialEncouragementChecked() {
@@ -70,12 +122,12 @@ public class VisitSocialQuestionSetData {
         this.socialAdvocacyDesc = socialAdvocacyDesc;
     }
 
-    public String getSocialRefDesc() {
-        return socialRefDesc;
+    public String getSocialReferralDesc() {
+        return socialReferralDesc;
     }
 
-    public void setSocialRefDesc(String socialRefDesc) {
-        this.socialRefDesc = socialRefDesc;
+    public void setSocialReferralDesc(String socialReferralDesc) {
+        this.socialReferralDesc = socialReferralDesc;
     }
 
     public String getSocialEncouragementDesc() {

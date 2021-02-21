@@ -101,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/goal_met"
+            android:text="@string/goal_met_15"
             android:textColor="#000000" />
 
         <RadioGroup
@@ -135,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/if_concluded_what_was_the_outcome"
+            android:text="@string/if_concluded_what_was_the_outcome_16"
             android:textColor="#000000"
             android:visibility="gone" />
 
@@ -146,7 +146,7 @@
             android:layout_marginStart="8dp"
             android:maxLength="100"
             android:ems="18"
-            android:hint="@string/description_max_100_characters"
+            android:hint="@string/description_max_100_characters_optional"
             android:visibility="gone"
             android:autofillHints="no"
             android:inputType="text" />

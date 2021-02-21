@@ -16,8 +16,9 @@ import com.example.cbr.fragments.clientpage.ClientPageFragment;
 import com.example.cbr.fragments.discussion.DiscussionFragment;
 import com.example.cbr.fragments.newclient.NewClientFragment;
 import com.example.cbr.fragments.notification.NotificationFragment;
-import com.example.cbr.model.ClientInfo;
+import com.example.cbr.models.ClientInfo;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 public class HomeActivity extends BaseActivity implements
         TempHomeFragment.TempHomeFragmentInterface,

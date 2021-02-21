@@ -15,7 +15,7 @@ import com.example.cbr.activities.NewVisitActivity;
 import com.example.cbr.adapters.ClientInfoAdapter;
 import com.example.cbr.databinding.FragmentClientpageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
-import com.example.cbr.model.ClientInfo;
+import com.example.cbr.models.ClientInfo;
 
 public class ClientPageFragment extends BaseFragment implements ClientPageContract.View {
 
@@ -48,7 +48,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         clientInfo = (ClientInfo) getArguments().getSerializable(CLIENT_PAGE_BUNDLE);
 
         binding.clientPageNameText.setText(clientInfo.getFullName());
-        binding.clientPageLocationText.setText(clientInfo.getLocation());
+        binding.clientPageLocationText.setText(clientInfo.getZoneLocation());
         binding.clientPageAgeText.setText(getString(R.string.age_clientpage, clientInfo.getAge().toString()));
         binding.clientPageDisabilityText.setText(getString(R.string.disability_clientpage, clientInfo.getDisabilityList()));
 

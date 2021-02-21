@@ -66,8 +66,8 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
 
 
     private void populateLocationSpinner() {
-        Spinner spinner = binding.newClientLocationSpinner;
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.locations_array, android.R.layout.simple_spinner_item);
+        Spinner spinner = binding.newClientZoneLocationSpinner;
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.zone_locations_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
@@ -100,7 +100,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
             public void onClick(View v) {
                 Boolean consentToInterview = binding.newClientConsentToInterviewCheckBox.isChecked();
                 String gpsLocation = binding.newClientGpsLocationEditText.getText().toString();
-                String location = binding.newClientLocationSpinner.getSelectedItem().toString();
+                String location = binding.newClientZoneLocationSpinner.getSelectedItem().toString();
 
                 if (binding.newClientVillageNumberEditText.getText().toString().equals("")) {
                     Toast.makeText(getActivity(), "Village Number cannot be empty", Toast.LENGTH_SHORT).show();

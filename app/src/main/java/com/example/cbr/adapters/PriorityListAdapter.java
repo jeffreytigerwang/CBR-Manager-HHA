@@ -65,9 +65,9 @@ public class PriorityListAdapter extends RecyclerView.Adapter<PriorityListAdapte
         //TODO: find way to show most critical risk level and last visit date
         public void bind(final ClientInfo clientInfo){
             nameText.setText(clientInfo.getFullName());
-            riskText.setText(clientInfo.getRateHealth() + "Level");
-            locationText.setText(clientInfo.getGpsLocation());
-            dateText.setText("February 10, 2021");
+            riskText.setText(clientInfo.getRateHealth());
+            locationText.setText(clientInfo.getZoneLocation());
+            dateText.setText("Last Visit: February 10, 2021");
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

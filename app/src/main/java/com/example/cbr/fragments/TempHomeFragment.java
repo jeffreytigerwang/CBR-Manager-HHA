@@ -81,21 +81,50 @@ public class TempHomeFragment extends Fragment {
     private void populateLists() {
 
 
-        ClientInfo empty = new ClientInfo();
-        ClientInfo empty1 = new ClientInfo();
-        ClientInfo empty2 = new ClientInfo();
-        ClientInfo empty3 = new ClientInfo();
+        ClientInfo priorityPerson1 = new ClientInfo();
+        priorityPerson1.setFirstName("John");
+        priorityPerson1.setLastName("Smith");
+        priorityPerson1.setRateHealth("Critical Level Health");
+        priorityPerson1.setZoneLocation("BidiBidi Zone 1");
+        
+        ClientInfo priorityPerson2 = new ClientInfo();
+        priorityPerson2.setFirstName("Jane");
+        priorityPerson2.setLastName("Doe");
+        priorityPerson2.setRateHealth("Critical Level Health, Critical Level Education");
+        priorityPerson2.setZoneLocation("Palorinya Zone 2");
+
+        ClientInfo priorityPerson3 = new ClientInfo();
+        priorityPerson3.setFirstName("Jackson");
+        priorityPerson3.setLastName("Lee");
+        priorityPerson3.setRateHealth("Critical Level Social Status");
+        priorityPerson3.setZoneLocation("BidiBidi Zone 4");
+
+        ClientInfo outstandingPerson1 = new ClientInfo();
+        outstandingPerson1.setFirstName("William");
+        outstandingPerson1.setLastName("Liu");
+        outstandingPerson1.setZoneLocation("Palorinya Basecamp");
+
+        ClientInfo outstandingPerson2 = new ClientInfo();
+        outstandingPerson2.setFirstName("Elizabeth");
+        outstandingPerson2.setLastName("Nguyen");
+        outstandingPerson2.setZoneLocation("Palorinya Zone 3");
 
 
-        priorityList.add(empty);
-        priorityList.add(empty1);
-        priorityList.add(empty2);
-        priorityList.add(empty3);
+        ClientInfo outstandingPerson3 = new ClientInfo();
+        outstandingPerson3.setFirstName("Cameron");
+        outstandingPerson3.setLastName("Ng");
+        outstandingPerson3.setZoneLocation("BidiBidi Zone 5");
 
-        outstandingList.add(empty);
-        outstandingList.add(empty1);
-        outstandingList.add(empty2);
-        outstandingList.add(empty3);
+
+        priorityList.add(priorityPerson1);
+        priorityList.add(priorityPerson2);
+        priorityList.add(priorityPerson3);
+
+
+        outstandingList.add(outstandingPerson1);
+        outstandingList.add(outstandingPerson2);
+        outstandingList.add(outstandingPerson3);
+
     }
 
     private void setupPriorityListView() {

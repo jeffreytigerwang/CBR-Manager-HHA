@@ -15,13 +15,6 @@
     import androidx.fragment.app.Fragment;
     import androidx.fragment.app.FragmentManager;
     import androidx.fragment.app.FragmentTransaction;
-    import android.content.Context;
-    import android.content.Intent;
-    import android.os.Bundle;
-    import android.util.Log;
-    import android.view.View;
-    import android.widget.Button;
-    import android.widget.EditText;
 
     import com.example.cbr.R;
     import com.example.cbr.databinding.ActivityNewVisitBinding;
@@ -37,21 +30,6 @@
     import com.example.cbr.retrofit.JsonPlaceHolderApi;
     import com.example.cbr.retrofit.RetrofitInit;
     import com.example.cbr.util.Constants;
-    import androidx.appcompat.app.AppCompatActivity;
-    import androidx.fragment.app.Fragment;
-    import androidx.fragment.app.FragmentManager;
-    import androidx.fragment.app.FragmentTransaction;
-
-    import com.example.cbr.R;
-    import com.example.cbr.databinding.ActivityNewVisitBinding;
-    import com.example.cbr.fragments.newvisit.VisitFirstQuestionSetFragment;
-    import com.example.cbr.fragments.newvisit.VisitFourthQuestionSetFragment;
-    import com.example.cbr.fragments.newvisit.VisitSecondQuestionSetFragment;
-    import com.example.cbr.fragments.newvisit.VisitThirdQuestionSetFragment;
-    import com.example.cbr.models.VisitEducationQuestionSetData;
-    import com.example.cbr.models.VisitGeneralQuestionSetData;
-    import com.example.cbr.models.VisitHealthQuestionSetData;
-    import com.example.cbr.models.VisitSocialQuestionSetData;
 
     import java.util.ArrayList;
     import java.util.LinkedList;
@@ -63,6 +41,10 @@
     import retrofit2.Callback;
     import retrofit2.Response;
     import retrofit2.Retrofit;
+
+    /*
+    * Activity to handle new visit questions, which holds four sets of questions (fragments)
+    * */
 
 public class NewVisitActivity extends AppCompatActivity {
 
@@ -105,6 +87,7 @@ public class NewVisitActivity extends AppCompatActivity {
         binding = ActivityNewVisitBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        getSupportActionBar().hide();
 
         // Init Retrofit & NodeJs stuff
         retrofit = RetrofitInit.getInstance();
@@ -171,7 +154,7 @@ public class NewVisitActivity extends AppCompatActivity {
                 socialQuestionSetData.setClientId(clientId);
                 socialQuestionSetData.setVisitId(visitId);
 
-                saveSession(pageNum);
+                saveSession(currentFragment);
                 final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
                 final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();
                 final List<String> emptyEducationQuestions = educationQuestionSetData.getEmptyQuestions();
@@ -391,7 +374,7 @@ public class NewVisitActivity extends AppCompatActivity {
                     Log.d(LOG_TAG, "pagNum-1: " + (pageNum-1));
                     buttonBack.setVisibility(View.GONE);
                 }
-                saveSession(pageNum);
+                saveSession(currentFragment);
                 Log.d(LOG_TAG, "pagNum onBack: " + pageNum);
 
                 nextFragments.addFirst(currentFragment);
@@ -413,7 +396,7 @@ public class NewVisitActivity extends AppCompatActivity {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveSession(pageNum);
+                saveSession(currentFragment);
 
                 if (pageNum == 1) {
                     prevFragments.clear();
@@ -469,21 +452,16 @@ public class NewVisitActivity extends AppCompatActivity {
         });
     }
 
-    private void saveSession(byte pageNum) {
-        switch (pageNum) {
-            case 1:
+    private void saveSession(Fragment currentFragment) {
+            if (currentFragment instanceof VisitFirstQuestionSetFragment) {
                 saveFirstQuestionSet();
-                break;
-            case 2:
+            } else if (currentFragment instanceof VisitSecondQuestionSetFragment) {
                 saveSecondQuestionSetDesc();
-                break;
-            case 3:
+            } else if (currentFragment instanceof VisitThirdQuestionSetFragment) {
                 saveThirdQuestionSetDesc();
-                break;
-            case 4:
+            } else {
                 saveFourthQuestionSetDesc();
-                break;
-        }
+            }
     }
 
     private void saveFourthQuestionSetDesc() {

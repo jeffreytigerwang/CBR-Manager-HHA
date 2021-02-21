@@ -3,6 +3,10 @@ package com.example.cbr.models;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+* Data container for VisitSecondQuestionSetFragment
+* */
+
 public class VisitHealthQuestionSetData {
 
     private Integer clientId;

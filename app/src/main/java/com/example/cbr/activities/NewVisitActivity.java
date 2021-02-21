@@ -86,6 +86,7 @@ public class NewVisitActivity extends AppCompatActivity {
         binding = ActivityNewVisitBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        getSupportActionBar().hide();
 
         // Init Retrofit & NodeJs stuff
         retrofit = RetrofitInit.getInstance();

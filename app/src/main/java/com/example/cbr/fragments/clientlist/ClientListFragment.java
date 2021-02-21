@@ -30,6 +30,8 @@ import retrofit2.Retrofit;
 
 import com.example.cbr.R;
 
+import retrofit2.Retrofit;
+
 public class ClientListFragment extends BaseFragment implements ClientListContract.View {
 
     // Init API

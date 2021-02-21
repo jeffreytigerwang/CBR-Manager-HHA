@@ -130,6 +130,11 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
                             Toast.makeText(MainActivity.this, "You Enter the Wrong Password", Toast.LENGTH_SHORT).show();
                         } else {
                             successfulLogin = 1;
+                            Users userInstance = Users.getInstance();
+                            userInstance.setFirstName(users.getFirstName());
+                            userInstance.setLastName(users.getLastName());
+                            userInstance.setEmail(email);
+                            userInstance.setPassword(password);
 
                             Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 

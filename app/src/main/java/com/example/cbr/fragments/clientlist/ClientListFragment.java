@@ -32,8 +32,9 @@ import com.example.cbr.R;
 
 public class ClientListFragment extends BaseFragment implements ClientListContract.View {
 
-    Retrofit retrofit;
-    JsonPlaceHolderApi jsonPlaceHolderApi;
+    // Init API
+    private Retrofit retrofit;
+    private JsonPlaceHolderApi jsonPlaceHolderApi;
 
     private ArrayList<ClientInfo> clientInfoArrayList;
 

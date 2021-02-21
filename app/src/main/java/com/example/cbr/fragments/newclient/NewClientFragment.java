@@ -37,8 +37,8 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
     private NewClientContract.Presenter newClientPresenter;
 
     // Init API
-    Retrofit retrofit;
-    JsonPlaceHolderApi jsonPlaceHolderApi;
+    private Retrofit retrofit;
+    private JsonPlaceHolderApi jsonPlaceHolderApi;
 
     @Nullable
     @Override
@@ -55,7 +55,6 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         // List of API calls like GET & POST
-
 
         populateLocationSpinner();
         populateRateClientHealthSpinner();

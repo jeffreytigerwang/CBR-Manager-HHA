@@ -258,7 +258,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Please describe what they require"
+                android:text="@string/please_describe_what_they_require"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"/>
 
@@ -275,7 +275,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Set individual goal"
+                android:text="@string/set_individual_goal"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"/>
 
@@ -312,7 +312,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Please describe what they require"
+                android:text="@string/please_describe_what_they_require"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"/>
 
@@ -329,7 +329,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Set individual goal"
+                android:text="@string/set_individual_goal"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp" />
 
@@ -366,7 +366,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Please describe what they require"
+                android:text="@string/please_describe_what_they_require"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"/>
 
@@ -383,7 +383,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Set individual goal"
+                android:text="@string/set_individual_goal"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"/>
 
@@ -412,14 +412,15 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Client"
+        android:text="@string/new_client"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.85"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.1"
-        android:textSize="8pt"
-        android:textColor="@color/white"/>
+        android:textSize="23sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -106,6 +106,7 @@
     <string name="Login">Login</string>
     <string name="new_visit">New Visit</string>
     <string name="new_client">New Client</string>
+    <string name="patient_list">Patient List</string>
     <string-array name="zone_locations_array">
         <item>BidiBidi Zone 1</item>
         <item>BidiBidi Zone 2</item>

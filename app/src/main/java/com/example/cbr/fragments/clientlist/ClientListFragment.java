@@ -83,6 +83,8 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         ClientListAdapter adapter = new ClientListAdapter(getActivity(), clientInfoArrayList, clientListFragmentInterface);
         recyclerView.setAdapter(adapter);
 
+        binding.sampleText.setText(R.string.patient_list);
+
         View view = binding.getRoot();
         return view;
     }

@@ -1,19 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:windowBackground"
-    android:id="@+id/fragmentHome">
+    android:background="@drawable/listbackground">
 
     <Button
-        android:id="@+id/buttonNewClient"
-        android:layout_width="105dp"
-        android:layout_height="88dp"
+        android:id="@+id/dashboard_newClientButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="8dp"
         android:text="New Client"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/dashboard_priorityTitle"
+        app:layout_constraintEnd_toStartOf="@+id/dashboard_syncButton" />
+
+    <Button
+        android:id="@+id/dashboard_syncButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Sync"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/dashboard_priorityTitle"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/dashboard_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Dashboard"
+        android:textColor="#FFFFFF"
+        android:textSize="23sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dashboard_priorityList"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toTopOf="@+id/dashboard_outstandingTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dashboard_priorityTitle"
+        app:layout_constraintVertical_bias="0.285" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dashboard_outstandingList"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dashboard_outstandingTitle"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/dashboard_priorityTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="90dp"
+        android:text="Priority List"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dashboard_outstandingTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:text="Outstanding Referrals"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dashboard_priorityList" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

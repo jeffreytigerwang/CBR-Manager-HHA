@@ -16,56 +16,54 @@ import com.example.cbr.model.ClientInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PriorityListAdapter extends RecyclerView.Adapter<PriorityListAdapter.ViewHolder>{
-
+public class OutstandingListAdapter extends RecyclerView.Adapter<OutstandingListAdapter.ViewHolder>{
     private LayoutInflater inflater;
     private Context context;
-    private List<ClientInfo> priorityList;
+    private List<ClientInfo> outstandingList;
     private TempHomeFragmentInterface tempHomeFragmentInterface;
 
-    //TODO: Possible other parameters like interface or visits info
-    public PriorityListAdapter(Context context, ArrayList<ClientInfo> priorityList, TempHomeFragmentInterface tempHomeFragmentInterface){
+
+    public OutstandingListAdapter(Context context, ArrayList<ClientInfo> outstandingList, TempHomeFragmentInterface tempHomeFragmentInterface){
         this.context = context;
-        this.priorityList = priorityList;
+        this.outstandingList = outstandingList;
         this.tempHomeFragmentInterface = tempHomeFragmentInterface;
         this.inflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
-    public PriorityListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_priority_list, parent, false);
+    public OutstandingListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = inflater.inflate(R.layout.item_outstanding_list, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PriorityListAdapter.ViewHolder holder, int position) {
-        holder.bind(priorityList.get(position));
+    public void onBindViewHolder(@NonNull OutstandingListAdapter.ViewHolder holder, int position) {
+        holder.bind(outstandingList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return priorityList.size();
+        return outstandingList.size();
     }
-
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView nameText;
-        TextView riskText;
+        TextView referralText;
         TextView locationText;
         TextView dateText;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameText = itemView.findViewById(R.id.dashboard_priorityListName);
-            riskText = itemView.findViewById(R.id.dashboard_priorityListRisk);
-            locationText = itemView.findViewById(R.id.dashboard_priorityListLocation);
-            dateText = itemView.findViewById(R.id.dashboard_priorityListDate);
+            nameText = itemView.findViewById(R.id.dashboard_outstandingListName);
+            referralText = itemView.findViewById(R.id.dashboard_outstandingListReferral);
+            locationText = itemView.findViewById(R.id.dashboard_outstandingListLocation);
+            dateText = itemView.findViewById(R.id.dashboard_outstandingListDate);
         }
 
         //TODO: find way to show most critical risk level and last visit date
         public void bind(final ClientInfo clientInfo){
             nameText.setText(clientInfo.getFullName());
-            riskText.setText(clientInfo.getRateHealth() + "Level");
+            referralText.setText("Referral");
             locationText.setText(clientInfo.getGpsLocation());
             dateText.setText("February 10, 2021");
 

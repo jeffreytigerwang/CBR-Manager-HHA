@@ -7,22 +7,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cbr.adapters.OutstandingListAdapter;
+import com.example.cbr.adapters.PriorityListAdapter;
 import com.example.cbr.databinding.FragmentHomeBinding;
 import com.example.cbr.model.ClientInfo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TempHomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private TempHomeFragmentInterface tempHomeFragmentInterface;
-    private List<ClientInfo> priorityList;
-    private List<ClientInfo> outstandingList;
+    private ArrayList<ClientInfo> priorityList;
+    private ArrayList<ClientInfo> outstandingList;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -37,19 +42,41 @@ public class TempHomeFragment extends Fragment {
     @Override
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+        priorityList = new ArrayList<>();
+        outstandingList = new ArrayList<>();
 
-        setupPriorityList();
-        setupOutstandingList();
 
         //hardcode example clients for demonstration
         populateLists();
 
-
-        setupAddNewClientButton();
-
+        setupPriorityListView();
+        setupOutstandingList();
+        setupNewClientButton();
+        setupSyncButton();
 
         return binding.getRoot();
     }
+
+    private void setupSyncButton() {
+        Button button = binding.dashboardSyncButton;
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Syncing...", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setupNewClientButton() {
+        Button button = binding.dashboardNewClientButton;
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tempHomeFragmentInterface.swapToNewClient();
+            }
+        });
+    }
+
 
     private void populateLists() {
         ClientInfo john = new ClientInfo(true, "Sample text0", "sample text0", "sample text0",
@@ -86,25 +113,31 @@ public class TempHomeFragment extends Fragment {
         outstandingList.add(empty3);
     }
 
-    private void setupPriorityList() {
-        priorityList = new ArrayList<>();
+    private void setupPriorityListView() {
 
+        RecyclerView recyclerView = binding.dashboardPriorityList;
+        LinearLayoutManager priorityLayout = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(priorityLayout);
+        PriorityListAdapter priorityListAdapter = new PriorityListAdapter(getActivity(), priorityList, tempHomeFragmentInterface);
+        recyclerView.setAdapter(priorityListAdapter);
 
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                priorityLayout.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
     private void setupOutstandingList() {
-        outstandingList = new ArrayList<>();
-    }
 
-    private void setupAddNewClientButton() {
+        RecyclerView recyclerView = binding.dashboardOutstandingList;
+        LinearLayoutManager outstandingLayout = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(outstandingLayout);
+        OutstandingListAdapter outstandingListAdapter = new OutstandingListAdapter(getActivity(), outstandingList, tempHomeFragmentInterface);
+        recyclerView.setAdapter(outstandingListAdapter);
 
-        Button button = binding.buttonNewClient;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tempHomeFragmentInterface.swapToNewClient();
-            }
-        });
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                outstandingLayout.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
+
     }
 
     public static TempHomeFragment newInstance() {
@@ -116,8 +149,10 @@ public class TempHomeFragment extends Fragment {
     }
 
     public interface TempHomeFragmentInterface {
+        void swapToClientPage(ClientInfo clientInfo);
         void swapToNewClient();
     }
+
 
 
 }

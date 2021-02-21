@@ -1,4 +1,18 @@
-## Instructions
+# Instructions
+
+To deploy the api:
+
+First, clone the repo.
+
+```
+cd repo
+npm install
+
+npm run pm2
+```
+
+
+# Initial Setup
 
 Clone Repo
 
@@ -10,7 +24,7 @@ npm install
 ```
 
 
-## Set up MySQL Locally (for testing)
+## Set up MySQL database on VM
 
 `mysql -u root -p` to log in
 
@@ -19,9 +33,11 @@ Create a new database for our app
 `SHOW DATABASES;` to see what is already installed
 `CREATE DATABASE cbr_data`
 
+
 Create a new user for our app.
 
 `CREATE USER '<name>'@'localhost' IDENTIFIED BY '<password>';`
+
 
 We will use this user to access the database from our app. 
 Now we will add privileges to the account, so that the user only has access to
@@ -33,11 +49,13 @@ Note: cbr_data is the database we are giving privileges to, and * is the tables
 
 `FLUSH PRIVILEGES;` and logout `quit;`
 
+
 Try logging in with the new account
 
 `mysql -u <name> -p` and type in password when prompted
 
 `USE cbr_data` to make changes to database
+
 
 The following example shows how to create a basic table:
 
@@ -63,6 +81,8 @@ Other useful commands:
 for more information check out the docs:
 https://dev.mysql.com/doc/mysql-getting-started/en/#mysql-getting-started-installing
 
+
+
 ## Give credencials to app
 
 Open  app/config/db.config.js to see the following:
@@ -85,6 +105,7 @@ module.exports = {
 
 update name and password fields with credencials creates in mysql
 Note: we can share what they are in discord
+
 
 
 ## Defining Models
@@ -115,11 +136,15 @@ module.exports = (sequelize, Sequelize) => {
 Basically, replace modelName & ModelName with the name of a new class, and populate
 with properties
 
+
+
 ## Initialize server
 
 `node server.js`
 
 Go to http://localhost:8080/ and server will be running
+
+
 
 ## Creating new models
 
@@ -127,15 +152,23 @@ Basic idea of creating new models is:
 
 1. copy *test_data.model.js* file in the *models* folder, and add properties
 
-2. copy *test_data.controller.js* file in the *controllers* folder, and update test_data varibles with your new class name.
+2. add `db.<model_name> = require("./<model_name>.js")(sequelize, Sequelize);`
+to end of models/index.js file
 
-3. copy *test_data.routes.js* file in the *routes* folder, and replace test_data with new class name.
+3. copy *test_data.controller.js* file in the *controllers* folder, and update test_data varibles with your new class name.
+
+4. copy *test_data.routes.js* file in the *routes* folder, and replace test_data with new class name.
+
+5. add `require("./app/routes/<model_name>.routes")(app);` line to end of server.js file
+
+
 
 ## Testing
 
 Use Postman
 
 `snap install postman`
+
 
 Follow the tutorial: https://bezkoder.com/node-js-express-sequelize-mysql/
 Basically, start up your server and got to http://localhost:8080/api/test_data
@@ -147,4 +180,28 @@ Basically, start up your server and got to http://localhost:8080/api/test_data
 - using DELETE at */api/test_data/id* will delete that item, when using postman
 - using DELETE at */api/test_data* will delete all items, using postman
 - using GET at */api/test_data/active* will show all active items (active is just a property)
+
+
+## Docker Containers
+
+- install Docker
+
+`docker-compose up -d` to start mysql container
+`docker ps` to list active docker containers
+`docker stop <container id>` or `docker rm -f <container_id>` 
+
+## Routes Available
+
+`142.58.21.129/api/clients`
+`142.58.21.129/api/disability`
+`142.58.21.129/api/educationAspect`
+`142.58.21.129/api/educationProgress`
+`142.58.21.129/api/healthAspect`
+`142.58.21.129/api/healthProgress`
+`142.58.21.129/api/socialAspect`
+`142.58.21.129/api/socialProgress`
+`142.58.21.129/api/users`
+`142.58.21.129/api/visits`
+`142.58.21.129/api/clients`
+`142.58.21.129/api/test_data`
 

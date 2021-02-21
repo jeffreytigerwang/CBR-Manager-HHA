@@ -36,6 +36,16 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.test_data = require("./test_data.model.js")(sequelize, Sequelize);
+db.clients = require("./clients.model.js")(sequelize, Sequelize);
+db.visits = require("./visits.model.js")(sequelize, Sequelize);
+db.users = require("./users.model.js")(sequelize, Sequelize);
+db.education_aspect = require("./education_aspect.model.js")(sequelize, Sequelize);
+db.education_progress = require("./education_progress.model.js")(sequelize, Sequelize);
+db.health_aspect = require("./health_aspect.model.js")(sequelize, Sequelize);
+db.health_progress = require("./health_progress.model.js")(sequelize, Sequelize);
+db.social_aspect = require("./social_aspect.model.js")(sequelize, Sequelize);
+db.social_progress = require("./social_progress.model.js")(sequelize, Sequelize);
+db.disability = require("./disability.model.js")(sequelize, Sequelize);
 
 module.exports = db;
 

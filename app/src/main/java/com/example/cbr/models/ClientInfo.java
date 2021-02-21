@@ -10,9 +10,9 @@ public class ClientInfo implements Serializable {
     private Boolean consentToInterview;
 
     private String gpsLocation;
-    private String location;
+    private String zoneLocation;
     private String villageNumber;
-    private String date;
+    private String dateJoined;
     private String firstName;
     private String lastName;
     private String id;
@@ -80,9 +80,9 @@ public class ClientInfo implements Serializable {
                       String setGoalForSocialStatus) {
         this.consentToInterview = consentToInterview;
         this.gpsLocation = gpsLocation;
-        this.location = location;
+        this.zoneLocation = location;
         this.villageNumber = villageNumber;
-        this.date = date;
+        this.dateJoined = date;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -118,16 +118,16 @@ public class ClientInfo implements Serializable {
         return gpsLocation;
     }
 
-    public String getLocation() {
-        return location;
+    public String getZoneLocation() {
+        return zoneLocation;
     }
 
     public String getVillageNumber() {
         return villageNumber;
     }
 
-    public String getDate() {
-        return date;
+    public String getDateJoined() {
+        return dateJoined;
     }
 
     public String getFullName() {
@@ -266,7 +266,7 @@ public class ClientInfo implements Serializable {
     }
 
     public void setLocation(String location) {
-        this.location = location;
+        this.zoneLocation = location;
     }
 
     public void setVillageNumber(String villageNumber) {
@@ -274,7 +274,7 @@ public class ClientInfo implements Serializable {
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.dateJoined = date;
     }
 
     public void setFirstName(String firstName) {

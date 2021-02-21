@@ -22,6 +22,16 @@
     <string name="disabilities">Disabilities</string>
     <string name="basic_information">Basic information</string>
     <string name="social_status">Social status</string>
+    <string name="visits">Visits</string>
+    <string name="visits_list">Visit on: %1$s</string>
+
+    <!-- Visit page -->
+    <string name="visit_details">Visit details</string>
+    <string name="client_id">Client id</string>
+    <string name="visit_id">Visit id</string>
+    <string name="visit_purpose">Visit purpose</string>
+    <string name="visit_date">Visit date</string>
+    <string name="worker_name">Worker name</string>
 
     <!-- New client -->
     <string name="male">Male</string>
@@ -65,7 +75,7 @@
     <string name="health">Health</string>
     <string name="education">Education</string>
     <string name="social">Social</string>
-    <string name="date_of_vist">3. Date of vist*:</string>
+    <string name="date_of_visit">3. Date of vist*:</string>
     <string name="name_of_cbr_worker">4. Name of CBR worker*:</string>
     <string name="yyyy_mm_dd">yyyy-MM-dd</string>
     <string name="first_and_last_name">First and last name</string>

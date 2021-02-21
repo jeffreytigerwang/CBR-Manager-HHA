@@ -16,13 +16,16 @@ import com.example.cbr.fragments.clientpage.ClientPageFragment;
 import com.example.cbr.fragments.discussion.DiscussionFragment;
 import com.example.cbr.fragments.newclient.NewClientFragment;
 import com.example.cbr.fragments.notification.NotificationFragment;
+import com.example.cbr.fragments.visitpage.VisitPageFragment;
 import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class HomeActivity extends BaseActivity implements
         TempHomeFragment.TempHomeFragmentInterface,
-        ClientListFragment.ClientListFragmentInterface
+        ClientListFragment.ClientListFragmentInterface,
+        ClientPageFragment.ClientPageFragmentInterface
 {
 
     BottomNavigationView bottomNavigationView;
@@ -93,6 +96,12 @@ public class HomeActivity extends BaseActivity implements
     }
 
     @Override
+    public void swapToVisitPage(VisitGeneralQuestionSetData visitGeneralQuestionSetData) {
+        VisitPageFragment visitPageFragment = VisitPageFragment.newInstance(visitGeneralQuestionSetData);
+        replaceFragment(R.id.homeFragmentContainer, visitPageFragment, VisitPageFragment.getFragmentTag());
+    }
+
+    @Override
     public void swapToNewClient() {
         NewClientFragment newClientFragment = NewClientFragment.newInstance();
         replaceFragment(R.id.homeFragmentContainer, newClientFragment, NewClientFragment.getFragmentTag());
@@ -102,5 +111,4 @@ public class HomeActivity extends BaseActivity implements
     public static Intent makeIntent(Context context){
         return new Intent(context, HomeActivity.class);
     }
-
 }

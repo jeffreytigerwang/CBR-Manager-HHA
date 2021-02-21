@@ -1,4 +1,4 @@
-package com.example.cbr.fragments.clientpage;
+package com.example.cbr.fragments.visitpage;
 
 import com.example.cbr.fragments.base.BasePresenter;
 import com.example.cbr.fragments.base.BaseView;
@@ -7,10 +7,9 @@ import com.example.cbr.models.VisitGeneralQuestionSetData;
 import java.io.IOException;
 import java.util.List;
 
-public interface ClientPageContract {
+public interface VisitPageContract {
 
     interface Presenter extends BasePresenter {
-        List<VisitGeneralQuestionSetData> getVisits() throws IOException;
     }
 
     interface View extends BaseView<Presenter> {

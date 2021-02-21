@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.example.cbr.util.Constants;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 * Data container for VisitFirstQuestionSetFragment
 * */
 
-public class VisitGeneralQuestionSetData {
+public class VisitGeneralQuestionSetData implements Serializable {
 
     private Integer clientId;
     private Integer visitId;

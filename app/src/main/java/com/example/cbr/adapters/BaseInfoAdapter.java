@@ -25,7 +25,8 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
 
     final int TEXT_VIEW_TYPE = 0;
     final int HEADER_VIEW_TYPE = 1;
-    final int DIVIDER_VIEW_TYPE = 2;
+    final int CLICKABLE_VIEW_TYPE = 2;
+    final int DIVIDER_VIEW_TYPE = 3;
 
     BaseInfoAdapter(Context context) {
         this.context = context;
@@ -37,16 +38,20 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
      */
     abstract void generateList();
 
-    void addTextViewHolder(String firstText, String secondText) {
+    void addTextViewType(String firstText, String secondText) {
         infoList.add(new TextViewHolderData(firstText, secondText));
     }
 
-    void addDivider() {
-        infoList.add(new DividerViewHolderData());
+    void addHeaderViewType(String text) {
+        infoList.add(new HeaderViewHolderData(text));
     }
 
-    void addHeader(String text) {
-        infoList.add(new HeaderViewHolderData(text));
+    void addClickableViewType(String text, View.OnClickListener listener) {
+        infoList.add(new ClickableViewHolderData(text, listener));
+    }
+
+    void addDividerViewType() {
+        infoList.add(new DividerViewHolderData());
     }
 
     String boolToText(Boolean bool) {
@@ -64,11 +69,13 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType) {
             case TEXT_VIEW_TYPE:
-                return new ClientInfoAdapter.TextViewHolder(layoutInflater.inflate(R.layout.recyclerview_text, parent, false));
+                return new TextViewHolder(layoutInflater.inflate(R.layout.recyclerview_text, parent, false));
             case HEADER_VIEW_TYPE:
-                return new ClientInfoAdapter.HeaderViewHolder(layoutInflater.inflate(R.layout.recyclerview_header, parent, false));
+                return new HeaderViewHolder(layoutInflater.inflate(R.layout.recyclerview_header, parent, false));
+            case CLICKABLE_VIEW_TYPE:
+                return new ClickableViewHolder(layoutInflater.inflate(R.layout.recyclerview_clickable, parent, false));
             case DIVIDER_VIEW_TYPE:
-                return new ClientInfoAdapter.DividerViewHolder(layoutInflater.inflate(R.layout.recyclerview_divider, parent, false));
+                return new DividerViewHolder(layoutInflater.inflate(R.layout.recyclerview_divider, parent, false));
         }
         return new ClientInfoAdapter.TextViewHolder(layoutInflater.inflate(R.layout.recyclerview_text, parent, false));
     }
@@ -80,7 +87,10 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 ((TextViewHolder) holder).bind((TextViewHolderData) infoList.get(position));
                 break;
             case HEADER_VIEW_TYPE:
-                ((HeaderViewHolder) holder).bind(((HeaderViewHolderData) infoList.get(position)));
+                ((HeaderViewHolder) holder).bind((HeaderViewHolderData) infoList.get(position));
+                break;
+            case CLICKABLE_VIEW_TYPE:
+                ((ClickableViewHolder) holder).bind((ClickableViewHolderData) infoList.get(position));
             case DIVIDER_VIEW_TYPE:
                 break;
         }
@@ -95,6 +105,19 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
     public int getItemCount() {
         return infoList.size();
     }
+
+    class ViewHolderData {
+        private final int viewType;
+
+        ViewHolderData(int viewType) {
+            this.viewType = viewType;
+        }
+
+        public int getViewType() {
+            return viewType;
+        }
+    }
+
 
     class TextViewHolder extends RecyclerView.ViewHolder {
         private final TextView firstTextView;
@@ -117,37 +140,6 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
-        private final TextView headerTextView;
-
-        public HeaderViewHolder(@NonNull View itemView) {
-            super(itemView);
-            headerTextView = itemView.findViewById(R.id.recyclerview_headerText);
-        }
-
-        public void bind(HeaderViewHolderData headerViewHolderData) {
-            headerTextView.setText(headerViewHolderData.getHeaderText());
-        }
-    }
-
-    class DividerViewHolder extends RecyclerView.ViewHolder {
-        public DividerViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
-    class ViewHolderData {
-        private final int viewType;
-
-        ViewHolderData(int viewType) {
-            this.viewType = viewType;
-        }
-
-        public int getViewType() {
-            return viewType;
-        }
-    }
-
     class TextViewHolderData extends ViewHolderData {
         private final String firstText;
         private final String secondText;
@@ -167,6 +159,19 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
+    class HeaderViewHolder extends RecyclerView.ViewHolder {
+        private final TextView headerTextView;
+
+        public HeaderViewHolder(@NonNull View itemView) {
+            super(itemView);
+            headerTextView = itemView.findViewById(R.id.recyclerview_headerText);
+        }
+
+        public void bind(HeaderViewHolderData headerViewHolderData) {
+            headerTextView.setText(headerViewHolderData.getHeaderText());
+        }
+    }
+
     class HeaderViewHolderData extends ViewHolderData {
         private final String headerText;
 
@@ -177,6 +182,46 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
 
         public String getHeaderText() {
             return headerText;
+        }
+    }
+
+    class ClickableViewHolder extends RecyclerView.ViewHolder {
+        private final TextView clickableTextView;
+
+        public ClickableViewHolder(@NonNull View itemView) {
+            super(itemView);
+            clickableTextView = itemView.findViewById(R.id.recyclerview_clickableText);
+        }
+
+        public void bind(ClickableViewHolderData clickableViewHolderData) {
+            clickableTextView.setText(clickableViewHolderData.getClickableText());
+
+            itemView.setOnClickListener(clickableViewHolderData.getListener());
+        }
+    }
+
+    class ClickableViewHolderData extends ViewHolderData {
+        private final String clickableText;
+        private final View.OnClickListener listener;
+
+        ClickableViewHolderData(String clickableText, View.OnClickListener listener) {
+            super(CLICKABLE_VIEW_TYPE);
+            this.clickableText = clickableText;
+            this.listener = listener;
+        }
+
+        public String getClickableText() {
+            return clickableText;
+        }
+
+        public View.OnClickListener getListener() {
+            return listener;
+        }
+    }
+
+    class DividerViewHolder extends RecyclerView.ViewHolder {
+        public DividerViewHolder(View itemView) {
+            super(itemView);
         }
     }
 

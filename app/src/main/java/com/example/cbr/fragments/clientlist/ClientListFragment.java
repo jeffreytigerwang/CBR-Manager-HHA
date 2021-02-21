@@ -34,8 +34,9 @@ import retrofit2.Retrofit;
 
 public class ClientListFragment extends BaseFragment implements ClientListContract.View {
 
-    Retrofit retrofit;
-    JsonPlaceHolderApi jsonPlaceHolderApi;
+    // Init API
+    private Retrofit retrofit;
+    private JsonPlaceHolderApi jsonPlaceHolderApi;
 
     private ArrayList<ClientInfo> clientInfoArrayList;
 
@@ -57,7 +58,6 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setPresenter(new ClientListPresenter(this));
 
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -71,41 +71,11 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         // View binding so that findViewById() doesn't have to be used
         binding = FragmentClientlistBinding.inflate(inflater, container, false);
 
-        ClientInfo john = new ClientInfo(true, "Sample text0", "sample text0", "sample text0",
-                "sample text0", "sample text0", "sample text0", 40, "sample text0",
-                true, "sample text0", true, true, true, true, true, true, true, true, true, true, "sample text0", "sample text0", "sample text0", "sample text0", "sample text0", "sample text0", "sample text0", "sample text0", "sample text0");
         try {
             getClientsInfo();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        ClientInfo john1 = new ClientInfo(true, "sample text1", "sample text1", "sample text1",
-                "sample text1", "sample text1", "sample text1", 40, "sample text1",
-                true, "sample text1", true, true, true, true, true, true, true, true, true, true, "sample text1", "sample text1", "sample text1", "sample text1", "sample text1", "sample text1", "sample text1", "sample text1", "sample text1");
-
-        ClientInfo john2 = new ClientInfo(true, "sample text2", "sample text2", "sample text2",
-                "sample text2", "sample text2", "sample text2", 40, "sample text2",
-                true, "sample text2", true, true, true, true, true, true, true, true, false, true, "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2");
-
-        System.out.println(clientInfoArrayList.get(0).getFirstName());
-        System.out.println(clientInfoArrayList.get(0).getLastName());
-        System.out.println(clientInfoArrayList.get(0).getCaregiverContactNumber());
-        System.out.println(clientInfoArrayList.get(0).getGpsLocation());
-
-        ClientInfo empty = new ClientInfo();
-        ClientInfo empty1 = new ClientInfo();
-        ClientInfo empty2 = new ClientInfo();
-        ClientInfo empty3 = new ClientInfo();
-
-        ArrayList<ClientInfo> peopleList = new ArrayList<>();
-        peopleList.add(john);
-        peopleList.add(john1);
-        peopleList.add(john2);
-        peopleList.add(empty);
-        peopleList.add(empty1);
-        peopleList.add(empty2);
-        peopleList.add(empty3);
 
         RecyclerView recyclerView = binding.recyclerViewClientlist;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -113,43 +83,10 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         ClientListAdapter adapter = new ClientListAdapter(getActivity(), clientInfoArrayList, clientListFragmentInterface);
         recyclerView.setAdapter(adapter);
 
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-//                linearLayoutManager.getOrientation());
-//        recyclerView.addItemDecoration(dividerItemDecoration);
-//        adapter = new ClientListAdapter(getActivity(), R.layout.item_clientlist, clientInfoArrayList);
-//        listView.setAdapter(adapter);
-
         View view = binding.getRoot();
         return view;
     }
 
-
-//    private void getClientsInfo() {
-//        Call<List<com.example.cbr.models.ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
-//
-//        call.enqueue(new Callback<List<com.example.cbr.models.ClientInfo>>() {
-//            @Override
-//            public void onResponse(Call<List<com.example.cbr.models.ClientInfo>> call, Response<List<com.example.cbr.models.ClientInfo>> response) {
-//
-//                if (!response.isSuccessful()) {
-//                    Toast.makeText(getActivity(), "ClientInfo Get Fail", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                List<com.example.cbr.models.ClientInfo> clientInfoList = response.body();
-//
-//                for (com.example.cbr.models.ClientInfo clientInfo: clientInfoList) {
-//                    clientInfoArrayList.add(clientInfo);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<com.example.cbr.models.ClientInfo>> call, Throwable t) {
-//
-//            }
-//        });
-//    }
 
     private void getClientsInfo() throws IOException {
         Call<List<ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();

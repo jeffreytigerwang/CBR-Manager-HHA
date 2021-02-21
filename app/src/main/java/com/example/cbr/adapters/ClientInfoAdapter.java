@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
-import com.example.cbr.model.ClientInfo;
+import com.example.cbr.models.ClientInfo;
 
 import java.util.ArrayList;
 
@@ -26,9 +26,9 @@ public class ClientInfoAdapter extends BaseInfoAdapter {
         addHeader(context.getString(R.string.basic_information));
         addTextViewHolder(context.getString(R.string.consent_to_interview), boolToText(clientInfo.isConsentToInterview()));
         addTextViewHolder(context.getString(R.string.gps_location), clientInfo.getGpsLocation());
-        addTextViewHolder(context.getString(R.string.location), clientInfo.getLocation());
+        addTextViewHolder(context.getString(R.string.location), clientInfo.getZoneLocation());
         addTextViewHolder(context.getString(R.string.village_number), clientInfo.getVillageNumber());
-        addTextViewHolder(context.getString(R.string.date), clientInfo.getDate());
+        addTextViewHolder(context.getString(R.string.date), clientInfo.getDateJoined());
         addTextViewHolder(context.getString(R.string.first_name), clientInfo.getFirstName());
         addTextViewHolder(context.getString(R.string.last_name), clientInfo.getLastName());
         addTextViewHolder(context.getString(R.string.age), clientInfo.getAge().toString());

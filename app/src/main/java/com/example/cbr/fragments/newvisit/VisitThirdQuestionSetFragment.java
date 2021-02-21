@@ -19,6 +19,10 @@ import com.example.cbr.databinding.FragmentVisitThirdQuestionSetBinding;
 import com.example.cbr.models.VisitEducationQuestionSetData;
 import com.example.cbr.util.Constants;
 
+/*
+* Fragment class is displayed if CBR is checked in question 1. and education is checked for question 2.
+* */
+
 public class VisitThirdQuestionSetFragment extends Fragment {
 
     private FragmentVisitThirdQuestionSetBinding binding;
@@ -150,7 +154,7 @@ public class VisitThirdQuestionSetFragment extends Fragment {
         checkBoxRef.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dataContainer.setEducationRefChecked(isChecked);
+                dataContainer.setEducationReferralChecked(isChecked);
                 toggleEditTextVisibility(isChecked, editTextRef);
             }
         });

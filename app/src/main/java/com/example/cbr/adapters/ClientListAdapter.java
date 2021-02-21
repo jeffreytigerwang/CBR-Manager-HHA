@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
 import com.example.cbr.fragments.clientlist.ClientListFragment.ClientListFragmentInterface;
-import com.example.cbr.model.ClientInfo;
+import com.example.cbr.models.ClientInfo;
 
 import java.util.ArrayList;
 
@@ -70,7 +70,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Vi
         public void bind(final ClientInfo clientInfo) {
             nameText.setText(clientInfo.getFullName());
             idText.setText(clientInfo.getId());
-            locationText.setText(clientInfo.getLocation());
+            locationText.setText(clientInfo.getZoneLocation());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

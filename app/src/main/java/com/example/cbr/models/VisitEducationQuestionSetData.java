@@ -1,14 +1,24 @@
 package com.example.cbr.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+* Data container for VisitThirdQuestionSetFragment
+* */
+
 public class VisitEducationQuestionSetData {
+
+    private Integer clientId;
+    private Integer visitId;
 
     private boolean isEducationAdviceChecked;
     private boolean isEducationAdvocacyChecked;
-    private boolean isEducationRefChecked;
+    private boolean isEducationReferralChecked;
     private boolean isEducationEncouragementChecked;
     private String educationAdviceDesc;
     private String educationAdvocacyDesc;
-    private String educationRefDesc;
+    private String educationReferralDesc;
     private String educationEncouragementDesc;
     private String educationOutcomeDesc;
     private String educationGoalStatus;
@@ -16,10 +26,56 @@ public class VisitEducationQuestionSetData {
     public VisitEducationQuestionSetData() {
         this.educationAdviceDesc = "";
         this.educationAdvocacyDesc = "";
-        this.educationRefDesc = "";
+        this.educationReferralDesc = "";
         this.educationEncouragementDesc = "";
         this.educationOutcomeDesc = "";
         this.educationGoalStatus = "";
+    }
+
+    public List<String> getEmptyQuestions() {
+        List<String> questionNumbers = new ArrayList<>();
+
+        boolean isQuestionElevenChecked = isEducationAdviceChecked
+                || isEducationAdvocacyChecked
+                || isEducationReferralChecked
+                || isEducationEncouragementChecked;
+        boolean isQuestionTwelveEmpty = educationGoalStatus.isEmpty();
+
+        boolean isEducationAdviceEmpty = educationAdviceDesc.isEmpty();
+        boolean isEducationAdvocacyDescEmpty = educationAdvocacyDesc.isEmpty();
+        boolean isEducationReferralDescEmpty = educationReferralDesc.isEmpty();
+        boolean isEducationEncouragementDescEmpty = educationEncouragementDesc.isEmpty();
+
+        boolean missingDesc = (isEducationAdviceChecked && isEducationAdviceEmpty)
+                || (isEducationAdvocacyChecked && isEducationAdvocacyDescEmpty)
+                || (isEducationReferralChecked && isEducationReferralDescEmpty)
+                || (isEducationEncouragementChecked && isEducationEncouragementDescEmpty);
+
+        if (!isQuestionElevenChecked) {
+            questionNumbers.add("11.");
+        } else if (missingDesc) {
+            questionNumbers.add("11.");
+        }
+        if (isQuestionTwelveEmpty) {
+            questionNumbers.add("12.");
+        }
+        return questionNumbers;
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
+    }
+
+    public Integer getVisitId() {
+        return visitId;
+    }
+
+    public void setVisitId(Integer visitId) {
+        this.visitId = visitId;
     }
 
     public boolean isEducationAdviceChecked() {
@@ -38,12 +94,12 @@ public class VisitEducationQuestionSetData {
         isEducationAdvocacyChecked = educationAdvocacyChecked;
     }
 
-    public boolean isEducationRefChecked() {
-        return isEducationRefChecked;
+    public boolean isEducationReferralChecked() {
+        return isEducationReferralChecked;
     }
 
-    public void setEducationRefChecked(boolean educationRefChecked) {
-        isEducationRefChecked = educationRefChecked;
+    public void setEducationReferralChecked(boolean educationReferralChecked) {
+        isEducationReferralChecked = educationReferralChecked;
     }
 
     public boolean isEducationEncouragementChecked() {
@@ -70,12 +126,12 @@ public class VisitEducationQuestionSetData {
         this.educationAdvocacyDesc = educationAdvocacyDesc;
     }
 
-    public String getEducationRefDesc() {
-        return educationRefDesc;
+    public String getEducationReferralDesc() {
+        return educationReferralDesc;
     }
 
-    public void setEducationRefDesc(String educationRefDesc) {
-        this.educationRefDesc = educationRefDesc;
+    public void setEducationReferralDesc(String educationReferralDesc) {
+        this.educationReferralDesc = educationReferralDesc;
     }
 
     public String getEducationEncouragementDesc() {

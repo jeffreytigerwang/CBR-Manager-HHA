@@ -1,5 +1,6 @@
 package com.example.cbr.fragments.newvisit;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +25,9 @@ import com.example.cbr.databinding.FragmentVisitFirstQuestionSetBinding;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.util.Constants;
 
-import java.util.Calendar;
-import java.util.Date;
+/*
+* Initial fragment class to display general questions (7 questions)
+* */
 
 public class VisitFirstQuestionSetFragment extends Fragment {
 
@@ -35,6 +37,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     private FragmentVisitFirstQuestionSetBinding binding;
 
     private final VisitGeneralQuestionSetData dataContainer;
+    private final Context parentContext;
     private FragmentActivity activity;
 
     private CheckBox health;
@@ -52,9 +55,10 @@ public class VisitFirstQuestionSetFragment extends Fragment {
 
     public VisitFirstQuestionSetFragment(
             ActivityNewVisitBinding containerBinding,
-            VisitGeneralQuestionSetData dataContainer) {
+            VisitGeneralQuestionSetData dataContainer, Context parentContext) {
         this.containerBinding = containerBinding;
         this.dataContainer = dataContainer;
+        this.parentContext = parentContext;
     }
 
     @Override
@@ -75,8 +79,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     private void preLoadViews() {
         findViews();
 
-        Date currentTime = Calendar.getInstance().getTime();
-        date.setText(currentTime.toString());
+        date.setText(dataContainer.getDateOfVisit().toString());
 
         cbrWorkerName.setText(dataContainer.getWorkerName());
     }
@@ -95,19 +98,19 @@ public class VisitFirstQuestionSetFragment extends Fragment {
 
         question2 = binding.newVisitQ2TextView;
 
-        spinnerLocation = binding.newVisitLocationspinner;
+        spinnerLocation = binding.newVisitLocationSpinner;
     }
 
     private void setupSpinner() {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 activity,
                 android.R.layout.simple_spinner_item,
-                getResources().getStringArray(R.array.locations_array)
+                getResources().getStringArray(R.array.zone_locations_array)
         );
 
         spinnerLocation.setAdapter(adapter);
 
-        dataContainer.setSiteLocation(spinnerLocation.getSelectedItem().toString());
+        dataContainer.setVisitZoneLocation(spinnerLocation.getSelectedItem().toString());
     }
 
     private void setupCheckBox() {
@@ -140,7 +143,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
                 if (checkedId == R.id.newVisit_CBRRadioButton) {
                     dataContainer.setPurposeOfVisit(Constants.CBR);
 
-                    int unlockedColor = ContextCompat.getColor(getContext(), R.color.black);
+                    int unlockedColor = ContextCompat.getColor(parentContext, R.color.black);
                     toggleQuestionTwo(unlockedColor, true);
                     toggleRecordButton(View.VISIBLE, View.GONE);
 
@@ -157,8 +160,8 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     }
 
     private void toggleRecordButton(int nextVisibility, int recordVisibility) {
-        Button next = containerBinding.buttonVisitNext;
-        Button record = containerBinding.buttonVisitRecord;
+        Button next = containerBinding.newVisitNextButton;
+        Button record = containerBinding.newVisitRecordButton;
 
         next.setVisibility(nextVisibility);
         record.setVisibility(recordVisibility);
@@ -177,7 +180,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     }
 
     private void resetQuestionTwo() {
-        int lockedColor = ContextCompat.getColor(getContext(), R.color.colorLocked);
+        int lockedColor = ContextCompat.getColor(parentContext, R.color.colorLocked);
         toggleQuestionTwo(lockedColor, false);
 
         health.setChecked(false);

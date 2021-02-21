@@ -1,25 +1,92 @@
 package com.example.cbr.models;
 
+import androidx.annotation.NonNull;
+
+import com.example.cbr.util.Constants;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/*
+* Data container for VisitFirstQuestionSetFragment
+* */
+
 public class VisitGeneralQuestionSetData {
+
+    private Integer clientId;
+    private Integer visitId;
 
     private boolean isHealthChecked;
     private boolean isEducationChecked;
     private boolean isSocialChecked;
 
     private String purposeOfVisit;
-    private String dateOfVisit;
+    private final Date dateOfVisit;
     private String workerName;
-    private String locationOfVisit;
+    private String visitGpsLocation;
     private String villageNumber;
-    private String siteLocation;
+    private String visitZoneLocation;
 
     public VisitGeneralQuestionSetData() {
         this.purposeOfVisit = "";
-        this.dateOfVisit = "";
+        this.dateOfVisit = new Date();
         this.workerName = "";
-        this.locationOfVisit = "";
+        this.visitGpsLocation = "";
         this.villageNumber = "";
-        this.siteLocation = "";
+        this.visitZoneLocation = "";
+    }
+
+    public List<String> getEmptyQuestions() {
+        List<String> questionNumbers = new ArrayList<>();
+
+        boolean isQuestionOneEmpty = purposeOfVisit.isEmpty();
+        boolean isQuestionTwoChecked;
+        if (purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
+            isQuestionTwoChecked = isHealthChecked || isEducationChecked || isSocialChecked;
+        } else {
+            isQuestionTwoChecked = true;
+        }
+        boolean isQuestionFourEmpty = workerName.isEmpty();
+        boolean isQuestionFiveEmpty = visitGpsLocation.isEmpty();
+        boolean isQuestionSixEmpty = visitZoneLocation.isEmpty();
+        boolean isQuestionSevenEmpty = villageNumber.isEmpty();
+
+        if (isQuestionOneEmpty) {
+            questionNumbers.add("1.");
+        }
+        if (!isQuestionTwoChecked) {
+            questionNumbers.add("2.");
+        }
+        if (isQuestionFourEmpty) {
+            questionNumbers.add("4.");
+        }
+        if (isQuestionFiveEmpty) {
+            questionNumbers.add("5.");
+        }
+        if (isQuestionSixEmpty) {
+            questionNumbers.add("6.");
+        }
+        if (isQuestionSevenEmpty) {
+            questionNumbers.add("7.");
+        }
+        return questionNumbers;
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
+    }
+
+    public Integer getVisitId() {
+        return visitId;
+    }
+
+    public void setVisitId(Integer visitId) {
+        this.visitId = visitId;
     }
 
     public boolean isHealthChecked() {
@@ -54,12 +121,8 @@ public class VisitGeneralQuestionSetData {
         this.purposeOfVisit = purposeOfVisit;
     }
 
-    public String getDateOfVisit() {
+    public Date getDateOfVisit() {
         return dateOfVisit;
-    }
-
-    public void setDateOfVisit(String dateOfVisit) {
-        this.dateOfVisit = dateOfVisit;
     }
 
     public String getWorkerName() {
@@ -70,12 +133,12 @@ public class VisitGeneralQuestionSetData {
         this.workerName = workerName;
     }
 
-    public String getLocationOfVisit() {
-        return locationOfVisit;
+    public String getVisitGpsLocation() {
+        return visitGpsLocation;
     }
 
-    public void setLocationOfVisit(String locationOfVisit) {
-        this.locationOfVisit = locationOfVisit;
+    public void setVisitGpsLocation(String visitGpsLocation) {
+        this.visitGpsLocation = visitGpsLocation;
     }
 
     public String getVillageNumber() {
@@ -86,11 +149,27 @@ public class VisitGeneralQuestionSetData {
         this.villageNumber = villageNumber;
     }
 
-    public String getSiteLocation() {
-        return siteLocation;
+    public String getVisitZoneLocation() {
+        return visitZoneLocation;
     }
 
-    public void setSiteLocation(String siteLocation) {
-        this.siteLocation = siteLocation;
+    public void setVisitZoneLocation(String visitZoneLocation) {
+        this.visitZoneLocation = visitZoneLocation;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "VisitGeneralQuestionSetData{" +
+                "isHealthChecked=" + isHealthChecked +
+                ", isEducationChecked=" + isEducationChecked +
+                ", isSocialChecked=" + isSocialChecked +
+                ", purposeOfVisit='" + purposeOfVisit + '\'' +
+                ", dateOfVisit='" + dateOfVisit + '\'' +
+                ", workerName='" + workerName + '\'' +
+                ", visitGPSLocation='" + visitGpsLocation + '\'' +
+                ", villageNumber='" + villageNumber + '\'' +
+                ", visitZoneLocation='" + visitZoneLocation + '\'' +
+                '}';
     }
 }

@@ -74,8 +74,9 @@ public class NewVisitActivity extends AppCompatActivity {
     private int clientId;
     private int visitId;
 
-    Retrofit retrofit;
-    JsonPlaceHolderApi jsonPlaceHolderApi;
+    // Init API
+    private Retrofit retrofit;
+    private JsonPlaceHolderApi jsonPlaceHolderApi;
 
     private Fragment currentFragment;
     private VisitGeneralQuestionSetData generalQuestionSetData;

@@ -70,36 +70,11 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         // View binding so that findViewById() doesn't have to be used
         binding = FragmentClientlistBinding.inflate(inflater, container, false);
 
-        ClientInfo john = new ClientInfo(true, "Sample text0", "sample text0", "sample text0",
-                "sample text0", "sample text0", "sample text0", 40, "sample text0",
-                true, "sample text0", true, true, true, true, true, true, true, true, true, true, "sample text0", "sample text0", "sample text0", "sample text0", "sample text0", "sample text0", "sample text0", "sample text0", "sample text0");
         try {
             getClientsInfo();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        ClientInfo john1 = new ClientInfo(true, "sample text1", "sample text1", "sample text1",
-                "sample text1", "sample text1", "sample text1", 40, "sample text1",
-                true, "sample text1", true, true, true, true, true, true, true, true, true, true, "sample text1", "sample text1", "sample text1", "sample text1", "sample text1", "sample text1", "sample text1", "sample text1", "sample text1");
-
-        ClientInfo john2 = new ClientInfo(true, "sample text2", "sample text2", "sample text2",
-                "sample text2", "sample text2", "sample text2", 40, "sample text2",
-                true, "sample text2", true, true, true, true, true, true, true, true, false, true, "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2", "sample text2");
-
-        ClientInfo empty = new ClientInfo();
-        ClientInfo empty1 = new ClientInfo();
-        ClientInfo empty2 = new ClientInfo();
-        ClientInfo empty3 = new ClientInfo();
-
-        ArrayList<ClientInfo> peopleList = new ArrayList<>();
-        peopleList.add(john);
-        peopleList.add(john1);
-        peopleList.add(john2);
-        peopleList.add(empty);
-        peopleList.add(empty1);
-        peopleList.add(empty2);
-        peopleList.add(empty3);
 
         RecyclerView recyclerView = binding.recyclerViewClientlist;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());

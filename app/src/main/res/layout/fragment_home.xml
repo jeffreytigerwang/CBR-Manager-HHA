@@ -9,8 +9,8 @@
 
     <Button
         android:id="@+id/dashboard_newClientButton"
-        android:layout_width="84dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="8dp"
         android:text="New Client"
@@ -20,8 +20,8 @@
 
     <Button
         android:id="@+id/dashboard_syncButton"
-        android:layout_width="84dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:text="Sync"
@@ -31,8 +31,8 @@
 
     <TextView
         android:id="@+id/dashboard_title"
-        android:layout_width="119dp"
-        android:layout_height="46dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Dashboard"
@@ -45,7 +45,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dashboard_priorityList"
         android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:layout_height="200dp"
         app:layout_constraintBottom_toTopOf="@+id/dashboard_outstandingTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -57,15 +57,18 @@
         android:id="@+id/dashboard_outstandingList"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dashboard_outstandingTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/dashboard_outstandingTitle"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/dashboard_priorityTitle"
         android:layout_width="match_parent"
-        android:layout_height="39dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="90dp"
         android:text="Priority List"
@@ -79,7 +82,7 @@
     <TextView
         android:id="@+id/dashboard_outstandingTitle"
         android:layout_width="match_parent"
-        android:layout_height="39dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="15dp"
         android:text="Outstanding Referrals"

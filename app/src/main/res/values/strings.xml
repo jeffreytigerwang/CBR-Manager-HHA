@@ -104,6 +104,7 @@
     <string name="e_g_5">E.g., 5</string>
     <string name="question_2_not_filled">Question 2 not filled.</string>
     <string name="Login">Login</string>
+    <string name="new_visit">New Visit</string>
     <string-array name="zone_locations_array">
         <item>BidiBidi Zone 1</item>
         <item>BidiBidi Zone 2</item>

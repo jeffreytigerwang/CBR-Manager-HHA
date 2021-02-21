@@ -19,6 +19,10 @@ import com.example.cbr.databinding.FragmentVisitSecondQuestionSetBinding;
 import com.example.cbr.models.VisitHealthQuestionSetData;
 import com.example.cbr.util.Constants;
 
+/*
+* Fragment class is displayed if CBR is checked in question 1. and health is checked for question 2.
+* */
+
 public class VisitSecondQuestionSetFragment extends Fragment {
 
     private FragmentVisitSecondQuestionSetBinding binding;

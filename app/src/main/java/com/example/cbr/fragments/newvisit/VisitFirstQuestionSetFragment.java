@@ -25,6 +25,10 @@ import com.example.cbr.databinding.FragmentVisitFirstQuestionSetBinding;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.util.Constants;
 
+/*
+* Initial fragment class to display general questions (7 questions)
+* */
+
 public class VisitFirstQuestionSetFragment extends Fragment {
 
     private static final String LOG_TAG = "FirstQuestionSetFragment";

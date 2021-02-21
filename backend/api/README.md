@@ -205,3 +205,11 @@ Basically, start up your server and got to http://localhost:8080/api/test_data
 `142.58.21.129/api/clients`
 `142.58.21.129/api/test_data`
 
+client data can be queried with: `142.58.21.129/api/clients
+?firstName=XXXX
+&lastName=XXXX
+&contactNumber=XXXX`
+
+Visits, HealthProgress, SocialProgress & EducationProgress data can be queried with: 
+`142.58.21.129/api/<data-type>?clientId=XXXX`
+

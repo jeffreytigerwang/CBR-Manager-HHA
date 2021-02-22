@@ -4,9 +4,9 @@
 - src: contains all code and resource files for the module in the subdirectories
     - androidTest: contains code for instrumentation tests that run on an Android device
     - main: contains the "main" sourceset files
-- java: contains Java code sources, separated by package names.
-- res: contains application resources, such as drawable files, layout files, and UI string.
-- AndroidManifest.xml: describes essential information about the app to the Android build tools and the Android operating system.
+        - java: contains Java code sources, separated by package names.
+        - res: contains application resources, such as drawable files, layout files, and UI string.
+        - AndroidManifest.xml: describes essential information about the app to the Android build tools and the Android operating system.
 - test: contains code for local tests that run on host JVM
 - build.gradle: defines the module-specific build configurations.
 

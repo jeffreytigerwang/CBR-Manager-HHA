@@ -1,7 +1,9 @@
 The application seeks to assist with coordinating the Community based rehabilitation (CBR) work in BidiBidi and Palorinya refugee settlements, northern Uganda making it much more efficient to maximise the impact on beneficiaries.
 The purpose of the platform is to:
-    1. Assist the CBR workers in their work as they visit people with disabilities, refer them to services and gradually support their needs and monitor progress
-    2. Assist HHA in tracking, coordinating and managing this process by generating measurable data which will be used to improve the existing CBR programme, measure impact and inform future programme design
+
+Assist the CBR workers in their work as they visit people with disabilities, refer them to services and gradually support their needs and monitor progress
+
+Assist HHA in tracking, coordinating and managing this process by generating measurable data which will be used to improve the existing CBR programme, measure impact and inform future programme design
 
 
 **Project File Structure (app):**

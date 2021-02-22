@@ -4,6 +4,10 @@ The purpose of the platform is to:
 1. Assist the CBR workers in their work as they visit people with disabilities, refer them to services and gradually support their needs and monitor progress
 2. Assist HHA in tracking, coordinating and managing this process by generating measurable data which will be used to improve the existing CBR programme, measure impact and inform future programme design
 
+For our project we have implemented a CBR worker Android App and a supporting web-based Database API for sending and receiving data, such as client info, visits info and storing usernames and passwords.
+
+For future iterations we hope to include a referrals and survey page, and implement a web-based admin app for accessing statistics, setting disability priorities and authenticating new cbr workers.
+
 
 **Project File Structure (app):**
 - build: contains build outputs

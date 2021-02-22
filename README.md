@@ -47,5 +47,5 @@ The purpose of the platform is to:
     - implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     - implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     - implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1’
-    - Detailed dependencies can be found in the module-level build.gradle file under app package.
+- Detailed dependencies can be found in the module-level build.gradle file under app package.
 

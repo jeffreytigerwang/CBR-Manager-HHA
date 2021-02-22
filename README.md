@@ -12,12 +12,12 @@
 
 
 **Database API File Structure:**
-    - backend/api holds database code, README.md holds API build instructions, and where to see the data. package.json shows dependencies, easily installed via the README.md instructions
-    - backend/api/app holds the database models, controllers and routes. A description of these components are as follows:
-    - models and model properties describe how the mysql database tables are created, and what columns, and datatypes are set
-    - controllers hold the logic for each model, describing the functions taken on requests made from android app, and what to respond with. Controllers also describe what parameters might be sent through a URL routes, and how to input parameters into database queries
-    - routes describe what controllers (ie. functions) are activated when an android app (and web-based admin) reach corresponding URL links. More information about all the API routes are found in the api README.
-    
+- backend/api holds database code, README.md holds API build instructions, and where to see the data. package.json shows dependencies, easily installed via the README.md instructions
+- backend/api/app holds the database models, controllers and routes. A description of these components are as follows:
+- models and model properties describe how the mysql database tables are created, and what columns, and datatypes are set
+- controllers hold the logic for each model, describing the functions taken on requests made from android app, and what to respond with. Controllers also describe what parameters might be sent through a URL routes, and how to input parameters into database queries
+- routes describe what controllers (ie. functions) are activated when an android app (and web-based admin) reach corresponding URL links. More information about all the API routes are found in the api README.
+-     
 
 **Dependencies:**
 - Following dependencies should be included when building the application:

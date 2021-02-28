@@ -4,30 +4,21 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.cbr.R;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.cbr.dialog.RegisterDialog;
-import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.Users;
-import com.example.cbr.retrofit.INodeJS;
+import com.example.cbr.retrofit.AES;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
-import com.example.cbr.activities.HomeActivity;
-import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
-import com.google.android.material.button.MaterialButton;
 
 import java.security.InvalidKeyException;
 import java.security.Key;
@@ -41,10 +32,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
     private Button btn_register;
     private EditText edt_username;
     private EditText edt_password;
-    private static String key = "Bar12345Bar12345";
+    private final String key = "Bar12345Bar12345";
 
     @Override
     protected void onStop() {
@@ -100,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
     private void setupLoginButton() {
         Button button = findViewById(R.id.button_login);
         button.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 userLogin(edt_username.getText().toString(), edt_password.getText().toString());
@@ -118,9 +107,8 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
 
 
     // API call for user login functionality including check password
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void userLogin(final String email, final String password) {
-
-        final String decryptPassword = decrypt(password);
 
         Call<List<Users>> call = jsonPlaceHolderApi.getUserEmail(email);
 
@@ -140,7 +128,10 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
 
                 for (Users users: userResponse) {
                     if (users.getEmail().equals(email)) {
-                        if (!users.getPassword().equals(decryptPassword)) {
+
+                        final String decryptPassword = AES.decrypt(users.getPassword());
+
+                        if (!decryptPassword.equals(password)) {
                             checkPassword = 1;
                             Toast.makeText(MainActivity.this, "You Enter the Wrong Password", Toast.LENGTH_SHORT).show();
                         } else {
@@ -149,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
                             userInstance.setFirstName(users.getFirstName());
                             userInstance.setLastName(users.getLastName());
                             userInstance.setEmail(email);
-                            userInstance.setPassword(decryptPassword);
+                            userInstance.setPassword(password);
 
                             Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
@@ -176,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private static String decrypt(String encryptPassword) {
+    private String decrypt(String encryptPassword) {
         try {
             Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
             Cipher cipher = Cipher.getInstance("AES");

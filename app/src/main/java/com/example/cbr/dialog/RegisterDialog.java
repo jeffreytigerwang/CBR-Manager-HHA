@@ -16,6 +16,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.cbr.R;
+import com.example.cbr.retrofit.AES;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
@@ -37,7 +38,7 @@ public class RegisterDialog extends AppCompatDialogFragment {
     private EditText edt_password;
     private EditText edt_confirm_password;
     private registerDialogListener listener;
-    private static String key = "Bar12345Bar12345";
+    private final String key = "Bar12345Bar12345";
 
 
     @NonNull
@@ -66,7 +67,7 @@ public class RegisterDialog extends AppCompatDialogFragment {
                         String password = edt_password.getText().toString();
                         String confirmPassword = edt_confirm_password.getText().toString();
 
-                        String encryptPassword = encrypt(password);
+                        String encryptPassword = AES.encrypt(password);
 
                         listener.applyInfo(firstName, lastName, email, encryptPassword, confirmPassword);
                     }
@@ -97,7 +98,7 @@ public class RegisterDialog extends AppCompatDialogFragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public static String encrypt(String password) {
+    public String encrypt(String password) {
         try {
             Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
             Cipher cipher = Cipher.getInstance("AES");

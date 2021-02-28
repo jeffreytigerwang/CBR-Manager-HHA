@@ -66,7 +66,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         retrofit = RetrofitInit.getInstance();
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
-        clientInfoArrayList = new ArrayList<>();
+        //clientInfoArrayList = new ArrayList<>();
 
         // View binding so that findViewById() doesn't have to be used
         binding = FragmentClientlistBinding.inflate(inflater, container, false);

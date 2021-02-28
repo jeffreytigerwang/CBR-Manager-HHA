@@ -1,5 +1,6 @@
 package com.example.cbr.activities;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.cbr.R;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +29,17 @@ import com.example.cbr.activities.HomeActivity;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.google.android.material.button.MaterialButton;
 
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -50,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
     private Button btn_register;
     private EditText edt_username;
     private EditText edt_password;
+    private static String key = "Bar12345Bar12345";
 
     @Override
     protected void onStop() {
@@ -107,6 +120,8 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
     // API call for user login functionality including check password
     private void userLogin(final String email, final String password) {
 
+        final String decryptPassword = decrypt(password);
+
         Call<List<Users>> call = jsonPlaceHolderApi.getUserEmail(email);
 
         call.enqueue(new Callback<List<Users>>() {
@@ -125,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
 
                 for (Users users: userResponse) {
                     if (users.getEmail().equals(email)) {
-                        if (!users.getPassword().equals(password)) {
+                        if (!users.getPassword().equals(decryptPassword)) {
                             checkPassword = 1;
                             Toast.makeText(MainActivity.this, "You Enter the Wrong Password", Toast.LENGTH_SHORT).show();
                         } else {
@@ -134,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
                             userInstance.setFirstName(users.getFirstName());
                             userInstance.setLastName(users.getLastName());
                             userInstance.setEmail(email);
-                            userInstance.setPassword(password);
+                            userInstance.setPassword(decryptPassword);
 
                             Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
@@ -160,6 +175,27 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private static String decrypt(String encryptPassword) {
+        try {
+            Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
+            Cipher cipher = Cipher.getInstance("AES");
+
+            byte [] encrypted = Base64.getDecoder().decode(encryptPassword);
+
+            cipher.init(Cipher.DECRYPT_MODE, aesKey);
+            String decrypted = new String(cipher.doFinal(encrypted));
+            System.out.println(decrypted);
+
+            return decrypted;
+
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
+            e.printStackTrace();
+        }
+
+        return "NULL";
+    }
+
 
     private void registerUser() {
         RegisterDialog registerDialog = new RegisterDialog();
@@ -167,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
     }
 
     @Override
-    public void applyInfo(String firstName, String lastName, String email, String password) {
+    public void applyInfo(String firstName, String lastName, String email, String password, String confirmPassword) {
         createUser(firstName, lastName, email, password);
     }
 

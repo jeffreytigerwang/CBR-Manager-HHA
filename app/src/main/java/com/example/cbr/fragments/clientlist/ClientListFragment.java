@@ -1,12 +1,17 @@
 package com.example.cbr.fragments.clientlist;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -43,6 +48,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     private FragmentClientlistBinding binding;
     private ClientListFragmentInterface clientListFragmentInterface;
     private ClientListContract.Presenter clientListPresenter;
+    private ClientListAdapter adapter;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -80,13 +86,37 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         RecyclerView recyclerView = binding.recyclerViewClientlist;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
-        ClientListAdapter adapter = new ClientListAdapter(getActivity(), clientInfoArrayList, clientListFragmentInterface);
+        adapter = new ClientListAdapter(getActivity(), clientInfoArrayList, clientListFragmentInterface);
         recyclerView.setAdapter(adapter);
 
-        binding.sampleText.setText(R.string.patient_list);
+        binding.textViewPatientList.setText(R.string.patient_list);
+        setHasOptionsMenu(true);
+
 
         View view = binding.getRoot();
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.top_menu_search, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+        MenuItem searchItem = menu.findItem(R.id.clientListSearch);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+        });
     }
 
 
@@ -122,4 +152,6 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     public interface ClientListFragmentInterface {
         void swapToClientPage(ClientInfo clientInfo);
     }
+
+
 }

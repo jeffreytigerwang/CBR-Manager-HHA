@@ -9,6 +9,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,18 +21,23 @@ import com.example.cbr.fragments.clientlist.ClientListFragment.ClientListFragmen
 import com.example.cbr.models.ClientInfo;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.ViewHolder> {
+public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.ViewHolder> implements Filterable {
 
     private LayoutInflater layoutInflater;
     private Context context;
     private ArrayList<ClientInfo> clientInfoList;
+    private ArrayList<ClientInfo> clientInfoListFull;
     private ClientListFragmentInterface clientListFragmentInterface;
 
     public ClientListAdapter(Context context, ArrayList<ClientInfo> clientInfoList, ClientListFragmentInterface clientListFragmentInterface) {
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
         this.clientInfoList = clientInfoList;
+
+        clientInfoListFull = new ArrayList<>(clientInfoList);
+
         this.clientListFragmentInterface = clientListFragmentInterface;
     }
 
@@ -51,6 +58,42 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Vi
         return clientInfoList.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+    private Filter exampleFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<ClientInfo> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0){
+                filteredList.addAll(clientInfoListFull);
+            }
+            else{
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (ClientInfo item : clientInfoListFull){
+                    if (item.getLastName().toLowerCase().contains(filterPattern)){
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults filterResults) {
+            clientInfoList.clear();
+            clientInfoList.addAll((List) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
+
     /**
      * Holds variables in a View
      */
@@ -60,6 +103,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Vi
         TextView locationText;
 
         public ViewHolder(View itemView) {
+
             super(itemView);
             nameText =  itemView.findViewById(R.id.textView_clientlist_name);
             idText = itemView.findViewById(R.id.textview_clientlist_id);

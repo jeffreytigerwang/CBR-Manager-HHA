@@ -78,28 +78,3 @@ public interface JsonPlaceHolderApi {
     Call<Users> createUser(@Body Users users);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

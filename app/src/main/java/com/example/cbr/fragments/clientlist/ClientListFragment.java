@@ -62,6 +62,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
 
     @Override
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         setPresenter(new ClientListPresenter(this));
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()

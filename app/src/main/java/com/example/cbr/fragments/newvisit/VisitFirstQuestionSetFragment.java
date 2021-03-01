@@ -24,6 +24,7 @@ import com.example.cbr.databinding.ActivityNewVisitBinding;
 import com.example.cbr.databinding.FragmentVisitFirstQuestionSetBinding;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.util.Constants;
+import com.example.cbr.util.DateFormatter;
 
 /*
 * Initial fragment class to display general questions (7 questions)
@@ -79,7 +80,8 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     private void preLoadViews() {
         findViews();
 
-        date.setText(dataContainer.getDateOfVisit().toString());
+        final String dateUK = DateFormatter.toUKFormat(dataContainer.getDateOfVisit());
+        date.setText(dateUK);
 
         cbrWorkerName.setText(dataContainer.getWorkerName());
     }

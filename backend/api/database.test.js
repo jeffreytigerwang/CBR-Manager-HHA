@@ -50,7 +50,7 @@ test('create user', async () => {
     expect(user.id).toEqual(1);
 });
 
-test('unique user', async () => {
+test('unique user email', async () => {
     expect.assertions(1);
     try {
        const user = await db.users.create({

@@ -75,7 +75,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Vi
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (ClientInfo item : clientInfoListFull){
-                    if ((item.getLastName().toLowerCase().contains(filterPattern)) || (item.getFirstName().toLowerCase().contains(filterPattern))){
+                    if (item.getFullName().toLowerCase().contains(filterPattern)){
                         filteredList.add(item);
                     }
                 }

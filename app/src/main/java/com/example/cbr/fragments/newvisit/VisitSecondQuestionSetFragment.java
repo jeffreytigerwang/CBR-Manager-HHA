@@ -49,6 +49,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     private CheckBox checkBoxAdvocacy;
     private CheckBox checkBoxEncouragement;
     private TextView question10;
+    private TextView initialGoal;
 
     public VisitSecondQuestionSetFragment(VisitHealthQuestionSetData dataContainer) {
         this.dataContainer = dataContainer;
@@ -99,6 +100,8 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         editTextEncouragement.setText(dataContainer.getHealthEncouragementDesc());
         editTextHealthOutcome.setText(dataContainer.getHealthOutcomeDesc());
 
+        // TODO: 2021-03-01 get health goal from database 
+
         String goalStatus = dataContainer.getHealthGoalStatus();
         if (goalStatus.equalsIgnoreCase(Constants.CANCELLED)) {
             this.goalStatus.check(R.id.newVisit_healthCancelledRadioButton);
@@ -134,6 +137,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         checkBoxEncouragement = binding.newVisitHealthEncouragementCheckBox;
 
         question10 = binding.newVisitQ10TextView;
+        initialGoal = binding.newVisitHealthInitialGoalBoxTextView;
     }
 
     private void setupRadioGroup() {

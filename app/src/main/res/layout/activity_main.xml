@@ -58,6 +58,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_sign_in"
             android:hint="Phone"
+            android:singleLine="true"
             android:ellipsize="end"
             android:textColorHint="@color/grey" />
 

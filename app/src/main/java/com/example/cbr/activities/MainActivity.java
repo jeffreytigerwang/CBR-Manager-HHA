@@ -222,7 +222,6 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
 
                 Users usersResponse = response.body();
                 edt_username.setText(usersResponse.getEmail());
-                edt_password.setText(usersResponse.getPassword());
             }
 
             @Override

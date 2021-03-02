@@ -6,9 +6,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,19 +19,31 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.cbr.R;
+import com.example.cbr.activities.MainActivity;
+import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.Users;
 import com.example.cbr.retrofit.AES;
+import com.example.cbr.retrofit.JsonPlaceHolderApi;
+import com.example.cbr.retrofit.RetrofitInit;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.List;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
+
+import io.reactivex.disposables.CompositeDisposable;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class RegisterDialog extends AppCompatDialogFragment {
 
@@ -40,13 +55,24 @@ public class RegisterDialog extends AppCompatDialogFragment {
     private registerDialogListener listener;
     private final String key = "Bar12345Bar12345";
 
+    // Init API
+    private Retrofit retrofit;
+    private JsonPlaceHolderApi jsonPlaceHolderApi;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        // Init Retrofit & NodeJs stuff
+        retrofit = RetrofitInit.getInstance();
+        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+        final LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_register_dialog, null);
 
         builder.setView(view)
@@ -61,17 +87,49 @@ public class RegisterDialog extends AppCompatDialogFragment {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String firstName = edt_firstName.getText().toString();
-                        String lastName = edt_lastName.getText().toString();
-                        String email = edt_email.getText().toString();
-                        String password = edt_password.getText().toString();
-                        String confirmPassword = edt_confirm_password.getText().toString();
 
-                        String encryptPassword = AES.encrypt(password);
-
-                        listener.applyInfo(firstName, lastName, email, encryptPassword, confirmPassword);
                     }
                 });
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                boolean isPasswordMatch = false;
+                boolean isUserNameExist = false;
+
+                String firstName = edt_firstName.getText().toString();
+                String lastName = edt_lastName.getText().toString();
+                String email = edt_email.getText().toString();
+                String password = edt_password.getText().toString();
+                String confirmPassword = edt_confirm_password.getText().toString();
+
+                if (password.equals(confirmPassword)) {
+                    isPasswordMatch = true;
+                }
+
+                try {
+                    if (getUsers(email))
+                        isUserNameExist = true;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (isUserNameExist)
+                    Toast.makeText(getActivity(), "Phone number already exists!", Toast.LENGTH_SHORT).show();
+                else if (!isPasswordMatch)
+                    Toast.makeText(getActivity(), "Password not match!", Toast.LENGTH_SHORT).show();
+                else {
+                    String encryptPassword = AES.encrypt(password);
+                    listener.applyInfo(firstName, lastName, email, encryptPassword, confirmPassword);
+                    dialog.dismiss();
+                }
+            }
+        });
+
 
         edt_firstName = view.findViewById(R.id.registration_firstName);
         edt_lastName = view.findViewById(R.id.registration_lastName);
@@ -79,7 +137,23 @@ public class RegisterDialog extends AppCompatDialogFragment {
         edt_password = view.findViewById(R.id.registration_password);
         edt_confirm_password = view.findViewById(R.id.registration_confirm_password);
 
-        return builder.create();
+        return dialog;
+    }
+
+
+    private boolean getUsers(String username) throws IOException {
+        Call<List<Users>> call = jsonPlaceHolderApi.getUsers();
+
+        Response<List<Users>> response = call.execute();
+        List<Users> usersList = response.body();
+
+        for (int i = 0; i < usersList.size(); i++) {
+            if (usersList.get(i).getEmail().equals(username)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override

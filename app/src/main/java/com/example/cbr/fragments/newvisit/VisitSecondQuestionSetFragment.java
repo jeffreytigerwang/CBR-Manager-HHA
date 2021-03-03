@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentVisitSecondQuestionSetBinding;
 import com.example.cbr.models.ClientHealthAspect;
+import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.VisitHealthQuestionSetData;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
@@ -41,6 +42,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     private FragmentVisitSecondQuestionSetBinding binding;
 
     private final VisitHealthQuestionSetData dataContainer;
+    private final ClientInfo clientInfo;
 
     private EditText editTextWheelChair;
     private EditText editTextProsthetic;
@@ -64,13 +66,10 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     private TextView question10;
     private TextView initialGoal;
 
-    private Retrofit retrofit;
-    private JsonPlaceHolderApi jsonPlaceHolderApi;
-
-    private String healthGoal;
-
-    public VisitSecondQuestionSetFragment(VisitHealthQuestionSetData dataContainer) {
+    public VisitSecondQuestionSetFragment(VisitHealthQuestionSetData dataContainer,
+                                          ClientInfo clientInfo) {
         this.dataContainer = dataContainer;
+        this.clientInfo = clientInfo;
     }
 
     @Nullable
@@ -79,9 +78,6 @@ public class VisitSecondQuestionSetFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentVisitSecondQuestionSetBinding.inflate(inflater, container, false);
-
-        retrofit = RetrofitInit.getInstance();
-        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         preLoadViews();
 
@@ -121,13 +117,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         editTextEncouragement.setText(dataContainer.getHealthEncouragementDesc());
         editTextHealthOutcome.setText(dataContainer.getHealthOutcomeDesc());
 
-        try {
-            healthGoal = getClientHealthGoal(dataContainer.getClientId());
-            initialGoal.setText(healthGoal);
-        } catch (IOException e) {
-            Toast.makeText(getActivity(), getResources().getString(R.string.database_call_fail),
-                    Toast.LENGTH_SHORT).show();
-        }
+        initialGoal.setText(clientInfo.getSetGoalForHealth());
 
         String goalStatus = dataContainer.getHealthGoalStatus();
         if (goalStatus.equalsIgnoreCase(Constants.CANCELLED)) {
@@ -139,27 +129,6 @@ public class VisitSecondQuestionSetFragment extends Fragment {
             question10.setVisibility(View.VISIBLE);
             editTextHealthOutcome.setVisibility(View.VISIBLE);
         }
-    }
-
-    private String getClientHealthGoal(final int clientId) throws IOException {
-        Call<List<ClientHealthAspect>> call = jsonPlaceHolderApi.getClientHealthAspect();
-
-        Response<List<ClientHealthAspect>> response = call.execute();
-        List<ClientHealthAspect> clientHealthAspectList = response.body();
-
-        if (clientHealthAspectList != null) {
-            for (int i = 0; i < clientHealthAspectList.size(); i++) {
-                final ClientHealthAspect clientHealthAspect = clientHealthAspectList.get(i);
-                Log.d(LOG_TAG, "DBClientId=" + clientHealthAspect.getClientId().toString()
-                        + " clientId=" + clientId);
-                if (clientHealthAspect.getClientId() == clientId) {
-                    return clientHealthAspect.getSetGoalForHealth();
-                }
-            }
-        } else {
-            Log.d(LOG_TAG, "getClientHealthAspect: Empty response body");
-        }
-        return getString(R.string.initial_goal_not_found);
     }
 
     private void findViews() {

@@ -87,7 +87,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
             @Override
             public void onClick(View v) {
                 Intent intent = NewVisitActivity.makeLaunchIntent(getActivity(),
-                        Integer.parseInt(clientInfo.getId()));
+                        clientInfo);
                 startActivity(intent);
             }
         });

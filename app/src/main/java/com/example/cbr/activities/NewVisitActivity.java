@@ -23,6 +23,7 @@
     import com.example.cbr.fragments.newvisit.VisitFourthQuestionSetFragment;
     import com.example.cbr.fragments.newvisit.VisitSecondQuestionSetFragment;
     import com.example.cbr.fragments.newvisit.VisitThirdQuestionSetFragment;
+    import com.example.cbr.models.ClientInfo;
     import com.example.cbr.models.Users;
     import com.example.cbr.models.VisitEducationQuestionSetData;
     import com.example.cbr.models.VisitGeneralQuestionSetData;
@@ -51,10 +52,11 @@ public class NewVisitActivity extends AppCompatActivity {
 
     private ActivityNewVisitBinding binding;
 
-    private static final String CLIENT_ID = "clientID";
+    private static final String CLIENT_INFO = "clientInfo";
     private static final String LOG_TAG = "NewVisitActivity";
 
     private int clientId;
+    private ClientInfo clientInfo;
 
     // Init API
     private Retrofit retrofit;
@@ -75,9 +77,9 @@ public class NewVisitActivity extends AppCompatActivity {
 
     public static Intent makeLaunchIntent(
             Context context,
-            final int clientID) {
+            ClientInfo clientInfo) {
         Intent intent = new Intent(context, NewVisitActivity.class);
-        intent.putExtra(CLIENT_ID, clientID);
+        intent.putExtra(CLIENT_INFO, clientInfo);
         return intent;
     }
 
@@ -97,7 +99,7 @@ public class NewVisitActivity extends AppCompatActivity {
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         Intent intent = getIntent();
-        clientId = intent.getIntExtra(CLIENT_ID, -1);
+        clientInfo = (ClientInfo) intent.getSerializableExtra(CLIENT_INFO);
 
         if (clientId == -1) {
             Log.d(LOG_TAG, "onCreate: failed to get client ID");
@@ -414,7 +416,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
                     if (generalQuestionSetData.isHealthChecked()) {
                         nextFragments.offer(new VisitSecondQuestionSetFragment(
-                                healthQuestionSetData));
+                                healthQuestionSetData, clientInfo));
                         totalFragments += 1;
                     }
                     if (generalQuestionSetData.isEducationChecked()) {

@@ -1,6 +1,7 @@
 package com.example.cbr.fragments.newvisit;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,8 +18,18 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentVisitSecondQuestionSetBinding;
+import com.example.cbr.models.ClientHealthAspect;
 import com.example.cbr.models.VisitHealthQuestionSetData;
+import com.example.cbr.retrofit.JsonPlaceHolderApi;
+import com.example.cbr.retrofit.RetrofitInit;
 import com.example.cbr.util.Constants;
+
+import java.io.IOException;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /*
 * Fragment class is displayed if CBR is checked in question 1. and health is checked for question 2.
@@ -25,6 +37,7 @@ import com.example.cbr.util.Constants;
 
 public class VisitSecondQuestionSetFragment extends Fragment {
 
+    private static final String LOG_TAG = "VisitSecondQuestionSetFragment";
     private FragmentVisitSecondQuestionSetBinding binding;
 
     private final VisitHealthQuestionSetData dataContainer;
@@ -51,6 +64,11 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     private TextView question10;
     private TextView initialGoal;
 
+    private Retrofit retrofit;
+    private JsonPlaceHolderApi jsonPlaceHolderApi;
+
+    private String healthGoal;
+
     public VisitSecondQuestionSetFragment(VisitHealthQuestionSetData dataContainer) {
         this.dataContainer = dataContainer;
     }
@@ -61,6 +79,9 @@ public class VisitSecondQuestionSetFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentVisitSecondQuestionSetBinding.inflate(inflater, container, false);
+
+        retrofit = RetrofitInit.getInstance();
+        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         preLoadViews();
 
@@ -100,7 +121,13 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         editTextEncouragement.setText(dataContainer.getHealthEncouragementDesc());
         editTextHealthOutcome.setText(dataContainer.getHealthOutcomeDesc());
 
-        // TODO: 2021-03-01 get health goal from database 
+        try {
+            healthGoal = getClientHealthGoal(dataContainer.getClientId());
+            initialGoal.setText(healthGoal);
+        } catch (IOException e) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.database_call_fail),
+                    Toast.LENGTH_SHORT).show();
+        }
 
         String goalStatus = dataContainer.getHealthGoalStatus();
         if (goalStatus.equalsIgnoreCase(Constants.CANCELLED)) {
@@ -112,6 +139,27 @@ public class VisitSecondQuestionSetFragment extends Fragment {
             question10.setVisibility(View.VISIBLE);
             editTextHealthOutcome.setVisibility(View.VISIBLE);
         }
+    }
+
+    private String getClientHealthGoal(final int clientId) throws IOException {
+        Call<List<ClientHealthAspect>> call = jsonPlaceHolderApi.getClientHealthAspect();
+
+        Response<List<ClientHealthAspect>> response = call.execute();
+        List<ClientHealthAspect> clientHealthAspectList = response.body();
+
+        if (clientHealthAspectList != null) {
+            for (int i = 0; i < clientHealthAspectList.size(); i++) {
+                final ClientHealthAspect clientHealthAspect = clientHealthAspectList.get(i);
+                Log.d(LOG_TAG, "DBClientId=" + clientHealthAspect.getClientId().toString()
+                        + " clientId=" + clientId);
+                if (clientHealthAspect.getClientId() == clientId) {
+                    return clientHealthAspect.getSetGoalForHealth();
+                }
+            }
+        } else {
+            Log.d(LOG_TAG, "getClientHealthAspect: Empty response body");
+        }
+        return getString(R.string.initial_goal_not_found);
     }
 
     private void findViews() {

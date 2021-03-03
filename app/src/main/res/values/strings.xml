@@ -118,6 +118,10 @@
     <string name="new_client">New Client</string>
     <string name="patient_list">Patient List</string>
     <string name="initial_goal">Initial goal:</string>
+    <string name="login_failed">Login Failed</string>
+    <string name="database_call_fail">Response to the database failed.</string>
+    <string name="database_on_response_fail_health_goal">Response fail to get client health goal.</string>
+    <string name="initial_goal_not_found">Initial goal not found</string>
     <string-array name="zone_locations_array">
         <item>BidiBidi Zone 1</item>
         <item>BidiBidi Zone 2</item>

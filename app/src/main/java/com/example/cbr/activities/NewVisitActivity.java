@@ -3,6 +3,7 @@
     import android.content.Context;
     import android.content.Intent;
     import android.os.Bundle;
+    import android.os.StrictMode;
     import android.util.Log;
     import android.view.View;
     import android.widget.Button;
@@ -54,7 +55,6 @@ public class NewVisitActivity extends AppCompatActivity {
     private static final String LOG_TAG = "NewVisitActivity";
 
     private int clientId;
-    private int visitId;
 
     // Init API
     private Retrofit retrofit;
@@ -84,6 +84,9 @@ public class NewVisitActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         binding = ActivityNewVisitBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -99,12 +102,15 @@ public class NewVisitActivity extends AppCompatActivity {
         if (clientId == -1) {
             Log.d(LOG_TAG, "onCreate: failed to get client ID");
         }
+        Log.d(LOG_TAG, "onCreate: clientId=" + clientId);
+
 
         generalQuestionSetData = new VisitGeneralQuestionSetData();
         healthQuestionSetData = new VisitHealthQuestionSetData();
         educationQuestionSetData = new VisitEducationQuestionSetData();
         socialQuestionSetData = new VisitSocialQuestionSetData();
 
+        setVisitClientId();
         setWorkerName();
 
         currentFragment = new VisitFirstQuestionSetFragment(
@@ -121,6 +127,22 @@ public class NewVisitActivity extends AppCompatActivity {
         setupNextButton();
         setupBackButton();
         setupRecordButton();
+    }
+
+    private void setVisitClientId() {
+        final int visitId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
+
+        generalQuestionSetData.setClientId(clientId);
+        generalQuestionSetData.setVisitId(visitId);
+
+        healthQuestionSetData.setClientId(clientId);
+        healthQuestionSetData.setVisitId(visitId);
+
+        educationQuestionSetData.setClientId(clientId);
+        educationQuestionSetData.setVisitId(visitId);
+
+        socialQuestionSetData.setClientId(clientId);
+        socialQuestionSetData.setVisitId(visitId);
     }
 
     private void setWorkerName() {
@@ -140,20 +162,6 @@ public class NewVisitActivity extends AppCompatActivity {
         buttonRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                visitId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
-
-                generalQuestionSetData.setClientId(clientId);
-                generalQuestionSetData.setVisitId(visitId);
-
-                healthQuestionSetData.setClientId(clientId);
-                healthQuestionSetData.setVisitId(visitId);
-
-                educationQuestionSetData.setClientId(clientId);
-                educationQuestionSetData.setVisitId(visitId);
-
-                socialQuestionSetData.setClientId(clientId);
-                socialQuestionSetData.setVisitId(visitId);
-
                 saveSession(currentFragment);
                 final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
                 final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();

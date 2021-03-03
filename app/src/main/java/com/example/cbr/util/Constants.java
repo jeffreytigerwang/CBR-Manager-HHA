@@ -28,6 +28,7 @@ public class Constants {
             "High risk",
             "Medium risk",
             "Low risk"));
+    public static final String AES_KEY = "Bar12345Bar12345";
 
     // Disabilities
     public static String AMPUTEE_DISABILITY = "Amputee";

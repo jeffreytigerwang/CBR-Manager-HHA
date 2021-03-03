@@ -1,38 +1,38 @@
 package com.example.cbr.activities;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cbr.R;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.cbr.dialog.RegisterDialog;
-import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.Users;
-import com.example.cbr.retrofit.INodeJS;
+import com.example.cbr.retrofit.AES;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
-import com.example.cbr.activities.HomeActivity;
-import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
-import com.google.android.material.button.MaterialButton;
 
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
+
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
     private Button btn_register;
     private EditText edt_username;
     private EditText edt_password;
+    private final String key = "Bar12345Bar12345";
 
     @Override
     protected void onStop() {
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
     private void setupLoginButton() {
         Button button = findViewById(R.id.button_login);
         button.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 userLogin(edt_username.getText().toString(), edt_password.getText().toString());
@@ -105,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
 
 
     // API call for user login functionality including check password
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void userLogin(final String email, final String password) {
 
         Call<List<Users>> call = jsonPlaceHolderApi.getUserEmail(email);
@@ -125,7 +128,10 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
 
                 for (Users users: userResponse) {
                     if (users.getEmail().equals(email)) {
-                        if (!users.getPassword().equals(password)) {
+
+                        final String decryptPassword = AES.decrypt(users.getPassword());
+
+                        if (!decryptPassword.equals(password)) {
                             checkPassword = 1;
                             Toast.makeText(MainActivity.this, "You Enter the Wrong Password", Toast.LENGTH_SHORT).show();
                         } else {
@@ -160,6 +166,27 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private String decrypt(String encryptPassword) {
+        try {
+            Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
+            Cipher cipher = Cipher.getInstance("AES");
+
+            byte [] encrypted = Base64.getDecoder().decode(encryptPassword);
+
+            cipher.init(Cipher.DECRYPT_MODE, aesKey);
+            String decrypted = new String(cipher.doFinal(encrypted));
+            System.out.println(decrypted);
+
+            return decrypted;
+
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
+            e.printStackTrace();
+        }
+
+        return "NULL";
+    }
+
 
     private void registerUser() {
         RegisterDialog registerDialog = new RegisterDialog();
@@ -167,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
     }
 
     @Override
-    public void applyInfo(String firstName, String lastName, String email, String password) {
+    public void applyInfo(String firstName, String lastName, String email, String password, String confirmPassword) {
         createUser(firstName, lastName, email, password);
     }
 
@@ -195,7 +222,6 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
 
                 Users usersResponse = response.body();
                 edt_username.setText(usersResponse.getEmail());
-                edt_password.setText(usersResponse.getPassword());
             }
 
             @Override

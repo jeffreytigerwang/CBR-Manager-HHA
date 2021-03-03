@@ -19,7 +19,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 // 142.58.21.129/api/test_data/
@@ -77,6 +76,9 @@ public interface JsonPlaceHolderApi {
 
     @POST("api/users")
     Call<Users> createUser(@Body Users users);
+
+    @GET("api/users")
+    Call<List<Users>> getUsers();
 
     @GET("api/healthAspect")
     Call<List<ClientHealthAspect>> getClientHealthAspect();

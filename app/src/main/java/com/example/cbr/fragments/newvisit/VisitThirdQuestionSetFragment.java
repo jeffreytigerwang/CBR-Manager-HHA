@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentVisitThirdQuestionSetBinding;
+import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.VisitEducationQuestionSetData;
 import com.example.cbr.util.Constants;
 
@@ -28,6 +29,7 @@ public class VisitThirdQuestionSetFragment extends Fragment {
     private FragmentVisitThirdQuestionSetBinding binding;
 
     private final VisitEducationQuestionSetData dataContainer;
+    private final ClientInfo clientInfo;
 
     private EditText editTextAdvice;
     private EditText editTextAdvocacy;
@@ -41,9 +43,12 @@ public class VisitThirdQuestionSetFragment extends Fragment {
     private CheckBox checkBoxRef;
     private RadioGroup goalStatus;
     private TextView question13;
+    private TextView initialGoal;
 
-    public VisitThirdQuestionSetFragment(VisitEducationQuestionSetData dataContainer) {
+    public VisitThirdQuestionSetFragment(VisitEducationQuestionSetData dataContainer,
+                                         ClientInfo clientInfo) {
         this.dataContainer = dataContainer;
+        this.clientInfo = clientInfo;
     }
 
     @Nullable
@@ -75,6 +80,8 @@ public class VisitThirdQuestionSetFragment extends Fragment {
         editTextAdvocacy.setText(dataContainer.getEducationAdvocacyDesc());
         editTextEncouragement.setText(dataContainer.getEducationEncouragementDesc());
         editTextEducationOutcome.setText(dataContainer.getEducationOutcomeDesc());
+
+        initialGoal.setText(clientInfo.getSetGoalForEducation());
 
         String goalStatus = dataContainer.getEducationGoalStatus();
         if (goalStatus.equalsIgnoreCase(Constants.CANCELLED)) {
@@ -111,6 +118,7 @@ public class VisitThirdQuestionSetFragment extends Fragment {
         checkBoxEncouragement = binding.newVisitEducationEncouragementCheckBox;
 
         question13 = binding.newVisitQ13TextView;
+        initialGoal = binding.newVisitEducationInitialGoalBoxTextView;
     }
 
     private void setupRadioGroup() {

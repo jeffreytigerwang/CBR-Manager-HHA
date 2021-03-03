@@ -148,6 +148,13 @@
                 android:padding="5dp"
                 android:minWidth="200dp"/>
 
+            <Button
+                android:id="@+id/newClient_cameraButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Camera"/>
+
             <ImageView
                 android:id="@+id/newClient_photoOfClientImageView"
                 android:layout_width="wrap_content"

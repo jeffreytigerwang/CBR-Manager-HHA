@@ -77,4 +77,7 @@ public interface JsonPlaceHolderApi {
     @POST("api/users")
     Call<Users> createUser(@Body Users users);
 
+    @GET("api/users")
+    Call<List<Users>> getUsers();
+
 }

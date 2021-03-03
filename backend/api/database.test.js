@@ -51,7 +51,6 @@ test('create user', async () => {
 });
 
 test('unique user', async () => {
-    expect.assertions(1);
     try {
        const user = await db.users.create({
            id: 2,
@@ -61,19 +60,28 @@ test('unique user', async () => {
            password: 'password'
        });
     } catch (e) {
+      expect.assertions(1);
       expect(e.message).toEqual('Validation error');
     }
 });
 
-test('delete user', async () => {
-    expect.assertions(1);
+test('delete users with ids 1&2', async () => {
+    expect.assertions(2);
     await db.users.destroy({
         where: {
             id: 1
         }
     });
-    const user = await db.users.findByPk(1);
-    expect(user).toBeNull();
+    const userOne = await db.users.findByPk(1);
+    expect(userOne).toBeNull();
+
+    await db.users.destroy({
+        where: {
+            id: 2
+        }
+    });
+    const userTwo = await db.users.findByPk(2);
+    expect(userTwo).toBeNull();
 });
 
 afterAll(async () => {

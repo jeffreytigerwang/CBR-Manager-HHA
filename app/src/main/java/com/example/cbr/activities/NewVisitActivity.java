@@ -426,7 +426,7 @@ public class NewVisitActivity extends AppCompatActivity {
                     }
                     if (generalQuestionSetData.isSocialChecked()) {
                         nextFragments.offer(new VisitFourthQuestionSetFragment(
-                                socialQuestionSetData));
+                                socialQuestionSetData, clientInfo));
                         totalFragments += 1;
                     }
                     if (generalQuestionSetData.getPurposeOfVisit().equalsIgnoreCase(Constants.CBR)

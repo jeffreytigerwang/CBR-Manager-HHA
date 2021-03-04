@@ -27,16 +27,16 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Vi
 
     private LayoutInflater layoutInflater;
     private Context context;
-    private ArrayList<ClientInfo> clientInfoList;
+    private ArrayList<ClientInfo> clientInfoListSubset;
     private ArrayList<ClientInfo> clientInfoListFull;
     private ClientListFragmentInterface clientListFragmentInterface;
 
-    public ClientListAdapter(Context context, ArrayList<ClientInfo> clientInfoList, ClientListFragmentInterface clientListFragmentInterface) {
+    public ClientListAdapter(Context context, ArrayList<ClientInfo> clientInfoListSubset, ClientListFragmentInterface clientListFragmentInterface) {
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
-        this.clientInfoList = clientInfoList;
+        this.clientInfoListSubset = clientInfoListSubset;
 
-        clientInfoListFull = new ArrayList<>(clientInfoList);
+        clientInfoListFull = new ArrayList<>(clientInfoListSubset);
 
         this.clientListFragmentInterface = clientListFragmentInterface;
     }
@@ -50,12 +50,12 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(clientInfoList.get(position));
+        holder.bind(clientInfoListSubset.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return clientInfoList.size();
+        return clientInfoListSubset.size();
     }
 
     @Override
@@ -88,8 +88,8 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Vi
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults filterResults) {
-            clientInfoList.clear();
-            clientInfoList.addAll((List) filterResults.values);
+            clientInfoListSubset.clear();
+            clientInfoListSubset.addAll((List) filterResults.values);
             notifyDataSetChanged();
         }
     };

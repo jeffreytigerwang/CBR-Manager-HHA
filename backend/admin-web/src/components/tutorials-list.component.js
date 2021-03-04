@@ -95,7 +95,7 @@ class TutorialsList extends Component {
     return (
       <div className={classes.form}>
         <Grid container>
-          <Grid className={classes.search} item md={12}>
+          <Grid className={classes.search} item sm={12} xs={12} md={12} xl={12} lg={12}>
             <TextField
               label="Search by title"
               value={searchTitle}
@@ -110,7 +110,7 @@ class TutorialsList extends Component {
             </Button>
           </Grid>
           <Grid item md={4}>
-            <h2>Tutorials List
+            <h2>Tutorials List</h2>
 
             <div className="list-group">
               {tutorials &&
@@ -135,12 +135,11 @@ class TutorialsList extends Component {
             >
               Remove All
           </Button>
-          </h2>
           </Grid>
           <Grid item md={8}>
             {currentTutorial ? (
               <div className={classes.tutorial}>
-                <h4>Tutorial
+                <h4>Tutorial</h4>
                 <div className={classes.detail}>
                   <label>
                     <strong>Title:</strong>
@@ -166,13 +165,11 @@ class TutorialsList extends Component {
                 >
                   Edit
               </Link>
-              </h4>
               </div>
             ) : (
                 <div>
                   <br />
-                  <p className={classes.tutorial}>Please click on a Tutorial...
-                  </p>
+                  <p className={classes.tutorial}>Please click on a Tutorial...</p>
                 </div>
               )}
           </Grid>
@@ -183,4 +180,3 @@ class TutorialsList extends Component {
 }
 
 export default withStyles(styles)(TutorialsList)
-

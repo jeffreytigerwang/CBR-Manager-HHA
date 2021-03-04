@@ -76,7 +76,7 @@ class AddTutorial extends Component {
             <React.Fragment>
                 {this.state.submitted ? (
                     <div className={classes.form}>
-                        <h4>You submitted successfully!
+                        <h4>You submitted successfully!</h4>
                         <Button
                             size="small"
                             color="primary"
@@ -84,7 +84,6 @@ class AddTutorial extends Component {
                             onClick={this.newTutorial}>
                             Add
                         </Button>
-                        </h4>
                     </div>
                 ) : (
                         <div className={classes.form}>
@@ -123,4 +122,3 @@ class AddTutorial extends Component {
 }
 
 export default withStyles(styles)(AddTutorial)
-

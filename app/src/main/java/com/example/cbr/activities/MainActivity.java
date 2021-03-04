@@ -231,8 +231,4 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
         });
     }
 
-
-
 }
-
-

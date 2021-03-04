@@ -81,28 +81,3 @@ public interface JsonPlaceHolderApi {
     Call<List<Users>> getUsers();
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

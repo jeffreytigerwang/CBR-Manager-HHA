@@ -1,3 +1,9 @@
+# Coding Diary
+
+- currently changeing tutorials to users
+- on add-users.component.js file
+- middle of adding feilds to the render section
+
 # Admin Web Interface Info
 
 

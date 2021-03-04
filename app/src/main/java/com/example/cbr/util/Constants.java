@@ -31,6 +31,7 @@ public class Constants {
     public static final String AES_KEY = "Bar12345Bar12345";
 
     public static final int CAMERA_PERMISSION_CODE = 101;
+    public static final int CAMERA_REQUEST_CODE = 102;
 
     // Disabilities
     public static String AMPUTEE_DISABILITY = "Amputee";

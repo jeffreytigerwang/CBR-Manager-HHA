@@ -37,10 +37,9 @@ import retrofit2.Retrofit;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.example.cbr.util.Constants.CAMERA_PERMISSION_CODE;
+import static com.example.cbr.util.Constants.CAMERA_REQUEST_CODE;
 
 public class NewClientFragment extends BaseFragment implements NewClientContract.View {
-
-    public static final int CAMERA_REQUEST_CODE = 102;
     private int clientId;
 
     private FragmentNewclientBinding binding;
@@ -118,20 +117,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
         } else {
-            openCamera();
-        }
-    }
-
-    private void openCamera() {
-        Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(camera, CAMERA_REQUEST_CODE);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == CAMERA_REQUEST_CODE) {
-            Bitmap image = (Bitmap) data.getExtras().get("data");
-            binding.newClientPhotoOfClientImageView.setImageBitmap(image);
+            takePicture();
         }
     }
 
@@ -139,12 +125,27 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == CAMERA_PERMISSION_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                openCamera();
+                takePicture();
             } else {
                 Toast.makeText(getActivity(), "Camera Permission is Required to Use the Camera", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
+    private void takePicture() {
+        Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(camera, CAMERA_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+            binding.newClientPhotoOfClientImageView.setImageBitmap(imageBitmap);
+        }
+    }
+
+
 
     private void setupRecordClientButton() {
         Button button = binding.newClientRecordClientButton;

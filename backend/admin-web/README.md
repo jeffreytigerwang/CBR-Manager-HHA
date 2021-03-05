@@ -1,8 +1,12 @@
 # Coding Diary
 
-- currently changeing tutorials to users
-- on add-users.component.js file
-- middle of adding feilds to the render section
+- Components work and UI loads
+- search function doesnt work
+- phone needs to be updated in master
+- need some padding with components
+- needs conditions checking
+- needs an 'active' property
+- needs to remove all tutorials code
 
 # Admin Web Interface Info
 

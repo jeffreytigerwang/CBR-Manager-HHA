@@ -25,11 +25,20 @@ class UserDataService {
     return http.delete(`/users`);
   }
 
+  findByName(name) {
+    var name_obj = name.split(" ");
+    var firstName = name_obj[0];
+    var lastName = name_obj[1];
+    return http.get(`/users?firstName=${firstName}&lastName=${lastName}`);
+  }
+}
+/*
   // TODO
   findByZone(zone) {
     return http.get(`/users?zone=${zone}`);
   }
 }
+*/
 
 export default new UserDataService();
 

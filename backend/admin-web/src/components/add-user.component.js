@@ -26,12 +26,36 @@ class AddUser extends Component {
             id: null,
             firstName: "",
             lastName: "",
-            phone: false,
+            phone: "",
             password: "",
             priorityLevel: "",
-            zone: ""
+            zone: "",
             submitted: false
         };
+    }
+
+    onChangeZone(e) {
+        this.setState({
+            zone: e.target.value
+        });
+    }
+
+    onChangePriorityLevel(e) {
+        this.setState({
+            priorityLevel: e.target.value
+        });
+    }
+
+    onChangeLastName(e) {
+        this.setState({
+            lastName: e.target.value
+        });
+    }
+
+    onChangeFirstName(e) {
+        this.setState({
+            firstName: e.target.value
+        });
     }
 
     onChangePassword(e) {
@@ -87,13 +111,27 @@ class AddUser extends Component {
             });
     }
 
+    newUser() {
+        this.setState({
+            id: null,
+            firstName: "",
+            lastName: "",
+            phone: "",
+            password: "",
+            priorityLevel: "",
+            zone: "",
+
+            submitted: false
+        });
+    }
+
     saveTutorial() {
         var data = {
             title: this.state.title,
             description: this.state.description
         };
 
-        TutorialDataService.create(data)
+        UserDataService.create(data)
             .then(response => {
                 this.setState({
                     id: response.data.id,
@@ -151,19 +189,63 @@ class AddUser extends Component {
 
                             <div className={classes.textField}>
                                 <TextField
-                                    label="Description"
-                                    name="description"
-                                    value={this.state.description}
-                                    onChange={this.onChangeDescription}
+                                    label="Last Name"
+                                    name="lastName"
+                                    value={this.state.lastName}
+                                    onChange={this.onChangeLastName}
                                     required
                                 />
                             </div>
+
+                            <div className={classes.textField}>
+                                <TextField
+                                    label="Phone Number"
+                                    name="phone"
+                                    value={this.state.phone}
+                                    onChange={this.onChangePhone}
+                                    required
+                                />
+                            </div>
+
+                            <div className={classes.textField}>
+                                <TextField
+                                    label="Password"
+                                    name="password"
+                                    value={this.state.password}
+                                    onChange={this.onChangePassword}
+                                    required
+                                />
+                            </div>
+
+                            <div className={classes.textField}>
+                                <TextField
+                                    label="Priority Level"
+                                    name="priorityLevel"
+                                    value={this.state.priorityLevel}
+                                    onChange={this.onChangePriorityLevel}
+                                    required
+                                />
+                            </div>
+
+                            <div className={classes.textField}>
+                                <TextField
+                                    label="Zone"
+                                    name="zone"
+                                    value={this.state.zone}
+                                    onChange={this.onChangeZone}
+                                    required
+                                />
+                            </div>
+
+
+
+
 
                             <Button
                                 size="small"
                                 color="primary"
                                 variant="contained"
-                                onClick={this.saveTutorial}>
+                                onClick={this.saveUser}>
                                 Submit
                             </Button>
                         </div>
@@ -173,5 +255,5 @@ class AddUser extends Component {
     }
 }
 
-export default withStyles(styles)(AddTutorial)
+export default withStyles(styles)(AddUser)
 

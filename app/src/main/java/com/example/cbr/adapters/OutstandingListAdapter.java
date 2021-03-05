@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
-import com.example.cbr.fragments.TempHomeFragment.TempHomeFragmentInterface;
+import com.example.cbr.fragments.DashboardPageFragment.TempHomeFragmentInterface;
 import com.example.cbr.models.ClientInfo;
 
 import java.util.ArrayList;

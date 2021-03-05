@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.cbr.R;
-import com.example.cbr.fragments.TempHomeFragment;
+import com.example.cbr.fragments.DashboardPageFragment;
 import com.example.cbr.fragments.base.BaseActivity;
 import com.example.cbr.fragments.clientlist.ClientListFragment;
 import com.example.cbr.fragments.clientpage.ClientPageFragment;
@@ -23,7 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class HomeActivity extends BaseActivity implements
-        TempHomeFragment.TempHomeFragmentInterface,
+        DashboardPageFragment.TempHomeFragmentInterface,
         ClientListFragment.ClientListFragmentInterface,
         ClientPageFragment.ClientPageFragmentInterface
 {
@@ -61,7 +61,7 @@ public class HomeActivity extends BaseActivity implements
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.fragmentHome:
-                                replaceFragment(R.id.homeFragmentContainer, TempHomeFragment.newInstance(), TempHomeFragment.getFragmentTag());
+                                replaceFragment(R.id.homeFragmentContainer, DashboardPageFragment.newInstance(), DashboardPageFragment.getFragmentTag());
                                 break;
 
                             case R.id.fragmentClientList:
@@ -85,8 +85,8 @@ public class HomeActivity extends BaseActivity implements
     }
 
     public void swapToHomeFragment() {
-        TempHomeFragment tempHomeFragment = TempHomeFragment.newInstance();
-        addFragment(R.id.homeFragmentContainer, tempHomeFragment, TempHomeFragment.getFragmentTag());
+        DashboardPageFragment dashboardPageFragment = DashboardPageFragment.newInstance();
+        addFragment(R.id.homeFragmentContainer, dashboardPageFragment, DashboardPageFragment.getFragmentTag());
     }
 
     @Override

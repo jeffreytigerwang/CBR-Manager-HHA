@@ -22,7 +22,7 @@ import com.example.cbr.models.ClientInfo;
 
 import java.util.ArrayList;
 
-public class TempHomeFragment extends Fragment {
+public class DashboardPageFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private TempHomeFragmentInterface tempHomeFragmentInterface;
@@ -154,12 +154,12 @@ public class TempHomeFragment extends Fragment {
 
     }
 
-    public static TempHomeFragment newInstance() {
-        return new TempHomeFragment();
+    public static DashboardPageFragment newInstance() {
+        return new DashboardPageFragment();
     }
 
     public static String getFragmentTag() {
-        return TempHomeFragment.class.getSimpleName();
+        return DashboardPageFragment.class.getSimpleName();
     }
 
     public interface TempHomeFragmentInterface {

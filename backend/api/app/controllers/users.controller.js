@@ -38,8 +38,15 @@ exports.create = (req, res) => {
 
 // Retrieve all data from the database.
 exports.findAll = (req, res) => {
+  const firstName = req.query.firstName;
+  const lastName = req.query.lastName;
+  var condition = firstName ? { firstName: { [Op.like]: `%${firstName}%` },
+                                lastName: { [Op.like]: `%${lastName}%` } } : null;
+  console.log('firstName: ' + firstName);
+  console.log('lastName: ' + lastName);
+  console.log('condition: ' + condition);
 
-  Users.findAll()
+  Users.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })

@@ -84,7 +84,16 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         editTextEncouragement.setText(dataContainer.getSocialEncouragementDesc());
         editTextSocialOutcome.setText(dataContainer.getSocialOutcomeDesc());
 
-        initialGoal.setText(clientInfo.getSetGoalForSocialStatus());
+        String goal = clientInfo.getSetGoalForSocialStatus();
+        try {
+            if (!goal.isEmpty()) {
+                initialGoal.setText(goal);
+            } else {
+                initialGoal.setText(getResources().getString(R.string.na));
+            }
+        } catch (NullPointerException e) {
+            initialGoal.setText(getResources().getString(R.string.na));
+        }
 
         String goalStatus = dataContainer.getSocialGoalStatus();
         if (goalStatus.equalsIgnoreCase(Constants.CANCELLED)) {

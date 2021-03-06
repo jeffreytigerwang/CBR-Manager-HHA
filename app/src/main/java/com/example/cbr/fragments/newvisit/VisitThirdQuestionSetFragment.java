@@ -81,7 +81,16 @@ public class VisitThirdQuestionSetFragment extends Fragment {
         editTextEncouragement.setText(dataContainer.getEducationEncouragementDesc());
         editTextEducationOutcome.setText(dataContainer.getEducationOutcomeDesc());
 
-        initialGoal.setText(clientInfo.getSetGoalForEducation());
+        String goal = clientInfo.getSetGoalForEducation();
+        try {
+            if (!goal.isEmpty()) {
+                initialGoal.setText(goal);
+            } else {
+                initialGoal.setText(getResources().getString(R.string.na));
+            }
+        } catch (NullPointerException e) {
+            initialGoal.setText(getResources().getString(R.string.na));
+        }
 
         String goalStatus = dataContainer.getEducationGoalStatus();
         if (goalStatus.equalsIgnoreCase(Constants.CANCELLED)) {

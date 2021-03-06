@@ -117,7 +117,16 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         editTextEncouragement.setText(dataContainer.getHealthEncouragementDesc());
         editTextHealthOutcome.setText(dataContainer.getHealthOutcomeDesc());
 
-        initialGoal.setText(clientInfo.getSetGoalForHealth());
+        String goal = clientInfo.getSetGoalForHealth();
+        try {
+            if (!goal.isEmpty()) {
+                initialGoal.setText(goal);
+            } else {
+                initialGoal.setText(getResources().getString(R.string.na));
+            }
+        } catch (NullPointerException e) {
+            initialGoal.setText(getResources().getString(R.string.na));
+        }
 
         String goalStatus = dataContainer.getHealthGoalStatus();
         if (goalStatus.equalsIgnoreCase(Constants.CANCELLED)) {

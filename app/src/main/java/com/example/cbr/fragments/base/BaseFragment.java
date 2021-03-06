@@ -1,7 +1,6 @@
 package com.example.cbr.fragments.base;
 
 import android.content.DialogInterface;
-import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;

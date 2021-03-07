@@ -51,6 +51,7 @@ public interface JsonPlaceHolderApi {
             @Field("lastName") String lastName,
             @Field("gpsLocation") String gpsLocation,
             @Field("zoneLocation") String zoneLocation,
+//            @Field("gender") String gender,
             @Field("villageNumber") Integer villageNumber,
             @Field("age") Integer age,
             @Field("contactNumber") String contactNumber,

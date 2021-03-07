@@ -117,6 +117,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                 }
 
                 Integer age = Integer.parseInt(binding.newClientAgeEditText.getText().toString());
+
                 String contactNumber = binding.newClientContactNumberEditText.getText().toString();
                 boolean caregiverPresentForInterview = binding.newClientCaregiverIsPresentCheckBox.isChecked();
 

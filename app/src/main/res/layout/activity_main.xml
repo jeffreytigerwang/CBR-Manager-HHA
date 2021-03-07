@@ -99,11 +99,11 @@
             android:id="@+id/btn_register"
             android:layout_width="94dp"
             android:layout_height="40dp"
-            android:layout_marginStart="124dp"
             android:layout_marginTop="13dp"
             android:layout_marginBottom="34dp"
             android:text="REGISTER"
             app:layout_constraintBottom_toTopOf="@+id/textView_terms"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mainActivity_password"
             app:layout_constraintVertical_bias="1.0" />

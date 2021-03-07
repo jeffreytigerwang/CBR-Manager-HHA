@@ -27,6 +27,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.http.Field;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class NewClientFragment extends BaseFragment implements NewClientContract.View {
@@ -155,7 +157,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
 
                 clientId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
 
-                createClientBasicInfo(clientId, firstName, lastName, gpsLocation, location, villageNumber,
+                createClientBasicInfo(clientId, firstName, lastName, gpsLocation, location, villageNumber, gender,
                         age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
 
                 ClientDisability clientDisability = new ClientDisability(clientId, amputeeDisability, polioDisability, spinalCordInjuryDisability, cerebralPalsyDisability,
@@ -273,12 +275,13 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         });
     }
 
+
     private void createClientBasicInfo(Integer clientId, String firstName, String lastName, String gpsLocation, String location,
-                                       Integer villageNumber, Integer age, String contactNumber, boolean caregiverPresentForInterview,
+                                       Integer villageNumber, String gender, Integer age, String contactNumber, boolean caregiverPresentForInterview,
                                        Integer caregiverContactNumber) {
 
         Call<ClientInfo> call = jsonPlaceHolderApi.createClient(clientId, firstName, lastName, gpsLocation, location,
-                villageNumber, age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
+                villageNumber, gender, age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
 
         call.enqueue(new Callback<ClientInfo>() {
             @Override

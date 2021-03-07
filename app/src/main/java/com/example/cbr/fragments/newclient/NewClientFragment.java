@@ -118,6 +118,11 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
 
                 Integer age = Integer.parseInt(binding.newClientAgeEditText.getText().toString());
 
+                boolean isMale = binding.newClientMaleRadioButton.isChecked();
+                boolean isFemale = binding.newClientFemaleRadioButton.isChecked();
+
+                String gender = isMale ? "Male" : "Female";
+
                 String contactNumber = binding.newClientContactNumberEditText.getText().toString();
                 boolean caregiverPresentForInterview = binding.newClientCaregiverIsPresentCheckBox.isChecked();
 

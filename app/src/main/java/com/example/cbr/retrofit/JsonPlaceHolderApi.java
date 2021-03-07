@@ -81,4 +81,48 @@ public interface JsonPlaceHolderApi {
     @GET("api/users")
     Call<List<Users>> getUsers();
 
+    /*
+        New GET request
+     */
+
+    @GET("api/disability")
+    Call<List<ClientDisability>> getClientDisability();
+
+    @GET("api/healthAspect")
+    Call<List<ClientHealthAspect>> getClientHealthAspect();
+
+    @GET("api/educationAspect")
+    Call<List<ClientEducationAspect>> getClientEducationAspect();
+
+    @GET("api/socialAspect")
+    Call<List<ClientSocialAspect>> getClientSocialAspect();
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

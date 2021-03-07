@@ -45,8 +45,7 @@ public class ClientInfo implements Serializable {
     private String rateSocialStatus;
     private String describeSocialStatus;
     private String setGoalForSocialStatus;
-
-
+    
     public ClientInfo() {}
 
     public ClientInfo(boolean consentToInterview,
@@ -151,6 +150,7 @@ public class ClientInfo implements Serializable {
         }
         return age;
     }
+
 
     public String getContactNumber() {
         return contactNumber;

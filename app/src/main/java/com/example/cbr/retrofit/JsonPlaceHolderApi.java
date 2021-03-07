@@ -72,7 +72,7 @@ public interface JsonPlaceHolderApi {
     Call<VisitSocialQuestionSetData> createVisitSocialQuestionSetData(@Body VisitSocialQuestionSetData visitSocialQuestionSetData);
 
     @GET("api/users")
-    Call<List<Users>> getUserEmail(@Query("email") String email);
+    Call<List<Users>> getUserPhone(@Query("phone") String phone);
 
     @POST("api/users")
     Call<Users> createUser(@Body Users users);
@@ -81,28 +81,3 @@ public interface JsonPlaceHolderApi {
     Call<List<Users>> getUsers();
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

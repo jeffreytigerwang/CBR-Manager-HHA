@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,8 +18,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.cbr.R;
-import com.example.cbr.activities.MainActivity;
-import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.Users;
 import com.example.cbr.retrofit.AES;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
@@ -40,7 +37,6 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
-import io.reactivex.disposables.CompositeDisposable;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -49,7 +45,7 @@ public class RegisterDialog extends AppCompatDialogFragment {
 
     private EditText edt_firstName;
     private EditText edt_lastName;
-    private EditText edt_email;
+    private EditText edt_phone;
     private EditText edt_password;
     private EditText edt_confirm_password;
     private registerDialogListener listener;
@@ -103,7 +99,7 @@ public class RegisterDialog extends AppCompatDialogFragment {
 
                 String firstName = edt_firstName.getText().toString();
                 String lastName = edt_lastName.getText().toString();
-                String email = edt_email.getText().toString();
+                String phone = edt_phone.getText().toString();
                 String password = edt_password.getText().toString();
                 String confirmPassword = edt_confirm_password.getText().toString();
 
@@ -112,7 +108,7 @@ public class RegisterDialog extends AppCompatDialogFragment {
                 }
 
                 try {
-                    if (getUsers(email))
+                    if (getUsers(phone))
                         isUserNameExist = true;
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -124,7 +120,7 @@ public class RegisterDialog extends AppCompatDialogFragment {
                     Toast.makeText(getActivity(), "Password not match!", Toast.LENGTH_SHORT).show();
                 else {
                     String encryptPassword = AES.encrypt(password);
-                    listener.applyInfo(firstName, lastName, email, encryptPassword, confirmPassword);
+                    listener.applyInfo(firstName, lastName, phone, encryptPassword, confirmPassword);
                     dialog.dismiss();
                 }
             }
@@ -133,7 +129,7 @@ public class RegisterDialog extends AppCompatDialogFragment {
 
         edt_firstName = view.findViewById(R.id.registration_firstName);
         edt_lastName = view.findViewById(R.id.registration_lastName);
-        edt_email = view.findViewById(R.id.registration_email);
+        edt_phone = view.findViewById(R.id.registration_phone);
         edt_password = view.findViewById(R.id.registration_password);
         edt_confirm_password = view.findViewById(R.id.registration_confirm_password);
 
@@ -148,7 +144,7 @@ public class RegisterDialog extends AppCompatDialogFragment {
         List<Users> usersList = response.body();
 
         for (int i = 0; i < usersList.size(); i++) {
-            if (usersList.get(i).getEmail().equals(username)) {
+            if (usersList.get(i).getPhone().equals(username)) {
                 return true;
             }
         }
@@ -168,7 +164,7 @@ public class RegisterDialog extends AppCompatDialogFragment {
     }
 
     public interface registerDialogListener {
-        void applyInfo(String firstName, String lastName, String email, String password, String confirmPassword);
+        void applyInfo(String firstName, String lastName, String phone, String password, String confirmPassword);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

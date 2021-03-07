@@ -3,12 +3,17 @@ package com.example.cbr.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cbr.R;
+import com.example.cbr.adapters.HomeFragmentPagerAdapter;
 import com.example.cbr.fragments.TempHomeFragment;
 import com.example.cbr.fragments.base.BaseActivity;
 import com.example.cbr.fragments.clientlist.ClientListFragment;
@@ -28,7 +33,10 @@ public class HomeActivity extends BaseActivity implements
         ClientPageFragment.ClientPageFragmentInterface
 {
 
-    BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
+    private ViewPager2 viewPager;
+    private HomeFragmentPagerAdapter homeFragmentPagerAdapter;
+    private int currentTabPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,46 +44,45 @@ public class HomeActivity extends BaseActivity implements
         setContentView(R.layout.activity_home);
 
         setupBottomNav();
-        swapToHomeFragment();
     }
 
     @Override
     public void onBackPressed() {
-        String currentFragment = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 1).getName();
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
-            finish();
-        } else if (currentFragment.equals(ClientListFragment.getFragmentTag()) ||
-                currentFragment.equals(DiscussionFragment.getFragmentTag()) ||
-                currentFragment.equals(NotificationFragment.getFragmentTag())) {
-            getSupportFragmentManager().popBackStack(currentFragment, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            bottomNavigationView.getMenu().getItem(0).setChecked(true);
-        } else {
-            super.onBackPressed();
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            viewPager.setVisibility(View.VISIBLE);
         }
+        super.onBackPressed();
     }
 
     private void setupBottomNav() {
+        viewPager = findViewById(R.id.homeViewPager);
+        homeFragmentPagerAdapter = new HomeFragmentPagerAdapter(this);
+        viewPager.setAdapter(homeFragmentPagerAdapter);
+
         BottomNavigationView.OnNavigationItemSelectedListener navListener =
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.fragmentHome:
-                                replaceFragment(R.id.homeFragmentContainer, TempHomeFragment.newInstance(), TempHomeFragment.getFragmentTag());
+                                currentTabPosition = HomeFragmentPagerAdapter.HOME_POSITION;
                                 break;
 
                             case R.id.fragmentClientList:
-                                replaceFragment(R.id.homeFragmentContainer, ClientListFragment.newInstance(), ClientListFragment.getFragmentTag());
+                                currentTabPosition = HomeFragmentPagerAdapter.LIST_POSITION;
                                 break;
 
                             case R.id.fragmentDiscussion:
-                                replaceFragment(R.id.homeFragmentContainer, DiscussionFragment.newInstance(), DiscussionFragment.getFragmentTag());
+                                currentTabPosition = HomeFragmentPagerAdapter.DISCUSSION_POSITION;
                                 break;
 
                             case R.id.fragmentNotification:
-                                replaceFragment(R.id.homeFragmentContainer, NotificationFragment.newInstance(), NotificationFragment.getFragmentTag());
+                                currentTabPosition = HomeFragmentPagerAdapter.NOTIFICATION_POSITION;
                                 break;
                         }
+
+                        viewPager.setCurrentItem(currentTabPosition);
                         return true;
                     }
                 };
@@ -84,29 +91,39 @@ public class HomeActivity extends BaseActivity implements
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
     }
 
-    public void swapToHomeFragment() {
-        TempHomeFragment tempHomeFragment = TempHomeFragment.newInstance();
-        addFragment(R.id.homeFragmentContainer, tempHomeFragment, TempHomeFragment.getFragmentTag());
-    }
-
     @Override
     public void swapToClientPage(ClientInfo clientInfo) {
         ClientPageFragment clientPageFragment = ClientPageFragment.newInstance(clientInfo);
-        replaceFragment(R.id.homeFragmentContainer, clientPageFragment, ClientPageFragment.getFragmentTag());
+        addFragment(R.id.homeFragmentContainer, clientPageFragment, ClientPageFragment.getFragmentTag());
     }
 
     @Override
     public void swapToVisitPage(VisitGeneralQuestionSetData visitGeneralQuestionSetData) {
         VisitPageFragment visitPageFragment = VisitPageFragment.newInstance(visitGeneralQuestionSetData);
-        replaceFragment(R.id.homeFragmentContainer, visitPageFragment, VisitPageFragment.getFragmentTag());
+        addFragment(R.id.homeFragmentContainer, visitPageFragment, VisitPageFragment.getFragmentTag());
     }
 
     @Override
     public void swapToNewClient() {
         NewClientFragment newClientFragment = NewClientFragment.newInstance();
-        replaceFragment(R.id.homeFragmentContainer, newClientFragment, NewClientFragment.getFragmentTag());
+        addFragment(R.id.homeFragmentContainer, newClientFragment, NewClientFragment.getFragmentTag());
     }
 
+    @Override
+    protected void addFragment(int containerViewId, Fragment fragment, String fragmentTag) {
+        super.addFragment(containerViewId, fragment, fragmentTag);
+
+        viewPager.setVisibility(View.GONE);
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void replaceFragment(int containerViewId, Fragment fragment, String fragmentTag) {
+        super.replaceFragment(containerViewId, fragment, fragmentTag);
+
+        viewPager.setVisibility(View.GONE);
+        bottomNavigationView.setVisibility(View.GONE);
+    }
 
     public static Intent makeIntent(Context context){
         return new Intent(context, HomeActivity.class);

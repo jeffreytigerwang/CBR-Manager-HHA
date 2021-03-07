@@ -23,11 +23,12 @@ import com.example.cbr.models.ClientSocialAspect;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class NewClientFragment extends BaseFragment implements NewClientContract.View {
 

@@ -1,23 +1,14 @@
 package com.example.cbr.adapters;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.ListFragment;
-import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.cbr.fragments.TempHomeFragment;
 import com.example.cbr.fragments.clientlist.ClientListFragment;
 import com.example.cbr.fragments.discussion.DiscussionFragment;
 import com.example.cbr.fragments.notification.NotificationFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HomeFragmentPagerAdapter extends FragmentStateAdapter {
 

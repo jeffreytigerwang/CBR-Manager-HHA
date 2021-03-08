@@ -42,7 +42,7 @@
     import retrofit2.Response;
     import retrofit2.Retrofit;
 
-    /*
+    /**
     * Activity to handle new visit questions, which holds four sets of questions (fragments)
     * */
 
@@ -56,8 +56,6 @@ public class NewVisitActivity extends AppCompatActivity {
     private int clientId;
     private int visitId;
 
-    // Init API
-    private Retrofit retrofit;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
 
     private Fragment currentFragment;
@@ -91,7 +89,8 @@ public class NewVisitActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         // Init Retrofit & NodeJs stuff
-        retrofit = RetrofitInit.getInstance();
+        // Init API
+        Retrofit retrofit = RetrofitInit.getInstance();
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         Intent intent = getIntent();
@@ -273,7 +272,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
     private void createVisitGeneralQuestionSetData(
             VisitGeneralQuestionSetData visitGeneralQuestionSetData) {
-        
+
         Call<VisitGeneralQuestionSetData> call = jsonPlaceHolderApi
                 .createVisitGeneralQuestionSetData(visitGeneralQuestionSetData);
 

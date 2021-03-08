@@ -26,7 +26,7 @@ import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.util.Constants;
 import com.example.cbr.util.StringsUtil;
 
-/*
+/**
 * Initial fragment class to display general questions (7 questions)
 * */
 
@@ -104,7 +104,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     }
 
     private void setupSpinner() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 activity,
                 android.R.layout.simple_spinner_item,
                 getResources().getStringArray(R.array.zone_locations_array)

@@ -19,7 +19,7 @@ import com.example.cbr.databinding.FragmentVisitFourthQuestionSetBinding;
 import com.example.cbr.models.VisitSocialQuestionSetData;
 import com.example.cbr.util.Constants;
 
-/*
+/**
 * Fragment class is displayed if CBR is checked in question 1. and social is checked for question 2.
 * */
 

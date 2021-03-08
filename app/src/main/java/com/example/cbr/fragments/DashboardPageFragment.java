@@ -21,13 +21,15 @@ import com.example.cbr.databinding.FragmentHomeBinding;
 import com.example.cbr.models.ClientInfo;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class DashboardPageFragment extends Fragment {
+public class DashboardPageFragment extends Fragment implements DashboardPageContract.View {
 
     private FragmentHomeBinding binding;
     private TempHomeFragmentInterface tempHomeFragmentInterface;
-    private ArrayList<ClientInfo> priorityList;
-    private ArrayList<ClientInfo> outstandingList;
+    private List<ClientInfo> priorityList;
+    private List<ClientInfo> outstandingList;
+    private DashboardPageContract.Presenter presenter;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -80,50 +82,59 @@ public class DashboardPageFragment extends Fragment {
 
     private void populateLists() {
 
-
-        ClientInfo priorityPerson1 = new ClientInfo();
-        priorityPerson1.setFirstName("John");
-        priorityPerson1.setLastName("Smith");
-        priorityPerson1.setRateHealth("Critical Level Health");
-        priorityPerson1.setZoneLocation("BidiBidi Zone 1");
-        
-        ClientInfo priorityPerson2 = new ClientInfo();
-        priorityPerson2.setFirstName("Jane");
-        priorityPerson2.setLastName("Doe");
-        priorityPerson2.setRateHealth("Critical Level Health, Critical Level Education");
-        priorityPerson2.setZoneLocation("Palorinya Zone 2");
-
-        ClientInfo priorityPerson3 = new ClientInfo();
-        priorityPerson3.setFirstName("Jackson");
-        priorityPerson3.setLastName("Lee");
-        priorityPerson3.setRateHealth("Critical Level Social Status");
-        priorityPerson3.setZoneLocation("BidiBidi Zone 4");
-
-        ClientInfo outstandingPerson1 = new ClientInfo();
-        outstandingPerson1.setFirstName("William");
-        outstandingPerson1.setLastName("Liu");
-        outstandingPerson1.setZoneLocation("Palorinya Basecamp");
-
-        ClientInfo outstandingPerson2 = new ClientInfo();
-        outstandingPerson2.setFirstName("Elizabeth");
-        outstandingPerson2.setLastName("Nguyen");
-        outstandingPerson2.setZoneLocation("Palorinya Zone 3");
+        try {
+            priorityList = presenter.getTopPriority();
+            Toast.makeText(getActivity(), priorityList.toString(), Toast.LENGTH_SHORT).show();
+            outstandingList = presenter.getOutstandingReferral();
+            Toast.makeText(getActivity(), outstandingList.toString(), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
-        ClientInfo outstandingPerson3 = new ClientInfo();
-        outstandingPerson3.setFirstName("Cameron");
-        outstandingPerson3.setLastName("Ng");
-        outstandingPerson3.setZoneLocation("BidiBidi Zone 5");
-
-
-        priorityList.add(priorityPerson1);
-        priorityList.add(priorityPerson2);
-        priorityList.add(priorityPerson3);
-
-
-        outstandingList.add(outstandingPerson1);
-        outstandingList.add(outstandingPerson2);
-        outstandingList.add(outstandingPerson3);
+//        ClientInfo priorityPerson1 = new ClientInfo();
+//        priorityPerson1.setFirstName("John");
+//        priorityPerson1.setLastName("Smith");
+//        priorityPerson1.setRateHealth("Critical Level Health");
+//        priorityPerson1.setZoneLocation("BidiBidi Zone 1");
+//
+//        ClientInfo priorityPerson2 = new ClientInfo();
+//        priorityPerson2.setFirstName("Jane");
+//        priorityPerson2.setLastName("Doe");
+//        priorityPerson2.setRateHealth("Critical Level Health, Critical Level Education");
+//        priorityPerson2.setZoneLocation("Palorinya Zone 2");
+//
+//        ClientInfo priorityPerson3 = new ClientInfo();
+//        priorityPerson3.setFirstName("Jackson");
+//        priorityPerson3.setLastName("Lee");
+//        priorityPerson3.setRateHealth("Critical Level Social Status");
+//        priorityPerson3.setZoneLocation("BidiBidi Zone 4");
+//
+//        ClientInfo outstandingPerson1 = new ClientInfo();
+//        outstandingPerson1.setFirstName("William");
+//        outstandingPerson1.setLastName("Liu");
+//        outstandingPerson1.setZoneLocation("Palorinya Basecamp");
+//
+//        ClientInfo outstandingPerson2 = new ClientInfo();
+//        outstandingPerson2.setFirstName("Elizabeth");
+//        outstandingPerson2.setLastName("Nguyen");
+//        outstandingPerson2.setZoneLocation("Palorinya Zone 3");
+//
+//
+//        ClientInfo outstandingPerson3 = new ClientInfo();
+//        outstandingPerson3.setFirstName("Cameron");
+//        outstandingPerson3.setLastName("Ng");
+//        outstandingPerson3.setZoneLocation("BidiBidi Zone 5");
+//
+//
+//        priorityList.add(priorityPerson1);
+//        priorityList.add(priorityPerson2);
+//        priorityList.add(priorityPerson3);
+//
+//
+//        outstandingList.add(outstandingPerson1);
+//        outstandingList.add(outstandingPerson2);
+//        outstandingList.add(outstandingPerson3);
 
     }
 
@@ -145,6 +156,7 @@ public class DashboardPageFragment extends Fragment {
         RecyclerView recyclerView = binding.dashboardOutstandingList;
         LinearLayoutManager outstandingLayout = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(outstandingLayout);
+
         OutstandingListAdapter outstandingListAdapter = new OutstandingListAdapter(getActivity(), outstandingList, tempHomeFragmentInterface);
         recyclerView.setAdapter(outstandingListAdapter);
 
@@ -152,6 +164,11 @@ public class DashboardPageFragment extends Fragment {
                 outstandingLayout.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
+    }
+
+    @Override
+    public void setPresenter(DashboardPageContract.Presenter presenter) {
+        this.presenter = presenter;
     }
 
     public static DashboardPageFragment newInstance() {

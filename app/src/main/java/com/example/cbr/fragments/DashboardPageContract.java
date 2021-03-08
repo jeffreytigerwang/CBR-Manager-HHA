@@ -11,6 +11,7 @@ public interface DashboardPageContract {
 
     interface Presenter extends BasePresenter {
         List<ClientInfo> getTopPriority() throws IOException;
+        List<ClientInfo> getOutstandingReferral() throws IOException;
     }
 
     interface View extends BaseView<Presenter> {

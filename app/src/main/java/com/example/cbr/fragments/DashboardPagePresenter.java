@@ -5,6 +5,7 @@ import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,7 +33,28 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
         Call<List<ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
         Response<List<ClientInfo>> response = call.execute();
 
-        return response.body();
+        List<ClientInfo> priorityList = new ArrayList<>();
 
+        for(ClientInfo clientInfo : response.body()) {
+            if(!clientInfo.getRateHealth().equals("Low") || !clientInfo.getRateEducation().equals("Low")
+                    || !clientInfo.getRateSocialStatus().equals("Low")) {
+                priorityList.add(clientInfo);
+            }
+        }
+
+        return priorityList;
+
+    }
+
+    @Override
+    public List<ClientInfo> getOutstandingReferral() throws IOException {
+        Call<List<ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
+        Response<List<ClientInfo>> response = call.execute();
+
+        List<ClientInfo> outstandingList = response.body();
+
+
+
+        return outstandingList;
     }
 }

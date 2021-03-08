@@ -23,7 +23,7 @@ public class OutstandingListAdapter extends RecyclerView.Adapter<OutstandingList
     private TempHomeFragmentInterface tempHomeFragmentInterface;
 
 
-    public OutstandingListAdapter(Context context, ArrayList<ClientInfo> outstandingList, TempHomeFragmentInterface tempHomeFragmentInterface){
+    public OutstandingListAdapter(Context context, List<ClientInfo> outstandingList, TempHomeFragmentInterface tempHomeFragmentInterface){
         this.context = context;
         this.outstandingList = outstandingList;
         this.tempHomeFragmentInterface = tempHomeFragmentInterface;

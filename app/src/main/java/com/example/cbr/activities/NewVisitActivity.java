@@ -271,94 +271,116 @@ public class NewVisitActivity extends AppCompatActivity {
     }
 
 
-    private void createVisitGeneralQuestionSetData(VisitGeneralQuestionSetData visitGeneralQuestionSetData) {
-        Call<VisitGeneralQuestionSetData> call = jsonPlaceHolderApi.createVisitGeneralQuestionSetData(visitGeneralQuestionSetData);
+    private void createVisitGeneralQuestionSetData(
+            VisitGeneralQuestionSetData visitGeneralQuestionSetData) {
+        
+        Call<VisitGeneralQuestionSetData> call = jsonPlaceHolderApi
+                .createVisitGeneralQuestionSetData(visitGeneralQuestionSetData);
 
         call.enqueue(new Callback<VisitGeneralQuestionSetData>() {
             @Override
-            public void onResponse(@NonNull Call<VisitGeneralQuestionSetData> call, @NonNull Response<VisitGeneralQuestionSetData> response) {
+            public void onResponse(@NonNull Call<VisitGeneralQuestionSetData> call,
+                                   @NonNull Response<VisitGeneralQuestionSetData> response) {
 
                 if (!response.isSuccessful()) {
-                    Toast.makeText(NewVisitActivity.this, "General Question Record Fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewVisitActivity.this,
+                            "General Question Record Fail", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                VisitGeneralQuestionSetData visitResponse = response.body();
-                Toast.makeText(NewVisitActivity.this,  "General Question Record Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewVisitActivity.this,
+                        "General Question Record Successful", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(@NonNull Call<VisitGeneralQuestionSetData> call, Throwable t) {
+            public void onFailure(@NonNull Call<VisitGeneralQuestionSetData> call,
+                                  @NonNull Throwable t) {
 
             }
         });
     }
 
 
-    private void createVisitHealthQuestionSetData(VisitHealthQuestionSetData visitHealthQuestionSetData) {
-        Call<VisitHealthQuestionSetData> call = jsonPlaceHolderApi.createVisitHealthQuestionSetData(visitHealthQuestionSetData);
+    private void createVisitHealthQuestionSetData(
+            VisitHealthQuestionSetData visitHealthQuestionSetData) {
+
+        Call<VisitHealthQuestionSetData> call = jsonPlaceHolderApi
+                .createVisitHealthQuestionSetData(visitHealthQuestionSetData);
 
         call.enqueue(new Callback<VisitHealthQuestionSetData>() {
             @Override
-            public void onResponse(@NonNull Call<VisitHealthQuestionSetData> call, @NonNull Response<VisitHealthQuestionSetData> response) {
+            public void onResponse(@NonNull Call<VisitHealthQuestionSetData> call,
+                                   @NonNull Response<VisitHealthQuestionSetData> response) {
 
                 if (!response.isSuccessful()) {
-                    Toast.makeText(NewVisitActivity.this, "Health Question Record Fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewVisitActivity.this,
+                            "Health Question Record Fail", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                VisitHealthQuestionSetData visitResponse = response.body();
-                Toast.makeText(NewVisitActivity.this,  "Health Question Record Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewVisitActivity.this,
+                        "Health Question Record Successful", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(@NonNull Call<VisitHealthQuestionSetData> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<VisitHealthQuestionSetData> call,
+                                  @NonNull Throwable t) {
 
             }
         });
     }
 
-    private void createVisitEducationQuestionSetData(VisitEducationQuestionSetData visitEducationQuestionSetData) {
-        Call<VisitEducationQuestionSetData> call = jsonPlaceHolderApi.createVisitEducationQuestionSetData(visitEducationQuestionSetData);
+    private void createVisitEducationQuestionSetData(
+            VisitEducationQuestionSetData visitEducationQuestionSetData) {
+
+        Call<VisitEducationQuestionSetData> call = jsonPlaceHolderApi
+                .createVisitEducationQuestionSetData(visitEducationQuestionSetData);
 
         call.enqueue(new Callback<VisitEducationQuestionSetData>() {
             @Override
-            public void onResponse(@NonNull Call<VisitEducationQuestionSetData> call, @NonNull Response<VisitEducationQuestionSetData> response) {
+            public void onResponse(@NonNull Call<VisitEducationQuestionSetData> call,
+                                   @NonNull Response<VisitEducationQuestionSetData> response) {
 
                 if (!response.isSuccessful()) {
-                    Toast.makeText(NewVisitActivity.this, "Education Question Record Fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewVisitActivity.this,
+                            "Education Question Record Fail", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                VisitEducationQuestionSetData visitResponse = response.body();
-                Toast.makeText(NewVisitActivity.this,  "Education Question Record Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewVisitActivity.this,
+                        "Education Question Record Successful", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(@NonNull Call<VisitEducationQuestionSetData> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<VisitEducationQuestionSetData> call,
+                                  @NonNull Throwable t) {
 
             }
         });
     }
 
     private void createVisitSocialQuestionSetData(VisitSocialQuestionSetData visitSocialQuestionSetData) {
-        Call<VisitSocialQuestionSetData> call = jsonPlaceHolderApi.createVisitSocialQuestionSetData(visitSocialQuestionSetData);
+        Call<VisitSocialQuestionSetData> call = jsonPlaceHolderApi
+                .createVisitSocialQuestionSetData(visitSocialQuestionSetData);
 
         call.enqueue(new Callback<VisitSocialQuestionSetData>() {
             @Override
-            public void onResponse(@NonNull Call<VisitSocialQuestionSetData> call, @NonNull Response<VisitSocialQuestionSetData> response) {
+            public void onResponse(@NonNull Call<VisitSocialQuestionSetData> call,
+                                   @NonNull Response<VisitSocialQuestionSetData> response) {
 
                 if (!response.isSuccessful()) {
-                    Toast.makeText(NewVisitActivity.this, "Social Question Record Fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewVisitActivity.this,
+                            "Social Question Record Fail", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                VisitSocialQuestionSetData visitResponse = response.body();
-                Toast.makeText(NewVisitActivity.this,  "Social Question Record Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewVisitActivity.this,
+                        "Social Question Record Successful", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(@NonNull Call<VisitSocialQuestionSetData> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<VisitSocialQuestionSetData> call,
+                                  @NonNull Throwable t) {
 
             }
         });

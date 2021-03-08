@@ -48,7 +48,6 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     private CheckBox checkBoxAdvice;
     private CheckBox checkBoxAdvocacy;
     private CheckBox checkBoxEncouragement;
-    private TextView question10;
 
     public VisitSecondQuestionSetFragment(VisitHealthQuestionSetData dataContainer) {
         this.dataContainer = dataContainer;
@@ -106,8 +105,6 @@ public class VisitSecondQuestionSetFragment extends Fragment {
             this.goalStatus.check(R.id.newVisit_healthOngoingRadioButton);
         } else if (goalStatus.equalsIgnoreCase(Constants.CONCLUDED)) {
             this.goalStatus.check(R.id.newVisit_healthConcludedRadioButton);
-            question10.setVisibility(View.VISIBLE);
-            editTextHealthOutcome.setVisibility(View.VISIBLE);
         }
     }
 
@@ -132,8 +129,6 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         checkBoxAdvice = binding.newVisitHealthAdviceCheckBox;
         checkBoxAdvocacy = binding.newVisitHealthAdvocacyCheckBox;
         checkBoxEncouragement = binding.newVisitHealthEncouragementCheckBox;
-
-        question10 = binding.newVisitQ10TextView;
     }
 
     private void setupRadioGroup() {
@@ -146,16 +141,10 @@ public class VisitSecondQuestionSetFragment extends Fragment {
                 if (checkedId == R.id.newVisit_healthConcludedRadioButton) {
                     dataContainer.setHealthGoalStatus(Constants.CONCLUDED);
 
-                    question10.setVisibility(View.VISIBLE);
-                    editTextHealthOutcome.setVisibility(View.VISIBLE);
-                } else {
-                    question10.setVisibility(View.GONE);
-                    editTextHealthOutcome.setVisibility(View.GONE);
-                }
-                if (checkedId == R.id.newVisit_healthOngoingRadioButton) {
+                } else if (checkedId == R.id.newVisit_healthOngoingRadioButton) {
                     dataContainer.setHealthGoalStatus(Constants.ONGOING);
 
-                } else if (checkedId == R.id.newVisit_healthCancelledRadioButton) {
+                } else if (checkedId == R.id.newVisit_educationCancelledRadioButton) {
                     dataContainer.setHealthGoalStatus(Constants.CANCELLED);
                 }
             }

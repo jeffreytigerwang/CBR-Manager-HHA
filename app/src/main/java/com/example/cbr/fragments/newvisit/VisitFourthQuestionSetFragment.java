@@ -40,7 +40,6 @@ public class VisitFourthQuestionSetFragment extends Fragment {
     private CheckBox checkBoxAdvocacy;
     private CheckBox checkBoxRef;
     private CheckBox checkBoxEncouragement;
-    private TextView question16;
 
     public VisitFourthQuestionSetFragment(VisitSocialQuestionSetData dataContainer) {
         this.dataContainer = dataContainer;
@@ -86,8 +85,6 @@ public class VisitFourthQuestionSetFragment extends Fragment {
             this.goalStatus.check(R.id.newVisit_healthOngoingRadioButton);
         } else if (goalStatus.equalsIgnoreCase(Constants.CONCLUDED)) {
             this.goalStatus.check(R.id.newVisit_healthConcludedRadioButton);
-            question16.setVisibility(View.VISIBLE);
-            editTextSocialOutcome.setVisibility(View.VISIBLE);
         }
     }
 
@@ -112,8 +109,6 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         checkBoxAdvocacy = binding.newVisitSocialAdvocacyCheckBox;
         checkBoxRef = binding.newVisitSocialRefCheckBox;
         checkBoxEncouragement = binding.newVisitSocialEncouragementCheckBox;
-
-        question16 = binding.newVisitQ16TextView;
     }
 
     private void setupRadioGroup() {
@@ -124,16 +119,11 @@ public class VisitFourthQuestionSetFragment extends Fragment {
 
                 if (checkedId == R.id.newVisit_socialConcludedRadioButton) {
                     dataContainer.setSocialGoalStatus(Constants.CONCLUDED);
-                    question16.setVisibility(View.VISIBLE);
-                    editTextSocialOutcome.setVisibility(View.VISIBLE);
-                } else {
-                    question16.setVisibility(View.GONE);
-                    editTextSocialOutcome.setVisibility(View.GONE);
-                }
-                if (checkedId == R.id.newVisit_socialCancelledRadioButton) {
+
+                } else if (checkedId == R.id.newVisit_socialCancelledRadioButton) {
                     dataContainer.setSocialGoalStatus(Constants.CANCELLED);
-                }
-                if (checkedId == R.id.newVisit_socialOngoingRadioButton) {
+
+                } else if (checkedId == R.id.newVisit_socialOngoingRadioButton) {
                     dataContainer.setSocialGoalStatus(Constants.ONGOING);
                 }
             }

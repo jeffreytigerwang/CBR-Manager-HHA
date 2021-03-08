@@ -40,7 +40,6 @@ public class VisitThirdQuestionSetFragment extends Fragment {
     private CheckBox checkBoxAdvocacy;
     private CheckBox checkBoxRef;
     private RadioGroup goalStatus;
-    private TextView question13;
 
     public VisitThirdQuestionSetFragment(VisitEducationQuestionSetData dataContainer) {
         this.dataContainer = dataContainer;
@@ -83,8 +82,6 @@ public class VisitThirdQuestionSetFragment extends Fragment {
             this.goalStatus.check(R.id.newVisit_healthOngoingRadioButton);
         } else if (goalStatus.equalsIgnoreCase(Constants.CONCLUDED)) {
             this.goalStatus.check(R.id.newVisit_healthConcludedRadioButton);
-            question13.setVisibility(View.VISIBLE);
-            editTextEducationOutcome.setVisibility(View.VISIBLE);
         }
     }
 
@@ -109,8 +106,6 @@ public class VisitThirdQuestionSetFragment extends Fragment {
         checkBoxAdvocacy = binding.newVisitEducationAdvocacyCheckBox;
         checkBoxRef = binding.newVisitEducationRefcheckBox;
         checkBoxEncouragement = binding.newVisitEducationEncouragementCheckBox;
-
-        question13 = binding.newVisitQ13TextView;
     }
 
     private void setupRadioGroup() {
@@ -120,16 +115,11 @@ public class VisitThirdQuestionSetFragment extends Fragment {
 
                 if (checkedId == R.id.newVisit_educationConcludedRadioButton) {
                     dataContainer.setEducationGoalStatus(Constants.CONCLUDED);
-                    question13.setVisibility(View.VISIBLE);
-                    editTextEducationOutcome.setVisibility(View.VISIBLE);
-                } else {
-                    question13.setVisibility(View.GONE);
-                    editTextEducationOutcome.setVisibility(View.GONE);
-                }
-                if (checkedId == R.id.newVisit_educationCancelledRadioButton) {
+
+                } else if (checkedId == R.id.newVisit_educationCancelledRadioButton) {
                     dataContainer.setEducationGoalStatus(Constants.CANCELLED);
-                }
-                if (checkedId == R.id.newVisit_educationOngoingRadioButton) {
+
+                } else if (checkedId == R.id.newVisit_educationOngoingRadioButton) {
                     dataContainer.setEducationGoalStatus(Constants.ONGOING);
                 }
             }

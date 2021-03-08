@@ -17,6 +17,8 @@ public class HomeFragmentPagerAdapter extends FragmentStateAdapter {
     public static final int DISCUSSION_POSITION = 2;
     public static final int NOTIFICATION_POSITION = 3;
 
+    public static final int NUM_PAGES = 4;
+
     public HomeFragmentPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
         initBaseFragments();
@@ -49,6 +51,6 @@ public class HomeFragmentPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 4;
+        return NUM_PAGES;
     }
 }

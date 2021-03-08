@@ -65,19 +65,24 @@ public class HomeActivity extends BaseActivity implements
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()){
-                            case R.id.fragmentHome:
+                            case R.id.bottomMenuHome:
+                                replaceFragment(R.id.homeFragmentContainer, HomePageFragment.newInstance(),
+                                        HomePageFragment.getFragmentTag());
+                                break;
+
+                            case R.id.bottomMenuDashboard:
                                 replaceFragment(R.id.homeFragmentContainer, TempHomeFragment.newInstance(), TempHomeFragment.getFragmentTag());
                                 break;
 
-                            case R.id.fragmentClientList:
+                            case R.id.bottomMenuClientList:
                                 replaceFragment(R.id.homeFragmentContainer, ClientListFragment.newInstance(), ClientListFragment.getFragmentTag());
                                 break;
 
-                            case R.id.fragmentDiscussion:
+                            case R.id.bottomMenuDiscussion:
                                 replaceFragment(R.id.homeFragmentContainer, DiscussionFragment.newInstance(), DiscussionFragment.getFragmentTag());
                                 break;
 
-                            case R.id.fragmentNotification:
+                            case R.id.bottomMenuNotification:
                                 replaceFragment(R.id.homeFragmentContainer, NotificationFragment.newInstance(), NotificationFragment.getFragmentTag());
                                 break;
                         }

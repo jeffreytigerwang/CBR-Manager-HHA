@@ -1,6 +1,5 @@
 package com.example.cbr.fragments.clientlist;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -14,10 +13,10 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cbr.R;
 import com.example.cbr.adapters.ClientListAdapter;
 import com.example.cbr.databinding.FragmentClientlistBinding;
 import com.example.cbr.fragments.base.BaseFragment;
@@ -31,10 +30,6 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-
-import com.example.cbr.R;
-
 import retrofit2.Retrofit;
 
 public class ClientListFragment extends BaseFragment implements ClientListContract.View {

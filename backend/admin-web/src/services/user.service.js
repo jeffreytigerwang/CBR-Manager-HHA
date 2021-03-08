@@ -29,7 +29,14 @@ class UserDataService {
     var name_obj = name.split(" ");
     var firstName = name_obj[0];
     var lastName = name_obj[1];
-    return http.get(`/users?firstName=${firstName}&lastName=${lastName}`);
+
+    console.log("Name object: " + name_obj)
+    console.log("First Name: " + firstName)
+    console.log("Last Name: " + lastName)
+
+    if (firstName && lastName) { return http.get(`/users?firstName=${firstName}
+                                                 &lastName=${lastName}`);}
+    else return http.get(`/users?name=${firstName}`);
   }
 }
 /*

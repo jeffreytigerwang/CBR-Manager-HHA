@@ -43,7 +43,7 @@ class UsersList extends Component {
         this.setState({
           users: response.data
         });
-        console.log(response.data);
+        console.log("search found: " + response.data);
       })
       .catch(e => {
         console.log(e);

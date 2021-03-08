@@ -14,6 +14,7 @@ import com.example.cbr.fragments.base.BaseActivity;
 import com.example.cbr.fragments.clientlist.ClientListFragment;
 import com.example.cbr.fragments.clientpage.ClientPageFragment;
 import com.example.cbr.fragments.discussion.DiscussionFragment;
+import com.example.cbr.fragments.home.HomePageFragment;
 import com.example.cbr.fragments.newclient.NewClientFragment;
 import com.example.cbr.fragments.notification.NotificationFragment;
 import com.example.cbr.fragments.visitpage.VisitPageFragment;
@@ -25,7 +26,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeActivity extends BaseActivity implements
         TempHomeFragment.TempHomeFragmentInterface,
         ClientListFragment.ClientListFragmentInterface,
-        ClientPageFragment.ClientPageFragmentInterface
+        ClientPageFragment.ClientPageFragmentInterface,
+        HomePageFragment.HomePageFragmentInterface
 {
 
     BottomNavigationView bottomNavigationView;
@@ -36,8 +38,11 @@ public class HomeActivity extends BaseActivity implements
         setContentView(R.layout.activity_home);
 
         setupBottomNav();
-        swapToHomeFragment();
+        //swapToHomeFragment();
+        swapToHomePageFragment();
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -107,8 +112,16 @@ public class HomeActivity extends BaseActivity implements
         replaceFragment(R.id.homeFragmentContainer, newClientFragment, NewClientFragment.getFragmentTag());
     }
 
+    @Override
+    public void swapToHomePageFragment() {
+        HomePageFragment homePageFragment = HomePageFragment.newInstance();
+        replaceFragment(R.id.homeFragmentContainer, homePageFragment,
+                HomePageFragment.getFragmentTag());
+    }
 
     public static Intent makeIntent(Context context){
         return new Intent(context, HomeActivity.class);
     }
+
+
 }

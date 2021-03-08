@@ -105,7 +105,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                 String location = binding.newClientZoneLocationSpinner.getSelectedItem().toString();
 
                 if (binding.newClientVillageNumberEditText.getText().toString().equals("")) {
-                    Toast.makeText(getActivity(), "Village Number cannot be empty", Toast.LENGTH_SHORT).show();
+                    showOkDialog(getString(R.string.missing_fields), "Village Number cannot be empty", null);
                     return;
                 }
                 Integer villageNumber = Integer.parseInt(binding.newClientVillageNumberEditText.getText().toString());
@@ -114,7 +114,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                 String lastName = binding.newClientLastNameEditText.getText().toString();
 
                 if (binding.newClientAgeEditText.getText().toString().equals("")) {
-                    Toast.makeText(getActivity(), "Age cannot be empty", Toast.LENGTH_SHORT).show();
+                    showOkDialog(getString(R.string.missing_fields), "Age cannot be empty", null);
                     return;
                 }
 
@@ -129,7 +129,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                 boolean caregiverPresentForInterview = binding.newClientCaregiverIsPresentCheckBox.isChecked();
 
                 if (binding.newClientCaregiverContactNumberEditText.getText().toString().equals("")) {
-                    Toast.makeText(getActivity(), "Caregiver Contact Number cannot be empty", Toast.LENGTH_SHORT).show();
+                    showOkDialog(getString(R.string.missing_fields), "Caregiver Contact Number cannot be empty", null);
                     return;
                 }
 
@@ -288,13 +288,12 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
             public void onResponse(Call<ClientInfo> call, Response<ClientInfo> response) {
 
                 if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Record Fail", Toast.LENGTH_SHORT).show();
+                    showErrorDialog("Record Fail", null);
                     return;
                 }
 
                 ClientInfo clientInfoResponse = response.body();
-                Toast.makeText(getActivity(), clientInfoResponse.getFirstName() + " " +
-                        clientInfoResponse.getLastName() + "\n" + "Record Successful", Toast.LENGTH_SHORT).show();
+                showOkDialog("", clientInfoResponse.getFullName() + "\n" + "Record Successful", null);
             }
 
             @Override

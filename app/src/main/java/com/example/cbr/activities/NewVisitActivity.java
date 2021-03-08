@@ -155,7 +155,7 @@ public class NewVisitActivity extends AppCompatActivity {
                 socialQuestionSetData.setClientId(clientId);
                 socialQuestionSetData.setVisitId(visitId);
 
-                saveSession(currentFragment);
+                onFragmentSaveText(currentFragment);
                 final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
                 final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();
                 final List<String> emptyEducationQuestions = educationQuestionSetData.getEmptyQuestions();
@@ -375,7 +375,7 @@ public class NewVisitActivity extends AppCompatActivity {
                     Log.d(LOG_TAG, "pagNum-1: " + (pageNum-1));
                     buttonBack.setVisibility(View.GONE);
                 }
-                saveSession(currentFragment);
+                onFragmentSaveText(currentFragment);
                 Log.d(LOG_TAG, "pagNum onBack: " + pageNum);
 
                 nextFragments.addFirst(currentFragment);
@@ -397,7 +397,7 @@ public class NewVisitActivity extends AppCompatActivity {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveSession(currentFragment);
+                onFragmentSaveText(currentFragment);
 
                 if (pageNum == 1) {
                     prevFragments.clear();
@@ -453,7 +453,9 @@ public class NewVisitActivity extends AppCompatActivity {
         });
     }
 
-    private void saveSession(Fragment currentFragment) {
+    // We need to save texts here, because only when the user press the next/back/record buttons
+    // will we know that the user has finished writing.
+    private void onFragmentSaveText(Fragment currentFragment) {
             if (currentFragment instanceof VisitFirstQuestionSetFragment) {
                 saveFirstQuestionSet();
             } else if (currentFragment instanceof VisitSecondQuestionSetFragment) {

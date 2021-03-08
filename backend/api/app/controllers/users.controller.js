@@ -16,7 +16,7 @@ exports.create = (req, res) => {
   const user = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    email: req.body.email,
+    phone: req.body.phone,
     password: req.body.password,
     priorityLevel: req.body.priorityLevel,
     zone: req.body.zone

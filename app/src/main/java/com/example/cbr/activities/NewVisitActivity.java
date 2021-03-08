@@ -88,10 +88,10 @@ public class NewVisitActivity extends AppCompatActivity {
         binding = ActivityNewVisitBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        getSupportActionBar().hide();
+        getSupportActionBar().hide(); // keep action bar for consistency
 
         // Init Retrofit & NodeJs stuff
-        retrofit = RetrofitInit.getInstance();
+        retrofit = RetrofitInit.getInstance(); // move to present class
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         Intent intent = getIntent();
@@ -108,7 +108,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         setWorkerName();
 
-        currentFragment = new VisitFirstQuestionSetFragment(
+        currentFragment = new VisitFirstQuestionSetFragment( // instead of managing manual backstack use base activity implimentation use back buton
                 binding,
                 generalQuestionSetData,
                 NewVisitActivity.this);
@@ -126,7 +126,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
     private void setWorkerName() {
         Users users = Users.getInstance();
-        final String workerName = users.getFirstName() + " " + users.getLastName();
+        final String workerName = users.getFirstName() + " " + users.getLastName(); // remove final
         generalQuestionSetData.setWorkerName(workerName);
     }
 
@@ -141,7 +141,7 @@ public class NewVisitActivity extends AppCompatActivity {
         buttonRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                visitId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
+                visitId = ThreadLocalRandom.current().nextInt(100000000, 999999999); // when database is changed to have all the visit iD generation 
 
                 generalQuestionSetData.setClientId(clientId);
                 generalQuestionSetData.setVisitId(visitId);
@@ -155,7 +155,7 @@ public class NewVisitActivity extends AppCompatActivity {
                 socialQuestionSetData.setClientId(clientId);
                 socialQuestionSetData.setVisitId(visitId);
 
-                saveSession(currentFragment);
+                saveSession(currentFragment); // refractor to another method to shorten leagth of fragment 
                 final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
                 final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();
                 final List<String> emptyEducationQuestions = educationQuestionSetData.getEmptyQuestions();
@@ -166,6 +166,7 @@ public class NewVisitActivity extends AppCompatActivity {
                 final boolean isEducationChecked = generalQuestionSetData.isEducationChecked();
                 final boolean isSocialChecked = generalQuestionSetData.isSocialChecked();
 
+                // instead of defining alll the permutaions try using three if statements
                 if (!purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
                     if (emptyGeneralQuestions.isEmpty()) {
                         createVisitGeneralQuestionSetData(generalQuestionSetData);
@@ -270,7 +271,7 @@ public class NewVisitActivity extends AppCompatActivity {
         textViewQuestionNumbers.setText(questionNumbers.toString());
     }
 
-
+// line 274 to 365 add to presenter class
     private void createVisitGeneralQuestionSetData(VisitGeneralQuestionSetData visitGeneralQuestionSetData) {
         Call<VisitGeneralQuestionSetData> call = jsonPlaceHolderApi.createVisitGeneralQuestionSetData(visitGeneralQuestionSetData);
 
@@ -464,7 +465,7 @@ public class NewVisitActivity extends AppCompatActivity {
                 saveFourthQuestionSetDesc();
             }
     }
-
+    // get the string instead of the edit text to encasulate better 468 to 534
     private void saveFourthQuestionSetDesc() {
         VisitFourthQuestionSetFragment fourthFragment = (VisitFourthQuestionSetFragment) currentFragment;
 

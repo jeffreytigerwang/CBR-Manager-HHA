@@ -98,31 +98,3 @@ public interface JsonPlaceHolderApi {
     Call<List<ClientSocialAspect>> getClientSocialAspect();
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

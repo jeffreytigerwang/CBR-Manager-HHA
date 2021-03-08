@@ -150,20 +150,36 @@
                 android:padding="5dp"
                 android:minWidth="200dp"/>
 
+            <TextView
+                android:id="@+id/newClient_photoOfClientTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/client_photo"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/newClient_photoConsentTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/you_must_allow_this_app_to_use_your_camera_to_record_a_photo"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"/>
+
+            <ImageView
+                android:id="@+id/newClient_photoOfClientImageView"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
             <Button
                 android:id="@+id/newClient_cameraButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Use Camera"/>
-
-            <ImageView
-                android:id="@+id/newClient_photoOfClientImageView"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:src="@mipmap/ic_launcher"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
 
             <include
                 layout="@layout/recyclerview_divider"/>

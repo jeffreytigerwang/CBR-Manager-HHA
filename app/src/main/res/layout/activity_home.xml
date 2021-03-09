@@ -7,8 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".activities.HomeActivity">
 
-    <FrameLayout
-        android:id="@+id/homeFragmentContainer"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/homeViewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
@@ -16,8 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -29,7 +27,7 @@
         app:itemIconTint="@drawable/tab_color"
         app:itemTextColor="@drawable/tab_color"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/homeFragmentContainer"
+        app:layout_constraintTop_toBottomOf="@id/homeViewPager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

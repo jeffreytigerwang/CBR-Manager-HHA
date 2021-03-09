@@ -40,6 +40,13 @@ public class HomeActivity extends BaseActivity implements
         setupBottomNav();
         //swapToHomeFragment();
         swapToHomePageFragment();
+
+// Potentially another method to call the home page fragment.
+//        HomePageFragment homePageFragment= HomePageFragment.newInstance();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//
+//        fragmentManager.beginTransaction().add(R.id.homeFragmentContainer, homePageFragment,
+//                HomePageFragment.getFragmentTag()).commit();
     }
 
 
@@ -49,12 +56,27 @@ public class HomeActivity extends BaseActivity implements
         String currentFragment = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 1).getName();
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
             finish();
-        } else if (currentFragment.equals(ClientListFragment.getFragmentTag()) ||
-                currentFragment.equals(DiscussionFragment.getFragmentTag()) ||
-                currentFragment.equals(NotificationFragment.getFragmentTag())) {
+        } else if (currentFragment.equals(NotificationFragment.getFragmentTag())) {
+            getSupportFragmentManager().popBackStack(currentFragment, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            bottomNavigationView.getMenu().getItem(4).setChecked(true);
+        }
+        else if (currentFragment.equals(ClientListFragment.getFragmentTag())){
+            getSupportFragmentManager().popBackStack(currentFragment, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            bottomNavigationView.getMenu().getItem(2).setChecked(true);
+        }
+        else if (currentFragment.equals(DiscussionFragment.getFragmentTag())){
+            getSupportFragmentManager().popBackStack(currentFragment, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            bottomNavigationView.getMenu().getItem(3).setChecked(true);
+        }
+        else if (currentFragment.equals(HomePageFragment.getFragmentTag())){
             getSupportFragmentManager().popBackStack(currentFragment, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             bottomNavigationView.getMenu().getItem(0).setChecked(true);
-        } else {
+        }
+        else if (currentFragment.equals(TempHomeFragment.getFragmentTag())){
+            getSupportFragmentManager().popBackStack(currentFragment, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            bottomNavigationView.getMenu().getItem(1).setChecked(true);
+        }
+        else {
             super.onBackPressed();
         }
     }
@@ -120,7 +142,7 @@ public class HomeActivity extends BaseActivity implements
     @Override
     public void swapToHomePageFragment() {
         HomePageFragment homePageFragment = HomePageFragment.newInstance();
-        replaceFragment(R.id.homeFragmentContainer, homePageFragment,
+        addFragment(R.id.homeFragmentContainer, homePageFragment,
                 HomePageFragment.getFragmentTag());
     }
 

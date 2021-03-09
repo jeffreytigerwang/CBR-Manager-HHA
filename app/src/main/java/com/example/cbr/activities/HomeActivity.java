@@ -16,6 +16,7 @@ import com.example.cbr.fragments.TempHomeFragment;
 import com.example.cbr.fragments.base.BaseActivity;
 import com.example.cbr.fragments.clientlist.ClientListFragment;
 import com.example.cbr.fragments.clientpage.ClientPageFragment;
+import com.example.cbr.fragments.home.HomePageFragment;
 import com.example.cbr.fragments.newclient.NewClientFragment;
 import com.example.cbr.fragments.visitpage.VisitPageFragment;
 import com.example.cbr.models.ClientInfo;
@@ -26,7 +27,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeActivity extends BaseActivity implements
         TempHomeFragment.TempHomeFragmentInterface,
         ClientListFragment.ClientListFragmentInterface,
-        ClientPageFragment.ClientPageFragmentInterface
+        ClientPageFragment.ClientPageFragmentInterface,
+        HomePageFragment.HomePageFragmentInterface
 {
 
     private BottomNavigationView bottomNavigationView;
@@ -60,8 +62,11 @@ public class HomeActivity extends BaseActivity implements
             @Override
             public void onPageSelected(int position) {
                 switch (position) {
-                    case HomeFragmentPagerAdapter.DASHBOARD_POSITION:
+                    case HomeFragmentPagerAdapter.HOME_POSITION:
                         bottomNavigationView.getMenu().findItem(R.id.bottomMenuHome).setChecked(true);
+                        break;
+                    case HomeFragmentPagerAdapter.DASHBOARD_POSITION:
+                        bottomNavigationView.getMenu().findItem(R.id.bottomMenuDashboard).setChecked(true);
                         break;
                     case HomeFragmentPagerAdapter.LIST_POSITION:
                         bottomNavigationView.getMenu().findItem(R.id.bottomMenuClientList).setChecked(true);
@@ -82,6 +87,9 @@ public class HomeActivity extends BaseActivity implements
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.bottomMenuHome:
+                                currentTabPosition = HomeFragmentPagerAdapter.HOME_POSITION;
+                                break;
+                            case R.id.bottomMenuDashboard:
                                 currentTabPosition = HomeFragmentPagerAdapter.DASHBOARD_POSITION;
                                 break;
 
@@ -126,6 +134,13 @@ public class HomeActivity extends BaseActivity implements
     }
 
     @Override
+    public void swapToClientList() {
+        ClientListFragment clientListFragment = ClientListFragment.newInstance();
+        addFragment(R.id.homeFragmentContainer, clientListFragment, ClientListFragment.getFragmentTag());
+    }
+
+
+    @Override
     protected void addFragment(int containerViewId, Fragment fragment, String fragmentTag) {
         super.addFragment(containerViewId, fragment, fragmentTag);
 
@@ -144,4 +159,6 @@ public class HomeActivity extends BaseActivity implements
     public static Intent makeIntent(Context context){
         return new Intent(context, HomeActivity.class);
     }
+
+
 }

@@ -60,17 +60,17 @@ public class HomeActivity extends BaseActivity implements
             @Override
             public void onPageSelected(int position) {
                 switch (position) {
-                    case HomeFragmentPagerAdapter.HOME_POSITION:
-                        bottomNavigationView.getMenu().findItem(R.id.fragmentHome).setChecked(true);
+                    case HomeFragmentPagerAdapter.DASHBOARD_POSITION:
+                        bottomNavigationView.getMenu().findItem(R.id.bottomMenuHome).setChecked(true);
                         break;
                     case HomeFragmentPagerAdapter.LIST_POSITION:
-                        bottomNavigationView.getMenu().findItem(R.id.fragmentClientList).setChecked(true);
+                        bottomNavigationView.getMenu().findItem(R.id.bottomMenuClientList).setChecked(true);
                         break;
                     case HomeFragmentPagerAdapter.DISCUSSION_POSITION:
-                        bottomNavigationView.getMenu().findItem(R.id.fragmentDiscussion).setChecked(true);
+                        bottomNavigationView.getMenu().findItem(R.id.bottomMenuDiscussion).setChecked(true);
                         break;
                     case HomeFragmentPagerAdapter.NOTIFICATION_POSITION:
-                        bottomNavigationView.getMenu().findItem(R.id.fragmentNotification).setChecked(true);
+                        bottomNavigationView.getMenu().findItem(R.id.bottomMenuNotification).setChecked(true);
                         break;
                 }
             }
@@ -81,19 +81,19 @@ public class HomeActivity extends BaseActivity implements
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()){
-                            case R.id.fragmentHome:
-                                currentTabPosition = HomeFragmentPagerAdapter.HOME_POSITION;
+                            case R.id.bottomMenuHome:
+                                currentTabPosition = HomeFragmentPagerAdapter.DASHBOARD_POSITION;
                                 break;
 
-                            case R.id.fragmentClientList:
+                            case R.id.bottomMenuClientList:
                                 currentTabPosition = HomeFragmentPagerAdapter.LIST_POSITION;
                                 break;
 
-                            case R.id.fragmentDiscussion:
+                            case R.id.bottomMenuDiscussion:
                                 currentTabPosition = HomeFragmentPagerAdapter.DISCUSSION_POSITION;
                                 break;
 
-                            case R.id.fragmentNotification:
+                            case R.id.bottomMenuNotification:
                                 currentTabPosition = HomeFragmentPagerAdapter.NOTIFICATION_POSITION;
                                 break;
                         }

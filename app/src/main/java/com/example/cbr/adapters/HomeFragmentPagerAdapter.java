@@ -8,14 +8,16 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.example.cbr.fragments.TempHomeFragment;
 import com.example.cbr.fragments.clientlist.ClientListFragment;
 import com.example.cbr.fragments.discussion.DiscussionFragment;
+import com.example.cbr.fragments.home.HomePageFragment;
 import com.example.cbr.fragments.notification.NotificationFragment;
 
 public class HomeFragmentPagerAdapter extends FragmentStateAdapter {
 
     public static final int HOME_POSITION = 0;
-    public static final int LIST_POSITION = 1;
-    public static final int DISCUSSION_POSITION = 2;
-    public static final int NOTIFICATION_POSITION = 3;
+    public static final int DASHBOARD_POSITION = 1;
+    public static final int LIST_POSITION = 2;
+    public static final int DISCUSSION_POSITION = 3;
+    public static final int NOTIFICATION_POSITION = 4;
 
     public HomeFragmentPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
@@ -25,6 +27,7 @@ public class HomeFragmentPagerAdapter extends FragmentStateAdapter {
 
     private void initBaseFragments() {
         createFragment(HOME_POSITION);
+        createFragment(DASHBOARD_POSITION);
         createFragment(LIST_POSITION);
         createFragment(DISCUSSION_POSITION);
         createFragment(NOTIFICATION_POSITION);
@@ -35,6 +38,8 @@ public class HomeFragmentPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case HOME_POSITION:
+                return HomePageFragment.newInstance();
+            case DASHBOARD_POSITION:
                 return TempHomeFragment.newInstance();
             case LIST_POSITION:
                 return ClientListFragment.newInstance();
@@ -49,6 +54,6 @@ public class HomeFragmentPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 5;
     }
 }

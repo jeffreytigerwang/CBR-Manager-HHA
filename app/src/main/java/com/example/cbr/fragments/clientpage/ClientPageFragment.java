@@ -45,7 +45,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
     }
 
     @Override
-    public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setPresenter(new ClientPagePresenter(this));
         binding = FragmentClientpageBinding.inflate(inflater, container, false);
 

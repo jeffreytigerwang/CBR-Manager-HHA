@@ -70,6 +70,12 @@ public class ClientInfoAdapter extends BaseInfoAdapter {
         addHeaderViewType(context.getString(R.string.visits));
         addDividerViewType();
         for (final VisitGeneralQuestionSetData visitGeneralQuestionSetData: visitsList) {
+            ClickableViewHolderBehavior clickableViewHolderBehavior = new ClickableViewHolderBehavior() {
+                @Override
+                public void onClick() {
+                    clientPageFragmentInterface.swapToVisitPage(visitGeneralQuestionSetData);
+                }
+            };
             View.OnClickListener listener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -77,7 +83,7 @@ public class ClientInfoAdapter extends BaseInfoAdapter {
                 }
             };
 
-            addClickableViewType(context.getString(R.string.visits_list, visitGeneralQuestionSetData.getDateOfVisit()), listener);
+            addClickableViewType(context.getString(R.string.visits_list, visitGeneralQuestionSetData.getDateOfVisit()), clickableViewHolderBehavior);
             addDividerViewType();
         }
     }

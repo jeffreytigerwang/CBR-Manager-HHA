@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,8 +65,8 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
         infoList.add(new HeaderViewHolderData(text));
     }
 
-    void addClickableViewType(String text, View.OnClickListener listener) {
-        infoList.add(new ClickableViewHolderData(text, listener));
+    void addClickableViewType(String text, ClickableViewHolderBehavior clickableViewHolderBehavior) {
+        infoList.add(new ClickableViewHolderData(text, clickableViewHolderBehavior));
     }
 
     void addDividerViewType() {
@@ -138,7 +139,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
 
     // VIEW HOLDERS ----------------------------------------------------------------------------------------------
 
-    class ViewHolderData {
+    public class ViewHolderData implements Serializable {
         private final int viewType;
 
         ViewHolderData(int viewType) {
@@ -258,30 +259,39 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
             clickableTextView = itemView.findViewById(R.id.recyclerview_clickableText);
         }
 
-        public void bind(ClickableViewHolderData clickableViewHolderData) {
+        public void bind(final ClickableViewHolderData clickableViewHolderData) {
             clickableTextView.setText(clickableViewHolderData.getClickableText());
 
-            itemView.setOnClickListener(clickableViewHolderData.getListener());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickableViewHolderData.getClickableViewHolderBehavior().onClick();
+                }
+            });
         }
     }
 
     class ClickableViewHolderData extends ViewHolderData {
         private final String clickableText;
-        private final View.OnClickListener listener;
+        private final ClickableViewHolderBehavior clickableViewHolderBehavior;
 
-        ClickableViewHolderData(String clickableText, View.OnClickListener listener) {
+        ClickableViewHolderData(String clickableText, ClickableViewHolderBehavior clickableViewHolderBehavior) {
             super(CLICKABLE_VIEW_TYPE);
             this.clickableText = clickableText;
-            this.listener = listener;
+            this.clickableViewHolderBehavior = clickableViewHolderBehavior;
         }
 
         public String getClickableText() {
             return clickableText;
         }
 
-        public View.OnClickListener getListener() {
-            return listener;
+        public ClickableViewHolderBehavior getClickableViewHolderBehavior() {
+            return clickableViewHolderBehavior;
         }
+    }
+
+    interface ClickableViewHolderBehavior {
+        void onClick();
     }
 
     // DIVIDER ----------------------------------------------------------------------------------------------

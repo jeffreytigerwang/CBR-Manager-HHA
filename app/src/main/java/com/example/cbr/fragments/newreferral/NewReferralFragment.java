@@ -31,6 +31,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         binding = FragmentQuestionspageBinding.inflate(inflater, container, false);
 
         clientInfo = (ClientInfo) getArguments().getSerializable(NEW_REFERRAL_PAGE_BUNDLE);
+//        binding.questionsPageViewPager.setAdapter();
 
         return binding.getRoot();
     }

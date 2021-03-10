@@ -9,7 +9,6 @@ import com.example.cbr.fragments.QuestionsPageFragment;
 
 public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
 
-
     public QuestionsFragmentPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
@@ -17,7 +16,7 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return QuestionsPageFragment.newInstance();
+        return null;
     }
 
     @Override

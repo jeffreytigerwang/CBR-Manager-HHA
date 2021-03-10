@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -45,9 +47,22 @@ public class RegisterDialog extends AppCompatDialogFragment {
 
     private EditText edt_firstName;
     private EditText edt_lastName;
-    private EditText edt_phone;
+    private EditText edt_phoneNumber;
     private EditText edt_password;
-    private EditText edt_confirm_password;
+    private EditText edt_confirmPassword;
+
+    private CheckBox cbx_bidibidiZone1;
+    private CheckBox cbx_bidibidiZone2;
+    private CheckBox cbx_bidibidiZone3;
+    private CheckBox cbx_bidibidiZone4;
+    private CheckBox cbx_bidibidiZone5;
+    private CheckBox cbx_palorinyaBasecamp;
+    private CheckBox cbx_palorinyaZone1;
+    private CheckBox cbx_palorinyaZone2;
+    private CheckBox cbx_palorinyaZone3;
+
+    private RadioGroup rg_userType;
+
     private registerDialogListener listener;
     private final String key = "Bar12345Bar12345";
 
@@ -97,18 +112,31 @@ public class RegisterDialog extends AppCompatDialogFragment {
                 boolean isPasswordMatch = false;
                 boolean isUserNameExist = false;
 
+                Integer userTypeId = rg_userType.getCheckedRadioButtonId();
+
                 String firstName = edt_firstName.getText().toString();
                 String lastName = edt_lastName.getText().toString();
-                String phone = edt_phone.getText().toString();
+                String phoneNumber = edt_phoneNumber.getText().toString();
                 String password = edt_password.getText().toString();
-                String confirmPassword = edt_confirm_password.getText().toString();
+                String confirmPassword = edt_confirmPassword.getText().toString();
+                String userType = getUserType(userTypeId);
+
+                boolean bidibidiZone1Checked = cbx_bidibidiZone1.isChecked();
+                boolean bidibidiZone2Checked = cbx_bidibidiZone2.isChecked();
+                boolean bidibidiZone3Checked = cbx_bidibidiZone3.isChecked();
+                boolean bidibidiZone4Checked = cbx_bidibidiZone4.isChecked();
+                boolean bidibidiZone5Checked = cbx_bidibidiZone5.isChecked();
+                boolean palorinyaBasecampChecked = cbx_palorinyaBasecamp.isChecked();
+                boolean palorinyaZone1Checked = cbx_palorinyaZone1.isChecked();
+                boolean palorinyaZone2Checked = cbx_palorinyaZone2.isChecked();
+                boolean palorinyaZone3Checked = cbx_palorinyaZone3.isChecked();
 
                 if (password.equals(confirmPassword)) {
                     isPasswordMatch = true;
                 }
 
                 try {
-                    if (getUsers(phone))
+                    if (getUsers(phoneNumber))
                         isUserNameExist = true;
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -118,24 +146,49 @@ public class RegisterDialog extends AppCompatDialogFragment {
                     Toast.makeText(getActivity(), "Phone number already exists!", Toast.LENGTH_SHORT).show();
                 else if (!isPasswordMatch)
                     Toast.makeText(getActivity(), "Password not match!", Toast.LENGTH_SHORT).show();
+                if (userTypeId == -1) {
+                    Toast.makeText(getActivity(), "Select a user type", Toast.LENGTH_LONG).show();
+                }
                 else {
                     String encryptPassword = AES.encrypt(password);
-                    listener.applyInfo(firstName, lastName, phone, encryptPassword, confirmPassword);
+                    listener.applyInfo(firstName, lastName, phoneNumber, encryptPassword, confirmPassword);
                     dialog.dismiss();
                 }
             }
         });
 
-
         edt_firstName = view.findViewById(R.id.registerDialog_firstNameEditText);
         edt_lastName = view.findViewById(R.id.registerDialog_lastNameEditText);
-        edt_phone = view.findViewById(R.id.registerDialog_phoneNumberEditText);
+        edt_phoneNumber = view.findViewById(R.id.registerDialog_phoneNumberEditText);
         edt_password = view.findViewById(R.id.registerDialog_passwordEditText);
-        edt_confirm_password = view.findViewById(R.id.registerDialog_confirmPasswordEditText);
+        edt_confirmPassword = view.findViewById(R.id.registerDialog_confirmPasswordEditText);
+
+        cbx_bidibidiZone1 = view.findViewById(R.id.registerDialog_bidibidiZone1CheckBox);
+        cbx_bidibidiZone2 = view.findViewById(R.id.registerDialog_bidibidiZone2CheckBox);
+        cbx_bidibidiZone3 = view.findViewById(R.id.registerDialog_bidibidiZone3CheckBox);
+        cbx_bidibidiZone4 = view.findViewById(R.id.registerDialog_bidibidiZone4CheckBox);
+        cbx_bidibidiZone5 = view.findViewById(R.id.registerDialog_bidibidiZone5CheckBox);
+        cbx_palorinyaBasecamp = view.findViewById(R.id.registerDialog_palorinyaBasecampCheckBox);
+        cbx_palorinyaZone1 = view.findViewById(R.id.registerDialog_palorinyaZone1CheckBox);
+        cbx_palorinyaZone2 = view.findViewById(R.id.registerDialog_palorinyaZone2CheckBox);
+        cbx_palorinyaZone3 = view.findViewById(R.id.registerDialog_palorinyaZone3CheckBox);
+
+        rg_userType = view.findViewById(R.id.registerDialog_userTypeRadioGroup);
 
         return dialog;
     }
 
+    private String getUserType(Integer checkedId) {
+        String userType;
+        if (checkedId == R.id.registerDialog_adminRadioButton) {
+            userType = "Admin";
+        } else if (checkedId == R.id.registerDialog_cbrWorkerRadioButton) {
+            userType = "CBR worker";
+        } else {
+            userType = "Clinician";
+        }
+        return userType;
+    }
 
     private boolean getUsers(String username) throws IOException {
         Call<List<Users>> call = jsonPlaceHolderApi.getUsers();

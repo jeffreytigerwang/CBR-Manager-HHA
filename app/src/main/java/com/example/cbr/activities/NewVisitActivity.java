@@ -18,6 +18,8 @@
 
     import com.example.cbr.R;
     import com.example.cbr.databinding.ActivityNewVisitBinding;
+    import com.example.cbr.fragments.newvisit.NewVisitContract;
+    import com.example.cbr.fragments.newvisit.NewVisitPresenter;
     import com.example.cbr.fragments.newvisit.VisitFirstQuestionSetFragment;
     import com.example.cbr.fragments.newvisit.VisitFourthQuestionSetFragment;
     import com.example.cbr.fragments.newvisit.VisitSecondQuestionSetFragment;
@@ -46,7 +48,7 @@
     * Activity to handle new visit questions, which holds four sets of questions (fragments)
     * */
 
-public class NewVisitActivity extends AppCompatActivity {
+public class NewVisitActivity extends AppCompatActivity implements NewVisitContract.View {
 
     private ActivityNewVisitBinding binding;
 
@@ -55,8 +57,6 @@ public class NewVisitActivity extends AppCompatActivity {
 
     private int clientId;
     private int visitId;
-
-    private JsonPlaceHolderApi jsonPlaceHolderApi;
 
     private Fragment currentFragment;
     private VisitGeneralQuestionSetData generalQuestionSetData;
@@ -71,6 +71,8 @@ public class NewVisitActivity extends AppCompatActivity {
     private byte totalFragments;
     private byte pageNum;
 
+    private NewVisitContract.Presenter presenter;
+
     public static Intent makeLaunchIntent(
             Context context,
             final int clientID) {
@@ -81,17 +83,13 @@ public class NewVisitActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         binding = ActivityNewVisitBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
         getSupportActionBar().hide();
 
-        // Init Retrofit & NodeJs stuff
-        // Init API
-        Retrofit retrofit = RetrofitInit.getInstance();
-        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+        setPresenter(new NewVisitPresenter(this, NewVisitActivity.this));
 
         Intent intent = getIntent();
         clientId = intent.getIntExtra(CLIENT_ID, -1);
@@ -129,11 +127,6 @@ public class NewVisitActivity extends AppCompatActivity {
         generalQuestionSetData.setWorkerName(workerName);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
     private void setupRecordButton() {
         buttonRecord = binding.newVisitRecordButton;
 
@@ -155,107 +148,79 @@ public class NewVisitActivity extends AppCompatActivity {
                 socialQuestionSetData.setVisitId(visitId);
 
                 onFragmentSaveText(currentFragment);
-                final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
-                final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();
-                final List<String> emptyEducationQuestions = educationQuestionSetData.getEmptyQuestions();
-                final List<String> emptySocialQuestions = socialQuestionSetData.getEmptyQuestions();
-                final List<String> emptyQuestions = new ArrayList<>(emptyGeneralQuestions);
-                final String purposeOfVisit = generalQuestionSetData.getPurposeOfVisit();
-                final boolean isHealthChecked = generalQuestionSetData.isHealthChecked();
-                final boolean isEducationChecked = generalQuestionSetData.isEducationChecked();
-                final boolean isSocialChecked = generalQuestionSetData.isSocialChecked();
-
-                if (!purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
-                    if (emptyGeneralQuestions.isEmpty()) {
-                        createVisitGeneralQuestionSetData(generalQuestionSetData);
-                        finish();
-                    } else {
-                        displayNumberEmpty(emptyGeneralQuestions);
-                    }
-                } else if (isHealthChecked && !isEducationChecked && !isSocialChecked) {
-                    if (emptyGeneralQuestions.isEmpty() && emptyHealthQuestions.isEmpty()) {
-                        createVisitGeneralQuestionSetData(generalQuestionSetData);
-                        createVisitHealthQuestionSetData(healthQuestionSetData);
-                        finish();
-                    } else {
-                        emptyQuestions.addAll(emptyHealthQuestions);
-                        displayNumberEmpty(emptyQuestions);
-                    }
-                } else if (!isHealthChecked && isEducationChecked && !isSocialChecked) {
-                    if (emptyGeneralQuestions.isEmpty() && emptyEducationQuestions.isEmpty()) {
-                        createVisitGeneralQuestionSetData(generalQuestionSetData);
-                        createVisitEducationQuestionSetData(educationQuestionSetData);
-                        finish();
-                    } else {
-                        emptyQuestions.addAll(emptyEducationQuestions);
-                        displayNumberEmpty(emptyQuestions);
-                    }
-                } else if (!isHealthChecked && !isEducationChecked && isSocialChecked) {
-                    if (emptyGeneralQuestions.isEmpty() && emptySocialQuestions.isEmpty()) {
-                        createVisitGeneralQuestionSetData(generalQuestionSetData);
-                        createVisitSocialQuestionSetData(socialQuestionSetData);
-                        finish();
-                    } else {
-                        emptyQuestions.addAll(emptySocialQuestions);
-                        displayNumberEmpty(emptyQuestions);
-                    }
-                } else if (isHealthChecked && isEducationChecked && !isSocialChecked) {
-                    if (emptyGeneralQuestions.isEmpty()
-                            && emptyHealthQuestions.isEmpty() && emptyEducationQuestions.isEmpty()) {
-                        createVisitGeneralQuestionSetData(generalQuestionSetData);
-                        createVisitHealthQuestionSetData(healthQuestionSetData);
-                        createVisitEducationQuestionSetData(educationQuestionSetData);
-                        finish();
-                    } else {
-                        emptyQuestions.addAll(emptyHealthQuestions);
-                        emptyQuestions.addAll(emptyEducationQuestions);
-                        displayNumberEmpty(emptyQuestions);
-                    }
-                } else if (!isHealthChecked && isEducationChecked) {
-                    if (emptyGeneralQuestions.isEmpty()
-                            && emptySocialQuestions.isEmpty() && emptyEducationQuestions.isEmpty()) {
-                        createVisitGeneralQuestionSetData(generalQuestionSetData);
-                        createVisitEducationQuestionSetData(educationQuestionSetData);
-                        createVisitSocialQuestionSetData(socialQuestionSetData);
-                        finish();
-                    } else {
-                        emptyQuestions.addAll(emptyEducationQuestions);
-                        emptyQuestions.addAll(emptySocialQuestions);
-                        displayNumberEmpty(emptyQuestions);
-                    }
-                } else if (isHealthChecked && !isEducationChecked) {
-                    if (emptyGeneralQuestions.isEmpty()
-                            && emptyHealthQuestions.isEmpty() && emptySocialQuestions.isEmpty()) {
-                        createVisitGeneralQuestionSetData(generalQuestionSetData);
-                        createVisitHealthQuestionSetData(healthQuestionSetData);
-                        createVisitSocialQuestionSetData(socialQuestionSetData);
-                        finish();
-                    } else {
-                        emptyQuestions.addAll(emptyHealthQuestions);
-                        emptyQuestions.addAll(emptySocialQuestions);
-                        displayNumberEmpty(emptyQuestions);
-                    }
-                } else {
-                    if (emptyGeneralQuestions.isEmpty()
-                            && emptyHealthQuestions.isEmpty()
-                            && emptyEducationQuestions.isEmpty() && emptySocialQuestions.isEmpty()) {
-                        createVisitGeneralQuestionSetData(generalQuestionSetData);
-                        createVisitHealthQuestionSetData(healthQuestionSetData);
-                        createVisitEducationQuestionSetData(educationQuestionSetData);
-                        createVisitSocialQuestionSetData(socialQuestionSetData);
-                        finish();
-                    } else {
-                        emptyQuestions.addAll(emptyHealthQuestions);
-                        emptyQuestions.addAll(emptyEducationQuestions);
-                        emptyQuestions.addAll(emptySocialQuestions);
-                        displayNumberEmpty(emptyQuestions);
-                    }
-                }
+                handleEmptyRequiredQuestions();
             }
         });
     }
 
-    private void displayNumberEmpty(List<String> emptyQuestions) {
+        private void handleEmptyRequiredQuestions() {
+            final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
+            final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();
+            final List<String> emptyEducationQuestions = educationQuestionSetData.getEmptyQuestions();
+            final List<String> emptySocialQuestions = socialQuestionSetData.getEmptyQuestions();
+            final String purposeOfVisit = generalQuestionSetData.getPurposeOfVisit();
+
+            boolean isAllFilled = isAllRequiredQuestionsFilled(emptyGeneralQuestions,
+                    emptyHealthQuestions, emptyEducationQuestions, emptySocialQuestions);
+            if (isAllFilled) {
+                presenter.createVisitGeneralQuestionSetData(generalQuestionSetData);
+                if (generalQuestionSetData.isHealthChecked()) {
+                    presenter.createVisitHealthQuestionSetData(healthQuestionSetData);
+                }
+                if (generalQuestionSetData.isEducationChecked()) {
+                    presenter.createVisitEducationQuestionSetData(educationQuestionSetData);
+                }
+                if (generalQuestionSetData.isSocialChecked()) {
+                    presenter.createVisitSocialQuestionSetData(socialQuestionSetData);
+                }
+                finish();
+            } else {
+                if (!purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
+                    displayNumberEmpty(emptyGeneralQuestions);
+                } else {
+                    List<String> emptyQuestions = new ArrayList<>(emptyGeneralQuestions);
+                    if (generalQuestionSetData.isHealthChecked()) {
+                        emptyQuestions.addAll(emptyHealthQuestions);
+                        displayNumberEmpty(emptyQuestions);
+                    }
+                    if (generalQuestionSetData.isEducationChecked()) {
+                        emptyQuestions.addAll(emptyEducationQuestions);
+                    }
+                    if (generalQuestionSetData.isSocialChecked()) {
+                        emptyQuestions.addAll(emptySocialQuestions);
+                    }
+                    displayNumberEmpty(emptyQuestions);
+                }
+            }
+        }
+
+        private boolean isAllRequiredQuestionsFilled(List<String> emptyGeneralQuestions,
+                                                     List<String> emptyHealthQuestions,
+                                                     List<String> emptyEducationQuestions,
+                                                     List<String> emptySocialQuestions) {
+            boolean isAllFilled;
+
+            final String purposeOfVisit = generalQuestionSetData.getPurposeOfVisit();
+            final boolean isHealthChecked = generalQuestionSetData.isHealthChecked();
+            final boolean isEducationChecked = generalQuestionSetData.isEducationChecked();
+            final boolean isSocialChecked = generalQuestionSetData.isSocialChecked();
+
+            if (!purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
+                isAllFilled = emptyGeneralQuestions.isEmpty();
+            } else {
+                // This one-liner may obscure readability, but it is necessary to remove
+                // 'if' statements (improve performance).
+                // All is filled under the condition that the empty question lists are empty,
+                // it can depend on whether health, education, or social is considered required.
+                isAllFilled = emptyGeneralQuestions.isEmpty()
+                    && (!isHealthChecked || emptyHealthQuestions.isEmpty())
+                    && (!isEducationChecked || emptyEducationQuestions.isEmpty())
+                    && (!isSocialChecked || emptySocialQuestions.isEmpty());
+            }
+            return isAllFilled;
+        }
+
+        private void displayNumberEmpty(List<String> emptyQuestions) {
         TextView textViewRecordError = binding.newVisitRecordErrorTextView;
         TextView textViewQuestionNumbers = binding.newVisitQuestionNumbersTextView;
 
@@ -268,124 +233,6 @@ public class NewVisitActivity extends AppCompatActivity {
         }
         textViewQuestionNumbers.setText(questionNumbers.toString());
     }
-
-
-    private void createVisitGeneralQuestionSetData(
-            VisitGeneralQuestionSetData visitGeneralQuestionSetData) {
-
-        Call<VisitGeneralQuestionSetData> call = jsonPlaceHolderApi
-                .createVisitGeneralQuestionSetData(visitGeneralQuestionSetData);
-
-        call.enqueue(new Callback<VisitGeneralQuestionSetData>() {
-            @Override
-            public void onResponse(@NonNull Call<VisitGeneralQuestionSetData> call,
-                                   @NonNull Response<VisitGeneralQuestionSetData> response) {
-
-                if (!response.isSuccessful()) {
-                    Toast.makeText(NewVisitActivity.this,
-                            "General Question Record Fail", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                Toast.makeText(NewVisitActivity.this,
-                        "General Question Record Successful", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<VisitGeneralQuestionSetData> call,
-                                  @NonNull Throwable t) {
-
-            }
-        });
-    }
-
-
-    private void createVisitHealthQuestionSetData(
-            VisitHealthQuestionSetData visitHealthQuestionSetData) {
-
-        Call<VisitHealthQuestionSetData> call = jsonPlaceHolderApi
-                .createVisitHealthQuestionSetData(visitHealthQuestionSetData);
-
-        call.enqueue(new Callback<VisitHealthQuestionSetData>() {
-            @Override
-            public void onResponse(@NonNull Call<VisitHealthQuestionSetData> call,
-                                   @NonNull Response<VisitHealthQuestionSetData> response) {
-
-                if (!response.isSuccessful()) {
-                    Toast.makeText(NewVisitActivity.this,
-                            "Health Question Record Fail", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                Toast.makeText(NewVisitActivity.this,
-                        "Health Question Record Successful", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<VisitHealthQuestionSetData> call,
-                                  @NonNull Throwable t) {
-
-            }
-        });
-    }
-
-    private void createVisitEducationQuestionSetData(
-            VisitEducationQuestionSetData visitEducationQuestionSetData) {
-
-        Call<VisitEducationQuestionSetData> call = jsonPlaceHolderApi
-                .createVisitEducationQuestionSetData(visitEducationQuestionSetData);
-
-        call.enqueue(new Callback<VisitEducationQuestionSetData>() {
-            @Override
-            public void onResponse(@NonNull Call<VisitEducationQuestionSetData> call,
-                                   @NonNull Response<VisitEducationQuestionSetData> response) {
-
-                if (!response.isSuccessful()) {
-                    Toast.makeText(NewVisitActivity.this,
-                            "Education Question Record Fail", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                Toast.makeText(NewVisitActivity.this,
-                        "Education Question Record Successful", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<VisitEducationQuestionSetData> call,
-                                  @NonNull Throwable t) {
-
-            }
-        });
-    }
-
-    private void createVisitSocialQuestionSetData(VisitSocialQuestionSetData visitSocialQuestionSetData) {
-        Call<VisitSocialQuestionSetData> call = jsonPlaceHolderApi
-                .createVisitSocialQuestionSetData(visitSocialQuestionSetData);
-
-        call.enqueue(new Callback<VisitSocialQuestionSetData>() {
-            @Override
-            public void onResponse(@NonNull Call<VisitSocialQuestionSetData> call,
-                                   @NonNull Response<VisitSocialQuestionSetData> response) {
-
-                if (!response.isSuccessful()) {
-                    Toast.makeText(NewVisitActivity.this,
-                            "Social Question Record Fail", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                Toast.makeText(NewVisitActivity.this,
-                        "Social Question Record Successful", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<VisitSocialQuestionSetData> call,
-                                  @NonNull Throwable t) {
-
-            }
-        });
-    }
-
-
 
     private void setupBackButton() {
         buttonBack = binding.newVisitBackButton;
@@ -561,5 +408,10 @@ public class NewVisitActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.newVisit_questionFrame, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void setPresenter(NewVisitContract.Presenter presenter) {
+        this.presenter = presenter;
     }
 }

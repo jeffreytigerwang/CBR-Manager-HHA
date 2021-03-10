@@ -7,74 +7,170 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-
-    <EditText
-        android:id="@+id/registration_firstName"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:hint="First Name"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-    <EditText
-        android:id="@+id/registration_lastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:hint="Last Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registration_firstName" />
+            <EditText
+                android:id="@+id/registerDialog_firstNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/first_name"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp" />
 
-    <EditText
-        android:id="@+id/registration_phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:hint="Phone"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registration_lastName" />
+            <EditText
+                android:id="@+id/registerDialog_lastNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/last_name"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp" />
 
-    <EditText
-        android:id="@+id/registration_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registration_phone" />
+            <EditText
+                android:id="@+id/registerDialog_phoneNumberEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone_number"
+                android:layout_marginTop="10dp"
+                android:inputType="phone"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp" />
 
+            <TextView
+                android:id="@+id/registerDialog_selectZonesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_one_or_more_zones"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp" />
 
-    <EditText
-        android:id="@+id/registration_confirm_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:hint="Confirm Password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registration_password" />
+            <CheckBox
+                android:id="@+id/registerDialog_bidibidiZone1CheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/bidibidi_zone_1"
+                android:layout_marginTop="10dp" />
 
+            <CheckBox
+                android:id="@+id/registerDialog_bidibidiZone2CheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/bidibidi_zone_2"
+                android:layout_marginTop="10dp" />
+
+            <CheckBox
+                android:id="@+id/registerDialog_bidibidiZone3CheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/bidibidi_zone_3"
+                android:layout_marginTop="10dp" />
+
+            <CheckBox
+                android:id="@+id/registerDialog_bidibidiZone4CheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/bidibidi_zone_4"
+                android:layout_marginTop="10dp" />
+
+            <CheckBox
+                android:id="@+id/registerDialog_bidibidiZone5CheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/bidibidi_zone_5"
+                android:layout_marginTop="10dp" />
+
+            <CheckBox
+                android:id="@+id/registerDialog_palorinyaBasecampCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/palorinya_basecamp"
+                android:layout_marginTop="10dp" />
+
+            <CheckBox
+                android:id="@+id/registerDialog_palorinyaZone1CheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/palorinya_zone_1"
+                android:layout_marginTop="10dp" />
+
+            <CheckBox
+                android:id="@+id/registerDialog_palorinyaZone2CheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/palorinya_zone_2"
+                android:layout_marginTop="10dp" />
+
+            <CheckBox
+                android:id="@+id/registerDialog_palorinyaZone3CheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="@string/palorinya_zone_3"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/registerDialog_selectUserTypeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_type_of_user"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/admin"/>
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="@string/cbr_worker"/>
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="@string/clinician"/>
+
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/registerDialog_passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp" />
+
+            <EditText
+                android:id="@+id/registerDialog_confirmPasswordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edit_text_border"
+                android:padding="5dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

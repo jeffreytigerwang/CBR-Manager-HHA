@@ -127,11 +127,11 @@ public class RegisterDialog extends AppCompatDialogFragment {
         });
 
 
-        edt_firstName = view.findViewById(R.id.registration_firstName);
-        edt_lastName = view.findViewById(R.id.registration_lastName);
-        edt_phone = view.findViewById(R.id.registration_phone);
-        edt_password = view.findViewById(R.id.registration_password);
-        edt_confirm_password = view.findViewById(R.id.registration_confirm_password);
+        edt_firstName = view.findViewById(R.id.registerDialog_firstNameEditText);
+        edt_lastName = view.findViewById(R.id.registerDialog_lastNameEditText);
+        edt_phone = view.findViewById(R.id.registerDialog_phoneNumberEditText);
+        edt_password = view.findViewById(R.id.registerDialog_passwordEditText);
+        edt_confirm_password = view.findViewById(R.id.registerDialog_confirmPasswordEditText);
 
         return dialog;
     }

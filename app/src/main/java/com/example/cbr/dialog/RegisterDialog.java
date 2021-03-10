@@ -30,6 +30,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -121,15 +122,54 @@ public class RegisterDialog extends AppCompatDialogFragment {
                 String confirmPassword = edt_confirmPassword.getText().toString();
                 String userType = getUserType(userTypeId);
 
-                boolean bidibidiZone1Checked = cbx_bidibidiZone1.isChecked();
-                boolean bidibidiZone2Checked = cbx_bidibidiZone2.isChecked();
-                boolean bidibidiZone3Checked = cbx_bidibidiZone3.isChecked();
-                boolean bidibidiZone4Checked = cbx_bidibidiZone4.isChecked();
-                boolean bidibidiZone5Checked = cbx_bidibidiZone5.isChecked();
-                boolean palorinyaBasecampChecked = cbx_palorinyaBasecamp.isChecked();
-                boolean palorinyaZone1Checked = cbx_palorinyaZone1.isChecked();
-                boolean palorinyaZone2Checked = cbx_palorinyaZone2.isChecked();
-                boolean palorinyaZone3Checked = cbx_palorinyaZone3.isChecked();
+                ArrayList<String> zonesList = new ArrayList<String>();
+                String zones = "";
+
+                if (cbx_bidibidiZone1.isChecked()) {
+                    zonesList.add("Bidibidi Zone 1");
+                }
+
+                if (cbx_bidibidiZone2.isChecked()) {
+                    zonesList.add("Bidibidi Zone 2");
+                }
+
+                if (cbx_bidibidiZone3.isChecked()) {
+                    zonesList.add("Bidibidi Zone 3");
+                }
+
+                if (cbx_bidibidiZone4.isChecked()) {
+                    zonesList.add("Bidibidi Zone 4");
+                }
+
+                if (cbx_bidibidiZone5.isChecked()) {
+                    zonesList.add("Bidibidi Zone 5");
+                }
+
+                if (cbx_palorinyaBasecamp.isChecked()) {
+                    zonesList.add("Palorinya Basecamp");
+                }
+
+
+                if (cbx_palorinyaZone1.isChecked()) {
+                    zonesList.add("Palorinya Zone 1");
+                }
+
+
+                if (cbx_palorinyaZone2.isChecked()) {
+                    zonesList.add("Palorinya Zone 2");
+                }
+
+                if (cbx_palorinyaZone3.isChecked()) {
+                    zonesList.add("Palorinya Zone 3");
+                }
+
+                if (zonesList.size() > 0) {
+                    for (int i = 0; i < zonesList.size(); i++) {
+                        zones += zonesList.get(i);
+                        zones += ",";
+                    }
+                    zones = zones.substring(0, zones.length() -1);
+                }
 
                 if (password.equals(confirmPassword)) {
                     isPasswordMatch = true;

@@ -87,7 +87,7 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
         binding = ActivityNewVisitBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        getSupportActionBar().hide();
+        getSupportActionBar().hide(); // keep action bar for consistency
 
         setPresenter(new NewVisitPresenter(this, NewVisitActivity.this));
 
@@ -105,7 +105,7 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
 
         setWorkerName();
 
-        currentFragment = new VisitFirstQuestionSetFragment(
+        currentFragment = new VisitFirstQuestionSetFragment( // instead of managing manual backstack use base activity implimentation use back buton
                 binding,
                 generalQuestionSetData,
                 NewVisitActivity.this);
@@ -123,7 +123,7 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
 
     private void setWorkerName() {
         Users users = Users.getInstance();
-        final String workerName = users.getFirstName() + " " + users.getLastName();
+        final String workerName = users.getFirstName() + " " + users.getLastName(); // remove final
         generalQuestionSetData.setWorkerName(workerName);
     }
 
@@ -133,7 +133,7 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
         buttonRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                visitId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
+                visitId = ThreadLocalRandom.current().nextInt(100000000, 999999999); // when database is changed to have all the visit iD generation
 
                 generalQuestionSetData.setClientId(clientId);
                 generalQuestionSetData.setVisitId(visitId);
@@ -220,7 +220,7 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
             return isAllFilled;
         }
 
-        private void displayNumberEmpty(List<String> emptyQuestions) {
+    private void displayNumberEmpty(List<String> emptyQuestions) {
         TextView textViewRecordError = binding.newVisitRecordErrorTextView;
         TextView textViewQuestionNumbers = binding.newVisitQuestionNumbersTextView;
 
@@ -334,7 +334,7 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
                 saveFourthQuestionSetDesc();
             }
     }
-
+    // get the string instead of the edit text to encasulate better 468 to 534
     private void saveFourthQuestionSetDesc() {
         VisitFourthQuestionSetFragment fourthFragment = (VisitFourthQuestionSetFragment) currentFragment;
 

@@ -75,7 +75,7 @@
     <string name="cbr">CBR</string>
     <string name="disability_centre_referral">Disability centre referral</string>
     <string name="disability_centre_referral_follow_up">Disability centre referral follow up</string>
-    <string name="if_cbr">2. If CBR* (check all that apply):</string>
+    <string name="new_visit_question_2">2. Select Aspect* (check all that apply):</string>
     <string name="health">Health</string>
     <string name="education">Education</string>
     <string name="social">Social</string>

@@ -131,8 +131,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         currentFragment = new VisitFirstQuestionSetFragment(
                 binding,
-                generalQuestionSetData,
-                NewVisitActivity.this);
+                generalQuestionSetData);
         manageFragment(currentFragment);
         totalFragments += 1;
         pageNum = 1;
@@ -449,10 +448,9 @@ public class NewVisitActivity extends AppCompatActivity {
                                 socialQuestionSetData, clientInfo));
                         totalFragments += 1;
                     }
-                    if (generalQuestionSetData.getPurposeOfVisit().equalsIgnoreCase(Constants.CBR)
-                            && (!generalQuestionSetData.isHealthChecked()
+                    if (!generalQuestionSetData.isHealthChecked()
                             && !generalQuestionSetData.isEducationChecked()
-                            && !generalQuestionSetData.isSocialChecked())) {
+                            && !generalQuestionSetData.isSocialChecked()) {
                         Toast.makeText(NewVisitActivity.this,
                                 getString(R.string.question_2_not_filled),
                                 Toast.LENGTH_SHORT).show();

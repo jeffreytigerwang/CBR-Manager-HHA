@@ -1,6 +1,7 @@
 package com.example.cbr.fragments.newvisit;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,8 +18,19 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentVisitSecondQuestionSetBinding;
+import com.example.cbr.models.ClientHealthAspect;
+import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.VisitHealthQuestionSetData;
+import com.example.cbr.retrofit.JsonPlaceHolderApi;
+import com.example.cbr.retrofit.RetrofitInit;
 import com.example.cbr.util.Constants;
+
+import java.io.IOException;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /*
 * Fragment class is displayed if CBR is checked in question 1. and health is checked for question 2.
@@ -25,9 +38,11 @@ import com.example.cbr.util.Constants;
 
 public class VisitSecondQuestionSetFragment extends Fragment {
 
+    private static final String LOG_TAG = "VisitSecondQuestionSetFragment";
     private FragmentVisitSecondQuestionSetBinding binding;
 
     private final VisitHealthQuestionSetData dataContainer;
+    private final ClientInfo clientInfo;
 
     private EditText editTextWheelChair;
     private EditText editTextProsthetic;
@@ -49,9 +64,12 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     private CheckBox checkBoxAdvocacy;
     private CheckBox checkBoxEncouragement;
     private TextView question10;
+    private TextView initialGoal;
 
-    public VisitSecondQuestionSetFragment(VisitHealthQuestionSetData dataContainer) {
+    public VisitSecondQuestionSetFragment(VisitHealthQuestionSetData dataContainer,
+                                          ClientInfo clientInfo) {
         this.dataContainer = dataContainer;
+        this.clientInfo = clientInfo;
     }
 
     @Nullable
@@ -99,6 +117,17 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         editTextEncouragement.setText(dataContainer.getHealthEncouragementDesc());
         editTextHealthOutcome.setText(dataContainer.getHealthOutcomeDesc());
 
+        String goal = clientInfo.getSetGoalForHealth();
+        try {
+            if (!goal.isEmpty()) {
+                initialGoal.setText(goal);
+            } else {
+                initialGoal.setText(getResources().getString(R.string.na));
+            }
+        } catch (NullPointerException e) {
+            initialGoal.setText(getResources().getString(R.string.na));
+        }
+
         String goalStatus = dataContainer.getHealthGoalStatus();
         if (goalStatus.equalsIgnoreCase(Constants.CANCELLED)) {
             this.goalStatus.check(R.id.newVisit_healthCancelledRadioButton);
@@ -134,6 +163,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         checkBoxEncouragement = binding.newVisitHealthEncouragementCheckBox;
 
         question10 = binding.newVisitQ10TextView;
+        initialGoal = binding.newVisitHealthInitialGoalBoxTextView;
     }
 
     private void setupRadioGroup() {

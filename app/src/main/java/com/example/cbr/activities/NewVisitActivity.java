@@ -9,7 +9,6 @@
     import android.view.MenuItem;
     import android.view.View;
     import android.widget.Button;
-    import android.widget.EditText;
     import android.widget.TextView;
     import android.widget.Toast;
 
@@ -33,20 +32,12 @@
     import com.example.cbr.models.VisitGeneralQuestionSetData;
     import com.example.cbr.models.VisitHealthQuestionSetData;
     import com.example.cbr.models.VisitSocialQuestionSetData;
-    import com.example.cbr.retrofit.JsonPlaceHolderApi;
-    import com.example.cbr.retrofit.RetrofitInit;
-    import com.example.cbr.util.Constants;
 
     import java.util.ArrayList;
     import java.util.LinkedList;
     import java.util.List;
     import java.util.Stack;
     import java.util.concurrent.ThreadLocalRandom;
-
-    import retrofit2.Call;
-    import retrofit2.Callback;
-    import retrofit2.Response;
-    import retrofit2.Retrofit;
 
     /**
     * Activity to handle new visit questions, which holds four sets of questions (fragments)
@@ -159,7 +150,7 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
 
     private void setWorkerName() {
         Users users = Users.getInstance();
-        final String workerName = users.getFirstName() + " " + users.getLastName();
+        String workerName = users.getFirstName() + " " + users.getLastName();
         generalQuestionSetData.setWorkerName(workerName);
     }
 
@@ -176,14 +167,14 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
 
         if (itemId == R.id.newVisit_recordButton) {
             onFragmentSaveText(currentFragment);
-            handleEmptyRequiredQuestions();
+            handleRecord();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void handleEmptyRequiredQuestions() {
+    private void handleRecord() {
         final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
         final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();
         final List<String> emptyEducationQuestions = educationQuestionSetData.getEmptyQuestions();

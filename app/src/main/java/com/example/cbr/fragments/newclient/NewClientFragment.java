@@ -37,6 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static android.app.Activity.RESULT_OK;
 import static com.example.cbr.util.Constants.CAMERA_PERMISSION_CODE;
 import static com.example.cbr.util.Constants.CAMERA_REQUEST_CODE;
 
@@ -140,13 +141,11 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == CAMERA_REQUEST_CODE) {
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
             Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
             binding.newClientPhotoOfClientImageView.setImageBitmap(imageBitmap);
         }
     }
-
-
 
     private void setupRecordClientButton() {
         Button button = binding.newClientRecordClientButton;

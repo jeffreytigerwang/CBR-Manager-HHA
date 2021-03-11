@@ -61,7 +61,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
     /**
      *
      */
-    abstract void onDataChanged();
+    abstract void onDataChanged(int positionChanged);
 
     public List<QuestionDataContainer> getQuestionDataContainerList() {
         return questionDataContainerList;
@@ -232,7 +232,8 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     editTextViewHolderData.setUserInput(s.toString());
-                    onDataChanged();
+                    onDataChanged(getLayoutPosition());
+
                 }
 
                 @Override
@@ -280,7 +281,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                             radioGroupViewHolderData.setCheckedIndex(i);
                         }
                     }
-                    onDataChanged();
+                    onDataChanged(getLayoutPosition());
                 }
             });
         }
@@ -306,7 +307,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     spinnerViewHolderData.setSelectedItem(spinner.getSelectedItem().toString());
-                    onDataChanged();
+                    onDataChanged(getLayoutPosition());
                 }
             });
         }
@@ -327,7 +328,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     checkBoxViewContainer.setChecked(isChecked);
-                    onDataChanged();
+                    onDataChanged(getLayoutPosition());
                 }
             });
         }

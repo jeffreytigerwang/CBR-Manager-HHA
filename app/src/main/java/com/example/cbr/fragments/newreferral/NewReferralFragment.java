@@ -2,6 +2,7 @@ package com.example.cbr.fragments.newreferral;
 
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Sing
 import com.example.cbr.databinding.FragmentQuestionspageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.ReferralInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
 
     private ClientInfo clientInfo;
     ArrayList<QuestionsFragmentPagerAdapter.ViewPagerContainer> viewPagerContainerList = new ArrayList<>();
+    ReferralInfo referralInfo = new ReferralInfo();
 
     private static final String NEW_REFERRAL_PAGE_BUNDLE = "newReferralPageBundle";
 
@@ -78,15 +81,47 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
     }
 
     private void generateMainPage() {
-        ArrayList<QuestionDataContainer> mainPageList = new ArrayList<>();
+        final ArrayList<QuestionDataContainer> mainPageList = new ArrayList<>();
         mainPageList.add(new SingleTextViewContainer(getString(R.string.service_requirements_question), 20));
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.physiotherapy)));
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.prosthetic)));
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.orthotic)));
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.wheelchair)));
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.other)));
+        mainPageList.add(new EditTextViewContainer(getString(R.string.other_option), getString(R.string.other), InputType.TYPE_CLASS_TEXT));
 
-        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(mainPageList, true));
+        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+            @Override
+            public void onChanged(int positionChanged) {
+                if (mainPageList.get(positionChanged) instanceof CheckBoxViewContainer) {
+                    String serviceRequired = ((CheckBoxViewContainer) mainPageList.get(positionChanged)).getQuestionText();
+                    boolean isChecked = ((CheckBoxViewContainer) mainPageList.get(positionChanged)).isChecked();
+
+                    if (serviceRequired.equals(getString(R.string.physiotherapy))) {
+                        referralInfo.setRequirePhysiotherapy(isChecked);
+                    } else if (serviceRequired.equals(getString(R.string.prosthetic))) {
+                        referralInfo.setRequireProsthetic(isChecked);
+                    } else if (serviceRequired.equals(getString(R.string.orthotic))) {
+                        referralInfo.setRequireOrthotic(isChecked);
+                    } else if (serviceRequired.equals(getString(R.string.wheelchair))) {
+                        referralInfo.setRequireWheelchair(isChecked);
+                    } else if (serviceRequired.equals(getString(R.string.other))) {
+                        referralInfo.setRequireOther(isChecked);
+                    }
+                }
+
+                if (mainPageList.get(positionChanged) instanceof EditTextViewContainer) {
+                    String userInput = ((EditTextViewContainer) mainPageList.get(positionChanged)).getUserInput();
+                    String option = ((EditTextViewContainer) mainPageList.get(positionChanged)).getQuestionText();
+
+                    if (option.equals(getString(R.string.other_option))) {
+                        referralInfo.setOtherDescription(userInput);
+                    }
+                }
+            }
+        };
+
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(mainPageList, true, onViewPagerChangedListener));
     }
 
     private void generatePhysiotherapy() {
@@ -103,7 +138,14 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.other)));
         physioTherapyList.add(new EditTextViewContainer(getString(R.string.other_option), getString(R.string.other), InputType.TYPE_CLASS_TEXT));
 
-        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(physioTherapyList, true));
+        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+            @Override
+            public void onChanged(int positionChanged) {
+                Log.d("testing", "physio");
+            }
+        };
+
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(physioTherapyList, true, onViewPagerChangedListener));
     }
 
     private void generateProsthetic() {
@@ -114,7 +156,14 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         prostheticOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.below_knee_question), false, View.generateViewId()));
         prostheticList.add(new RadioGroupViewContainer(getString(R.string.prosthetic_question), true, prostheticOptions));
 
-        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(prostheticList, true));
+        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+            @Override
+            public void onChanged(int positionChanged) {
+
+            }
+        };
+
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(prostheticList, true, onViewPagerChangedListener));
     }
 
     private void generateOrthotic() {
@@ -125,7 +174,14 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         orthoticOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.below_elbow_question), false, View.generateViewId()));
         orthoticList.add(new RadioGroupViewContainer(getString(R.string.orthotic_question), true, orthoticOptions));
 
-        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(orthoticList, true));
+        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+            @Override
+            public void onChanged(int positionChanged) {
+
+            }
+        };
+
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(orthoticList, true, onViewPagerChangedListener));
     }
 
     private void generateWheelchair() {
@@ -147,7 +203,14 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         wheelchair.add(new RadioGroupViewContainer(getString(R.string.wheelchair_repair_question), true, wheelchairRepair));
         wheelchair.add(new SingleTextViewContainer(getString(R.string.wheelchair_centre), 15));
 
-        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(wheelchair, true));
+        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+            @Override
+            public void onChanged(int positionChanged) {
+
+            }
+        };
+
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(wheelchair, true, onViewPagerChangedListener));
     }
 
     @Override

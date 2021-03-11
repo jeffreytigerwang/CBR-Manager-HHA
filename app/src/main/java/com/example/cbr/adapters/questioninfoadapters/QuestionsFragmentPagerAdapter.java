@@ -9,6 +9,7 @@ import com.example.cbr.adapters.questioninfoadapters.BaseInfoAdapter;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
 import com.example.cbr.fragments.QuestionsPageFragment;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return QuestionsPageFragment.newInstance(totalFragmentsList.get(position).getViewHolderDataList());
+        return QuestionsPageFragment.newInstance(totalFragmentsList.get(position));
     }
 
     @Override
@@ -43,14 +44,16 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
 //
 //    }
 
-    public static class ViewPagerContainer {
+    public static class ViewPagerContainer implements Serializable {
         private final ArrayList<QuestionDataContainer> viewHolderDataList;
         private boolean isActive;
+        private OnViewPagerChangedListener onViewPagerChangedListener;
         private boolean isOnScreen;
 
-        public ViewPagerContainer(ArrayList<QuestionDataContainer> viewHolderDataList, boolean isActive) {
+        public ViewPagerContainer(ArrayList<QuestionDataContainer> viewHolderDataList, boolean isActive, OnViewPagerChangedListener onViewPagerChangedListener) {
             this.viewHolderDataList = viewHolderDataList;
             this.isActive = isActive;
+            this.onViewPagerChangedListener = onViewPagerChangedListener;
             isOnScreen = false;
         }
 
@@ -66,6 +69,10 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
             isActive = active;
         }
 
+        public OnViewPagerChangedListener getOnViewPagerChangedListener() {
+            return onViewPagerChangedListener;
+        }
+
         public boolean isOnScreen() {
             return isOnScreen;
         }
@@ -73,5 +80,9 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
         public void setOnScreen(boolean onScreen) {
             isOnScreen = onScreen;
         }
+    }
+
+    public interface OnViewPagerChangedListener {
+        void onChanged(int positionChanged);
     }
 }

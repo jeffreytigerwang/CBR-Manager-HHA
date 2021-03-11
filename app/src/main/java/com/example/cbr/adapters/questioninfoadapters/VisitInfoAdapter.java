@@ -16,7 +16,7 @@ public class VisitInfoAdapter extends BaseInfoAdapter {
     }
 
     @Override
-    void onDataChanged() {
+    void onDataChanged(int positionChanged) {
         // no items that require input from user
     }
 }

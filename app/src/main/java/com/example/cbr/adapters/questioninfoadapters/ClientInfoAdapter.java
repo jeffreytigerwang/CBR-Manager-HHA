@@ -18,7 +18,7 @@ public class ClientInfoAdapter extends BaseInfoAdapter {
     }
 
     @Override
-    public void onDataChanged() {
+    public void onDataChanged(int positionChanged) {
         // no items that require input from user
     }
 }

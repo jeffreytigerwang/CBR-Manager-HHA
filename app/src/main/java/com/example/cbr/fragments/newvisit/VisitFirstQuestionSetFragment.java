@@ -30,7 +30,6 @@ public class VisitFirstQuestionSetFragment extends Fragment {
 
     private static final String LOG_TAG = "FirstQuestionSetFragment";
 
-    private final ActivityNewVisitBinding containerBinding;
     private FragmentVisitFirstQuestionSetBinding binding;
 
     private final VisitGeneralQuestionSetData dataContainer;
@@ -48,10 +47,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     private RadioGroup questionOne;
     private Spinner spinnerLocation;
 
-    public VisitFirstQuestionSetFragment(
-            ActivityNewVisitBinding containerBinding,
-            VisitGeneralQuestionSetData dataContainer) {
-        this.containerBinding = containerBinding;
+    public VisitFirstQuestionSetFragment(VisitGeneralQuestionSetData dataContainer) {
         this.dataContainer = dataContainer;
     }
 

@@ -118,9 +118,7 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
         setVisitClientId();
         setWorkerName();
 
-        currentFragment = new VisitFirstQuestionSetFragment(
-                binding,
-                generalQuestionSetData);
+        currentFragment = new VisitFirstQuestionSetFragment(generalQuestionSetData);
         manageFragment(currentFragment);
         totalFragments += 1;
         pageNum = 1;

@@ -188,7 +188,6 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
         final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();
         final List<String> emptyEducationQuestions = educationQuestionSetData.getEmptyQuestions();
         final List<String> emptySocialQuestions = socialQuestionSetData.getEmptyQuestions();
-        final String purposeOfVisit = generalQuestionSetData.getPurposeOfVisit();
 
         boolean isAllFilled = isAllRequiredQuestionsFilled(emptyGeneralQuestions,
                 emptyHealthQuestions, emptyEducationQuestions, emptySocialQuestions);
@@ -205,22 +204,18 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
             }
             finish();
         } else {
-            if (!purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
-                displayNumberEmpty(emptyGeneralQuestions);
-            } else {
-                List<String> emptyQuestions = new ArrayList<>(emptyGeneralQuestions);
-                if (generalQuestionSetData.isHealthChecked()) {
-                    emptyQuestions.addAll(emptyHealthQuestions);
-                    displayNumberEmpty(emptyQuestions);
-                }
-                if (generalQuestionSetData.isEducationChecked()) {
-                    emptyQuestions.addAll(emptyEducationQuestions);
-                }
-                if (generalQuestionSetData.isSocialChecked()) {
-                    emptyQuestions.addAll(emptySocialQuestions);
-                }
+            List<String> emptyQuestions = new ArrayList<>(emptyGeneralQuestions);
+            if (generalQuestionSetData.isHealthChecked()) {
+                emptyQuestions.addAll(emptyHealthQuestions);
                 displayNumberEmpty(emptyQuestions);
             }
+            if (generalQuestionSetData.isEducationChecked()) {
+                emptyQuestions.addAll(emptyEducationQuestions);
+            }
+            if (generalQuestionSetData.isSocialChecked()) {
+                emptyQuestions.addAll(emptySocialQuestions);
+            }
+            displayNumberEmpty(emptyQuestions);
         }
     }
 

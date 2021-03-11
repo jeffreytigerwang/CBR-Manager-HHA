@@ -8,9 +8,9 @@
 
     <CheckBox
         android:id="@+id/recyclerview_checkBox"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="30dp"
         android:textColor="@color/black"
         android:fontFamily="sans-serif"
         android:textSize="15sp"

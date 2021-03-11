@@ -3,9 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/cbrLightGreen">
 
+    <TextView
+        android:id="@+id/questionsPage_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/white"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:text="@string/new_referral"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/questionsPage_cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0" />
+
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/questionsPage_cardView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="75dp"
@@ -24,14 +41,14 @@
                 android:id="@+id/questionsPage_viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="@color/lightGrey"
+                android:layout_marginVertical="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/questionsPage_negative" />
+                app:layout_constraintBottom_toTopOf="@id/questionsPage_negativeButton" />
 
             <Button
-                android:id="@+id/questionsPage_negative"
+                android:id="@+id/questionsPage_negativeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -42,8 +59,18 @@
                 app:layout_constraintTop_toBottomOf="@id/questionsPage_viewPager"
                 app:layout_constraintHorizontal_bias="0.0"/>
 
+            <TextView
+                android:id="@+id/questionsPage_pageNumberText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/questionsPage_negativeButton"
+                app:layout_constraintEnd_toStartOf="@id/questionsPage_positiveButton"
+                app:layout_constraintTop_toBottomOf="@id/questionsPage_viewPager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="Page 1 of 2"/>
+
             <Button
-                android:id="@+id/questionsPage_positive"
+                android:id="@+id/questionsPage_positiveButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"

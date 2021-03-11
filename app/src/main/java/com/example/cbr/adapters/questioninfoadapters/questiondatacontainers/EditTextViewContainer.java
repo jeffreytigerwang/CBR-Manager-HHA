@@ -7,7 +7,7 @@ public class EditTextViewContainer extends QuestionDataContainer {
 
     private String userInput = "";
 
-    EditTextViewContainer(String questionText, String hintText, int inputType) {
+    public EditTextViewContainer(String questionText, String hintText, int inputType) {
         super(EDIT_TEXT_VIEW_TYPE);
         this.questionText = questionText;
         this.hintText = hintText;

@@ -38,7 +38,10 @@
     <string name="worker_name">Worker name</string>
 
     <!-- New referral -->
+    <string name="new_referral">New Referral</string>
     <string name="service_requirements">What service does the client require?</string>
+    <string name="patient_conditions">What condition does the client have?</string>
+    <string name="other_option">If other, please describe:</string>
 
     <!-- New client -->
     <string name="male">Male</string>

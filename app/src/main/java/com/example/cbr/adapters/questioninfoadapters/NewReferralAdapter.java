@@ -1,6 +1,7 @@
 package com.example.cbr.adapters.questioninfoadapters;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
 
@@ -15,6 +16,6 @@ public class NewReferralAdapter extends BaseInfoAdapter {
     @Override
     void onDataChanged() {
         List<QuestionDataContainer> questionDataContainerList = getQuestionDataContainerList();
-
+        Log.d("testing", "yep");
     }
 }

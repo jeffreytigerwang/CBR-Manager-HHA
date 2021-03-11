@@ -104,7 +104,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     }
 
     private void setupSpinner() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 activity,
                 android.R.layout.simple_spinner_item,
                 getResources().getStringArray(R.array.zone_locations_array)
@@ -147,26 +147,24 @@ public class VisitFirstQuestionSetFragment extends Fragment {
 
                     int unlockedColor = ContextCompat.getColor(parentContext, R.color.black);
                     toggleQuestionTwo(unlockedColor, true);
-                    toggleRecordButton(View.VISIBLE, View.GONE);
+                    toggleNextButton(View.VISIBLE);
 
                 } else if (checkedId == R.id.newVisit_DCRradioButton) {
                     dataContainer.setPurposeOfVisit(Constants.DCR);
-                    toggleRecordButton(View.GONE, View.VISIBLE);
+                    toggleNextButton(View.GONE);
 
                 } else if (checkedId == R.id.newVisit_DCRFURadioButton) {
                     dataContainer.setPurposeOfVisit(Constants.DCRFU);
-                    toggleRecordButton(View.GONE, View.VISIBLE);
+                    toggleNextButton(View.GONE);
                 }
             }
         });
     }
 
-    private void toggleRecordButton(int nextVisibility, int recordVisibility) {
+    private void toggleNextButton(int nextVisibility) {
         Button next = containerBinding.newVisitNextButton;
-        Button record = containerBinding.newVisitRecordButton;
 
         next.setVisibility(nextVisibility);
-        record.setVisibility(recordVisibility);
     }
 
 

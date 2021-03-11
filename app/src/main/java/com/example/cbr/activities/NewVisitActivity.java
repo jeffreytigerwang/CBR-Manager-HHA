@@ -5,6 +5,8 @@
     import android.os.Bundle;
     import android.os.StrictMode;
     import android.util.Log;
+    import android.view.Menu;
+    import android.view.MenuItem;
     import android.view.View;
     import android.widget.Button;
     import android.widget.EditText;
@@ -70,7 +72,6 @@ public class NewVisitActivity extends AppCompatActivity {
     private LinkedList<Fragment> nextFragments;
     private Stack<Fragment> prevFragments;
     private Button buttonBack;
-    private Button buttonRecord;
     private Button buttonNext;
     private byte totalFragments;
     private byte pageNum;
@@ -141,7 +142,6 @@ public class NewVisitActivity extends AppCompatActivity {
 
         setupNextButton();
         setupBackButton();
-        setupRecordButton();
     }
 
     private void setVisitClientId() {
@@ -171,111 +171,119 @@ public class NewVisitActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    private void setupRecordButton() {
-        buttonRecord = binding.newVisitRecordButton;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_bar_record, menu);
+        return true;
+    }
 
-        buttonRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveSession(currentFragment);
-                final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
-                final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();
-                final List<String> emptyEducationQuestions = educationQuestionSetData.getEmptyQuestions();
-                final List<String> emptySocialQuestions = socialQuestionSetData.getEmptyQuestions();
-                final List<String> emptyQuestions = new ArrayList<>(emptyGeneralQuestions);
-                final String purposeOfVisit = generalQuestionSetData.getPurposeOfVisit();
-                final boolean isHealthChecked = generalQuestionSetData.isHealthChecked();
-                final boolean isEducationChecked = generalQuestionSetData.isEducationChecked();
-                final boolean isSocialChecked = generalQuestionSetData.isSocialChecked();
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Handle action bar item clicks here
+        int itemId = item.getItemId();
 
-                if (!purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
-                    if (emptyGeneralQuestions.isEmpty()) {
-                        createVisitGeneralQuestionSetData(generalQuestionSetData);
-                        finish();
-                    } else {
-                        displayNumberEmpty(emptyGeneralQuestions);
-                    }
-                } else if (isHealthChecked && !isEducationChecked && !isSocialChecked) {
-                    if (emptyGeneralQuestions.isEmpty() && emptyHealthQuestions.isEmpty()) {
-                        createVisitGeneralQuestionSetData(generalQuestionSetData);
-                        createVisitHealthQuestionSetData(healthQuestionSetData);
-                        finish();
-                    } else {
-                        emptyQuestions.addAll(emptyHealthQuestions);
-                        displayNumberEmpty(emptyQuestions);
-                    }
-                } else if (!isHealthChecked && isEducationChecked && !isSocialChecked) {
-                    if (emptyGeneralQuestions.isEmpty() && emptyEducationQuestions.isEmpty()) {
-                        createVisitGeneralQuestionSetData(generalQuestionSetData);
-                        createVisitEducationQuestionSetData(educationQuestionSetData);
-                        finish();
-                    } else {
-                        emptyQuestions.addAll(emptyEducationQuestions);
-                        displayNumberEmpty(emptyQuestions);
-                    }
-                } else if (!isHealthChecked && !isEducationChecked && isSocialChecked) {
-                    if (emptyGeneralQuestions.isEmpty() && emptySocialQuestions.isEmpty()) {
-                        createVisitGeneralQuestionSetData(generalQuestionSetData);
-                        createVisitSocialQuestionSetData(socialQuestionSetData);
-                        finish();
-                    } else {
-                        emptyQuestions.addAll(emptySocialQuestions);
-                        displayNumberEmpty(emptyQuestions);
-                    }
-                } else if (isHealthChecked && isEducationChecked && !isSocialChecked) {
-                    if (emptyGeneralQuestions.isEmpty()
-                            && emptyHealthQuestions.isEmpty() && emptyEducationQuestions.isEmpty()) {
-                        createVisitGeneralQuestionSetData(generalQuestionSetData);
-                        createVisitHealthQuestionSetData(healthQuestionSetData);
-                        createVisitEducationQuestionSetData(educationQuestionSetData);
-                        finish();
-                    } else {
-                        emptyQuestions.addAll(emptyHealthQuestions);
-                        emptyQuestions.addAll(emptyEducationQuestions);
-                        displayNumberEmpty(emptyQuestions);
-                    }
-                } else if (!isHealthChecked && isEducationChecked) {
-                    if (emptyGeneralQuestions.isEmpty()
-                            && emptySocialQuestions.isEmpty() && emptyEducationQuestions.isEmpty()) {
-                        createVisitGeneralQuestionSetData(generalQuestionSetData);
-                        createVisitEducationQuestionSetData(educationQuestionSetData);
-                        createVisitSocialQuestionSetData(socialQuestionSetData);
-                        finish();
-                    } else {
-                        emptyQuestions.addAll(emptyEducationQuestions);
-                        emptyQuestions.addAll(emptySocialQuestions);
-                        displayNumberEmpty(emptyQuestions);
-                    }
-                } else if (isHealthChecked && !isEducationChecked) {
-                    if (emptyGeneralQuestions.isEmpty()
-                            && emptyHealthQuestions.isEmpty() && emptySocialQuestions.isEmpty()) {
-                        createVisitGeneralQuestionSetData(generalQuestionSetData);
-                        createVisitHealthQuestionSetData(healthQuestionSetData);
-                        createVisitSocialQuestionSetData(socialQuestionSetData);
-                        finish();
-                    } else {
-                        emptyQuestions.addAll(emptyHealthQuestions);
-                        emptyQuestions.addAll(emptySocialQuestions);
-                        displayNumberEmpty(emptyQuestions);
-                    }
+        if (itemId == R.id.newVisit_recordButton) {
+            saveSession(currentFragment);
+            final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
+            final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();
+            final List<String> emptyEducationQuestions = educationQuestionSetData.getEmptyQuestions();
+            final List<String> emptySocialQuestions = socialQuestionSetData.getEmptyQuestions();
+            final List<String> emptyQuestions = new ArrayList<>(emptyGeneralQuestions);
+            final String purposeOfVisit = generalQuestionSetData.getPurposeOfVisit();
+            final boolean isHealthChecked = generalQuestionSetData.isHealthChecked();
+            final boolean isEducationChecked = generalQuestionSetData.isEducationChecked();
+            final boolean isSocialChecked = generalQuestionSetData.isSocialChecked();
+
+            if (!purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
+                if (emptyGeneralQuestions.isEmpty()) {
+                    createVisitGeneralQuestionSetData(generalQuestionSetData);
+                    finish();
                 } else {
-                    if (emptyGeneralQuestions.isEmpty()
-                            && emptyHealthQuestions.isEmpty()
-                            && emptyEducationQuestions.isEmpty() && emptySocialQuestions.isEmpty()) {
-                        createVisitGeneralQuestionSetData(generalQuestionSetData);
-                        createVisitHealthQuestionSetData(healthQuestionSetData);
-                        createVisitEducationQuestionSetData(educationQuestionSetData);
-                        createVisitSocialQuestionSetData(socialQuestionSetData);
-                        finish();
-                    } else {
-                        emptyQuestions.addAll(emptyHealthQuestions);
-                        emptyQuestions.addAll(emptyEducationQuestions);
-                        emptyQuestions.addAll(emptySocialQuestions);
-                        displayNumberEmpty(emptyQuestions);
-                    }
+                    displayNumberEmpty(emptyGeneralQuestions);
+                }
+            } else if (isHealthChecked && !isEducationChecked && !isSocialChecked) {
+                if (emptyGeneralQuestions.isEmpty() && emptyHealthQuestions.isEmpty()) {
+                    createVisitGeneralQuestionSetData(generalQuestionSetData);
+                    createVisitHealthQuestionSetData(healthQuestionSetData);
+                    finish();
+                } else {
+                    emptyQuestions.addAll(emptyHealthQuestions);
+                    displayNumberEmpty(emptyQuestions);
+                }
+            } else if (!isHealthChecked && isEducationChecked && !isSocialChecked) {
+                if (emptyGeneralQuestions.isEmpty() && emptyEducationQuestions.isEmpty()) {
+                    createVisitGeneralQuestionSetData(generalQuestionSetData);
+                    createVisitEducationQuestionSetData(educationQuestionSetData);
+                    finish();
+                } else {
+                    emptyQuestions.addAll(emptyEducationQuestions);
+                    displayNumberEmpty(emptyQuestions);
+                }
+            } else if (!isHealthChecked && !isEducationChecked && isSocialChecked) {
+                if (emptyGeneralQuestions.isEmpty() && emptySocialQuestions.isEmpty()) {
+                    createVisitGeneralQuestionSetData(generalQuestionSetData);
+                    createVisitSocialQuestionSetData(socialQuestionSetData);
+                    finish();
+                } else {
+                    emptyQuestions.addAll(emptySocialQuestions);
+                    displayNumberEmpty(emptyQuestions);
+                }
+            } else if (isHealthChecked && isEducationChecked && !isSocialChecked) {
+                if (emptyGeneralQuestions.isEmpty()
+                        && emptyHealthQuestions.isEmpty() && emptyEducationQuestions.isEmpty()) {
+                    createVisitGeneralQuestionSetData(generalQuestionSetData);
+                    createVisitHealthQuestionSetData(healthQuestionSetData);
+                    createVisitEducationQuestionSetData(educationQuestionSetData);
+                    finish();
+                } else {
+                    emptyQuestions.addAll(emptyHealthQuestions);
+                    emptyQuestions.addAll(emptyEducationQuestions);
+                    displayNumberEmpty(emptyQuestions);
+                }
+            } else if (!isHealthChecked && isEducationChecked) {
+                if (emptyGeneralQuestions.isEmpty()
+                        && emptySocialQuestions.isEmpty() && emptyEducationQuestions.isEmpty()) {
+                    createVisitGeneralQuestionSetData(generalQuestionSetData);
+                    createVisitEducationQuestionSetData(educationQuestionSetData);
+                    createVisitSocialQuestionSetData(socialQuestionSetData);
+                    finish();
+                } else {
+                    emptyQuestions.addAll(emptyEducationQuestions);
+                    emptyQuestions.addAll(emptySocialQuestions);
+                    displayNumberEmpty(emptyQuestions);
+                }
+            } else if (isHealthChecked && !isEducationChecked) {
+                if (emptyGeneralQuestions.isEmpty()
+                        && emptyHealthQuestions.isEmpty() && emptySocialQuestions.isEmpty()) {
+                    createVisitGeneralQuestionSetData(generalQuestionSetData);
+                    createVisitHealthQuestionSetData(healthQuestionSetData);
+                    createVisitSocialQuestionSetData(socialQuestionSetData);
+                    finish();
+                } else {
+                    emptyQuestions.addAll(emptyHealthQuestions);
+                    emptyQuestions.addAll(emptySocialQuestions);
+                    displayNumberEmpty(emptyQuestions);
+                }
+            } else {
+                if (emptyGeneralQuestions.isEmpty()
+                        && emptyHealthQuestions.isEmpty()
+                        && emptyEducationQuestions.isEmpty() && emptySocialQuestions.isEmpty()) {
+                    createVisitGeneralQuestionSetData(generalQuestionSetData);
+                    createVisitHealthQuestionSetData(healthQuestionSetData);
+                    createVisitEducationQuestionSetData(educationQuestionSetData);
+                    createVisitSocialQuestionSetData(socialQuestionSetData);
+                    finish();
+                } else {
+                    emptyQuestions.addAll(emptyHealthQuestions);
+                    emptyQuestions.addAll(emptyEducationQuestions);
+                    emptyQuestions.addAll(emptySocialQuestions);
+                    displayNumberEmpty(emptyQuestions);
                 }
             }
-        });
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void displayNumberEmpty(List<String> emptyQuestions) {
@@ -310,7 +318,7 @@ public class NewVisitActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(@NonNull Call<VisitGeneralQuestionSetData> call, Throwable t) {
+            public void onFailure(@NonNull Call<VisitGeneralQuestionSetData> call, @NonNull Throwable t) {
 
             }
         });
@@ -407,7 +415,6 @@ public class NewVisitActivity extends AppCompatActivity {
 
                 if (pageNum < totalFragments) {
                     Log.d(LOG_TAG, "pagNum: " + pageNum + " totalFragments: " + totalFragments);
-                    buttonRecord.setVisibility(View.GONE);
                     buttonNext.setVisibility(View.VISIBLE);
                 }
             }
@@ -468,7 +475,6 @@ public class NewVisitActivity extends AppCompatActivity {
                     buttonBack.setVisibility(View.VISIBLE);
                 }
                 if (pageNum == totalFragments && pageNum != 1) {
-                    buttonRecord.setVisibility(View.VISIBLE);
                     buttonNext.setVisibility(View.GONE);
                 }
             }

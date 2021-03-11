@@ -137,23 +137,15 @@ public class VisitFirstQuestionSetFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.newVisit_CBRRadioButton) {
                     dataContainer.setPurposeOfVisit(Constants.CBR);
-                    toggleNextButton(View.VISIBLE);
 
                 } else if (checkedId == R.id.newVisit_DCRradioButton) {
                     dataContainer.setPurposeOfVisit(Constants.DCR);
-                    toggleNextButton(View.GONE);
 
                 } else if (checkedId == R.id.newVisit_DCRFURadioButton) {
                     dataContainer.setPurposeOfVisit(Constants.DCRFU);
-                    toggleNextButton(View.GONE);
                 }
             }
         });
-    }
-
-    private void toggleNextButton(int nextVisibility) {
-        Button next = containerBinding.newVisitNextButton;
-        next.setVisibility(nextVisibility);
     }
 
     public String getDate() {

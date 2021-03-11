@@ -70,6 +70,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
     }
 
     private void setupClientInfoCard() {
+        binding.clientPageGenderText.setText(getString(R.string.gender_clientpage, clientInfo.getGender()));
         binding.clientPageNameText.setText(clientInfo.getFullName());
         binding.clientPageLocationText.setText(clientInfo.getZoneLocation());
         binding.clientPageAgeText.setText(getString(R.string.age_clientpage, clientInfo.getAge().toString()));

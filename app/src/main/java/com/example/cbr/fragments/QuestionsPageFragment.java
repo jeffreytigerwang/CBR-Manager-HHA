@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.example.cbr.adapters.questioninfoadapters.BaseInfoAdapter;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
 import com.example.cbr.databinding.RecyclerviewTemplateBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 
@@ -29,7 +30,7 @@ public class QuestionsPageFragment extends BaseFragment {
         binding = null;
     }
 
-    public static QuestionsPageFragment newInstance(List<BaseInfoAdapter.QuestionDataContainer> viewHolderDataList) {
+    public static QuestionsPageFragment newInstance(List<QuestionDataContainer> viewHolderDataList) {
         Bundle bundle = new Bundle();
 
         QuestionsPageFragment questionsPageFragment = new QuestionsPageFragment();

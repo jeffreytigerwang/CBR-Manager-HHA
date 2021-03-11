@@ -1,5 +1,9 @@
 package com.example.cbr.util;
 
+import android.content.res.Resources;
+
+import com.example.cbr.R;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -15,5 +19,15 @@ public class StringsUtil {
     public static String dateToUKFormat(Date date) {
         SimpleDateFormat format = new SimpleDateFormat(UK_PATTERN, Locale.UK);
         return format.format(date);
+    }
+
+    public static String boolToText(Boolean bool) {
+        if (bool == null) {
+            return "N/A";
+        } else if (bool) {
+            return "Yes";
+        } else {
+            return "No";
+        }
     }
 }

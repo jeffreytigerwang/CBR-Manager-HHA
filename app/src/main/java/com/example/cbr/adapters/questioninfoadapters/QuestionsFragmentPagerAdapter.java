@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.cbr.adapters.questioninfoadapters.BaseInfoAdapter;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,40 +29,31 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        int numActive = 0;
-        for (ViewPagerContainer viewPagerContainer : totalFragmentsList) {
-
-        }
+        return null;
     }
 
     @Override
     public int getItemCount() {
-        int i = 0;
-        for (ViewPagerContainer viewPagerContainer: totalFragmentsList) {
-            if (viewPagerContainer.isActive()) {
-                i++;
-            }
-        }
-        return i;
+        return totalFragmentsList.size();
     }
 
-    @Override
-    public long getItemId(int position) {
-
-    }
+//    @Override
+//    public long getItemId(int position) {
+//
+//    }
 
     class ViewPagerContainer {
-        private final List<BaseInfoAdapter.QuestionDataContainer> viewHolderDataList;
+        private final List<QuestionDataContainer> viewHolderDataList;
         private boolean isActive;
         private boolean isOnScreen;
 
-        public ViewPagerContainer(List<BaseInfoAdapter.QuestionDataContainer> viewHolderDataList, boolean isActive) {
+        public ViewPagerContainer(List<QuestionDataContainer> viewHolderDataList, boolean isActive) {
             this.viewHolderDataList = viewHolderDataList;
             this.isActive = isActive;
             isOnScreen = false;
         }
 
-        public List<BaseInfoAdapter.QuestionDataContainer> getViewHolderDataList() {
+        public List<QuestionDataContainer> getViewHolderDataList() {
             return viewHolderDataList;
         }
 

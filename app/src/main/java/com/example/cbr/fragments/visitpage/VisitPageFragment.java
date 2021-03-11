@@ -9,11 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cbr.R;
 import com.example.cbr.adapters.questioninfoadapters.VisitInfoAdapter;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DividerViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DoubleTextViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.HeaderViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
 import com.example.cbr.databinding.FragmentVisitpageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VisitPageFragment extends BaseFragment implements VisitPageContract.View {
@@ -51,8 +57,27 @@ public class VisitPageFragment extends BaseFragment implements VisitPageContract
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        visitInfoAdapter = new VisitInfoAdapter(getActivity(), visitInfo);
+        visitInfoAdapter = new VisitInfoAdapter(getActivity(), generateDataContainerList());
         recyclerView.setAdapter(visitInfoAdapter);
+    }
+
+    private List<QuestionDataContainer> generateDataContainerList() {
+        List<QuestionDataContainer> questionDataContainerList = new ArrayList<>();
+
+        questionDataContainerList.add(new HeaderViewContainer(getString(R.string.visit_details)));
+
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.client_id), visitInfo.getClientId().toString()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.visit_id), visitInfo.getVisitId().toString()));
+
+        questionDataContainerList.add(new DividerViewContainer());
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.visit_purpose), visitInfo.getPurposeOfVisit()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.visit_date), visitInfo.getDateOfVisit().toString()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.worker_name), visitInfo.getWorkerName()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.gps_location), visitInfo.getVisitGpsLocation()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.village_number), visitInfo.getVillageNumber()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.zone_location), visitInfo.getVisitZoneLocation()));
+
+        return questionDataContainerList;
     }
 
     @Override

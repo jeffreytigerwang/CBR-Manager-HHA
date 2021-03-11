@@ -8,7 +8,7 @@ public class RadioGroupViewContainer extends QuestionDataContainer {
     private final List<RadioGroupListItem> descriptionList;
     private int checkedIndex;
 
-    RadioGroupViewContainer(String questionText, boolean isVertical, List<RadioGroupListItem> descriptionList) {
+    public RadioGroupViewContainer(String questionText, boolean isVertical, List<RadioGroupListItem> descriptionList) {
         super(RADIO_GROUP_VIEW_TYPE);
         this.questionText = questionText;
         this.isVertical = isVertical;

@@ -39,9 +39,20 @@
 
     <!-- New referral -->
     <string name="new_referral">New Referral</string>
-    <string name="service_requirements">What service does the client require?</string>
-    <string name="patient_conditions">What condition does the client have?</string>
+    <string name="service_requirements_question">What service does the client require?</string>
+    <string name="patient_conditions_question">What condition does the client have?</string>
     <string name="other_option">If other, please describe:</string>
+    <string name="prosthetic_question">Is the injury below or above the knee?</string>
+    <string name="orthotic_question">Is the injury below or above the elbow?</string>
+    <string name="above_knee_question">Above the knee</string>
+    <string name="below_knee_question">Below the knee</string>
+    <string name="above_elbow_question">Above the elbow</string>
+    <string name="below_elbow_question">Below the elbow</string>
+    <string name="wheelchair_expertise_question">Is the user a basic or intermediate user?</string>
+    <string name="hip_width_question">What is the client\'s in inches?</string>
+    <string name="existing_wheelchair_question">Do they have an existing wheelchair?</string>
+    <string name="wheelchair_repair_question">Can the existing wheelchair be repaired?</string>
+    <string name="wheelchair_centre">If yes, please bring the wheelchair to the centre</string>
 
     <!-- New client -->
     <string name="male">Male</string>

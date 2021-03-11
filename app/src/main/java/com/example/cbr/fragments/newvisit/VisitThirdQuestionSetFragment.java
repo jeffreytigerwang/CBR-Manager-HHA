@@ -175,23 +175,23 @@ public class VisitThirdQuestionSetFragment extends Fragment {
         });
     }
 
-    public EditText getEditTextAdvice() {
-        return editTextAdvice;
+    public String getEducationAdvice() {
+        return editTextAdvice.getText().toString();
     }
 
-    public EditText getEditTextAdvocacy() {
-        return editTextAdvocacy;
+    public String getEducationAdvocacy() {
+        return editTextAdvocacy.getText().toString();
     }
 
-    public EditText getEditTextRef() {
-        return editTextRef;
+    public String getEducationRef() {
+        return editTextRef.getText().toString();
     }
 
-    public EditText getEditTextEncouragement() {
-        return editTextEncouragement;
+    public String getEducationEncouragement() {
+        return editTextEncouragement.getText().toString();
     }
 
-    public EditText getEditTextEducationOutcome() {
-        return editTextEducationOutcome;
+    public String getEducationEducationOutcome() {
+        return editTextEducationOutcome.getText().toString();
     }
 }

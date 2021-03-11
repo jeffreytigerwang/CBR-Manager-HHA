@@ -243,39 +243,39 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         }
     }
 
-    public EditText getEditTextWheelChair() {
-        return editTextWheelChair;
+    public String getHealthWheelChair() {
+        return editTextWheelChair.getText().toString();
     }
 
-    public EditText getEditTextProsthetic() {
-        return editTextProsthetic;
+    public String getHealthProsthetic() {
+        return editTextProsthetic.getText().toString();
     }
 
-    public EditText getEditTextOrthotic() {
-        return editTextOrthotic;
+    public String getHealthOrthotic() {
+        return editTextOrthotic.getText().toString();
     }
 
-    public EditText getEditTextWR() {
-        return editTextWR;
+    public String getHealthWR() {
+        return editTextWR.getText().toString();
     }
 
-    public EditText getEditTextReferralToHC() {
-        return editTextReferralToHC;
+    public String getHealthReferralToHC() {
+        return editTextReferralToHC.getText().toString();
     }
 
-    public EditText getEditTextAdvice() {
-        return editTextAdvice;
+    public String getHealthAdvice() {
+        return editTextAdvice.getText().toString();
     }
 
-    public EditText getEditTextAdvocacy() {
-        return editTextAdvocacy;
+    public String getHealthAdvocacy() {
+        return editTextAdvocacy.getText().toString();
     }
 
-    public EditText getEditTextEncouragement() {
-        return editTextEncouragement;
+    public String getHealthEncouragement() {
+        return editTextEncouragement.getText().toString();
     }
 
-    public EditText getEditTextHealthOutcome() {
-        return editTextHealthOutcome;
+    public String getHealthHealthOutcome() {
+        return editTextHealthOutcome.getText().toString();
     }
 }

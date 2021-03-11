@@ -156,19 +156,19 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         next.setVisibility(nextVisibility);
     }
 
-    public EditText getDate() {
-        return date;
+    public String getDate() {
+        return date.getText().toString();
     }
 
-    public EditText getCbrWorkerName() {
-        return cbrWorkerName;
+    public String getCbrWorkerName() {
+        return cbrWorkerName.getText().toString();
     }
 
-    public EditText getLocation() {
-        return location;
+    public String getLocation() {
+        return location.getText().toString();
     }
 
-    public EditText getVillageNumber() {
-        return villageNumber;
+    public String getVillageNumber() {
+        return villageNumber.getText().toString();
     }
 }

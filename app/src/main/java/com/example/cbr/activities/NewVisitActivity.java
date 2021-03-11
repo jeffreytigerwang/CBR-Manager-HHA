@@ -356,73 +356,47 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
                 saveFourthQuestionSetDesc();
             }
     }
-    // get the string instead of the edit text to encasulate better 468 to 534
+
     private void saveFourthQuestionSetDesc() {
         VisitFourthQuestionSetFragment fourthFragment = (VisitFourthQuestionSetFragment) currentFragment;
 
-        EditText socialAdvice = fourthFragment.getEditTextAdvice();
-        EditText socialAdvocacy = fourthFragment.getEditTextAdvocacy();
-        EditText socialRef = fourthFragment.getEditTextRef();
-        EditText socialEncouragement = fourthFragment.getEditTextEncouragement();
-        EditText socialOutcome = fourthFragment.getEditTextSocialOutcome();
-
-        socialQuestionSetData.setSocialAdviceDesc(socialAdvice.getText().toString());
-        socialQuestionSetData.setSocialAdvocacyDesc(socialAdvocacy.getText().toString());
-        socialQuestionSetData.setSocialReferralDesc(socialRef.getText().toString());
-        socialQuestionSetData.setSocialEncouragementDesc(socialEncouragement.getText().toString());
-        socialQuestionSetData.setSocialOutcomeDesc(socialOutcome.getText().toString());
+        socialQuestionSetData.setSocialAdviceDesc(fourthFragment.getSocialAdvice());
+        socialQuestionSetData.setSocialAdvocacyDesc(fourthFragment.getSocialAdvocacy());
+        socialQuestionSetData.setSocialReferralDesc(fourthFragment.getSocialRef());
+        socialQuestionSetData.setSocialEncouragementDesc(fourthFragment.getSocialEncouragement());
+        socialQuestionSetData.setSocialOutcomeDesc(fourthFragment.getSocialSocialOutcome());
     }
 
     private void saveThirdQuestionSetDesc() {
         VisitThirdQuestionSetFragment thirdFragment = (VisitThirdQuestionSetFragment) currentFragment;
 
-        EditText educationAdvice = thirdFragment.getEditTextAdvice();
-        EditText educationAdvocacy = thirdFragment.getEditTextAdvocacy();
-        EditText educationRef = thirdFragment.getEditTextRef();
-        EditText educationEncouragement = thirdFragment.getEditTextEncouragement();
-        EditText educationOutcome = thirdFragment.getEditTextEducationOutcome();
-
-        educationQuestionSetData.setEducationAdviceDesc(educationAdvice.getText().toString());
-        educationQuestionSetData.setEducationAdvocacyDesc(educationAdvocacy.getText().toString());
-        educationQuestionSetData.setEducationReferralDesc(educationRef.getText().toString());
-        educationQuestionSetData.setEducationEncouragementDesc(educationEncouragement.getText().toString());
-        educationQuestionSetData.setEducationOutcomeDesc(educationOutcome.getText().toString());
+        educationQuestionSetData.setEducationAdviceDesc(thirdFragment.getEducationAdvice());
+        educationQuestionSetData.setEducationAdvocacyDesc(thirdFragment.getEducationAdvocacy());
+        educationQuestionSetData.setEducationReferralDesc(thirdFragment.getEducationRef());
+        educationQuestionSetData.setEducationEncouragementDesc(thirdFragment.getEducationEncouragement());
+        educationQuestionSetData.setEducationOutcomeDesc(thirdFragment.getEducationEducationOutcome());
     }
 
     private void saveSecondQuestionSetDesc() {
         VisitSecondQuestionSetFragment secondFragment = (VisitSecondQuestionSetFragment) currentFragment;
 
-        EditText wheelChairDesc = secondFragment.getEditTextWheelChair();
-        EditText prostheticDesc = secondFragment.getEditTextProsthetic();
-        EditText orthoticDesc = secondFragment.getEditTextOrthotic();
-        EditText WRDesc = secondFragment.getEditTextWR();
-        EditText referralToHCDesc = secondFragment.getEditTextReferralToHC();
-        EditText healthAdviceDesc = secondFragment.getEditTextAdvice();
-        EditText healthAdvocacyDesc = secondFragment.getEditTextAdvocacy();
-        EditText healthEncouragementDesc = secondFragment.getEditTextEncouragement();
-        EditText healthOutcomeDesc = secondFragment.getEditTextHealthOutcome();
-
-        healthQuestionSetData.setWheelChairDesc(wheelChairDesc.getText().toString());
-        healthQuestionSetData.setProstheticDesc(prostheticDesc.getText().toString());
-        healthQuestionSetData.setOrthoticDesc(orthoticDesc.getText().toString());
-        healthQuestionSetData.setWheelChairRepairDesc(WRDesc.getText().toString());
-        healthQuestionSetData.setReferralToHCDesc(referralToHCDesc.getText().toString());
-        healthQuestionSetData.setHealthAdviceDesc(healthAdviceDesc.getText().toString());
-        healthQuestionSetData.setHealthAdvocacyDesc(healthAdvocacyDesc.getText().toString());
-        healthQuestionSetData.setHealthEncouragementDesc(healthEncouragementDesc.getText().toString());
-        healthQuestionSetData.setHealthOutcomeDesc(healthOutcomeDesc.getText().toString());
+        healthQuestionSetData.setWheelChairDesc(secondFragment.getHealthWheelChair());
+        healthQuestionSetData.setProstheticDesc(secondFragment.getHealthProsthetic());
+        healthQuestionSetData.setOrthoticDesc(secondFragment.getHealthOrthotic());
+        healthQuestionSetData.setWheelChairRepairDesc(secondFragment.getHealthWR());
+        healthQuestionSetData.setReferralToHCDesc(secondFragment.getHealthReferralToHC());
+        healthQuestionSetData.setHealthAdviceDesc(secondFragment.getHealthAdvice());
+        healthQuestionSetData.setHealthAdvocacyDesc(secondFragment.getHealthAdvocacy());
+        healthQuestionSetData.setHealthEncouragementDesc(secondFragment.getHealthEncouragement());
+        healthQuestionSetData.setHealthOutcomeDesc(secondFragment.getHealthHealthOutcome());
     }
 
     private void saveFirstQuestionSet() {
         VisitFirstQuestionSetFragment firstFragment = (VisitFirstQuestionSetFragment) currentFragment;
 
-        EditText workerName = firstFragment.getCbrWorkerName();
-        EditText locationOfVisit = firstFragment.getLocation();
-        EditText villageNumberString = firstFragment.getVillageNumber();
-
-        generalQuestionSetData.setWorkerName(workerName.getText().toString());
-        generalQuestionSetData.setVisitGpsLocation(locationOfVisit.getText().toString());
-        generalQuestionSetData.setVillageNumber(villageNumberString.getText().toString());
+        generalQuestionSetData.setWorkerName(firstFragment.getCbrWorkerName());
+        generalQuestionSetData.setVisitGpsLocation(firstFragment.getLocation());
+        generalQuestionSetData.setVillageNumber(firstFragment.getVillageNumber());
     }
 
     private void manageFragment(Fragment fragment) {

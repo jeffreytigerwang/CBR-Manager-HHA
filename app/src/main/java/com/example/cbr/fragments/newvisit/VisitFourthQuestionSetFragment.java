@@ -180,23 +180,23 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         });
     }
 
-    public EditText getEditTextAdvice() {
-        return editTextAdvice;
+    public String getSocialAdvice() {
+        return editTextAdvice.getText().toString();
     }
 
-    public EditText getEditTextAdvocacy() {
-        return editTextAdvocacy;
+    public String getSocialAdvocacy() {
+        return editTextAdvocacy.getText().toString();
     }
 
-    public EditText getEditTextRef() {
-        return editTextRef;
+    public String getSocialRef() {
+        return editTextRef.getText().toString();
     }
 
-    public EditText getEditTextEncouragement() {
-        return editTextEncouragement;
+    public String getSocialEncouragement() {
+        return editTextEncouragement.getText().toString();
     }
 
-    public EditText getEditTextSocialOutcome() {
-        return editTextSocialOutcome;
+    public String getSocialSocialOutcome() {
+        return editTextSocialOutcome.getText().toString();
     }
 }

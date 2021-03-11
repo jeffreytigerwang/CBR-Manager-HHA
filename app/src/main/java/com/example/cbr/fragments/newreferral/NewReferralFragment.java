@@ -8,13 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 
+import com.example.cbr.adapters.questioninfoadapters.QuestionsFragmentPagerAdapter;
 import com.example.cbr.databinding.FragmentQuestionspageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
-import com.example.cbr.fragments.clientpage.ClientPageContract;
-import com.example.cbr.fragments.clientpage.ClientPageFragment;
-import com.example.cbr.fragments.clientpage.ClientPagePresenter;
 import com.example.cbr.models.ClientInfo;
-import com.example.cbr.models.VisitGeneralQuestionSetData;
 
 public class NewReferralFragment extends BaseFragment implements NewReferralContract.View {
 
@@ -31,7 +28,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         binding = FragmentQuestionspageBinding.inflate(inflater, container, false);
 
         clientInfo = (ClientInfo) getArguments().getSerializable(NEW_REFERRAL_PAGE_BUNDLE);
-//        binding.questionsPageViewPager.setAdapter();
+        binding.questionsPageViewPager.setAdapter(new QuestionsFragmentPagerAdapter(getActivity()));
 
         return binding.getRoot();
     }

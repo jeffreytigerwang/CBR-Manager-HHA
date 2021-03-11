@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cbr.adapters.VisitInfoAdapter;
+import com.example.cbr.adapters.questioninfoadapters.VisitInfoAdapter;
 import com.example.cbr.databinding.FragmentVisitpageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.models.VisitGeneralQuestionSetData;

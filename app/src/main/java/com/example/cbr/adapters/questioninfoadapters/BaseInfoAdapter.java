@@ -1,8 +1,7 @@
-package com.example.cbr.adapters;
+package com.example.cbr.adapters.questioninfoadapters;
 
 import android.content.Context;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +23,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.cbr.adapters.questioninfoadapters.QuestionContainerHelper.CLICKABLE_VIEW_TYPE;
+import static com.example.cbr.adapters.questioninfoadapters.QuestionContainerHelper.DIVIDER_VIEW_TYPE;
+import static com.example.cbr.adapters.questioninfoadapters.QuestionContainerHelper.DOUBLE_TEXT_VIEW_TYPE;
+import static com.example.cbr.adapters.questioninfoadapters.QuestionContainerHelper.HEADER_VIEW_TYPE;
+
 /**
  * Base class for adapters that display information, currently supports headers, dividers, and two text fields
  * Subclasses should implement generateList() by calling addTextViewHolder(), addDivider(), etc in order of appearance in generateList()
@@ -32,20 +36,12 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
 
     Context context;
     LayoutInflater layoutInflater;
-    private final ArrayList<ViewHolderData> infoList = new ArrayList<>();
+    private final ArrayList<QuestionContainerHelper.QuestionDataContainer> questionDataContainerList;
 
-    final int SINGLE_TEXT_VIEW_TYPE = 0;
-    final int DOUBLE_TEXT_VIEW_TYPE = 1;
-    final int HEADER_VIEW_TYPE = 2;
-    final int CLICKABLE_VIEW_TYPE = 3;
-    final int DIVIDER_VIEW_TYPE = 4;
-    final int EDIT_TEXT_VIEW_TYPE = 5;
-    final int RADIO_GROUP_VIEW_TYPE = 6;
-    final int SPINNER_VIEW_TYPE = 7;
-
-    BaseInfoAdapter(Context context) {
+    BaseInfoAdapter(Context context, ArrayList<QuestionContainerHelper.QuestionDataContainer> questionDataContainerList) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
+        this.questionDataContainerList = questionDataContainerList;
     }
 
     /**
@@ -53,37 +49,10 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
      */
     abstract void generateList();
 
-    void addSingleTextViewType(String text) {
-        infoList.add(new SingleTextViewHolderData(text));
-    }
-
-    void addDoubleTextViewType(String firstText, String secondText) {
-        infoList.add(new DoubleTextViewHolderData(firstText, secondText));
-    }
-
-    void addHeaderViewType(String text) {
-        infoList.add(new HeaderViewHolderData(text));
-    }
-
-    void addClickableViewType(String text, ClickableViewHolderBehavior clickableViewHolderBehavior) {
-        infoList.add(new ClickableViewHolderData(text, clickableViewHolderBehavior));
-    }
-
-    void addDividerViewType() {
-        infoList.add(new DividerViewHolderData());
-    }
-
-    void addEditTextViewType(String questionText, String hintText, int inputType) {
-        infoList.add(new EditTextViewHolderData(questionText, hintText, inputType));
-    }
-
-    void addRadioGroupViewType(String questionText, boolean isVertical, List<RadioGroupListItem> radioGroupListItems) {
-        infoList.add(new RadioGroupViewHolderData(questionText, isVertical, radioGroupListItems));
-    }
-
-    void addSpinnerViewType(String questionText, List<String> optionsList) {
-        infoList.add(new SpinnerViewHolderData(questionText, optionsList));
-    }
+    /**
+     *
+     */
+    abstract void onDataEntered();
 
     String boolToText(Boolean bool) {
         if (bool == null) {
@@ -115,13 +84,13 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case DOUBLE_TEXT_VIEW_TYPE:
-                ((DoubleTextViewHolder) holder).bind((DoubleTextViewHolderData) infoList.get(position));
+                ((DoubleTextViewHolder) holder).bind((QuestionContainerHelper.DoubleTextViewContainer) questionDataContainerList.get(position));
                 break;
             case HEADER_VIEW_TYPE:
-                ((HeaderViewHolder) holder).bind((HeaderViewHolderData) infoList.get(position));
+                ((HeaderViewHolder) holder).bind((QuestionContainerHelper.HeaderViewContainer) questionDataContainerList.get(position));
                 break;
             case CLICKABLE_VIEW_TYPE:
-                ((ClickableViewHolder) holder).bind((ClickableViewHolderData) infoList.get(position));
+                ((ClickableViewHolder) holder).bind((QuestionContainerHelper.ClickableViewContainer) questionDataContainerList.get(position));
             case DIVIDER_VIEW_TYPE:
                 break;
         }
@@ -129,26 +98,12 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
 
     @Override
     public int getItemViewType(int position) {
-        return infoList.get(position).getViewType();
+        return questionDataContainerList.get(position).getViewType();
     }
 
     @Override
     public int getItemCount() {
-        return infoList.size();
-    }
-
-    // VIEW HOLDERS ----------------------------------------------------------------------------------------------
-
-    public class ViewHolderData implements Serializable {
-        private final int viewType;
-
-        ViewHolderData(int viewType) {
-            this.viewType = viewType;
-        }
-
-        public int getViewType() {
-            return viewType;
-        }
+        return questionDataContainerList.size();
     }
 
     // SINGLE TEXT VIEW ----------------------------------------------------------------------------------------------
@@ -161,21 +116,8 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
             textView = itemView.findViewById(R.id.recyclerview_text);
         }
 
-        public void bind(SingleTextViewHolderData singleTextViewHolderData) {
+        public void bind(QuestionContainerHelper.SingleTextViewContainer singleTextViewHolderData) {
             textView.setText(singleTextViewHolderData.getText());
-        }
-    }
-
-    class SingleTextViewHolderData extends ViewHolderData {
-        private final String text;
-
-        SingleTextViewHolderData(String text) {
-            super(SINGLE_TEXT_VIEW_TYPE);
-            this.text = text;
-        }
-
-        public String getText() {
-            return text;
         }
     }
 
@@ -191,7 +133,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
             secondTextView = itemView.findViewById(R.id.recyclerview_edittext);
         }
 
-        public void bind(DoubleTextViewHolderData doubleTextViewHolderData) {
+        public void bind(QuestionContainerHelper.DoubleTextViewContainer doubleTextViewHolderData) {
             firstTextView.setText(doubleTextViewHolderData.getFirstText());
 
             if (doubleTextViewHolderData.getSecondText() == null || doubleTextViewHolderData.getSecondText().isEmpty()) {
@@ -199,25 +141,6 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
             } else {
                 secondTextView.setText(doubleTextViewHolderData.getSecondText());
             }
-        }
-    }
-
-    class DoubleTextViewHolderData extends ViewHolderData {
-        private final String firstText;
-        private final String secondText;
-
-        DoubleTextViewHolderData(String firstText, String secondText) {
-            super(DOUBLE_TEXT_VIEW_TYPE);
-            this.firstText = firstText;
-            this.secondText = secondText;
-        }
-
-        public String getFirstText() {
-            return firstText;
-        }
-
-        public String getSecondText() {
-            return secondText;
         }
     }
 
@@ -231,21 +154,8 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
             headerTextView = itemView.findViewById(R.id.recyclerview_headerText);
         }
 
-        public void bind(HeaderViewHolderData headerViewHolderData) {
+        public void bind(QuestionContainerHelper.HeaderViewContainer headerViewHolderData) {
             headerTextView.setText(headerViewHolderData.getHeaderText());
-        }
-    }
-
-    class HeaderViewHolderData extends ViewHolderData {
-        private final String headerText;
-
-        HeaderViewHolderData(String headerText) {
-            super(HEADER_VIEW_TYPE);
-            this.headerText = headerText;
-        }
-
-        public String getHeaderText() {
-            return headerText;
         }
     }
 
@@ -259,7 +169,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
             clickableTextView = itemView.findViewById(R.id.recyclerview_clickableText);
         }
 
-        public void bind(final ClickableViewHolderData clickableViewHolderData) {
+        public void bind(final QuestionContainerHelper.ClickableViewContainer clickableViewHolderData) {
             clickableTextView.setText(clickableViewHolderData.getClickableText());
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -271,40 +181,11 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
-    class ClickableViewHolderData extends ViewHolderData {
-        private final String clickableText;
-        private final ClickableViewHolderBehavior clickableViewHolderBehavior;
-
-        ClickableViewHolderData(String clickableText, ClickableViewHolderBehavior clickableViewHolderBehavior) {
-            super(CLICKABLE_VIEW_TYPE);
-            this.clickableText = clickableText;
-            this.clickableViewHolderBehavior = clickableViewHolderBehavior;
-        }
-
-        public String getClickableText() {
-            return clickableText;
-        }
-
-        public ClickableViewHolderBehavior getClickableViewHolderBehavior() {
-            return clickableViewHolderBehavior;
-        }
-    }
-
-    interface ClickableViewHolderBehavior {
-        void onClick();
-    }
-
     // DIVIDER ----------------------------------------------------------------------------------------------
 
     class DividerViewHolder extends RecyclerView.ViewHolder {
         public DividerViewHolder(View itemView) {
             super(itemView);
-        }
-    }
-
-    class DividerViewHolderData extends ViewHolderData {
-        DividerViewHolderData() {
-            super(DIVIDER_VIEW_TYPE);
         }
     }
 
@@ -320,7 +201,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
             editText = itemView.findViewById(R.id.recyclerview_edittext);
         }
 
-        public void bind(final EditTextViewHolderData editTextViewHolderData) {
+        public void bind(final QuestionContainerHelper.EditTextViewContainer editTextViewHolderData) {
             textView.setText(editTextViewHolderData.getQuestionText());
             editText.setHint(editTextViewHolderData.getHintText());
             editText.setInputType(editTextViewHolderData.getInputType());
@@ -344,41 +225,6 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
-    class EditTextViewHolderData extends ViewHolderData {
-        private final String questionText;
-        private final String hintText;
-        private final int inputType;
-
-        private String userInput = "";
-
-        EditTextViewHolderData(String questionText, String hintText, int inputType) {
-            super(EDIT_TEXT_VIEW_TYPE);
-            this.questionText = questionText;
-            this.hintText = hintText;
-            this.inputType = inputType;
-        }
-
-        public String getQuestionText() {
-            return questionText;
-        }
-
-        public String getHintText() {
-            return hintText;
-        }
-
-        public int getInputType() {
-            return inputType;
-        }
-
-        public String getUserInput() {
-            return userInput;
-        }
-
-        public void setUserInput(String userInput) {
-            this.userInput = userInput;
-        }
-    }
-
     // RADIO GROUP ----------------------------------------------------------------------------------------------
 
     class RadioGroupViewHolder extends RecyclerView.ViewHolder {
@@ -391,7 +237,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
             radioGroup = itemView.findViewById(R.id.recyclerview_radioGroup);
         }
 
-        public void bind(final RadioGroupViewHolderData radioGroupViewHolderData) {
+        public void bind(final QuestionContainerHelper.RadioGroupViewContainer radioGroupViewHolderData) {
             textView.setText(radioGroupViewHolderData.getQuestionText());
 
             int orientationType;
@@ -402,7 +248,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
             }
 
             radioGroup.setOrientation(orientationType);
-            for (RadioGroupListItem radioGroupListItem : radioGroupViewHolderData.getDescriptionList()) {
+            for (QuestionContainerHelper.RadioGroupListItem radioGroupListItem : radioGroupViewHolderData.getDescriptionList()) {
                 RadioButton radioButton = new RadioButton(context);
                 radioButton.setText(radioGroupListItem.getDescription());
                 radioButton.setId(radioGroupListItem.getId());
@@ -413,75 +259,13 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
                     for (int i = 0; i < radioGroupViewHolderData.getDescriptionList().size(); i++) {
-                        RadioGroupListItem radioGroupListItem = radioGroupViewHolderData.getDescriptionList().get(i);
+                        QuestionContainerHelper.RadioGroupListItem radioGroupListItem = radioGroupViewHolderData.getDescriptionList().get(i);
                         if (radioGroupListItem.getId() == checkedId) {
                             radioGroupViewHolderData.setCheckedIndex(i);
                         }
                     }
                 }
             });
-        }
-    }
-
-    class RadioGroupViewHolderData extends ViewHolderData {
-        private final String questionText;
-        private final boolean isVertical;
-        private final List<RadioGroupListItem> descriptionList;
-        private int checkedIndex;
-
-        RadioGroupViewHolderData(String questionText, boolean isVertical, List<RadioGroupListItem> descriptionList) {
-            super(RADIO_GROUP_VIEW_TYPE);
-            this.questionText = questionText;
-            this.isVertical = isVertical;
-            this.descriptionList = descriptionList;
-        }
-
-        public String getQuestionText() {
-            return questionText;
-        }
-
-        public boolean isVertical() {
-            return isVertical;
-        }
-
-        public List<RadioGroupListItem> getDescriptionList() {
-            return descriptionList;
-        }
-
-        public int getCheckedIndex() {
-            return checkedIndex;
-        }
-
-        public void setCheckedIndex(int checkedIndex) {
-            this.checkedIndex = checkedIndex;
-        }
-    }
-
-    class RadioGroupListItem {
-        private final String description;
-        private boolean isChecked;
-        private final int id;
-
-        public RadioGroupListItem(String description, boolean isChecked, int id) {
-            this.description = description;
-            this.isChecked = isChecked;
-            this.id = id;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public boolean isChecked() {
-            return isChecked;
-        }
-
-        public void setChecked(boolean checked) {
-            isChecked = checked;
-        }
-
-        public int getId() {
-            return id;
         }
     }
 
@@ -497,46 +281,18 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
             spinner = itemView.findViewById(R.id.recyclerview_spinner);
         }
 
-        public void bind(final SpinnerViewHolderData spinnerViewHolderData) {
+        public void bind(final QuestionContainerHelper.SpinnerViewContainer spinnerViewHolderData) {
             textView.setText(spinnerViewHolderData.getQuestionText());
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, spinnerViewHolderData.optionsList);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, spinnerViewHolderData.getOptionsList());
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
 
             spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    spinnerViewHolderData.selectedItem = spinner.getSelectedItem().toString();
+                    spinnerViewHolderData.setSelectedItem(spinner.getSelectedItem().toString());
                 }
             });
-        }
-    }
-
-    class SpinnerViewHolderData extends ViewHolderData {
-        private final String questionText;
-        private final List<String> optionsList;
-        private String selectedItem;
-
-        SpinnerViewHolderData(String questionText, List<String> optionsList) {
-            super(SPINNER_VIEW_TYPE);
-            this.questionText = questionText;
-            this.optionsList = optionsList;
-        }
-
-        public String getQuestionText() {
-            return questionText;
-        }
-
-        public List<String> getOptionsList() {
-            return optionsList;
-        }
-
-        public String getSelectedItem() {
-            return selectedItem;
-        }
-
-        public void setSelectedItem(String selectedItem) {
-            this.selectedItem = selectedItem;
         }
     }
 }

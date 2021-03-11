@@ -1,4 +1,4 @@
-package com.example.cbr.adapters;
+package com.example.cbr.adapters.questioninfoadapters;
 
 import android.content.Context;
 

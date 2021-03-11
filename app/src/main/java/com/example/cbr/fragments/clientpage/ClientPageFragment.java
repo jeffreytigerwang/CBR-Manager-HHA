@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
 import com.example.cbr.activities.NewVisitActivity;
-import com.example.cbr.adapters.ClientInfoAdapter;
+import com.example.cbr.adapters.questioninfoadapters.ClientInfoAdapter;
 import com.example.cbr.databinding.FragmentClientpageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.models.ClientInfo;

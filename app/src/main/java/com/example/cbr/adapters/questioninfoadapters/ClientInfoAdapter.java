@@ -1,7 +1,6 @@
-package com.example.cbr.adapters;
+package com.example.cbr.adapters.questioninfoadapters;
 
 import android.content.Context;
-import android.view.View;
 
 import com.example.cbr.R;
 import com.example.cbr.fragments.clientpage.ClientPageFragment.ClientPageFragmentInterface;
@@ -29,6 +28,11 @@ public class ClientInfoAdapter extends BaseInfoAdapter {
     protected void generateList() {
         addClientInfo();
         addVisitsInfo();
+    }
+
+    @Override
+    public void onDataEntered() {
+
     }
 
     private void addClientInfo() {
@@ -73,12 +77,6 @@ public class ClientInfoAdapter extends BaseInfoAdapter {
             ClickableViewHolderBehavior clickableViewHolderBehavior = new ClickableViewHolderBehavior() {
                 @Override
                 public void onClick() {
-                    clientPageFragmentInterface.swapToVisitPage(visitGeneralQuestionSetData);
-                }
-            };
-            View.OnClickListener listener = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
                     clientPageFragmentInterface.swapToVisitPage(visitGeneralQuestionSetData);
                 }
             };

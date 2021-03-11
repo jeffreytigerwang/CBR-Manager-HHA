@@ -52,7 +52,7 @@
     <string name="hip_width_question">What is the client\'s in inches?</string>
     <string name="existing_wheelchair_question">Do they have an existing wheelchair?</string>
     <string name="wheelchair_repair_question">Can the existing wheelchair be repaired?</string>
-    <string name="wheelchair_centre">If yes, please bring the wheelchair to the centre</string>
+    <string name="wheelchair_centre">*If yes, please bring the wheelchair to the centre</string>
 
     <!-- New client -->
     <string name="male">Male</string>

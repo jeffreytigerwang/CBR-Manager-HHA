@@ -78,7 +78,8 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         binding.clientPageNewVisitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = NewVisitActivity.makeLaunchIntent(getActivity(), -1);
+                Intent intent = NewVisitActivity.makeLaunchIntent(getActivity(),
+                        clientInfo);
                 startActivity(intent);
             }
         });

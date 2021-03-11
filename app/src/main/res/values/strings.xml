@@ -75,7 +75,7 @@
     <string name="cbr">CBR</string>
     <string name="disability_centre_referral">Disability centre referral</string>
     <string name="disability_centre_referral_follow_up">Disability centre referral follow up</string>
-    <string name="if_cbr">2. If CBR* (check all that apply):</string>
+    <string name="new_visit_question_2">2. Select Aspect* (check all that apply):</string>
     <string name="health">Health</string>
     <string name="education">Education</string>
     <string name="social">Social</string>
@@ -121,7 +121,13 @@
     <string name="new_visit">New Visit</string>
     <string name="new_client">New Client</string>
     <string name="patient_list">Patient List</string>
+    <string name="initial_goal">Initial goal:</string>
+    <string name="login_failed">Login Failed</string>
+    <string name="database_call_fail">Response to the database failed.</string>
+    <string name="database_on_response_fail_health_goal">Response fail to get client health goal.</string>
+    <string name="initial_goal_not_found">Initial goal not found</string>
     <string name="search">Search</string>
+    <string name="new_visit_title">New Visit</string>
     <string-array name="zone_locations_array">
         <item>BidiBidi Zone 1</item>
         <item>BidiBidi Zone 2</item>

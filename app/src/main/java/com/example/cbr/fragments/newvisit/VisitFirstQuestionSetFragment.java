@@ -38,7 +38,6 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     private FragmentVisitFirstQuestionSetBinding binding;
 
     private final VisitGeneralQuestionSetData dataContainer;
-    private final Context parentContext;
     private FragmentActivity activity;
 
     private CheckBox health;
@@ -52,14 +51,12 @@ public class VisitFirstQuestionSetFragment extends Fragment {
 
     private RadioGroup questionOne;
     private Spinner spinnerLocation;
-    private TextView question2;
 
     public VisitFirstQuestionSetFragment(
             ActivityNewVisitBinding containerBinding,
-            VisitGeneralQuestionSetData dataContainer, Context parentContext) {
+            VisitGeneralQuestionSetData dataContainer) {
         this.containerBinding = containerBinding;
         this.dataContainer = dataContainer;
-        this.parentContext = parentContext;
     }
 
     @Override
@@ -97,8 +94,6 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         health = binding.newVisitHealthCheckBox;
         education = binding.newVisitEducationCheckBox;
         social = binding.newVisitSocialCheckBox;
-
-        question2 = binding.newVisitQ2TextView;
 
         spinnerLocation = binding.newVisitLocationSpinner;
     }
@@ -140,58 +135,25 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         questionOne.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                resetQuestionTwo();
-
                 if (checkedId == R.id.newVisit_CBRRadioButton) {
                     dataContainer.setPurposeOfVisit(Constants.CBR);
-
-                    int unlockedColor = ContextCompat.getColor(parentContext, R.color.black);
-                    toggleQuestionTwo(unlockedColor, true);
-                    toggleRecordButton(View.VISIBLE, View.GONE);
+                    toggleNextButton(View.VISIBLE);
 
                 } else if (checkedId == R.id.newVisit_DCRradioButton) {
                     dataContainer.setPurposeOfVisit(Constants.DCR);
-                    toggleRecordButton(View.GONE, View.VISIBLE);
+                    toggleNextButton(View.GONE);
 
                 } else if (checkedId == R.id.newVisit_DCRFURadioButton) {
                     dataContainer.setPurposeOfVisit(Constants.DCRFU);
-                    toggleRecordButton(View.GONE, View.VISIBLE);
+                    toggleNextButton(View.GONE);
                 }
             }
         });
     }
 
-    private void toggleRecordButton(int nextVisibility, int recordVisibility) {
+    private void toggleNextButton(int nextVisibility) {
         Button next = containerBinding.newVisitNextButton;
-        Button record = containerBinding.newVisitRecordButton;
-
         next.setVisibility(nextVisibility);
-        record.setVisibility(recordVisibility);
-    }
-
-
-    private void toggleQuestionTwo(int color, boolean toggle) {
-        question2.setTextColor(color);
-        health.setTextColor(color);
-        education.setTextColor(color);
-        social.setTextColor(color);
-
-        health.setClickable(toggle);
-        education.setClickable(toggle);
-        social.setClickable(toggle);
-    }
-
-    private void resetQuestionTwo() {
-        int lockedColor = ContextCompat.getColor(parentContext, R.color.colorLocked);
-        toggleQuestionTwo(lockedColor, false);
-
-        health.setChecked(false);
-        education.setChecked(false);
-        social.setChecked(false);
-
-        dataContainer.setHealthChecked(false);
-        dataContainer.setEducationChecked(false);
-        dataContainer.setSocialChecked(false);
     }
 
     public EditText getDate() {

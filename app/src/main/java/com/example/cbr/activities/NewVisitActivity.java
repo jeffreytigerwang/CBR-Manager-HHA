@@ -3,7 +3,10 @@
     import android.content.Context;
     import android.content.Intent;
     import android.os.Bundle;
+    import android.os.StrictMode;
     import android.util.Log;
+    import android.view.Menu;
+    import android.view.MenuItem;
     import android.view.View;
     import android.widget.Button;
     import android.widget.EditText;
@@ -24,6 +27,7 @@
     import com.example.cbr.fragments.newvisit.VisitFourthQuestionSetFragment;
     import com.example.cbr.fragments.newvisit.VisitSecondQuestionSetFragment;
     import com.example.cbr.fragments.newvisit.VisitThirdQuestionSetFragment;
+    import com.example.cbr.models.ClientInfo;
     import com.example.cbr.models.Users;
     import com.example.cbr.models.VisitEducationQuestionSetData;
     import com.example.cbr.models.VisitGeneralQuestionSetData;
@@ -52,11 +56,11 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
 
     private ActivityNewVisitBinding binding;
 
-    private static final String CLIENT_ID = "clientID";
+    private static final String CLIENT_INFO = "clientInfo";
     private static final String LOG_TAG = "NewVisitActivity";
 
     private int clientId;
-    private int visitId;
+    private ClientInfo clientInfo;
 
     private Fragment currentFragment;
     private VisitGeneralQuestionSetData generalQuestionSetData;
@@ -66,7 +70,6 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
     private LinkedList<Fragment> nextFragments;
     private Stack<Fragment> prevFragments;
     private Button buttonBack;
-    private Button buttonRecord;
     private Button buttonNext;
     private byte totalFragments;
     private byte pageNum;
@@ -75,40 +78,58 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
 
     public static Intent makeLaunchIntent(
             Context context,
-            final int clientID) {
+            ClientInfo clientInfo) {
         Intent intent = new Intent(context, NewVisitActivity.class);
-        intent.putExtra(CLIENT_ID, clientID);
+        intent.putExtra(CLIENT_INFO, clientInfo);
         return intent;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         binding = ActivityNewVisitBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        getSupportActionBar().hide(); // keep action bar for consistency
+        setTitle(getString(R.string.new_visit_title));
 
         setPresenter(new NewVisitPresenter(this, NewVisitActivity.this));
 
         Intent intent = getIntent();
-        clientId = intent.getIntExtra(CLIENT_ID, -1);
+        clientInfo = (ClientInfo) intent.getSerializableExtra(CLIENT_INFO);
 
+        // TODO: 2021-03-10 Client ID from ClientInfo does not match with clientId in DB, wait for fix
         if (clientId == -1) {
             Log.d(LOG_TAG, "onCreate: failed to get client ID");
         }
+        Log.d(LOG_TAG, "onCreate: clientId=" + clientId);
+
 
         generalQuestionSetData = new VisitGeneralQuestionSetData();
         healthQuestionSetData = new VisitHealthQuestionSetData();
         educationQuestionSetData = new VisitEducationQuestionSetData();
         socialQuestionSetData = new VisitSocialQuestionSetData();
 
+        setVisitClientId();
         setWorkerName();
 
-        currentFragment = new VisitFirstQuestionSetFragment( // instead of managing manual backstack use base activity implimentation use back buton
+        currentFragment = new VisitFirstQuestionSetFragment(
                 binding,
-                generalQuestionSetData,
-                NewVisitActivity.this);
+                generalQuestionSetData);
         manageFragment(currentFragment);
         totalFragments += 1;
         pageNum = 1;
@@ -118,107 +139,104 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
 
         setupNextButton();
         setupBackButton();
-        setupRecordButton();
     }
 
-    private void setWorkerName() {
-        Users users = Users.getInstance();
-        final String workerName = users.getFirstName() + " " + users.getLastName(); // remove final
-        generalQuestionSetData.setWorkerName(workerName);
+    private void setVisitClientId() {
+        final int visitId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
+
+        generalQuestionSetData.setClientId(clientId);
+        generalQuestionSetData.setVisitId(visitId);
+
+        healthQuestionSetData.setClientId(clientId);
+        healthQuestionSetData.setVisitId(visitId);
+
+        educationQuestionSetData.setClientId(clientId);
+        educationQuestionSetData.setVisitId(visitId);
+
+        socialQuestionSetData.setClientId(clientId);
+        socialQuestionSetData.setVisitId(visitId);
     }
 
-    private void setupRecordButton() {
-        buttonRecord = binding.newVisitRecordButton;
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Handle action bar item clicks here
+        int itemId = item.getItemId();
 
-        buttonRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                visitId = ThreadLocalRandom.current().nextInt(100000000, 999999999); // when database is changed to have all the visit iD generation
+        if (itemId == R.id.newVisit_recordButton) {
+            onFragmentSaveText(currentFragment);
+            handleEmptyRequiredQuestions();
+            return true;
+        }
 
-                generalQuestionSetData.setClientId(clientId);
-                generalQuestionSetData.setVisitId(visitId);
+        return super.onOptionsItemSelected(item);
+    }
 
-                healthQuestionSetData.setClientId(clientId);
-                healthQuestionSetData.setVisitId(visitId);
+    private void handleEmptyRequiredQuestions() {
+        final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
+        final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();
+        final List<String> emptyEducationQuestions = educationQuestionSetData.getEmptyQuestions();
+        final List<String> emptySocialQuestions = socialQuestionSetData.getEmptyQuestions();
+        final String purposeOfVisit = generalQuestionSetData.getPurposeOfVisit();
 
-                educationQuestionSetData.setClientId(clientId);
-                educationQuestionSetData.setVisitId(visitId);
-
-                socialQuestionSetData.setClientId(clientId);
-                socialQuestionSetData.setVisitId(visitId);
-
-                onFragmentSaveText(currentFragment);
-                handleEmptyRequiredQuestions();
+        boolean isAllFilled = isAllRequiredQuestionsFilled(emptyGeneralQuestions,
+                emptyHealthQuestions, emptyEducationQuestions, emptySocialQuestions);
+        if (isAllFilled) {
+            presenter.createVisitGeneralQuestionSetData(generalQuestionSetData);
+            if (generalQuestionSetData.isHealthChecked()) {
+                presenter.createVisitHealthQuestionSetData(healthQuestionSetData);
             }
-        });
-    }
-
-        private void handleEmptyRequiredQuestions() {
-            final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
-            final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();
-            final List<String> emptyEducationQuestions = educationQuestionSetData.getEmptyQuestions();
-            final List<String> emptySocialQuestions = socialQuestionSetData.getEmptyQuestions();
-            final String purposeOfVisit = generalQuestionSetData.getPurposeOfVisit();
-
-            boolean isAllFilled = isAllRequiredQuestionsFilled(emptyGeneralQuestions,
-                    emptyHealthQuestions, emptyEducationQuestions, emptySocialQuestions);
-            if (isAllFilled) {
-                presenter.createVisitGeneralQuestionSetData(generalQuestionSetData);
-                if (generalQuestionSetData.isHealthChecked()) {
-                    presenter.createVisitHealthQuestionSetData(healthQuestionSetData);
-                }
-                if (generalQuestionSetData.isEducationChecked()) {
-                    presenter.createVisitEducationQuestionSetData(educationQuestionSetData);
-                }
-                if (generalQuestionSetData.isSocialChecked()) {
-                    presenter.createVisitSocialQuestionSetData(socialQuestionSetData);
-                }
-                finish();
+            if (generalQuestionSetData.isEducationChecked()) {
+                presenter.createVisitEducationQuestionSetData(educationQuestionSetData);
+            }
+            if (generalQuestionSetData.isSocialChecked()) {
+                presenter.createVisitSocialQuestionSetData(socialQuestionSetData);
+            }
+            finish();
+        } else {
+            if (!purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
+                displayNumberEmpty(emptyGeneralQuestions);
             } else {
-                if (!purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
-                    displayNumberEmpty(emptyGeneralQuestions);
-                } else {
-                    List<String> emptyQuestions = new ArrayList<>(emptyGeneralQuestions);
-                    if (generalQuestionSetData.isHealthChecked()) {
-                        emptyQuestions.addAll(emptyHealthQuestions);
-                        displayNumberEmpty(emptyQuestions);
-                    }
-                    if (generalQuestionSetData.isEducationChecked()) {
-                        emptyQuestions.addAll(emptyEducationQuestions);
-                    }
-                    if (generalQuestionSetData.isSocialChecked()) {
-                        emptyQuestions.addAll(emptySocialQuestions);
-                    }
+                List<String> emptyQuestions = new ArrayList<>(emptyGeneralQuestions);
+                if (generalQuestionSetData.isHealthChecked()) {
+                    emptyQuestions.addAll(emptyHealthQuestions);
                     displayNumberEmpty(emptyQuestions);
                 }
+                if (generalQuestionSetData.isEducationChecked()) {
+                    emptyQuestions.addAll(emptyEducationQuestions);
+                }
+                if (generalQuestionSetData.isSocialChecked()) {
+                    emptyQuestions.addAll(emptySocialQuestions);
+                }
+                displayNumberEmpty(emptyQuestions);
             }
         }
+    }
 
-        private boolean isAllRequiredQuestionsFilled(List<String> emptyGeneralQuestions,
-                                                     List<String> emptyHealthQuestions,
-                                                     List<String> emptyEducationQuestions,
-                                                     List<String> emptySocialQuestions) {
-            boolean isAllFilled;
+    private boolean isAllRequiredQuestionsFilled(List<String> emptyGeneralQuestions,
+                                                 List<String> emptyHealthQuestions,
+                                                 List<String> emptyEducationQuestions,
+                                                 List<String> emptySocialQuestions) {
+        boolean isAllFilled;
 
-            final String purposeOfVisit = generalQuestionSetData.getPurposeOfVisit();
-            final boolean isHealthChecked = generalQuestionSetData.isHealthChecked();
-            final boolean isEducationChecked = generalQuestionSetData.isEducationChecked();
-            final boolean isSocialChecked = generalQuestionSetData.isSocialChecked();
+        final String purposeOfVisit = generalQuestionSetData.getPurposeOfVisit();
+        final boolean isHealthChecked = generalQuestionSetData.isHealthChecked();
+        final boolean isEducationChecked = generalQuestionSetData.isEducationChecked();
+        final boolean isSocialChecked = generalQuestionSetData.isSocialChecked();
 
-            if (!purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
-                isAllFilled = emptyGeneralQuestions.isEmpty();
-            } else {
-                // This one-liner may obscure readability, but it is necessary to remove
-                // 'if' statements (improve performance).
-                // All is filled under the condition that the empty question lists are empty,
-                // it can depend on whether health, education, or social is considered required.
-                isAllFilled = emptyGeneralQuestions.isEmpty()
-                    && (!isHealthChecked || emptyHealthQuestions.isEmpty())
-                    && (!isEducationChecked || emptyEducationQuestions.isEmpty())
-                    && (!isSocialChecked || emptySocialQuestions.isEmpty());
-            }
-            return isAllFilled;
+        if (!purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
+            isAllFilled = emptyGeneralQuestions.isEmpty();
+        } else {
+            // This one-liner may obscure readability, but it is necessary to remove
+            // 'if' statements (improve performance).
+            // All is filled under the condition that the empty question lists are empty,
+            // it can depend on whether health, education, or social is considered required.
+            isAllFilled = emptyGeneralQuestions.isEmpty()
+                && (!isHealthChecked || emptyHealthQuestions.isEmpty())
+                && (!isEducationChecked || emptyEducationQuestions.isEmpty())
+                && (!isSocialChecked || emptySocialQuestions.isEmpty());
         }
+        return isAllFilled;
+    }
 
     private void displayNumberEmpty(List<String> emptyQuestions) {
         TextView textViewRecordError = binding.newVisitRecordErrorTextView;
@@ -253,7 +271,6 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
 
                 if (pageNum < totalFragments) {
                     Log.d(LOG_TAG, "pagNum: " + pageNum + " totalFragments: " + totalFragments);
-                    buttonRecord.setVisibility(View.GONE);
                     buttonNext.setVisibility(View.VISIBLE);
                 }
             }
@@ -275,23 +292,22 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
 
                     if (generalQuestionSetData.isHealthChecked()) {
                         nextFragments.offer(new VisitSecondQuestionSetFragment(
-                                healthQuestionSetData));
+                                healthQuestionSetData, clientInfo));
                         totalFragments += 1;
                     }
                     if (generalQuestionSetData.isEducationChecked()) {
                         nextFragments.offer(new VisitThirdQuestionSetFragment(
-                                educationQuestionSetData));
+                                educationQuestionSetData, clientInfo));
                         totalFragments += 1;
                     }
                     if (generalQuestionSetData.isSocialChecked()) {
                         nextFragments.offer(new VisitFourthQuestionSetFragment(
-                                socialQuestionSetData));
+                                socialQuestionSetData, clientInfo));
                         totalFragments += 1;
                     }
-                    if (generalQuestionSetData.getPurposeOfVisit().equalsIgnoreCase(Constants.CBR)
-                            && (!generalQuestionSetData.isHealthChecked()
+                    if (!generalQuestionSetData.isHealthChecked()
                             && !generalQuestionSetData.isEducationChecked()
-                            && !generalQuestionSetData.isSocialChecked())) {
+                            && !generalQuestionSetData.isSocialChecked()) {
                         Toast.makeText(NewVisitActivity.this,
                                 getString(R.string.question_2_not_filled),
                                 Toast.LENGTH_SHORT).show();
@@ -314,7 +330,6 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
                     buttonBack.setVisibility(View.VISIBLE);
                 }
                 if (pageNum == totalFragments && pageNum != 1) {
-                    buttonRecord.setVisibility(View.VISIBLE);
                     buttonNext.setVisibility(View.GONE);
                 }
             }

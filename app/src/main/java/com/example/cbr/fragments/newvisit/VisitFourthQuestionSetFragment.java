@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentVisitFourthQuestionSetBinding;
+import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.VisitSocialQuestionSetData;
 import com.example.cbr.util.Constants;
 
@@ -28,6 +29,7 @@ public class VisitFourthQuestionSetFragment extends Fragment {
     private FragmentVisitFourthQuestionSetBinding binding;
 
     private final VisitSocialQuestionSetData dataContainer;
+    private final ClientInfo clientInfo;
 
     private EditText editTextAdvice;
     private EditText editTextAdvocacy;
@@ -40,10 +42,12 @@ public class VisitFourthQuestionSetFragment extends Fragment {
     private CheckBox checkBoxAdvocacy;
     private CheckBox checkBoxRef;
     private CheckBox checkBoxEncouragement;
-    private TextView question16;
+    private TextView initialGoal;
 
-    public VisitFourthQuestionSetFragment(VisitSocialQuestionSetData dataContainer) {
+    public VisitFourthQuestionSetFragment(VisitSocialQuestionSetData dataContainer,
+                                          ClientInfo clientInfo) {
         this.dataContainer = dataContainer;
+        this.clientInfo = clientInfo;
     }
 
     @Nullable
@@ -79,6 +83,17 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         editTextEncouragement.setText(dataContainer.getSocialEncouragementDesc());
         editTextSocialOutcome.setText(dataContainer.getSocialOutcomeDesc());
 
+        String goal = clientInfo.getSetGoalForSocialStatus();
+        try {
+            if (!goal.isEmpty()) {
+                initialGoal.setText(goal);
+            } else {
+                initialGoal.setText(getResources().getString(R.string.na));
+            }
+        } catch (NullPointerException e) {
+            initialGoal.setText(getResources().getString(R.string.na));
+        }
+
         String goalStatus = dataContainer.getSocialGoalStatus();
         if (goalStatus.equalsIgnoreCase(Constants.CANCELLED)) {
             this.goalStatus.check(R.id.newVisit_healthCancelledRadioButton);
@@ -86,8 +101,6 @@ public class VisitFourthQuestionSetFragment extends Fragment {
             this.goalStatus.check(R.id.newVisit_healthOngoingRadioButton);
         } else if (goalStatus.equalsIgnoreCase(Constants.CONCLUDED)) {
             this.goalStatus.check(R.id.newVisit_healthConcludedRadioButton);
-            question16.setVisibility(View.VISIBLE);
-            editTextSocialOutcome.setVisibility(View.VISIBLE);
         }
     }
 
@@ -113,7 +126,7 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         checkBoxRef = binding.newVisitSocialRefCheckBox;
         checkBoxEncouragement = binding.newVisitSocialEncouragementCheckBox;
 
-        question16 = binding.newVisitQ16TextView;
+        initialGoal = binding.newVisitSocialInitialGoalBoxTextView;
     }
 
     private void setupRadioGroup() {
@@ -124,16 +137,11 @@ public class VisitFourthQuestionSetFragment extends Fragment {
 
                 if (checkedId == R.id.newVisit_socialConcludedRadioButton) {
                     dataContainer.setSocialGoalStatus(Constants.CONCLUDED);
-                    question16.setVisibility(View.VISIBLE);
-                    editTextSocialOutcome.setVisibility(View.VISIBLE);
-                } else {
-                    question16.setVisibility(View.GONE);
-                    editTextSocialOutcome.setVisibility(View.GONE);
-                }
-                if (checkedId == R.id.newVisit_socialCancelledRadioButton) {
+
+                } else if (checkedId == R.id.newVisit_socialCancelledRadioButton) {
                     dataContainer.setSocialGoalStatus(Constants.CANCELLED);
-                }
-                if (checkedId == R.id.newVisit_socialOngoingRadioButton) {
+
+                } else if (checkedId == R.id.newVisit_socialOngoingRadioButton) {
                     dataContainer.setSocialGoalStatus(Constants.ONGOING);
                 }
             }

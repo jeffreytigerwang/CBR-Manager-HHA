@@ -14,9 +14,9 @@
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/cbrViolet"
         android:text="@string/next"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/newVisit_recordButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline4"
         app:layout_constraintVertical_bias="0.504" />
 
@@ -30,23 +30,21 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/newVisit_nextButton"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline4"
         app:layout_constraintVertical_bias="0.504" />
 
     <FrameLayout
         android:id="@+id/newVisit_questionFrame"
         android:layout_width="match_parent"
-        android:layout_height="545dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="546dp"
+        android:layout_marginBottom="52dp"
         android:background="@drawable/customborder"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newVisit_titleTextView"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
     </FrameLayout>
 
@@ -55,21 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="600dp" />
-
-    <Button
-        android:id="@+id/newVisit_recordButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/cbrViolet"
-        android:text="@string/record"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4"
-        app:layout_constraintVertical_bias="0.504" />
+        app:layout_constraintGuide_begin="546dp" />
 
     <TextView
         android:id="@+id/newVisit_requiredFieldTextView"
@@ -101,15 +85,4 @@
         app:layout_constraintTop_toBottomOf="@+id/newVisit_recordErrorTextView"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/newVisit_titleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/new_visit"
-        android:textColor="@color/cbrViolet"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

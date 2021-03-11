@@ -2,11 +2,11 @@ package com.example.cbr.retrofit;
 
 
 import io.reactivex.Observable;
-//import android.database.Observable;
-
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+
+//import android.database.Observable;
 
 public interface INodeJS {
     @POST("register")

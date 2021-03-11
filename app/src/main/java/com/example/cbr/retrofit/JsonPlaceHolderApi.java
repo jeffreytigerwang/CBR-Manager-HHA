@@ -80,4 +80,6 @@ public interface JsonPlaceHolderApi {
     @GET("api/users")
     Call<List<Users>> getUsers();
 
+    @GET("api/healthAspect")
+    Call<List<ClientHealthAspect>> getClientHealthAspect();
 }

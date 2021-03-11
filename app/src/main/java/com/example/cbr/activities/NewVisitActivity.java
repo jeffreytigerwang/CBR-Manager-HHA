@@ -3,6 +3,7 @@
     import android.content.Context;
     import android.content.Intent;
     import android.os.Bundle;
+    import android.os.StrictMode;
     import android.util.Log;
     import android.view.View;
     import android.widget.Button;
@@ -22,6 +23,7 @@
     import com.example.cbr.fragments.newvisit.VisitFourthQuestionSetFragment;
     import com.example.cbr.fragments.newvisit.VisitSecondQuestionSetFragment;
     import com.example.cbr.fragments.newvisit.VisitThirdQuestionSetFragment;
+    import com.example.cbr.models.ClientInfo;
     import com.example.cbr.models.Users;
     import com.example.cbr.models.VisitEducationQuestionSetData;
     import com.example.cbr.models.VisitGeneralQuestionSetData;
@@ -50,11 +52,11 @@ public class NewVisitActivity extends AppCompatActivity {
 
     private ActivityNewVisitBinding binding;
 
-    private static final String CLIENT_ID = "clientID";
+    private static final String CLIENT_INFO = "clientInfo";
     private static final String LOG_TAG = "NewVisitActivity";
 
     private int clientId;
-    private int visitId;
+    private ClientInfo clientInfo;
 
     // Init API
     private Retrofit retrofit;
@@ -75,9 +77,9 @@ public class NewVisitActivity extends AppCompatActivity {
 
     public static Intent makeLaunchIntent(
             Context context,
-            final int clientID) {
+            ClientInfo clientInfo) {
         Intent intent = new Intent(context, NewVisitActivity.class);
-        intent.putExtra(CLIENT_ID, clientID);
+        intent.putExtra(CLIENT_INFO, clientInfo);
         return intent;
     }
 
@@ -97,27 +99,33 @@ public class NewVisitActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         binding = ActivityNewVisitBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        getSupportActionBar().hide();
+        setTitle(getString(R.string.new_visit_title));
 
         // Init Retrofit & NodeJs stuff
         retrofit = RetrofitInit.getInstance();
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         Intent intent = getIntent();
-        clientId = intent.getIntExtra(CLIENT_ID, -1);
+        clientInfo = (ClientInfo) intent.getSerializableExtra(CLIENT_INFO);
 
         if (clientId == -1) {
             Log.d(LOG_TAG, "onCreate: failed to get client ID");
         }
+        Log.d(LOG_TAG, "onCreate: clientId=" + clientId);
+
 
         generalQuestionSetData = new VisitGeneralQuestionSetData();
         healthQuestionSetData = new VisitHealthQuestionSetData();
         educationQuestionSetData = new VisitEducationQuestionSetData();
         socialQuestionSetData = new VisitSocialQuestionSetData();
 
+        setVisitClientId();
         setWorkerName();
 
         currentFragment = new VisitFirstQuestionSetFragment(
@@ -134,6 +142,22 @@ public class NewVisitActivity extends AppCompatActivity {
         setupNextButton();
         setupBackButton();
         setupRecordButton();
+    }
+
+    private void setVisitClientId() {
+        final int visitId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
+
+        generalQuestionSetData.setClientId(clientId);
+        generalQuestionSetData.setVisitId(visitId);
+
+        healthQuestionSetData.setClientId(clientId);
+        healthQuestionSetData.setVisitId(visitId);
+
+        educationQuestionSetData.setClientId(clientId);
+        educationQuestionSetData.setVisitId(visitId);
+
+        socialQuestionSetData.setClientId(clientId);
+        socialQuestionSetData.setVisitId(visitId);
     }
 
     private void setWorkerName() {
@@ -153,20 +177,6 @@ public class NewVisitActivity extends AppCompatActivity {
         buttonRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                visitId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
-
-                generalQuestionSetData.setClientId(clientId);
-                generalQuestionSetData.setVisitId(visitId);
-
-                healthQuestionSetData.setClientId(clientId);
-                healthQuestionSetData.setVisitId(visitId);
-
-                educationQuestionSetData.setClientId(clientId);
-                educationQuestionSetData.setVisitId(visitId);
-
-                socialQuestionSetData.setClientId(clientId);
-                socialQuestionSetData.setVisitId(visitId);
-
                 saveSession(currentFragment);
                 final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
                 final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();
@@ -419,17 +429,17 @@ public class NewVisitActivity extends AppCompatActivity {
 
                     if (generalQuestionSetData.isHealthChecked()) {
                         nextFragments.offer(new VisitSecondQuestionSetFragment(
-                                healthQuestionSetData));
+                                healthQuestionSetData, clientInfo));
                         totalFragments += 1;
                     }
                     if (generalQuestionSetData.isEducationChecked()) {
                         nextFragments.offer(new VisitThirdQuestionSetFragment(
-                                educationQuestionSetData));
+                                educationQuestionSetData, clientInfo));
                         totalFragments += 1;
                     }
                     if (generalQuestionSetData.isSocialChecked()) {
                         nextFragments.offer(new VisitFourthQuestionSetFragment(
-                                socialQuestionSetData));
+                                socialQuestionSetData, clientInfo));
                         totalFragments += 1;
                     }
                     if (generalQuestionSetData.getPurposeOfVisit().equalsIgnoreCase(Constants.CBR)

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentVisitThirdQuestionSetBinding;
+import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.VisitEducationQuestionSetData;
 import com.example.cbr.util.Constants;
 
@@ -28,6 +29,7 @@ public class VisitThirdQuestionSetFragment extends Fragment {
     private FragmentVisitThirdQuestionSetBinding binding;
 
     private final VisitEducationQuestionSetData dataContainer;
+    private final ClientInfo clientInfo;
 
     private EditText editTextAdvice;
     private EditText editTextAdvocacy;
@@ -40,9 +42,12 @@ public class VisitThirdQuestionSetFragment extends Fragment {
     private CheckBox checkBoxAdvocacy;
     private CheckBox checkBoxRef;
     private RadioGroup goalStatus;
+    private TextView initialGoal;
 
-    public VisitThirdQuestionSetFragment(VisitEducationQuestionSetData dataContainer) {
+    public VisitThirdQuestionSetFragment(VisitEducationQuestionSetData dataContainer,
+                                         ClientInfo clientInfo) {
         this.dataContainer = dataContainer;
+        this.clientInfo = clientInfo;
     }
 
     @Nullable
@@ -75,6 +80,17 @@ public class VisitThirdQuestionSetFragment extends Fragment {
         editTextEncouragement.setText(dataContainer.getEducationEncouragementDesc());
         editTextEducationOutcome.setText(dataContainer.getEducationOutcomeDesc());
 
+        String goal = clientInfo.getSetGoalForEducation();
+        try {
+            if (!goal.isEmpty()) {
+                initialGoal.setText(goal);
+            } else {
+                initialGoal.setText(getResources().getString(R.string.na));
+            }
+        } catch (NullPointerException e) {
+            initialGoal.setText(getResources().getString(R.string.na));
+        }
+
         String goalStatus = dataContainer.getEducationGoalStatus();
         if (goalStatus.equalsIgnoreCase(Constants.CANCELLED)) {
             this.goalStatus.check(R.id.newVisit_healthCancelledRadioButton);
@@ -106,6 +122,8 @@ public class VisitThirdQuestionSetFragment extends Fragment {
         checkBoxAdvocacy = binding.newVisitEducationAdvocacyCheckBox;
         checkBoxRef = binding.newVisitEducationRefcheckBox;
         checkBoxEncouragement = binding.newVisitEducationEncouragementCheckBox;
+
+        initialGoal = binding.newVisitEducationInitialGoalBoxTextView;
     }
 
     private void setupRadioGroup() {

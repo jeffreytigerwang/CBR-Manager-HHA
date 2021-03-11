@@ -40,6 +40,7 @@ public class ClientInfoAdapter extends BaseInfoAdapter {
         addTextViewType(context.getString(R.string.date), clientInfo.getDateJoined());
         addTextViewType(context.getString(R.string.first_name), clientInfo.getFirstName());
         addTextViewType(context.getString(R.string.last_name), clientInfo.getLastName());
+        addTextViewType(context.getString(R.string.gender), clientInfo.getGender());
         addTextViewType(context.getString(R.string.age), clientInfo.getAge().toString());
         addTextViewType(context.getString(R.string.contact_number), clientInfo.getContactNumber());
         addTextViewType(context.getString(R.string.caregiver_present_for_interview), boolToText(clientInfo.isCaregiverPresentForInterview()));

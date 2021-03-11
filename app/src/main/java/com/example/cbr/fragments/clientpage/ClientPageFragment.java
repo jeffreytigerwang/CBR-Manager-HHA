@@ -89,6 +89,13 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
                 startActivity(intent);
             }
         });
+
+        binding.clientPageNewReferralButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clientPageFragmentInterface.swapToReferralPage(clientInfo);
+            }
+        });
     }
 
     private void setupRecyclerView() {
@@ -176,5 +183,6 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
 
     public interface ClientPageFragmentInterface {
         void swapToVisitPage(VisitGeneralQuestionSetData visitGeneralQuestionSetData);
+        void swapToReferralPage(ClientInfo clientInfo);
     }
 }

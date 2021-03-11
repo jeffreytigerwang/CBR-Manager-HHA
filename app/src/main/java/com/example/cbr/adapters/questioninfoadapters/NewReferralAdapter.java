@@ -8,13 +8,13 @@ import java.util.List;
 
 public class NewReferralAdapter extends BaseInfoAdapter {
 
-    NewReferralAdapter(Context context, List<QuestionDataContainer> questionDataContainerList) {
+    public NewReferralAdapter(Context context, List<QuestionDataContainer> questionDataContainerList) {
         super(context, questionDataContainerList);
     }
 
-
     @Override
-    void onDataEntered() {
+    void onDataChanged() {
+        List<QuestionDataContainer> questionDataContainerList = getQuestionDataContainerList();
 
     }
 }

@@ -7,6 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.cbr.adapters.questioninfoadapters.BaseInfoAdapter;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
+import com.example.cbr.fragments.QuestionsPageFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return null;
+        return QuestionsPageFragment.newInstance(totalFragmentsList.get(position).getViewHolderDataList());
     }
 
     @Override
@@ -42,7 +43,7 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
 //
 //    }
 
-    class ViewPagerContainer {
+    public static class ViewPagerContainer {
         private final List<QuestionDataContainer> viewHolderDataList;
         private boolean isActive;
         private boolean isOnScreen;

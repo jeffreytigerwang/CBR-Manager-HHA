@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -18,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.CheckBoxViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.ClickableViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DoubleTextViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.EditTextViewContainer;
@@ -29,6 +32,9 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Spin
 
 import java.util.List;
 
+import io.reactivex.Single;
+
+import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CHECK_BOX_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CLICKABLE_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.DIVIDER_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.DOUBLE_TEXT_VIEW_TYPE;
@@ -57,7 +63,11 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
     /**
      *
      */
-    abstract void onDataEntered();
+    abstract void onDataChanged();
+
+    public List<QuestionDataContainer> getQuestionDataContainerList() {
+        return questionDataContainerList;
+    }
 
     @NonNull
     @Override
@@ -79,6 +89,8 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 return new RadioGroupViewHolder(layoutInflater.inflate(R.layout.recyclerview_radiogroup, parent, false));
             case SPINNER_VIEW_TYPE:
                 return new SpinnerViewHolder(layoutInflater.inflate(R.layout.recyclerview_spinner, parent, false));
+            case CHECK_BOX_VIEW_TYPE:
+                return new CheckBoxViewHolder(layoutInflater.inflate(R.layout.recyclerview_checkbox, parent, false));
         }
         return new SingleTextViewHolder(layoutInflater.inflate(R.layout.recyclerview_doubletext, parent, false));
     }
@@ -86,6 +98,8 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
+            case SINGLE_TEXT_VIEW_TYPE:
+                ((SingleTextViewHolder) holder).bind((SingleTextViewContainer) questionDataContainerList.get(position));
             case DOUBLE_TEXT_VIEW_TYPE:
                 ((DoubleTextViewHolder) holder).bind((DoubleTextViewContainer) questionDataContainerList.get(position));
                 break;
@@ -96,6 +110,17 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 ((ClickableViewHolder) holder).bind((ClickableViewContainer) questionDataContainerList.get(position));
             case DIVIDER_VIEW_TYPE:
                 break;
+            case EDIT_TEXT_VIEW_TYPE:
+                ((EditTextViewHolder) holder).bind((EditTextViewContainer) questionDataContainerList.get(position));
+                break;
+            case RADIO_GROUP_VIEW_TYPE:
+                ((RadioGroupViewHolder) holder).bind((RadioGroupViewContainer) questionDataContainerList.get(position));
+                break;
+            case SPINNER_VIEW_TYPE:
+                ((SpinnerViewHolder) holder).bind((SpinnerViewContainer) questionDataContainerList.get(position));
+                break;
+            case CHECK_BOX_VIEW_TYPE:
+                ((CheckBoxViewHolder) holder).bind((CheckBoxViewContainer) questionDataContainerList.get(position));
         }
     }
 
@@ -109,7 +134,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
         return questionDataContainerList.size();
     }
 
-    class SingleTextViewHolder extends RecyclerView.ViewHolder {
+    private class SingleTextViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
 
         public SingleTextViewHolder(@NonNull View itemView) {
@@ -122,7 +147,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
-    class DoubleTextViewHolder extends RecyclerView.ViewHolder {
+    private class DoubleTextViewHolder extends RecyclerView.ViewHolder {
         private final TextView firstTextView;
         private final TextView secondTextView;
 
@@ -143,7 +168,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
+    private class HeaderViewHolder extends RecyclerView.ViewHolder {
         private final TextView headerTextView;
 
         public HeaderViewHolder(@NonNull View itemView) {
@@ -156,7 +181,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
-    class ClickableViewHolder extends RecyclerView.ViewHolder {
+    private class ClickableViewHolder extends RecyclerView.ViewHolder {
         private final TextView clickableTextView;
 
         public ClickableViewHolder(@NonNull View itemView) {
@@ -176,13 +201,13 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
-    class DividerViewHolder extends RecyclerView.ViewHolder {
+    private class DividerViewHolder extends RecyclerView.ViewHolder {
         public DividerViewHolder(View itemView) {
             super(itemView);
         }
     }
 
-    class EditTextViewHolder extends RecyclerView.ViewHolder {
+    private class EditTextViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
         private final EditText editText;
 
@@ -206,6 +231,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     editTextViewHolderData.setUserInput(s.toString());
+                    onDataChanged();
                 }
 
                 @Override
@@ -216,7 +242,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
-    class RadioGroupViewHolder extends RecyclerView.ViewHolder {
+    private class RadioGroupViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
         private final RadioGroup radioGroup;
 
@@ -253,12 +279,13 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                             radioGroupViewHolderData.setCheckedIndex(i);
                         }
                     }
+                    onDataChanged();
                 }
             });
         }
     }
 
-    class SpinnerViewHolder extends RecyclerView.ViewHolder {
+    private class SpinnerViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
         private final Spinner spinner;
 
@@ -278,6 +305,28 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     spinnerViewHolderData.setSelectedItem(spinner.getSelectedItem().toString());
+                    onDataChanged();
+                }
+            });
+        }
+    }
+
+    private class CheckBoxViewHolder extends RecyclerView.ViewHolder {
+        private final CheckBox checkBox;
+
+        public CheckBoxViewHolder(@NonNull View itemView) {
+            super(itemView);
+            checkBox = itemView.findViewById(R.id.recyclerview_checkBox);
+        }
+
+        public void bind(final CheckBoxViewContainer checkBoxViewContainer) {
+            checkBox.setText(checkBoxViewContainer.getQuestionText());
+
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    checkBoxViewContainer.setChecked(isChecked);
+                    onDataChanged();
                 }
             });
         }

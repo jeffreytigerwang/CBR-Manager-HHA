@@ -15,6 +15,7 @@ import com.example.cbr.fragments.clientlist.ClientListFragment;
 import com.example.cbr.fragments.clientpage.ClientPageFragment;
 import com.example.cbr.fragments.discussion.DiscussionFragment;
 import com.example.cbr.fragments.newclient.NewClientFragment;
+import com.example.cbr.fragments.newreferral.NewReferralFragment;
 import com.example.cbr.fragments.notification.NotificationFragment;
 import com.example.cbr.fragments.visitpage.VisitPageFragment;
 import com.example.cbr.models.ClientInfo;
@@ -99,6 +100,12 @@ public class HomeActivity extends BaseActivity implements
     public void swapToVisitPage(VisitGeneralQuestionSetData visitGeneralQuestionSetData) {
         VisitPageFragment visitPageFragment = VisitPageFragment.newInstance(visitGeneralQuestionSetData);
         replaceFragment(R.id.homeFragmentContainer, visitPageFragment, VisitPageFragment.getFragmentTag());
+    }
+
+    @Override
+    public void swapToReferralPage(ClientInfo clientInfo) {
+        NewReferralFragment newReferralFragment = NewReferralFragment.newInstance(clientInfo);
+        addFragment(R.id.homeFragmentContainer, newReferralFragment, NewReferralFragment.getFragmentTag());
     }
 
     @Override

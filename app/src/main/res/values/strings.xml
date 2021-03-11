@@ -37,6 +37,9 @@
     <string name="visit_date">Visit date</string>
     <string name="worker_name">Worker name</string>
 
+    <!-- New referral -->
+    <string name="service_requirements">What service does the client require?</string>
+
     <!-- New client -->
     <string name="male">Male</string>
     <string name="female">Female</string>
@@ -90,6 +93,7 @@
     <string name="wheelchair">Wheelchair</string>
     <string name="description_max_100_characters">Description* (Max 100 characters)</string>
     <string name="description_max_100_characters_optional">Description (Max 100 characters)</string>
+    <string name="physiotherapy">Physiotherapy</string>
     <string name="prosthetic">Prosthetic</string>
     <string name="orthotic">Orthotic</string>
     <string name="wheelchair_repairs">Wheelchair repairs</string>

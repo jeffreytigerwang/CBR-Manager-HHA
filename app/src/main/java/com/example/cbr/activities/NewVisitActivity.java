@@ -97,7 +97,6 @@ public class NewVisitActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
@@ -114,6 +113,7 @@ public class NewVisitActivity extends AppCompatActivity {
         Intent intent = getIntent();
         clientInfo = (ClientInfo) intent.getSerializableExtra(CLIENT_INFO);
 
+        // TODO: 2021-03-10 Client ID from ClientInfo does not match with clientId in DB, wait for fix
         if (clientId == -1) {
             Log.d(LOG_TAG, "onCreate: failed to get client ID");
         }

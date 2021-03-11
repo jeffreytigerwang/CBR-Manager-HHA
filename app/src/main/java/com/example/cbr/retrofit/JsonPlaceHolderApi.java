@@ -96,5 +96,4 @@ public interface JsonPlaceHolderApi {
 
     @GET("api/socialAspect")
     Call<List<ClientSocialAspect>> getClientSocialAspect();
-
 }

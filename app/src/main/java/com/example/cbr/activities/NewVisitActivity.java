@@ -157,6 +157,18 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
         socialQuestionSetData.setVisitId(visitId);
     }
 
+    private void setWorkerName() {
+        Users users = Users.getInstance();
+        final String workerName = users.getFirstName() + " " + users.getLastName();
+        generalQuestionSetData.setWorkerName(workerName);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_bar_record, menu);
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // Handle action bar item clicks here

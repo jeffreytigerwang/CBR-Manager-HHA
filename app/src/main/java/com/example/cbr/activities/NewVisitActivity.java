@@ -225,23 +225,19 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
                                                  List<String> emptySocialQuestions) {
         boolean isAllFilled;
 
-        final String purposeOfVisit = generalQuestionSetData.getPurposeOfVisit();
         final boolean isHealthChecked = generalQuestionSetData.isHealthChecked();
         final boolean isEducationChecked = generalQuestionSetData.isEducationChecked();
         final boolean isSocialChecked = generalQuestionSetData.isSocialChecked();
 
-        if (!purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
-            isAllFilled = emptyGeneralQuestions.isEmpty();
-        } else {
-            // This one-liner may obscure readability, but it is necessary to remove
-            // 'if' statements (improve performance).
-            // All is filled under the condition that the empty question lists are empty,
-            // it can depend on whether health, education, or social is considered required.
-            isAllFilled = emptyGeneralQuestions.isEmpty()
-                && (!isHealthChecked || emptyHealthQuestions.isEmpty())
-                && (!isEducationChecked || emptyEducationQuestions.isEmpty())
-                && (!isSocialChecked || emptySocialQuestions.isEmpty());
-        }
+        // This one-liner may obscure readability, but it is necessary to remove
+        // 'if' statements (improve performance).
+        // All is filled under the condition that the empty question lists are empty,
+        // it can depend on whether health, education, or social is considered required.
+        isAllFilled = emptyGeneralQuestions.isEmpty()
+            && (!isHealthChecked || emptyHealthQuestions.isEmpty())
+            && (!isEducationChecked || emptyEducationQuestions.isEmpty())
+            && (!isSocialChecked || emptySocialQuestions.isEmpty());
+
         return isAllFilled;
     }
 

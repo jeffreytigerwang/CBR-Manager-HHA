@@ -167,7 +167,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
                 } else if (checkedId == R.id.newVisit_healthOngoingRadioButton) {
                     dataContainer.setHealthGoalStatus(Constants.ONGOING);
 
-                } else if (checkedId == R.id.newVisit_educationCancelledRadioButton) {
+                } else if (checkedId == R.id.newVisit_healthCancelledRadioButton) {
                     dataContainer.setHealthGoalStatus(Constants.CANCELLED);
                 }
             }

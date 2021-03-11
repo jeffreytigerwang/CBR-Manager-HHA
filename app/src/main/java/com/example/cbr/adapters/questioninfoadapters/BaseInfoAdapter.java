@@ -32,8 +32,6 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Spin
 
 import java.util.List;
 
-import io.reactivex.Single;
-
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CHECK_BOX_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CLICKABLE_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.DIVIDER_VIEW_TYPE;
@@ -100,6 +98,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
         switch (holder.getItemViewType()) {
             case SINGLE_TEXT_VIEW_TYPE:
                 ((SingleTextViewHolder) holder).bind((SingleTextViewContainer) questionDataContainerList.get(position));
+                break;
             case DOUBLE_TEXT_VIEW_TYPE:
                 ((DoubleTextViewHolder) holder).bind((DoubleTextViewContainer) questionDataContainerList.get(position));
                 break;
@@ -121,6 +120,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 break;
             case CHECK_BOX_VIEW_TYPE:
                 ((CheckBoxViewHolder) holder).bind((CheckBoxViewContainer) questionDataContainerList.get(position));
+                break;
         }
     }
 
@@ -144,6 +144,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
 
         public void bind(SingleTextViewContainer singleTextViewHolderData) {
             textView.setText(singleTextViewHolderData.getText());
+            textView.setTextSize(singleTextViewHolderData.getTextSizeSp());
         }
     }
 

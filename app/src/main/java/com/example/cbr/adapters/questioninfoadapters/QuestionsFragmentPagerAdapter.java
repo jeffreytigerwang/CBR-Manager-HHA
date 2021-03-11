@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
-    private List<ViewPagerContainer> totalFragmentsList;
+    private ArrayList<ViewPagerContainer> totalFragmentsList;
     private List<ViewPagerContainer> activeFragmentsList;
 
-    public QuestionsFragmentPagerAdapter(@NonNull FragmentActivity fragmentActivity, List<ViewPagerContainer> totalFragmentsList) {
+    public QuestionsFragmentPagerAdapter(@NonNull FragmentActivity fragmentActivity, ArrayList<ViewPagerContainer> totalFragmentsList) {
         super(fragmentActivity);
         this.totalFragmentsList = totalFragmentsList;
         activeFragmentsList = new ArrayList<>();
@@ -44,17 +44,17 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
 //    }
 
     public static class ViewPagerContainer {
-        private final List<QuestionDataContainer> viewHolderDataList;
+        private final ArrayList<QuestionDataContainer> viewHolderDataList;
         private boolean isActive;
         private boolean isOnScreen;
 
-        public ViewPagerContainer(List<QuestionDataContainer> viewHolderDataList, boolean isActive) {
+        public ViewPagerContainer(ArrayList<QuestionDataContainer> viewHolderDataList, boolean isActive) {
             this.viewHolderDataList = viewHolderDataList;
             this.isActive = isActive;
             isOnScreen = false;
         }
 
-        public List<QuestionDataContainer> getViewHolderDataList() {
+        public ArrayList<QuestionDataContainer> getViewHolderDataList() {
             return viewHolderDataList;
         }
 

@@ -47,12 +47,12 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         viewPager2.setAdapter(new QuestionsFragmentPagerAdapter(getActivity(), generateViewPagerList()));
     }
 
-    private List<QuestionsFragmentPagerAdapter.ViewPagerContainer> generateViewPagerList() {
-        List<QuestionsFragmentPagerAdapter.ViewPagerContainer> viewPagerContainerList = new ArrayList<>();
+    private ArrayList<QuestionsFragmentPagerAdapter.ViewPagerContainer> generateViewPagerList() {
+        ArrayList<QuestionsFragmentPagerAdapter.ViewPagerContainer> viewPagerContainerList = new ArrayList<>();
 
         // main page
-        List<QuestionDataContainer> firstPage = new ArrayList<>();
-        firstPage.add(new SingleTextViewContainer(getString(R.string.service_requirements)));
+        ArrayList<QuestionDataContainer> firstPage = new ArrayList<>();
+        firstPage.add(new SingleTextViewContainer(getString(R.string.service_requirements), 20));
         firstPage.add(new CheckBoxViewContainer(getString(R.string.physiotherapy)));
         firstPage.add(new CheckBoxViewContainer(getString(R.string.prosthetic)));
         firstPage.add(new CheckBoxViewContainer(getString(R.string.orthotic)));

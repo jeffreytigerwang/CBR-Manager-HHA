@@ -1,9 +1,12 @@
 package com.example.cbr.adapters.questioninfoadapters.questiondatacontainers;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.List;
 
-public class QuestionDataContainer implements Serializable {
+public class QuestionDataContainer implements Parcelable {
     public static final int SINGLE_TEXT_VIEW_TYPE = 0;
     public static final int DOUBLE_TEXT_VIEW_TYPE = 1;
     public static final int HEADER_VIEW_TYPE = 2;
@@ -20,7 +23,33 @@ public class QuestionDataContainer implements Serializable {
         this.viewType = viewType;
     }
 
+    protected QuestionDataContainer(Parcel in) {
+        viewType = in.readInt();
+    }
+
     public int getViewType() {
         return viewType;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(viewType);
+    }
+
+    public static final Creator<QuestionDataContainer> CREATOR = new Creator<QuestionDataContainer>() {
+        @Override
+        public QuestionDataContainer createFromParcel(Parcel in) {
+            return new QuestionDataContainer(in);
+        }
+
+        @Override
+        public QuestionDataContainer[] newArray(int size) {
+            return new QuestionDataContainer[size];
+        }
+    };
 }

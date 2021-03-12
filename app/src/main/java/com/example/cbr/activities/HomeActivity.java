@@ -12,7 +12,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cbr.R;
 import com.example.cbr.adapters.HomeFragmentPagerAdapter;
-import com.example.cbr.fragments.TempHomeFragment;
+import com.example.cbr.fragments.DashboardFragment;
 import com.example.cbr.fragments.base.BaseActivity;
 import com.example.cbr.fragments.clientlist.ClientListFragment;
 import com.example.cbr.fragments.clientpage.ClientPageFragment;
@@ -25,7 +25,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class HomeActivity extends BaseActivity implements
-        TempHomeFragment.TempHomeFragmentInterface,
+        DashboardFragment.TempHomeFragmentInterface,
         ClientListFragment.ClientListFragmentInterface,
         ClientPageFragment.ClientPageFragmentInterface,
         HomePageFragment.HomePageFragmentInterface

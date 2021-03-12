@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.cbr.fragments.TempHomeFragment;
+import com.example.cbr.fragments.DashboardFragment;
 import com.example.cbr.fragments.clientlist.ClientListFragment;
 import com.example.cbr.fragments.discussion.DiscussionFragment;
 import com.example.cbr.fragments.home.HomePageFragment;
@@ -40,7 +40,7 @@ public class HomeFragmentPagerAdapter extends FragmentStateAdapter {
             case HOME_POSITION:
                 return HomePageFragment.newInstance();
             case DASHBOARD_POSITION:
-                return TempHomeFragment.newInstance();
+                return DashboardFragment.newInstance();
             case LIST_POSITION:
                 return ClientListFragment.newInstance();
             case DISCUSSION_POSITION:

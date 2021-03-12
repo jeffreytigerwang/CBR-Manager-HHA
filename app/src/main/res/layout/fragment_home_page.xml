@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Home"
+            android:text="@string/home"
             android:textColor="#FFFFFF"
             android:textSize="23sp"
             android:textStyle="bold"
@@ -62,7 +61,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="19dp"
                     android:layout_marginBottom="15dp"
-                    android:text="New Client"
+                    android:text="@string/new_client"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -72,40 +71,7 @@
         </androidx.cardview.widget.CardView>
 
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="10dp"
-            app:cardElevation="4dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            app:cardCornerRadius="8dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    android:src="@drawable/new_visit"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="15dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="19dp"
-                    android:layout_marginBottom="15dp"
-                    android:text="New Visit"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
@@ -134,7 +100,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="19dp"
                     android:layout_marginBottom="15dp"
-                    android:text="Dashboard"
+                    android:text="@string/dashboard"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -169,7 +135,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="19dp"
                     android:layout_marginBottom="15dp"
-                    android:text="New Referral"
+                    android:text="@string/new_referral"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -205,7 +171,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="19dp"
                     android:layout_marginBottom="15dp"
-                    android:text="All Clients"
+                    android:text="@string/all_clients"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -240,7 +206,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="19dp"
                     android:layout_marginBottom="15dp"
-                    android:text="Sync"
+                    android:text="@string/sync"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />

@@ -2,6 +2,12 @@
     <string name="sample_name">Sample Name</string>
     <string name="sample_id">Sample id</string>
     <string name="sample_location">Sample Location</string>
+    <string name="error">Error</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="na">N/A</string>
 
     <string name="app_name">CBR</string>
     <string name="sign_in">SIGN IN</string>
@@ -9,9 +15,7 @@
     <string name="password">Password</string>
     <string name="terms_of_service_and_privacy_policy">Terms of Service and Privacy Policy</string>
     <string name="continue_text">continue</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="na">N/A</string>
+    <string name="missing_fields">Missing fields</string>
 
     <!-- Client page -->
     <string name="agnes_kenyi">Agnes Kenyi</string>
@@ -117,6 +121,13 @@
     <string name="new_visit">New Visit</string>
     <string name="new_client">New Client</string>
     <string name="patient_list">Patient List</string>
+    <string name="initial_goal">Initial goal:</string>
+    <string name="login_failed">Login Failed</string>
+    <string name="database_call_fail">Response to the database failed.</string>
+    <string name="database_on_response_fail_health_goal">Response fail to get client health goal.</string>
+    <string name="initial_goal_not_found">Initial goal not found</string>
+    <string name="search">Search</string>
+    <string name="new_visit_title">New Visit</string>
     <string-array name="zone_locations_array">
         <item>BidiBidi Zone 1</item>
         <item>BidiBidi Zone 2</item>

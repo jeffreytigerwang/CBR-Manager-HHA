@@ -27,6 +27,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.http.Field;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class NewClientFragment extends BaseFragment implements NewClientContract.View {
@@ -103,7 +105,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                 String location = binding.newClientZoneLocationSpinner.getSelectedItem().toString();
 
                 if (binding.newClientVillageNumberEditText.getText().toString().equals("")) {
-                    Toast.makeText(getActivity(), "Village Number cannot be empty", Toast.LENGTH_SHORT).show();
+                    showOkDialog(getString(R.string.missing_fields), "Village Number cannot be empty", null);
                     return;
                 }
                 Integer villageNumber = Integer.parseInt(binding.newClientVillageNumberEditText.getText().toString());
@@ -112,16 +114,22 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                 String lastName = binding.newClientLastNameEditText.getText().toString();
 
                 if (binding.newClientAgeEditText.getText().toString().equals("")) {
-                    Toast.makeText(getActivity(), "Age cannot be empty", Toast.LENGTH_SHORT).show();
+                    showOkDialog(getString(R.string.missing_fields), "Age cannot be empty", null);
                     return;
                 }
 
                 Integer age = Integer.parseInt(binding.newClientAgeEditText.getText().toString());
+
+                boolean isMale = binding.newClientMaleRadioButton.isChecked();
+                boolean isFemale = binding.newClientFemaleRadioButton.isChecked();
+
+                String gender = isMale ? "Male" : "Female";
+
                 String contactNumber = binding.newClientContactNumberEditText.getText().toString();
                 boolean caregiverPresentForInterview = binding.newClientCaregiverIsPresentCheckBox.isChecked();
 
                 if (binding.newClientCaregiverContactNumberEditText.getText().toString().equals("")) {
-                    Toast.makeText(getActivity(), "Caregiver Contact Number cannot be empty", Toast.LENGTH_SHORT).show();
+                    showOkDialog(getString(R.string.missing_fields), "Caregiver Contact Number cannot be empty", null);
                     return;
                 }
 
@@ -149,7 +157,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
 
                 clientId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
 
-                createClientBasicInfo(clientId, firstName, lastName, gpsLocation, location, villageNumber,
+                createClientBasicInfo(clientId, firstName, lastName, gpsLocation, location, villageNumber, gender,
                         age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
 
                 ClientDisability clientDisability = new ClientDisability(clientId, amputeeDisability, polioDisability, spinalCordInjuryDisability, cerebralPalsyDisability,
@@ -267,25 +275,25 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         });
     }
 
+
     private void createClientBasicInfo(Integer clientId, String firstName, String lastName, String gpsLocation, String location,
-                                       Integer villageNumber, Integer age, String contactNumber, boolean caregiverPresentForInterview,
+                                       Integer villageNumber, String gender, Integer age, String contactNumber, boolean caregiverPresentForInterview,
                                        Integer caregiverContactNumber) {
 
         Call<ClientInfo> call = jsonPlaceHolderApi.createClient(clientId, firstName, lastName, gpsLocation, location,
-                villageNumber, age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
+                villageNumber, gender, age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
 
         call.enqueue(new Callback<ClientInfo>() {
             @Override
             public void onResponse(Call<ClientInfo> call, Response<ClientInfo> response) {
 
                 if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Record Fail", Toast.LENGTH_SHORT).show();
+                    showErrorDialog("Record Fail", null);
                     return;
                 }
 
                 ClientInfo clientInfoResponse = response.body();
-                Toast.makeText(getActivity(), clientInfoResponse.getFirstName() + " " +
-                        clientInfoResponse.getLastName() + "\n" + "Record Successful", Toast.LENGTH_SHORT).show();
+                showOkDialog("", clientInfoResponse.getFullName() + "\n" + "Record Successful", null);
             }
 
             @Override

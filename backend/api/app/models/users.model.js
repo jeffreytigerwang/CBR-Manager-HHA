@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         phone: {
             type: Sequelize.STRING,
-            unique: true
+	    unique: true
         },
         password: {
             type: Sequelize.STRING

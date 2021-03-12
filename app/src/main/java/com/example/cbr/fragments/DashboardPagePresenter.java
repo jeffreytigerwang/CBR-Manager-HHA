@@ -51,10 +51,6 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
         Call<List<ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
         Response<List<ClientInfo>> response = call.execute();
 
-        List<ClientInfo> outstandingList = response.body();
-
-
-
-        return outstandingList;
+        return response.body();
     }
 }

@@ -127,6 +127,9 @@
     <string name="database_on_response_fail_health_goal">Response fail to get client health goal.</string>
     <string name="initial_goal_not_found">Initial goal not found</string>
     <string name="search">Search</string>
+    <string name="photo_preview">Photo preview</string>
+    <string name="client_photo">Client photo</string>
+    <string name="you_must_allow_this_app_to_use_your_camera_to_record_a_photo">You must allow this app to use your camera to record a photo</string>
     <string name="new_visit_title">New Visit</string>
     <string-array name="zone_locations_array">
         <item>BidiBidi Zone 1</item>

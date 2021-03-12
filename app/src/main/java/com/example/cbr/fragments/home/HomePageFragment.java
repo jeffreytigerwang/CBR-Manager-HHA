@@ -22,11 +22,12 @@ import com.example.cbr.models.ClientInfo;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-public class HomePageFragment extends BaseFragment implements HomePageContract.View{
+public class HomePageFragment extends BaseFragment implements HomePageContract.View, View.OnClickListener{
     private HomePageContract.Presenter homePagePresenter;
     private FragmentHomePageBinding binding;
     private BottomNavigationView bottomNavigationView;
     private HomePageFragmentInterface homePageFragmentInterface;
+    private TempHomeFragment.TempHomeFragmentInterface tempHomeFragmentInterface;
 
 
 
@@ -45,8 +46,13 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
         setPresenter(new HomePagePresenter(this));
 
         binding = FragmentHomePageBinding.inflate(inflater, container, false);
-        setCardViewOnClickListener();
+        //setCardViewOnClickListener();
 
+        CardView cardViewAllClients = binding.cardViewAllClients;
+        cardViewAllClients.setOnClickListener(this);
+
+        CardView cardViewDashboard = binding.cardViewDashboard;
+        cardViewDashboard.setOnClickListener(this);
 
         View view = binding.getRoot();
         return view;
@@ -68,18 +74,33 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
 
 
 
-    private void setCardViewOnClickListener() {
-        CardView allClients = binding.cardViewAllClients;
-        allClients.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//    private void setCardViewOnClickListener() {
+//        CardView allClients = binding.cardViewAllClients;
+//        allClients.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                homePageFragmentInterface.swapToClientList();
+//            }
+//        });
+//    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.cardViewAllClients:
                 homePageFragmentInterface.swapToClientList();
-            }
-        });
+                break;
+
+            case R.id.cardViewDashboard:
+                homePageFragmentInterface.swapToDashboard();
+            default:
+                break;
+        }
     }
 
 
     public interface HomePageFragmentInterface {
         void swapToClientList();
+        void swapToDashboard();
     }
 }

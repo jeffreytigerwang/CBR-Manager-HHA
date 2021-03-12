@@ -135,8 +135,12 @@ public class HomeActivity extends BaseActivity implements
 
     @Override
     public void swapToClientList() {
-        ClientListFragment clientListFragment = ClientListFragment.newInstance();
-        addFragment(R.id.homeFragmentContainer, clientListFragment, ClientListFragment.getFragmentTag());
+        viewPager.setCurrentItem(2);
+    }
+
+    @Override
+    public void swapToDashboard() {
+        viewPager.setCurrentItem(1);
     }
 
 

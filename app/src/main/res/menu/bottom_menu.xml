@@ -2,22 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/fragmentHome"
-        android:title="Home"
+        android:id="@+id/bottomMenuHome"
+        android:title="@string/home"
         android:icon="@drawable/ic_baseline_home_24"/>
 
     <item
-        android:id="@+id/fragmentClientList"
-        android:title="List"
+        android:id="@+id/bottomMenuDashboard"
+        android:title="@string/dashboard"
+        android:icon="@drawable/ic_baseline_dashboard_24"/>
+
+    <item
+        android:id="@+id/bottomMenuClientList"
+        android:title="@string/list"
         android:icon="@drawable/ic_baseline_list_24"/>
 
     <item
-        android:id="@+id/fragmentDiscussion"
-        android:title="Discussion"
+        android:id="@+id/bottomMenuDiscussion"
+        android:title="@string/discussion"
         android:icon="@drawable/ic_baseline_forum_24"/>
 
     <item
-        android:id="@+id/fragmentNotification"
-        android:title="Notification"
+        android:id="@+id/bottomMenuNotification"
+        android:title="@string/notification"
         android:icon="@drawable/ic_baseline_notifications_24"/>
 </menu>

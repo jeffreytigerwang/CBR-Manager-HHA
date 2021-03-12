@@ -42,14 +42,9 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
 
         binding = FragmentHomePageBinding.inflate(inflater, container, false);
 
-        CardView cardViewAllClients = binding.cardViewAllClients;
-        cardViewAllClients.setOnClickListener(this);
-
-        CardView cardViewDashboard = binding.cardViewDashboard;
-        cardViewDashboard.setOnClickListener(this);
-
-        CardView cardViewNewClient = binding.cardViewNewClient;
-        cardViewNewClient.setOnClickListener(this);
+        binding.cardViewAllClients.setOnClickListener(this);
+        binding.cardViewDashboard.setOnClickListener(this);
+        binding.cardViewNewClient.setOnClickListener(this);
 
         View view = binding.getRoot();
         return view;

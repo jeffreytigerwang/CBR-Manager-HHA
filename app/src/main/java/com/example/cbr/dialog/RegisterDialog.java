@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -181,12 +182,28 @@ public class RegisterDialog extends AppCompatDialogFragment {
                     e.printStackTrace();
                 }
 
-                if (isUserNameExist)
-                    Toast.makeText(getActivity(), "Phone number already exists!", Toast.LENGTH_SHORT).show();
-                else if (!isPasswordMatch)
+                if (TextUtils.isEmpty(firstName)){
+                    Toast.makeText(getActivity(), "First name is empty.", Toast.LENGTH_SHORT).show();
+                }
+                else if (TextUtils.isEmpty(lastName)){
+                    Toast.makeText(getActivity(), "Last name is empty.", Toast.LENGTH_SHORT).show();
+                }
+                else if (TextUtils.isEmpty(phoneNumber)){
+                    Toast.makeText(getActivity(), "Phone number is empty.", Toast.LENGTH_SHORT).show();
+                }
+                else if (isUserNameExist) {
+                    Toast.makeText(getActivity(), "Phone number already " +
+                            "exists!", Toast.LENGTH_SHORT).show();
+                }
+                else if (userTypeId == -1) {
+                    Toast.makeText(getActivity(), "Please select a user type.",
+                            Toast.LENGTH_LONG).show();
+                }
+                else if (TextUtils.isEmpty(password)){
+                    Toast.makeText(getActivity(), "Password is empty.", Toast.LENGTH_SHORT).show();
+                }
+                else if (!isPasswordMatch){
                     Toast.makeText(getActivity(), "Password not match!", Toast.LENGTH_SHORT).show();
-                if (userTypeId == -1) {
-                    Toast.makeText(getActivity(), "Select a user type", Toast.LENGTH_LONG).show();
                 }
                 else {
                     String encryptPassword = AES.encrypt(password);

@@ -20,11 +20,4 @@ public class BaseActivity extends AppCompatActivity {
                 .addToBackStack(fragmentTag)
                 .commit();
     }
-
-    protected void replaceFragmentNoBackStack(int containerViewId, Fragment fragment, String fragmentTag) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(containerViewId, fragment, fragmentTag)
-                .commit();
-    }
 }

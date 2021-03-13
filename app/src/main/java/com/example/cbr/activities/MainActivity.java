@@ -148,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
 
                             Intent intent = HomeActivity.makeIntent(MainActivity.this);
                             startActivity(intent);
+                            finish();
                         }
                     }
                 }

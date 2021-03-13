@@ -119,8 +119,12 @@
     <string name="question_2_not_filled">Question 2 not filled.</string>
     <string name="Login">Login</string>
     <string name="new_visit">New Visit</string>
-    <string name="new_client">New Client</string>
     <string name="patient_list">Patient List</string>
+    <string name="initial_goal">Initial goal:</string>
+    <string name="login_failed">Login Failed</string>
+    <string name="database_call_fail">Response to the database failed.</string>
+    <string name="database_on_response_fail_health_goal">Response fail to get client health goal.</string>
+    <string name="initial_goal_not_found">Initial goal not found</string>
     <string name="search">Search</string>
     <string name="phone_number">Phone number</string>
     <string name="confirm_password">Confirm password</string>
@@ -137,6 +141,10 @@
     <string name="admin">Admin</string>
     <string name="cbr_worker">CBR worker</string>
     <string name="clinician">Clinician</string>
+    <string name="photo_preview">Photo preview</string>
+    <string name="client_photo">Client photo</string>
+    <string name="you_must_allow_this_app_to_use_your_camera_to_record_a_photo">You must allow this app to use your camera to record a photo</string>
+    <string name="new_visit_title">New Visit</string>
     <string-array name="zone_locations_array">
         <item>BidiBidi Zone 1</item>
         <item>BidiBidi Zone 2</item>
@@ -154,5 +162,21 @@
         <item>Medium risk</item>
         <item>Low risk</item>
     </string-array>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="priority_list">Priority List</string>
+    <string name="outstanding_referrals">Outstanding Referrals</string>
+    <string name="home">Home</string>
+    <string name="list">List</string>
+    <string name="discussion">Discussion</string>
+    <string name="notification">Notification</string>
+    <string name="new_referral">New Referral</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="new_client">New Client</string>
+    <string name="all_clients">All Clients</string>
+    <string name="sync">Sync</string>
+    <string name="dummy_data_last_visit1">Last Visit: February 9, 2021</string>
+    <string name="dummy_data_last_vist2">Last Visit: February 10, 2021</string>
+
 
 </resources>

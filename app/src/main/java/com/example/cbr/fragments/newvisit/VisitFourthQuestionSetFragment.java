@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentVisitFourthQuestionSetBinding;
+import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.VisitSocialQuestionSetData;
 import com.example.cbr.util.Constants;
 
@@ -28,6 +29,7 @@ public class VisitFourthQuestionSetFragment extends Fragment {
     private FragmentVisitFourthQuestionSetBinding binding;
 
     private final VisitSocialQuestionSetData dataContainer;
+    private final ClientInfo clientInfo;
 
     private EditText editTextAdvice;
     private EditText editTextAdvocacy;
@@ -41,9 +43,12 @@ public class VisitFourthQuestionSetFragment extends Fragment {
     private CheckBox checkBoxRef;
     private CheckBox checkBoxEncouragement;
     private TextView question16;
+    private TextView initialGoal;
 
-    public VisitFourthQuestionSetFragment(VisitSocialQuestionSetData dataContainer) {
+    public VisitFourthQuestionSetFragment(VisitSocialQuestionSetData dataContainer,
+                                          ClientInfo clientInfo) {
         this.dataContainer = dataContainer;
+        this.clientInfo = clientInfo;
     }
 
     @Nullable
@@ -78,6 +83,17 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         editTextRef.setText(dataContainer.getSocialReferralDesc());
         editTextEncouragement.setText(dataContainer.getSocialEncouragementDesc());
         editTextSocialOutcome.setText(dataContainer.getSocialOutcomeDesc());
+
+        String goal = clientInfo.getSetGoalForSocialStatus();
+        try {
+            if (!goal.isEmpty()) {
+                initialGoal.setText(goal);
+            } else {
+                initialGoal.setText(getResources().getString(R.string.na));
+            }
+        } catch (NullPointerException e) {
+            initialGoal.setText(getResources().getString(R.string.na));
+        }
 
         String goalStatus = dataContainer.getSocialGoalStatus();
         if (goalStatus.equalsIgnoreCase(Constants.CANCELLED)) {
@@ -114,6 +130,7 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         checkBoxEncouragement = binding.newVisitSocialEncouragementCheckBox;
 
         question16 = binding.newVisitQ16TextView;
+        initialGoal = binding.newVisitSocialInitialGoalBoxTextView;
     }
 
     private void setupRadioGroup() {

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -149,11 +150,9 @@ public class RegisterDialog extends AppCompatDialogFragment {
                     zonesList.add("Palorinya Basecamp");
                 }
 
-
                 if (cbx_palorinyaZone1.isChecked()) {
                     zonesList.add("Palorinya Zone 1");
                 }
-
 
                 if (cbx_palorinyaZone2.isChecked()) {
                     zonesList.add("Palorinya Zone 2");
@@ -191,7 +190,7 @@ public class RegisterDialog extends AppCompatDialogFragment {
                 }
                 else {
                     String encryptPassword = AES.encrypt(password);
-                    listener.applyInfo(firstName, lastName, phoneNumber, encryptPassword, confirmPassword);
+                    listener.applyInfo(firstName, lastName, phoneNumber, zones, userType, encryptPassword, confirmPassword);
                     dialog.dismiss();
                 }
             }
@@ -234,10 +233,11 @@ public class RegisterDialog extends AppCompatDialogFragment {
         Call<List<Users>> call = jsonPlaceHolderApi.getUsers();
 
         Response<List<Users>> response = call.execute();
+//        Log.d("test", response.body());
         List<Users> usersList = response.body();
 
         for (int i = 0; i < usersList.size(); i++) {
-            if (usersList.get(i).getPhone().equals(username)) {
+            if (usersList.get(i).getPhoneNumber().equals(username)) {
                 return true;
             }
         }
@@ -257,7 +257,7 @@ public class RegisterDialog extends AppCompatDialogFragment {
     }
 
     public interface registerDialogListener {
-        void applyInfo(String firstName, String lastName, String phone, String password, String confirmPassword);
+        void applyInfo(String firstName, String lastName, String phoneNumber, String zones, String userType, String password, String confirmPassword);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

@@ -52,8 +52,16 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
 
     private void setupViewPager() {
         generateViewPagerList();
-        ViewPager2 viewPager2 = binding.questionsPageViewPager;
+        final ViewPager2 viewPager2 = binding.questionsPageViewPager;
         viewPager2.setAdapter(new QuestionsFragmentPagerAdapter(getActivity(), viewPagerContainerList));
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                binding.questionsPagePageNumberText.setText(getString(R.string.viewpager_page_number, position, viewPager2.getAdapter().getItemCount()));
+            }
+        });
     }
 
     private void setupButtons() {

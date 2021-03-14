@@ -54,6 +54,9 @@
     <string name="wheelchair_repair_question">Can the existing wheelchair be repaired?</string>
     <string name="wheelchair_centre">*If yes, please bring the wheelchair to the centre</string>
 
+    <!-- View pager -->
+    <string name="viewpager_page_number">Page %1$d of %2$d</string>
+
     <!-- New client -->
     <string name="male">Male</string>
     <string name="female">Female</string>

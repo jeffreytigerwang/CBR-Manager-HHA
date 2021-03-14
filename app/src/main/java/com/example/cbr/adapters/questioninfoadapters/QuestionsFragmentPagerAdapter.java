@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
-    private ArrayList<ViewPagerContainer> totalFragmentsList;
-    private List<ViewPagerContainer> activeFragmentsList;
+    private final ArrayList<ViewPagerContainer> totalFragmentsList;
+    private final List<ViewPagerContainer> activeFragmentsList;
 
     public QuestionsFragmentPagerAdapter(@NonNull FragmentActivity fragmentActivity, ArrayList<ViewPagerContainer> totalFragmentsList) {
         super(fragmentActivity);
@@ -24,30 +24,31 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
         updatePages();
     }
 
-    private void updatePages() {
-
+    public void updatePages() {
+        activeFragmentsList.clear();
+        for (ViewPagerContainer viewPagerContainer : totalFragmentsList) {
+            if (viewPagerContainer.isActive()) {
+                activeFragmentsList.add(viewPagerContainer);
+            }
+        }
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return QuestionsPageFragment.newInstance(totalFragmentsList.get(position));
+        return QuestionsPageFragment.newInstance(activeFragmentsList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return totalFragmentsList.size();
+        return activeFragmentsList.size();
     }
-
-//    @Override
-//    public long getItemId(int position) {
-//
-//    }
 
     public static class ViewPagerContainer implements Serializable {
         private final ArrayList<QuestionDataContainer> viewHolderDataList;
+        private final OnViewPagerChangedListener onViewPagerChangedListener;
         private boolean isActive;
-        private OnViewPagerChangedListener onViewPagerChangedListener;
         private boolean isOnScreen;
 
         public ViewPagerContainer(ArrayList<QuestionDataContainer> viewHolderDataList, boolean isActive, OnViewPagerChangedListener onViewPagerChangedListener) {

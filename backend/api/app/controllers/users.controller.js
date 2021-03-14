@@ -16,10 +16,11 @@ exports.create = (req, res) => {
   const user = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    phone: req.body.phone,
+    phoneNumber: req.body.phoneNumber,
     password: req.body.password,
     priorityLevel: req.body.priorityLevel,
-    zone: req.body.zone
+    zones: req.body.zones,
+    userType: req.body.userType
   };
 
   // Save item in database

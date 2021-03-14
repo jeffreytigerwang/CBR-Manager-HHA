@@ -1,6 +1,11 @@
 package com.example.cbr.fragments.newclient;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentNewclientBinding;
@@ -27,10 +34,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.http.Field;
+
 import java.util.concurrent.ThreadLocalRandom;
 
-public class NewClientFragment extends BaseFragment implements NewClientContract.View {
+import static android.app.Activity.RESULT_OK;
+import static com.example.cbr.util.Constants.CAMERA_PERMISSION_CODE;
+import static com.example.cbr.util.Constants.CAMERA_REQUEST_CODE;
 
+public class NewClientFragment extends BaseFragment implements NewClientContract.View {
     private int clientId;
 
     private FragmentNewclientBinding binding;
@@ -60,6 +72,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         populateRateClientHealthSpinner();
         populateRateClientEducationSpinner();
         populateRateClientSocialStatusSpinner();
+        setupCameraButton();
         setupRecordClientButton();
         return binding.getRoot();
     }
@@ -93,6 +106,48 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         spinner.setAdapter(adapter);
     }
 
+    private void setupCameraButton() {
+        Button button = binding.newClientCameraButton;
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setupCameraPermissions();
+            }
+        });
+    }
+
+    private void setupCameraPermissions() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+        } else {
+            takePicture();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                takePicture();
+            } else {
+                Toast.makeText(getActivity(), "Camera Permission is Required to Use the Camera", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void takePicture() {
+        Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(camera, CAMERA_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+            Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+            binding.newClientPhotoOfClientImageView.setImageBitmap(imageBitmap);
+        }
+    }
+
     private void setupRecordClientButton() {
         Button button = binding.newClientRecordClientButton;
         button.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +158,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                 String location = binding.newClientZoneLocationSpinner.getSelectedItem().toString();
 
                 if (binding.newClientVillageNumberEditText.getText().toString().equals("")) {
-                    Toast.makeText(getActivity(), "Village Number cannot be empty", Toast.LENGTH_SHORT).show();
+                    showOkDialog(getString(R.string.missing_fields), "Village Number cannot be empty", null);
                     return;
                 }
                 Integer villageNumber = Integer.parseInt(binding.newClientVillageNumberEditText.getText().toString());
@@ -112,16 +167,22 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                 String lastName = binding.newClientLastNameEditText.getText().toString();
 
                 if (binding.newClientAgeEditText.getText().toString().equals("")) {
-                    Toast.makeText(getActivity(), "Age cannot be empty", Toast.LENGTH_SHORT).show();
+                    showOkDialog(getString(R.string.missing_fields), "Age cannot be empty", null);
                     return;
                 }
 
                 Integer age = Integer.parseInt(binding.newClientAgeEditText.getText().toString());
+
+                boolean isMale = binding.newClientMaleRadioButton.isChecked();
+                boolean isFemale = binding.newClientFemaleRadioButton.isChecked();
+
+                String gender = isMale ? "Male" : "Female";
+
                 String contactNumber = binding.newClientContactNumberEditText.getText().toString();
                 boolean caregiverPresentForInterview = binding.newClientCaregiverIsPresentCheckBox.isChecked();
 
                 if (binding.newClientCaregiverContactNumberEditText.getText().toString().equals("")) {
-                    Toast.makeText(getActivity(), "Caregiver Contact Number cannot be empty", Toast.LENGTH_SHORT).show();
+                    showOkDialog(getString(R.string.missing_fields), "Caregiver Contact Number cannot be empty", null);
                     return;
                 }
 
@@ -149,7 +210,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
 
                 clientId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
 
-                createClientBasicInfo(clientId, firstName, lastName, gpsLocation, location, villageNumber,
+                createClientBasicInfo(clientId, firstName, lastName, gpsLocation, location, villageNumber, gender,
                         age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
 
                 ClientDisability clientDisability = new ClientDisability(clientId, amputeeDisability, polioDisability, spinalCordInjuryDisability, cerebralPalsyDisability,
@@ -267,25 +328,25 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         });
     }
 
+
     private void createClientBasicInfo(Integer clientId, String firstName, String lastName, String gpsLocation, String location,
-                                       Integer villageNumber, Integer age, String contactNumber, boolean caregiverPresentForInterview,
+                                       Integer villageNumber, String gender, Integer age, String contactNumber, boolean caregiverPresentForInterview,
                                        Integer caregiverContactNumber) {
 
         Call<ClientInfo> call = jsonPlaceHolderApi.createClient(clientId, firstName, lastName, gpsLocation, location,
-                villageNumber, age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
+                villageNumber, gender, age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
 
         call.enqueue(new Callback<ClientInfo>() {
             @Override
             public void onResponse(Call<ClientInfo> call, Response<ClientInfo> response) {
 
                 if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Record Fail", Toast.LENGTH_SHORT).show();
+                    showErrorDialog("Record Fail", null);
                     return;
                 }
 
                 ClientInfo clientInfoResponse = response.body();
-                Toast.makeText(getActivity(), clientInfoResponse.getFirstName() + " " +
-                        clientInfoResponse.getLastName() + "\n" + "Record Successful", Toast.LENGTH_SHORT).show();
+                showOkDialog("", clientInfoResponse.getFullName() + "\n" + "Record Successful", null);
             }
 
             @Override

@@ -5,18 +5,26 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cbr.R;
 import com.example.cbr.adapters.ClientListAdapter;
 import com.example.cbr.databinding.FragmentClientlistBinding;
 import com.example.cbr.fragments.base.BaseFragment;
+import com.example.cbr.models.ClientDisability;
+import com.example.cbr.models.ClientEducationAspect;
+import com.example.cbr.models.ClientHealthAspect;
 import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.ClientSocialAspect;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 
@@ -26,10 +34,6 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-
-import com.example.cbr.R;
-
 import retrofit2.Retrofit;
 
 public class ClientListFragment extends BaseFragment implements ClientListContract.View {
@@ -43,6 +47,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     private FragmentClientlistBinding binding;
     private ClientListFragmentInterface clientListFragmentInterface;
     private ClientListContract.Presenter clientListPresenter;
+    private ClientListAdapter adapter;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -56,6 +61,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
 
     @Override
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         setPresenter(new ClientListPresenter(this));
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -73,6 +79,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
 
         try {
             getClientsInfo();
+            getClientGeneralAspect();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,13 +87,37 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         RecyclerView recyclerView = binding.recyclerViewClientlist;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
-        ClientListAdapter adapter = new ClientListAdapter(getActivity(), clientInfoArrayList, clientListFragmentInterface);
+        adapter = new ClientListAdapter(getActivity(), clientInfoArrayList, clientListFragmentInterface);
         recyclerView.setAdapter(adapter);
 
-        binding.sampleText.setText(R.string.patient_list);
+        binding.textViewPatientList.setText(R.string.patient_list);
+        setHasOptionsMenu(true);
+
 
         View view = binding.getRoot();
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.top_menu_search, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+        MenuItem searchItem = menu.findItem(R.id.clientListSearch);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+        });
     }
 
 
@@ -97,6 +128,55 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         List<ClientInfo> clientInfoList = response.body();
 
         clientInfoArrayList.addAll(clientInfoList);
+    }
+
+    private void getClientGeneralAspect() throws IOException {
+        Call<List<ClientDisability>> callDisable = jsonPlaceHolderApi.getClientDisability();
+        Call<List<ClientHealthAspect>> callHealth = jsonPlaceHolderApi.getClientHealthAspect();
+        Call<List<ClientEducationAspect>> callEducation = jsonPlaceHolderApi.getClientEducationAspect();
+        Call<List<ClientSocialAspect>> callSocial = jsonPlaceHolderApi.getClientSocialAspect();
+
+        Response<List<ClientDisability>> responseDisable = callDisable.execute();
+        List<ClientDisability> clientDisabilityList = responseDisable.body();
+
+        Response<List<ClientHealthAspect>> responseHealth = callHealth.execute();
+        List<ClientHealthAspect> clientHealthAspectList = responseHealth.body();
+
+        Response<List<ClientEducationAspect>> responseEducation = callEducation.execute();
+        List<ClientEducationAspect> clientEducationAspectList = responseEducation.body();
+
+        Response<List<ClientSocialAspect>> responseSocial = callSocial.execute();
+        List<ClientSocialAspect> clientSocialAspectList = responseSocial.body();
+
+
+        for (int i = 0; i < clientInfoArrayList.size(); i++) {
+            ClientInfo clientInfo = clientInfoArrayList.get(i);
+
+            clientInfo.setAmputeeDisability(clientDisabilityList.get(i).isAmputeeDisability());
+            clientInfo.setPolioDisability(clientDisabilityList.get(i).isPolioDisability());
+            clientInfo.setSpinalCordInjuryDisability(clientDisabilityList.get(i).isSpinalCordInjuryDisability());
+            clientInfo.setCerebralPalsyDisability(clientDisabilityList.get(i).isCerebralPalsyDisability());
+            clientInfo.setSpinaBifidaDisability(clientDisabilityList.get(i).isSpinaBifidaDisability());
+            clientInfo.setHydrocephalusDisability(clientDisabilityList.get(i).isHydrocephalusDisability());
+            clientInfo.setVisualImpairmentDisability(clientDisabilityList.get(i).isVisualImpairmentDisability());
+            clientInfo.setHearingImpairmentDisability(clientDisabilityList.get(i).isHearingImpairmentDisability());
+            clientInfo.setDoNotKnowDisability(clientDisabilityList.get(i).isDoNotKnowDisability());
+            clientInfo.setOtherDisability(clientDisabilityList.get(i).isOtherDisability());
+
+            clientInfo.setRateHealth(clientHealthAspectList.get(i).getRateHealth());
+            clientInfo.setDescribeHealth(clientHealthAspectList.get(i).getDescribeHealth());
+            clientInfo.setSetGoalForHealth(clientHealthAspectList.get(i).getSetGoalForHealth());
+
+            clientInfo.setRateEducation(clientEducationAspectList.get(i).getRateEducation());
+            clientInfo.setDescribeEducation(clientEducationAspectList.get(i).getDescribeEducation());
+            clientInfo.setSetGoalForEducation(clientEducationAspectList.get(i).getSetGoalForEducation());
+
+            clientInfo.setRateSocialStatus(clientSocialAspectList.get(i).getRateSocialStatus());
+            clientInfo.setDescribeSocialStatus(clientSocialAspectList.get(i).getDescribeSocialStatus());
+            clientInfo.setSetGoalForSocialStatus(clientSocialAspectList.get(i).getSetGoalForSocialStatus());
+
+            clientInfoArrayList.set(i, clientInfo);
+        }
     }
 
 
@@ -122,4 +202,6 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     public interface ClientListFragmentInterface {
         void swapToClientPage(ClientInfo clientInfo);
     }
+
+
 }

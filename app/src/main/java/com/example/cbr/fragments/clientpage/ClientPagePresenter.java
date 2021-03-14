@@ -1,6 +1,5 @@
 package com.example.cbr.fragments.clientpage;
 
-import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;

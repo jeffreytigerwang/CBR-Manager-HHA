@@ -17,18 +17,10 @@ import com.example.cbr.activities.NewVisitActivity;
 import com.example.cbr.adapters.ClientInfoAdapter;
 import com.example.cbr.databinding.FragmentClientpageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
-import com.example.cbr.fragments.clientlist.ClientListFragment;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
-import com.example.cbr.retrofit.JsonPlaceHolderApi;
-import com.example.cbr.retrofit.RetrofitInit;
 
-import java.io.IOException;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class ClientPageFragment extends BaseFragment implements ClientPageContract.View {
 
@@ -78,6 +70,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
     }
 
     private void setupClientInfoCard() {
+        binding.clientPageGenderText.setText(getString(R.string.gender_clientpage, clientInfo.getGender()));
         binding.clientPageNameText.setText(clientInfo.getFullName());
         binding.clientPageLocationText.setText(clientInfo.getZoneLocation());
         binding.clientPageAgeText.setText(getString(R.string.age_clientpage, clientInfo.getAge().toString()));
@@ -86,7 +79,8 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         binding.clientPageNewVisitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = NewVisitActivity.makeLaunchIntent(getActivity(), -1);
+                Intent intent = NewVisitActivity.makeLaunchIntent(getActivity(),
+                        clientInfo);
                 startActivity(intent);
             }
         });

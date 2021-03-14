@@ -6,9 +6,9 @@ module.exports = (sequelize, Sequelize) => {
         lastName: {
             type: Sequelize.STRING
         },
-        phone: {
+        phoneNumber: {
             type: Sequelize.STRING,
-            unique: true
+	    unique: true
         },
         password: {
             type: Sequelize.STRING
@@ -16,7 +16,10 @@ module.exports = (sequelize, Sequelize) => {
         priorityLevel: {
             type: Sequelize.STRING
         },
-        zone: {
+        zones: {
+            type: Sequelize.STRING
+        },
+        userType: {
             type: Sequelize.STRING
         }
 

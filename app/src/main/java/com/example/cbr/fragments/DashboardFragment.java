@@ -17,14 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.adapters.OutstandingListAdapter;
 import com.example.cbr.adapters.PriorityListAdapter;
-import com.example.cbr.databinding.FragmentHomeBinding;
+import com.example.cbr.databinding.FragmentDashboardBinding;
 import com.example.cbr.models.ClientInfo;
 
 import java.util.ArrayList;
 
-public class TempHomeFragment extends Fragment {
+public class DashboardFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentDashboardBinding binding;
     private TempHomeFragmentInterface tempHomeFragmentInterface;
     private ArrayList<ClientInfo> priorityList;
     private ArrayList<ClientInfo> outstandingList;
@@ -41,7 +41,7 @@ public class TempHomeFragment extends Fragment {
 
     @Override
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentDashboardBinding.inflate(inflater, container, false);
         priorityList = new ArrayList<>();
         outstandingList = new ArrayList<>();
 
@@ -154,12 +154,12 @@ public class TempHomeFragment extends Fragment {
 
     }
 
-    public static TempHomeFragment newInstance() {
-        return new TempHomeFragment();
+    public static DashboardFragment newInstance() {
+        return new DashboardFragment();
     }
 
     public static String getFragmentTag() {
-        return TempHomeFragment.class.getSimpleName();
+        return DashboardFragment.class.getSimpleName();
     }
 
     public interface TempHomeFragmentInterface {

@@ -1,3 +1,4 @@
+// code below is adapted from tutorial found at source:
 // https://bezkoder.com/react-material-ui-examples-crud/#Import_Material_UI
 
 import React, { Component } from "react";
@@ -9,12 +10,6 @@ import { TextField, Button, withStyles, Grid, Paper } from "@material-ui/core";
 class User extends Component {
     constructor(props) {
         super(props);
-        this.onChangeTitle = this.onChangeTitle.bind(this);
-        this.onChangeDescription = this.onChangeDescription.bind(this);
-        this.getTutorial = this.getTutorial.bind(this);
-        this.updatePublished = this.updatePublished.bind(this);
-        this.updateTutorial = this.updateTutorial.bind(this);
-        this.deleteTutorial = this.deleteTutorial.bind(this);
 
         this.onChangeFirstName = this.onChangeFirstName.bind(this);
         this.onChangeLastName = this.onChangeLastName.bind(this);
@@ -24,6 +19,7 @@ class User extends Component {
         this.onChangeZones = this.onChangeZones.bind(this);
         this.onChangeUserType = this.onChangeUserType.bind(this);
         this.getUser = this.getUser.bind(this);
+        // TODO going to convert to activate function
         //this.updatePublished = this.updatePublished.bind(this);
         this.updateUser = this.updateUser.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
@@ -100,31 +96,6 @@ class User extends Component {
                 console.log(e);
             });
     }
-/*
-    updatePublished(status) {
-        var data = {
-            id: this.state.currentTutorial.id,
-            title: this.state.currentTutorial.title,
-            description: this.state.currentTutorial.description,
-            published: status
-        };
-
-        TutorialDataService.update(this.state.currentTutorial.id, data)
-            .then(response => {
-                this.setState(prevState => ({
-                    currentTutorial: {
-                        ...prevState.currentTutorial,
-                        published: status
-                    }
-                }));
-                console.log(response.data);
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    }
-*/
-
     updateUser() {
         UserDataService.update(
             this.state.currentUser.id,
@@ -152,44 +123,7 @@ class User extends Component {
             });
     }
 
-
-    onChangeTitle(e) {
-        const title = e.target.value;
-
-        this.setState(function (prevState) {
-            return {
-                currentTutorial: {
-                    ...prevState.currentTutorial,
-                    title: title
-                }
-            };
-        });
-    }
-
-    onChangeDescription(e) {
-        const description = e.target.value;
-
-        this.setState(prevState => ({
-            currentTutorial: {
-                ...prevState.currentTutorial,
-                description: description
-            }
-        }));
-    }
-
-    getTutorial(id) {
-        UserDataService.get(id)
-            .then(response => {
-                this.setState({
-                    currentTutorial: response.data
-                });
-                console.log(response.data);
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    }
-
+// TODO: Remove published and change to activation
     updatePublished(status) {
         var data = {
             id: this.state.currentTutorial.id,
@@ -207,33 +141,6 @@ class User extends Component {
                     }
                 }));
                 console.log(response.data);
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    }
-
-    updateTutorial() {
-        UserDataService.update(
-            this.state.currentTutorial.id,
-            this.state.currentTutorial
-        )
-            .then(response => {
-                console.log(response.data);
-                this.setState({
-                    message: "The tutorial was updated successfully!"
-                });
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    }
-
-    deleteTutorial() {
-        UserDataService.delete(this.state.currentTutorial.id)
-            .then(response => {
-                console.log(response.data);
-                this.props.history.push('/tutorials')
             })
             .catch(e => {
                 console.log(e);

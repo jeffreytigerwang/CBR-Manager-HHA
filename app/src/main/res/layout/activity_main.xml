@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:weightSum="9"
     tools:context=".activities.MainActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/background_login">
 
     <GridLayout
         android:columnCount="1"
@@ -17,7 +17,8 @@
         android:layout_weight="8"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="10dp">
+        android:padding="5dp"
+        android:layout_marginTop="20dp">
         <!-- Logo -->
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
@@ -60,7 +61,6 @@
             android:layout_column="0"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="0dp"
             app:cardElevation="8dp">
 
             <LinearLayout
@@ -85,6 +85,7 @@
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <!-- Phone Text -->
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
@@ -165,7 +166,6 @@
                     app:layout_constraintHorizontal_bias="0.511"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/mainActivity_username" />
-
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -180,14 +180,12 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             app:cardElevation="8dp">
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="1dp"
                 android:orientation="vertical">
-
                 <TextView
                     android:id="@+id/textView_terms"
                     android:layout_width="wrap_content"
@@ -199,8 +197,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/mainActivity_password"
                     app:layout_constraintVertical_bias="0.772" />
-
-
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -215,15 +211,12 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="10dp"
-            app:cardCornerRadius="8dp"
             app:cardElevation="8dp">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:orientation="vertical">
-
                 <Button
                     android:id="@+id/btn_register"
                     android:layout_width="wrap_content"
@@ -243,7 +236,8 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp">
         <Button
             android:id="@+id/button_login"
             android:layout_width="344dp"
@@ -256,6 +250,6 @@
     </RelativeLayout>
 
 
-</LinearLayout>    
+</LinearLayout>
 
 

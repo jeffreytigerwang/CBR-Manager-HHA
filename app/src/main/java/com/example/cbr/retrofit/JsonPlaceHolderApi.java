@@ -52,6 +52,7 @@ public interface JsonPlaceHolderApi {
             @Field("gpsLocation") String gpsLocation,
             @Field("zoneLocation") String zoneLocation,
             @Field("villageNumber") Integer villageNumber,
+            @Field("gender") String gender,
             @Field("age") Integer age,
             @Field("contactNumber") String contactNumber,
             @Field("caregiverPresentForInterview") boolean caregiverPresentForInterview,
@@ -72,7 +73,7 @@ public interface JsonPlaceHolderApi {
     Call<VisitSocialQuestionSetData> createVisitSocialQuestionSetData(@Body VisitSocialQuestionSetData visitSocialQuestionSetData);
 
     @GET("api/users")
-    Call<List<Users>> getUserEmail(@Query("email") String email);
+    Call<List<Users>> getUserPhone(@Query("phone") String phone);
 
     @POST("api/users")
     Call<Users> createUser(@Body Users users);
@@ -80,4 +81,19 @@ public interface JsonPlaceHolderApi {
     @GET("api/users")
     Call<List<Users>> getUsers();
 
+    /*
+        New GET request
+     */
+
+    @GET("api/disability")
+    Call<List<ClientDisability>> getClientDisability();
+
+    @GET("api/healthAspect")
+    Call<List<ClientHealthAspect>> getClientHealthAspect();
+
+    @GET("api/educationAspect")
+    Call<List<ClientEducationAspect>> getClientEducationAspect();
+
+    @GET("api/socialAspect")
+    Call<List<ClientSocialAspect>> getClientSocialAspect();
 }

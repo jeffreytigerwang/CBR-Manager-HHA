@@ -5,7 +5,9 @@ public class Users {
 
     private String firstName;
     private String lastName;
-    private String email;
+    private String phoneNumber;
+    private String zones;
+    private String userType;
     private String password;
 
     private Users() {
@@ -36,12 +38,12 @@ public class Users {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getPassword() {
@@ -51,5 +53,22 @@ public class Users {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getZones() {
+        return zones;
+    }
+
+    public void setZones(String zones) {
+        this.zones = zones;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
 
 }

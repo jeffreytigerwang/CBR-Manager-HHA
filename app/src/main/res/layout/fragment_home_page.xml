@@ -6,12 +6,13 @@
     android:id="@+id/fragmentHomePage"
     android:orientation="vertical"
     android:weightSum="6"
-    android:background="@drawable/listbackground">
+    android:background="@drawable/gradient_background">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@drawable/star_pattern">
 
         <TextView
             android:layout_width="wrap_content"

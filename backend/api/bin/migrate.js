@@ -52,8 +52,8 @@ async function seedData() {
     seed = await db.users.create({
             firstName: 'Team',
             lastName: 'Mars',
-            phoneNumber: '123',
-            password: '123',
+            phoneNumber: '123456',
+            password: '123456',
             zones: '',
             userType: 'Admin'
     });

@@ -31,8 +31,8 @@ async function seedData() {
   } else {
     var seed;
     seed = await db.users.create({
-            firstName: 'devBypass',
-            lastName: 'teamMars',
+            firstName: 'Team',
+            lastName: 'Mars',
             phoneNumber: '123',
             password: '123',
             zones: '',

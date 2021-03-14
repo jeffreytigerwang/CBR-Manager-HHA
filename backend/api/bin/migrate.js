@@ -92,6 +92,7 @@ async function seedData() {
             gender: 'female',
             age: 19,
             contactNumber: '222-222-2222',
+            caregiverContactNumber: '123-456-2222',
             caregiverPresentForInterview: false,
     });
     seed = await db.clients.create({
@@ -105,6 +106,7 @@ async function seedData() {
             gender: 'male',
             age: 65,
             contactNumber: '111-111-1111',
+            caregiverContactNumber: '123-456-2222',
             caregiverPresentForInterview: false,
     });
     seed = await db.health_aspect.create({

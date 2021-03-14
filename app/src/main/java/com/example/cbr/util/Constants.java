@@ -41,4 +41,6 @@ public class Constants {
     public static String HEARING_IMPAIRMENT_DISABILITY = "Hearing impairment";
     public static String UNKNOWN_DISABILITY = "Unknown";
     public static String OTHER_DISABILITY = "Other";
+
+    public static String LOCAL_DATABASE = "cbr.db";
 }

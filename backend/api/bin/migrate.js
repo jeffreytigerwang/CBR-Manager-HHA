@@ -36,9 +36,16 @@ async function seedData() {
     else { return 0; }
   })
 
+  const disabilityNotEmpty = await db.disability.findByPk(1).then(data => {
+    console.log('disability returned: ' + data);
+    if (data) { return 1; }
+    else { return 0; }
+  })
+
+
   var isEmpty = true;
   if (usersNotEmpty || clientsNotEmpty || healthAspectNotEmpty
-      || visitsNotEmpty || healthProgressNotEmpty) {
+      || visitsNotEmpty || healthProgressNotEmpty || disabilityNotEmpty) {
     isEmpty = false;
   }
 
@@ -60,7 +67,7 @@ async function seedData() {
     seed = await db.users.create({
             firstName: 'Amadi',
             lastName: 'Yusuf',
-            phoneNumber: '666-666-6666',
+            phoneNumber: '6666666666',
             password: 'password',
             zones: '',
             userType: 'Admin'
@@ -68,7 +75,7 @@ async function seedData() {
     seed = await db.users.create({
             firstName: 'Eniola',
             lastName: 'Muhammad',
-            phoneNumber: '555-555-5555',
+            phoneNumber: '5555555555',
             password: 'password',
             zones: 'Bidibidi Zone 1',
             userType: 'CBR Worker'
@@ -76,7 +83,7 @@ async function seedData() {
     seed = await db.users.create({
             firstName: 'Gbenga',
             lastName: 'Muhammad',
-            phoneNumber: '444-444-4444',
+            phoneNumber: '4444444444',
             password: 'password',
             zones: 'Bidibidi Zone 2',
             userType: 'CBR Worker'
@@ -91,7 +98,7 @@ async function seedData() {
             dateJoined: '2021-02-10',
             gender: 'female',
             age: 19,
-            contactNumber: '222-222-2222',
+            contactNumber: '2222222222',
             caregiverContactNumber: 1234562222,
             caregiverPresentForInterview: false,
     });
@@ -105,7 +112,7 @@ async function seedData() {
             dateJoined: '2021-02-10',
             gender: 'male',
             age: 65,
-            contactNumber: '111-111-1111',
+            contactNumber: '1111111111',
             caregiverContactNumber: 1234562222,
             caregiverPresentForInterview: false,
     });
@@ -219,6 +226,20 @@ async function seedData() {
             healthGoalDesc: "Make sure she fixes her wheel chair",
             clientId: 1234,
             visitId: 9000
+    });
+    seed = await db.disability.create({
+            clientId: 1234,
+            amputeeDisability: false,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: false,
+            visualImpairmentDisability: false,
+            hearingImpairmentDisability: false,
+            doNotKnowDisability: false,
+            otherDisability: false,
+            specifyDisability: ''
     });
     console.log('All seed data implemented');
   }

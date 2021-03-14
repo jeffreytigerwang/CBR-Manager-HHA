@@ -1,10 +1,24 @@
 //https://bezkoder.com/react-material-ui-examples-crud/#Import_Material_UI
+
 import React, { Component } from "react";
 import UserDataService from "../services/user.service";
 import { Link } from "react-router-dom";
 
 import { styles } from "../css-common"
-import { TextField, Button, Grid, ListItem, withStyles } from "@material-ui/core";
+import { TextField, Button, Grid, ListItem, withStyles, Paper } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(1),
+      width: theme.spacing(16),
+      height: '100%'
+    },
+  },
+}));
 
 class UsersList extends Component {
   constructor(props) {
@@ -172,16 +186,21 @@ class UsersList extends Component {
         console.log(e);
       });
   }
+
+
 */
 
+
   render() {
+    //const classes = useStyles();
     const { classes } = this.props
     const { searchName, users, currentUser, currentIndex } = this.state;
 
     return (
-      <div className={classes.form}>
-        <Grid container>
-          <Grid className={classes.search} item sm={12} xs={12} md={12} xl={12} lg={12}>
+      <div className={classes.root}>
+        <Grid container spacing={5}>
+
+          <Grid item className={classes.search} item sm={12}>
             <TextField
               label="Search by name"
               value={searchName}
@@ -189,43 +208,50 @@ class UsersList extends Component {
             />
             <Button
               size="small"
-              variant="outlined"
-              className={classes.textField}
+              color="primary"
+              className={classes.searchBar}
+              variant="contained"
               onClick={this.searchName}>
               Search
             </Button>
           </Grid>
-          <Grid item md={4}>
-            <h2>Users List</h2>
 
-            <div className="list-group">
-              {users &&
-                users.map((user, index) => (
-                  <ListItem
-                    selected={index === currentIndex}
-                    onClick={() => this.setActiveUser(user, index)}
-                    divider
-                    button
-                    key={index}>
-                    {user.firstName + " " + user.lastName}
-                  </ListItem>
-                ))}
-            </div>
-
-            <Button
-              className={`${classes.button} ${classes.removeAll}`}
-              size="small"
-              color="secondary"
-              variant="contained"
-              onClick={this.removeAllUsers}
-            >
-              Remove All
-          </Button>
+          <Grid item sm={4}>
+            <Paper Grid container direction="column" justify="center"
+            alignItems="center">
+              <Grid item><h2>Users List</h2></Grid>
+              <div className="listGroup">
+                {users &&
+                  users.map((user, index) => (
+                    <ListItem
+                      selected={index === currentIndex}
+                      onClick={() => this.setActiveUser(user, index)}
+                      divider
+                      button
+                      key={index}>
+                      {user.firstName + " " + user.lastName}
+                    </ListItem>
+                  ))}
+              </div>
+              {/*
+              <Button
+                className={`${classes.button} ${classes.removeAll}`}
+                size="small"
+                color="secondary"
+                variant="contained"
+                onClick={this.removeAllUsers}
+              >Remove All
+              </Button>
+              */}
+            </Paper>
           </Grid>
-          <Grid item md={8}>
+
+          <Grid item sm={8}>
+            <Paper Grid container direction="column" justify="center"
+            alignItems="center" className={classes.listGroup}>
             {currentUser ? (
               <div className={classes.user}>
-                <h4>User</h4>
+                <h2>User Details</h2>
                 <div className={classes.detail}>
                   <label>
                     <strong>First Name:</strong>
@@ -242,7 +268,7 @@ class UsersList extends Component {
                   <label>
                     <strong>Phone Number:</strong>
                   </label>{" "}
-                  {currentUser.phone}
+                  {currentUser.phoneNumber}
                 </div>
                 <div className={classes.detail}>
                   <label>
@@ -250,17 +276,17 @@ class UsersList extends Component {
                   </label>{" "}
                   {currentUser.password}
                 </div>
-                <div className={classes.detail}>
+               <div className={classes.detail}>
                   <label>
-                    <strong>Priority Level:</strong>
+                    <strong>Zones:</strong>
                   </label>{" "}
-                  {currentUser.priorityLevel}
+                  {currentUser.zones}
                 </div>
                 <div className={classes.detail}>
                   <label>
-                    <strong>Zone:</strong>
+                    <strong>User Type:</strong>
                   </label>{" "}
-                  {currentUser.zone}
+                  {currentUser.userType}
                 </div>
                 <div className={classes.detail}>
                   <label>
@@ -282,6 +308,7 @@ class UsersList extends Component {
                   <p className={classes.user}>Please click on a User...</p>
                 </div>
               )}
+          </Paper>
           </Grid>
         </Grid>
       </div>

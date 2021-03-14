@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import UserDataService from "../services/user.service";
 
 import { styles } from "../css-common"
-import { TextField, Button, withStyles } from "@material-ui/core";
+import { TextField, Button, withStyles, Grid, Paper } from "@material-ui/core";
 
 class User extends Component {
     constructor(props) {
@@ -18,10 +18,11 @@ class User extends Component {
 
         this.onChangeFirstName = this.onChangeFirstName.bind(this);
         this.onChangeLastName = this.onChangeLastName.bind(this);
-        this.onChangePhone = this.onChangePhone.bind(this);
+        this.onChangePhoneNumber = this.onChangePhoneNumber.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onChangePriorityLevel = this.onChangePriorityLevel.bind(this);
-        this.onChangeZone = this.onChangeZone.bind(this);
+        this.onChangeZones = this.onChangeZones.bind(this);
+        this.onChangeUserType = this.onChangeUserType.bind(this);
         this.getUser = this.getUser.bind(this);
         //this.updatePublished = this.updatePublished.bind(this);
         this.updateUser = this.updateUser.bind(this);
@@ -31,10 +32,11 @@ class User extends Component {
             id: null,
             firstName: "",
             lastName: "",
-            phone: "",
+            phoneNumber: "",
             password: "",
             priorityLevel: "",
-            zone: "",
+            zones: "",
+            userType: "",
             submitted: false
         };
     }
@@ -44,15 +46,45 @@ class User extends Component {
         this.getUser(this.props.match.params.id);
     }
 
+    onChangeFirstName(e) {
+        this.setState({
+            firstName: e.target.value
+        });
+    }
+
+    onChangeLastName(e) {
+        this.setState({
+            lastName: e.target.value
+        });
+    }
+
+    onChangeZones(e) {
+        this.setState({
+            zones: e.target.value
+        });
+    }
+
+    onChangePriorityLevel(e) {
+        this.setState({
+            priorityLevel: e.target.value
+        });
+    }
+
     onChangePassword(e) {
         this.setState({
             password: e.target.value
         });
     }
 
-    onChangePhone(e) {
+    onChangePhoneNumber(e) {
         this.setState({
-            phone: e.target.value
+            phoneNumber: e.target.value
+        });
+    }
+
+    onChangeUserType(e) {
+        this.setState({
+            userType: e.target.value
         });
     }
 
@@ -213,10 +245,10 @@ class User extends Component {
         const { classes } = this.props
 
         return (
-            <div>
+            <Paper className={classes.listAddUser} style={{marginTop:"15px"}}>
                 {currentUser ? (
                     <div className={classes.form}>
-                        <h2>User</h2>
+                        <h2>Update User</h2>
                         <form>
                             <div>
                                 <TextField
@@ -242,9 +274,9 @@ class User extends Component {
                                 <TextField
                                     className={classes.textField}
                                     label="Phone Number"
-                                    name="phone"
-                                    value={currentUser.phone}
-                                    onChange={this.onChangePhone}
+                                    name="phoneNumber"
+                                    value={currentUser.phoneNumber}
+                                    onChange={this.onChangePhoneNumber}
                                     required
                                 />
                             </div>
@@ -271,36 +303,45 @@ class User extends Component {
                             <div>
                                 <TextField
                                     className={classes.textField}
-                                    label="Zone"
-                                    name="zone"
-                                    value={currentUser.zone}
-                                    onChange={this.onChangeZone}
+                                    label="Zones"
+                                    name="zones"
+                                    value={currentUser.zones}
+                                    onChange={this.onChangeZones}
                                     required
                                 />
                             </div>
+                            <div>
+                                <TextField
+                                    className={classes.textField}
+                                    label="User Type"
+                                    name="userType"
+                                    value={currentUser.userType}
+                                    onChange={this.onChangeUserType}
+                                    required
+                                />
+                            </div>
+
 
                             <div className="form-group">
                                 <label>
                                     <strong>Status: </strong>
                                 </label>
-                                {currentUser.published ? "Published" : "Pending"}
+                                {currentUser.published ? "Active" : "Pending"}
                             </div>
                         </form>
                         <div className={classes.buttonWrapper}>
                             {currentUser.published ? (
-                                <Button
+                                <Button disabled
                                     className={`${classes.publish} ${classes.button}`}
                                     onClick={() => this.updatePublished(false)}
                                 >
-                                    UnPublish
-              </Button>
+                                    UnActivate</Button>
                             ) : (
-                                    <Button
+                                    <Button disabled
                                         className={`${classes.publish} ${classes.button}`}
                                         onClick={() => this.updatePublished(true)}
                                     >
-                                        Publish
-              </Button>
+                                        Activate</Button>
                                 )}
                             <Button
                                 className={`${classes.delete} ${classes.button}`}
@@ -325,7 +366,7 @@ class User extends Component {
                             <p>Please click on a User...</p>
                         </div>
                     )}
-            </div>
+            </Paper>
         );
     }
 }

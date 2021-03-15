@@ -14,13 +14,13 @@
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/recyclerview_secondText"
+        app:layout_constraintEnd_toStartOf="@id/recyclerview_edittext"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:text="First" />
 
     <TextView
-        android:id="@+id/recyclerview_secondText"
+        android:id="@+id/recyclerview_edittext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"

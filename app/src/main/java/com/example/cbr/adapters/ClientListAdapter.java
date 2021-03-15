@@ -25,7 +25,7 @@ import java.util.List;
 
 public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.ViewHolder> implements Filterable {
 
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
     private Context context;
     private ArrayList<ClientInfo> clientInfoListSubset;
     private ArrayList<ClientInfo> clientInfoListFull;

@@ -93,7 +93,6 @@ public class DashboardPageFragment extends Fragment implements DashboardPageCont
     private void populateOutstandingList() {
 
         try {
-            Toast.makeText(getActivity(), presenter.getOutstandingReferral().toString(), Toast.LENGTH_LONG).show();
             outstandingList.addAll(presenter.getOutstandingReferral());
         } catch (Exception e) {
             e.printStackTrace();

@@ -18,6 +18,7 @@ import com.example.cbr.fragments.clientlist.ClientListFragment;
 import com.example.cbr.fragments.clientpage.ClientPageFragment;
 import com.example.cbr.fragments.home.HomePageFragment;
 import com.example.cbr.fragments.newclient.NewClientFragment;
+import com.example.cbr.fragments.newreferral.NewReferralFragment;
 import com.example.cbr.fragments.visitpage.VisitPageFragment;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
@@ -128,6 +129,12 @@ public class HomeActivity extends BaseActivity implements
     }
 
     @Override
+    public void swapToReferralPage(ClientInfo clientInfo) {
+        NewReferralFragment newReferralFragment = NewReferralFragment.newInstance(clientInfo);
+        addFragment(R.id.homeFragmentContainer, newReferralFragment, NewReferralFragment.getFragmentTag());
+    }
+
+    @Override
     public void swapToNewClient() {
         NewClientFragment newClientFragment = NewClientFragment.newInstance();
         addFragment(R.id.homeFragmentContainer, newClientFragment, NewClientFragment.getFragmentTag());
@@ -163,6 +170,4 @@ public class HomeActivity extends BaseActivity implements
     public static Intent makeIntent(Context context){
         return new Intent(context, HomeActivity.class);
     }
-
-
 }

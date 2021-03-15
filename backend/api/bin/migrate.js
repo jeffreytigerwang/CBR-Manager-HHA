@@ -42,10 +42,25 @@ async function seedData() {
     else { return 0; }
   })
 
+  const socialAspectNotEmpty = await db.social_aspect.findByPk(1).then(data => {
+    console.log('social aspect returned: ' + data);
+    if (data) { return 1; }
+    else { return 0; }
+  })
+
+  const educationAspectNotEmpty = await db.education_aspect.findByPk(1).then(data => {
+    console.log('education aspect returned: ' + data);
+    if (data) { return 1; }
+    else { return 0; }
+  })
+
+
+
 
   var isEmpty = true;
   if (usersNotEmpty || clientsNotEmpty || healthAspectNotEmpty
-      || visitsNotEmpty || healthProgressNotEmpty || disabilityNotEmpty) {
+      || visitsNotEmpty || healthProgressNotEmpty || disabilityNotEmpty
+      || socialAspectNotEmpty || educationAspectNotEmpty) {
     isEmpty = false;
   }
 
@@ -56,6 +71,9 @@ async function seedData() {
     console.log('Cant seed data, database is not empty');
   } else {
     var seed;
+
+    // create users
+
     seed = await db.users.create({
             firstName: 'Team',
             lastName: 'Mars',
@@ -88,6 +106,8 @@ async function seedData() {
             zones: 'Bidibidi Zone 2',
             userType: 'CBR Worker'
     });
+    // create client #1 info
+
     seed = await db.clients.create({
             firstName: 'Najwa',
             lastName: 'Sarpong',
@@ -102,26 +122,42 @@ async function seedData() {
             caregiverContactNumber: 1234562222,
             caregiverPresentForInterview: false,
     });
-    seed = await db.clients.create({
-            firstName: 'Vashon',
-            lastName: 'Sarpong',
-            clientId: 1270,
-            gpsLocation: '49.23, -120.00',
-            zoneLocation: 'Palorinya',
-            villageNumber: 1,
-            dateJoined: '2021-02-10',
-            gender: 'male',
-            age: 65,
-            contactNumber: '1111111111',
-            caregiverContactNumber: 1234562222,
-            caregiverPresentForInterview: false,
+    seed = await db.disability.create({
+            clientId: 1234,
+            amputeeDisability: false,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: false,
+            visualImpairmentDisability: false,
+            hearingImpairmentDisability: false,
+            doNotKnowDisability: false,
+            otherDisability: false,
+            specifyDisability: ''
     });
     seed = await db.health_aspect.create({
-            rateHealth: 'medium risk',
+            rateHealth: 'high risk',
             describeHealth: 'Najwa has trouble walking',
             setGoalForHealth: 'Najwa needs a cane or wheelchair',
             clientId: 1234
     });
+    seed = await db.education_aspect.create({
+            rateEducation: 'low risk',
+            describeEducation: 'Najwa is well educated',
+            setGoalForEducation: 'Read a few more books',
+            clientId: 1234
+    });
+    seed = await db.social_aspect.create({
+            rateSocialStatus: 'low risk',
+            describeSocialStatus: 'Najwa is social',
+            setGoalForSocialStatus: 'continue healthy social life',
+            clientId: 1234
+    });
+
+
+    // create client #1 visits data
+
     seed = await db.visits.create({
             isHealthChecked: true,
             isEducationChecked: false,
@@ -227,8 +263,26 @@ async function seedData() {
             clientId: 1234,
             visitId: 9000
     });
+
+    // create client #2
+    /*
+
+    seed = await db.clients.create({
+            firstName: 'Vashon',
+            lastName: 'Sarpong',
+            clientId: 1270,
+            gpsLocation: '49.23, -120.00',
+            zoneLocation: 'Palorinya',
+            villageNumber: 1,
+            dateJoined: '2021-02-10',
+            gender: 'male',
+            age: 65,
+            contactNumber: '1111111111',
+            caregiverContactNumber: 1234562222,
+            caregiverPresentForInterview: false,
+    });
     seed = await db.disability.create({
-            clientId: 1234,
+            clientId: 1270,
             amputeeDisability: false,
             polioDisability: false,
             spinalCordInjuryDisability: false,
@@ -241,6 +295,9 @@ async function seedData() {
             otherDisability: false,
             specifyDisability: ''
     });
+    */
+
+
     console.log('All seed data implemented');
   }
   await db.sequelize.close();

@@ -5,7 +5,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.cbr.activities.NewVisitActivity;
 import com.example.cbr.models.VisitEducationQuestionSetData;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.models.VisitHealthQuestionSetData;
@@ -17,6 +16,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static com.example.cbr.R.string.education_question_record_fail;
+import static com.example.cbr.R.string.education_question_record_successful;
+import static com.example.cbr.R.string.health_question_record_fail;
+import static com.example.cbr.R.string.health_question_record_successful;
+import static com.example.cbr.R.string.social_question_record_fail;
+import static com.example.cbr.R.string.social_question_record_successful;
 
 public class NewVisitPresenter implements NewVisitContract.Presenter {
 
@@ -78,12 +84,12 @@ public class NewVisitPresenter implements NewVisitContract.Presenter {
 
                 if (!response.isSuccessful()) {
                     Toast.makeText(context,
-                            "Health Question Record Fail", Toast.LENGTH_SHORT).show();
+                             health_question_record_fail, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 Toast.makeText(context,
-                        "Health Question Record Successful", Toast.LENGTH_SHORT).show();
+                        health_question_record_successful, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -107,12 +113,12 @@ public class NewVisitPresenter implements NewVisitContract.Presenter {
 
                 if (!response.isSuccessful()) {
                     Toast.makeText(context,
-                            "Education Question Record Fail", Toast.LENGTH_SHORT).show();
+                            education_question_record_fail, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 Toast.makeText(context,
-                        "Education Question Record Successful", Toast.LENGTH_SHORT).show();
+                        education_question_record_successful, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -135,12 +141,12 @@ public class NewVisitPresenter implements NewVisitContract.Presenter {
 
                 if (!response.isSuccessful()) {
                     Toast.makeText(context,
-                            "Social Question Record Fail", Toast.LENGTH_SHORT).show();
+                            social_question_record_fail, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 Toast.makeText(context,
-                        "Social Question Record Successful", Toast.LENGTH_SHORT).show();
+                        social_question_record_successful, Toast.LENGTH_SHORT).show();
             }
 
             @Override

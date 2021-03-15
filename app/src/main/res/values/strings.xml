@@ -178,6 +178,12 @@
     <string name="dummy_data_last_visit1">Last Visit: February 9, 2021</string>
     <string name="dummy_data_last_vist2">Last Visit: February 10, 2021</string>
     <string name="failed_to_get_client_id">Failed to get client ID.</string>
+    <string name="health_question_record_fail">Health Question Record Fail</string>
+    <string name="health_question_record_successful">Health Question Record Successful</string>
+    <string name="education_question_record_fail">Education Question Record Fail</string>
+    <string name="education_question_record_successful">Education Question Record Successful</string>
+    <string name="social_question_record_fail">Social Question Record Fail</string>
+    <string name="social_question_record_successful">Social Question Record Successful</string>
 
 
 </resources>

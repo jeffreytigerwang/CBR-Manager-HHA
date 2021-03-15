@@ -22,7 +22,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom='true'
-        android:background="@color/white"
+        android:background="@color/cbrLightGreen"
         app:menu="@menu/bottom_menu"
         app:itemIconTint="@drawable/tab_color"
         app:itemTextColor="@drawable/tab_color"

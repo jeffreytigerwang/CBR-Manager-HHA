@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.adapters.OutstandingListAdapter;
 import com.example.cbr.adapters.PriorityListAdapter;
-import com.example.cbr.databinding.FragmentHomeBinding;
+import com.example.cbr.databinding.FragmentDashboardBinding;
 import com.example.cbr.models.ClientInfo;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import java.util.List;
 
 public class DashboardPageFragment extends Fragment implements DashboardPageContract.View {
 
-    private FragmentHomeBinding binding;
+    private FragmentDashboardBinding binding;
     private TempHomeFragmentInterface tempHomeFragmentInterface;
     private List<ClientInfo> priorityList;
     private List<ClientInfo> outstandingList;
@@ -43,7 +43,7 @@ public class DashboardPageFragment extends Fragment implements DashboardPageCont
 
     @Override
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentDashboardBinding.inflate(inflater, container, false);
         priorityList = new ArrayList<>();
         outstandingList = new ArrayList<>();
 

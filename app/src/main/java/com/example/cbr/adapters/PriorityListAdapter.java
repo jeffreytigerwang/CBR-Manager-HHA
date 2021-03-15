@@ -10,10 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
-import com.example.cbr.fragments.DashboardPageFragment.TempHomeFragmentInterface;
+import com.example.cbr.fragments.DashboardPageFragment.DashboardFragmentInterface;
 import com.example.cbr.models.ClientInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PriorityListAdapter extends RecyclerView.Adapter<PriorityListAdapter.ViewHolder>{
@@ -21,13 +20,12 @@ public class PriorityListAdapter extends RecyclerView.Adapter<PriorityListAdapte
     private LayoutInflater inflater;
     private Context context;
     private List<ClientInfo> priorityList;
-    private TempHomeFragmentInterface tempHomeFragmentInterface;
+    private DashboardFragmentInterface dashboardFragmentInterface;
 
-    //TODO: Possible other parameters like interface or visits info
-    public PriorityListAdapter(Context context, List<ClientInfo> priorityList, TempHomeFragmentInterface tempHomeFragmentInterface){
+    public PriorityListAdapter(Context context, List<ClientInfo> priorityList, DashboardFragmentInterface dashboardFragmentInterface){
         this.context = context;
         this.priorityList = priorityList;
-        this.tempHomeFragmentInterface = tempHomeFragmentInterface;
+        this.dashboardFragmentInterface = dashboardFragmentInterface;
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -76,7 +74,7 @@ public class PriorityListAdapter extends RecyclerView.Adapter<PriorityListAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tempHomeFragmentInterface.swapToClientPage(clientInfo);
+                    dashboardFragmentInterface.swapToClientPage(clientInfo);
                 }
             });
 

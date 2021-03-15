@@ -192,7 +192,7 @@ class UsersList extends Component {
                   <label>
                     <strong>Zones:</strong>
                   </label>{" "}
-                  {currentUser.zones}
+                  { currentUser.zones ? currentUser.zones : 'None' }
                 </div>
                 <div className={classes.detail}>
                   <label>

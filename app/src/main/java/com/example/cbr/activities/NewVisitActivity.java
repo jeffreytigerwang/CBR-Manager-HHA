@@ -106,7 +106,8 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
         try {
             clientId = Integer.parseInt(clientInfo.getId());
         } catch (NullPointerException e) {
-            Toast.makeText(this, "Failed to get client ID.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.failed_to_get_client_id),
+                    Toast.LENGTH_SHORT).show();
         }
         Log.d(LOG_TAG, "onCreate: clientId=" + clientId);
 

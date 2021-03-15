@@ -177,6 +177,7 @@
     <string name="sync">Sync</string>
     <string name="dummy_data_last_visit1">Last Visit: February 9, 2021</string>
     <string name="dummy_data_last_vist2">Last Visit: February 10, 2021</string>
+    <string name="failed_to_get_client_id">Failed to get client ID.</string>
 
 
 </resources>

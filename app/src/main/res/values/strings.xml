@@ -96,7 +96,7 @@
     <string name="cbr">CBR</string>
     <string name="disability_centre_referral">Disability centre referral</string>
     <string name="disability_centre_referral_follow_up">Disability centre referral follow up</string>
-    <string name="if_cbr">2. If CBR* (check all that apply):</string>
+    <string name="new_visit_question_2">2. Select Aspect* (check all that apply):</string>
     <string name="health">Health</string>
     <string name="education">Education</string>
     <string name="social">Social</string>
@@ -199,6 +199,15 @@
     <string name="sync">Sync</string>
     <string name="dummy_data_last_visit1">Last Visit: February 9, 2021</string>
     <string name="dummy_data_last_vist2">Last Visit: February 10, 2021</string>
+    <string name="failed_to_get_client_id">Failed to get client ID.</string>
+    <string name="health_question_record_fail">Health Question Record Fail</string>
+    <string name="health_question_record_successful">Health Question Record Successful</string>
+    <string name="education_question_record_fail">Education Question Record Fail</string>
+    <string name="education_question_record_successful">Education Question Record Successful</string>
+    <string name="social_question_record_fail">Social Question Record Fail</string>
+    <string name="social_question_record_successful">Social Question Record Successful</string>
+    <string name="general_question_record_fail">General Question Record Fail</string>
+    <string name="general_question_record_successful">General Question Record Successful</string>
 
 
 </resources>

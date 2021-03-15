@@ -26,7 +26,6 @@ import com.example.cbr.util.Constants;
 
 public class VisitSecondQuestionSetFragment extends Fragment {
 
-    private static final String LOG_TAG = "VisitSecondQuestionSetFragment";
     private FragmentVisitSecondQuestionSetBinding binding;
 
     private final VisitHealthQuestionSetData dataContainer;
@@ -51,7 +50,6 @@ public class VisitSecondQuestionSetFragment extends Fragment {
     private CheckBox checkBoxAdvice;
     private CheckBox checkBoxAdvocacy;
     private CheckBox checkBoxEncouragement;
-    private TextView question10;
     private TextView initialGoal;
 
     public VisitSecondQuestionSetFragment(VisitHealthQuestionSetData dataContainer,
@@ -123,8 +121,6 @@ public class VisitSecondQuestionSetFragment extends Fragment {
             this.goalStatus.check(R.id.newVisit_healthOngoingRadioButton);
         } else if (goalStatus.equalsIgnoreCase(Constants.CONCLUDED)) {
             this.goalStatus.check(R.id.newVisit_healthConcludedRadioButton);
-            question10.setVisibility(View.VISIBLE);
-            editTextHealthOutcome.setVisibility(View.VISIBLE);
         }
     }
 
@@ -150,7 +146,6 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         checkBoxAdvocacy = binding.newVisitHealthAdvocacyCheckBox;
         checkBoxEncouragement = binding.newVisitHealthEncouragementCheckBox;
 
-        question10 = binding.newVisitQ10TextView;
         initialGoal = binding.newVisitHealthInitialGoalBoxTextView;
     }
 
@@ -164,13 +159,7 @@ public class VisitSecondQuestionSetFragment extends Fragment {
                 if (checkedId == R.id.newVisit_healthConcludedRadioButton) {
                     dataContainer.setHealthGoalStatus(Constants.CONCLUDED);
 
-                    question10.setVisibility(View.VISIBLE);
-                    editTextHealthOutcome.setVisibility(View.VISIBLE);
-                } else {
-                    question10.setVisibility(View.GONE);
-                    editTextHealthOutcome.setVisibility(View.GONE);
-                }
-                if (checkedId == R.id.newVisit_healthOngoingRadioButton) {
+                } else if (checkedId == R.id.newVisit_healthOngoingRadioButton) {
                     dataContainer.setHealthGoalStatus(Constants.ONGOING);
 
                 } else if (checkedId == R.id.newVisit_healthCancelledRadioButton) {
@@ -249,39 +238,39 @@ public class VisitSecondQuestionSetFragment extends Fragment {
         }
     }
 
-    public EditText getEditTextWheelChair() {
-        return editTextWheelChair;
+    public String getHealthWheelChair() {
+        return editTextWheelChair.getText().toString();
     }
 
-    public EditText getEditTextProsthetic() {
-        return editTextProsthetic;
+    public String getHealthProsthetic() {
+        return editTextProsthetic.getText().toString();
     }
 
-    public EditText getEditTextOrthotic() {
-        return editTextOrthotic;
+    public String getHealthOrthotic() {
+        return editTextOrthotic.getText().toString();
     }
 
-    public EditText getEditTextWR() {
-        return editTextWR;
+    public String getHealthWR() {
+        return editTextWR.getText().toString();
     }
 
-    public EditText getEditTextReferralToHC() {
-        return editTextReferralToHC;
+    public String getHealthReferralToHC() {
+        return editTextReferralToHC.getText().toString();
     }
 
-    public EditText getEditTextAdvice() {
-        return editTextAdvice;
+    public String getHealthAdvice() {
+        return editTextAdvice.getText().toString();
     }
 
-    public EditText getEditTextAdvocacy() {
-        return editTextAdvocacy;
+    public String getHealthAdvocacy() {
+        return editTextAdvocacy.getText().toString();
     }
 
-    public EditText getEditTextEncouragement() {
-        return editTextEncouragement;
+    public String getHealthEncouragement() {
+        return editTextEncouragement.getText().toString();
     }
 
-    public EditText getEditTextHealthOutcome() {
-        return editTextHealthOutcome;
+    public String getHealthHealthOutcome() {
+        return editTextHealthOutcome.getText().toString();
     }
 }

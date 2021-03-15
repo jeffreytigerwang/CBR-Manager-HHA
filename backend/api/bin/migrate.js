@@ -137,7 +137,7 @@ async function seedData() {
             specifyDisability: ''
     });
     seed = await db.health_aspect.create({
-            rateHealth: 'high risk',
+            rateHealth: 'critical risk',
             describeHealth: 'Najwa has trouble walking',
             setGoalForHealth: 'Najwa needs a cane or wheelchair',
             clientId: 1234
@@ -265,7 +265,6 @@ async function seedData() {
     });
 
     // create client #2
-    /*
 
     seed = await db.clients.create({
             firstName: 'Vashon',
@@ -290,12 +289,140 @@ async function seedData() {
             spinaBifidaDisability: false,
             hydrocephalusDisability: false,
             visualImpairmentDisability: false,
-            hearingImpairmentDisability: false,
+            hearingImpairmentDisability: true,
             doNotKnowDisability: false,
             otherDisability: false,
             specifyDisability: ''
     });
-    */
+    seed = await db.health_aspect.create({
+            rateHealth: 'high risk',
+            describeHealth: 'Cant hear well out of both ears',
+            setGoalForHealth: 'Going to help Vashon and his family learn sign language',
+            clientId: 1270
+    });
+    seed = await db.education_aspect.create({
+            rateEducation: 'low risk',
+            describeEducation: 'Vashon is very smart but uninterested in continuing education in his elderly years',
+            setGoalForEducation: 'Find game to help him keep his mind healthy',
+            clientId: 1270
+    });
+    seed = await db.social_aspect.create({
+            rateSocialStatus: 'medium risk',
+            describeSocialStatus: 'Vashon spends a lot of time with his family, but doesnt see other people much \
+            as he is hard of hearing',
+            setGoalForSocialStatus: 'Help Vashon find other elderly friends',
+            clientId: 1270
+    });
+
+    // create client #2 visits data
+
+    seed = await db.visits.create({
+            isHealthChecked: true,
+            isEducationChecked: false,
+            isSocialChecked: false,
+            purposeOfVisit: 'checking on ability hear',
+            dateOfVisit: '2021-02-11',
+            workerName: 'Amadi Yusuf',
+            visitGpsLocation: '49.99, -130.01',
+            visitZoneLocation: 'Palorinya Zone 1',
+            villageNumber: 1,
+            clientId: 1270,
+            visitId: 8000
+    });
+    seed = await db.health_progress.create({
+            isWheelChairChecked: false,
+            isProstheticChecked: false,
+            isOrthoticChecked: false,
+            isWheelChairRepairChecked: false,
+            isReferralToHCChecked: true,
+            isHealthAdviceChecked: true,
+            isHealthAdvocacyChecked: false,
+            isHealthEncouragementChecked: false,
+            wheelChairDesc: "",
+            prostheticDesc: "",
+            orthoticDesc: "",
+            wheelChairRepairDesc: "",
+            referralToHCDesc: "given direction and phone number",
+            healthAdviceDesc: "Going to teach Vashon and his family to sign",
+            healthAdvocacyDesc: "",
+            healthEncouragementDesc: "",
+            healthOutcomeDesc: "",
+            healthGoalDesc: "",
+            clientId: 1270,
+            visitId: 8000
+     });
+     seed = await db.visits.create({
+            isHealthChecked: true,
+            isEducationChecked: false,
+            isSocialChecked: false,
+            purposeOfVisit: 'checking eye sight',
+            dateOfVisit: '2021-02-20',
+            workerName: 'Amadi Yusuf',
+            visitGpsLocation: '49.99, -130.01',
+            visitZoneLocation: 'Palorinya Zone 1',
+            villageNumber: 1,
+            clientId: 1270,
+            visitId: 8001
+    });
+    seed = await db.health_progress.create({
+            isWheelChairChecked: false,
+            isProstheticChecked: false,
+            isOrthoticChecked: false,
+            isWheelChairRepairChecked: false,
+            isReferralToHCChecked: false,
+            isHealthAdviceChecked: true,
+            isHealthAdvocacyChecked: false,
+            isHealthEncouragementChecked: true,
+            wheelChairDesc: "",
+            prostheticDesc: "",
+            orthoticDesc: "",
+            wheelChairRepairDesc: "",
+            referralToHCDesc: "",
+            healthAdviceDesc: "Vashon is having trouble learning to sign",
+            healthAdvocacyDesc: "",
+            healthEncouragementDesc: "Giving tips on learning sign language",
+            healthOutcomeDesc: "",
+            healthGoalDesc: "",
+            clientId: 1270,
+            visitId: 8001
+    });
+    seed = await db.visits.create({
+            isHealthChecked: true,
+            isEducationChecked: false,
+            isSocialChecked: false,
+            purposeOfVisit: 'found some learn to sign books',
+            dateOfVisit: '2021-02-25',
+            workerName: 'Amadi Yusuf',
+            visitGpsLocation: '49.99, -130.01',
+            visitZoneLocation: 'Palorinya Zone 1',
+            villageNumber: 1,
+            clientId: 1270,
+            visitId: 8002
+    });
+    seed = await db.health_progress.create({
+            isWheelChairChecked: false,
+            isProstheticChecked: false,
+            isOrthoticChecked: false,
+            isWheelChairRepairChecked: false,
+            isReferralToHCChecked: true,
+            isHealthAdviceChecked: false,
+            isHealthAdvocacyChecked: false,
+            isHealthEncouragementChecked: false,
+            wheelChairDesc: "",
+            prostheticDesc: "",
+            orthoticDesc: "",
+            wheelChairRepairDesc: "",
+            referralToHCDesc: "",
+            healthAdviceDesc: "Time for monthly check up at health center",
+            healthAdvocacyDesc: "",
+            healthEncouragementDesc: "",
+            healthOutcomeDesc: "",
+            healthGoalDesc: "Make sure grandkids learn to sign with grandpa",
+            clientId: 1234,
+            visitId: 9000
+    });
+
+
 
 
     console.log('All seed data implemented');

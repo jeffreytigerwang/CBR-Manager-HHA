@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
-import com.example.cbr.fragments.DashboardFragment.TempHomeFragmentInterface;
+import com.example.cbr.fragments.DashboardPageFragment.TempHomeFragmentInterface;
 import com.example.cbr.models.ClientInfo;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class OutstandingListAdapter extends RecyclerView.Adapter<OutstandingList
     private TempHomeFragmentInterface tempHomeFragmentInterface;
 
 
-    public OutstandingListAdapter(Context context, ArrayList<ClientInfo> outstandingList, TempHomeFragmentInterface tempHomeFragmentInterface){
+    public OutstandingListAdapter(Context context, List<ClientInfo> outstandingList, TempHomeFragmentInterface tempHomeFragmentInterface){
         this.context = context;
         this.outstandingList = outstandingList;
         this.tempHomeFragmentInterface = tempHomeFragmentInterface;

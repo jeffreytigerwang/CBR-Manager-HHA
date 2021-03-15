@@ -21,13 +21,15 @@ import com.example.cbr.databinding.FragmentDashboardBinding;
 import com.example.cbr.models.ClientInfo;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class DashboardFragment extends Fragment {
+public class DashboardPageFragment extends Fragment implements DashboardPageContract.View {
 
     private FragmentDashboardBinding binding;
     private TempHomeFragmentInterface tempHomeFragmentInterface;
-    private ArrayList<ClientInfo> priorityList;
-    private ArrayList<ClientInfo> outstandingList;
+    private List<ClientInfo> priorityList;
+    private List<ClientInfo> outstandingList;
+    private DashboardPageContract.Presenter presenter;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -45,12 +47,12 @@ public class DashboardFragment extends Fragment {
         priorityList = new ArrayList<>();
         outstandingList = new ArrayList<>();
 
-
-        //hardcode example clients for demonstration
-        populateLists();
+        setPresenter(new DashboardPagePresenter(this));
+        populatePriorityList();
+        populateOutstandingList();
 
         setupPriorityListView();
-        setupOutstandingList();
+        setupOutstandingListView();
         setupNewClientButton();
         setupSyncButton();
 
@@ -78,53 +80,24 @@ public class DashboardFragment extends Fragment {
     }
 
 
-    private void populateLists() {
+    private void populatePriorityList() {
 
+        try {
+            priorityList.addAll(presenter.getTopPriority());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        ClientInfo priorityPerson1 = new ClientInfo();
-        priorityPerson1.setFirstName("John");
-        priorityPerson1.setLastName("Smith");
-        priorityPerson1.setRateHealth("Critical Level Health");
-        priorityPerson1.setZoneLocation("BidiBidi Zone 1");
+    }
+
+    private void populateOutstandingList() {
+
+        try {
+            outstandingList.addAll(presenter.getOutstandingReferral());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
-        ClientInfo priorityPerson2 = new ClientInfo();
-        priorityPerson2.setFirstName("Jane");
-        priorityPerson2.setLastName("Doe");
-        priorityPerson2.setRateHealth("Critical Level Health, Critical Level Education");
-        priorityPerson2.setZoneLocation("Palorinya Zone 2");
-
-        ClientInfo priorityPerson3 = new ClientInfo();
-        priorityPerson3.setFirstName("Jackson");
-        priorityPerson3.setLastName("Lee");
-        priorityPerson3.setRateHealth("Critical Level Social Status");
-        priorityPerson3.setZoneLocation("BidiBidi Zone 4");
-
-        ClientInfo outstandingPerson1 = new ClientInfo();
-        outstandingPerson1.setFirstName("William");
-        outstandingPerson1.setLastName("Liu");
-        outstandingPerson1.setZoneLocation("Palorinya Basecamp");
-
-        ClientInfo outstandingPerson2 = new ClientInfo();
-        outstandingPerson2.setFirstName("Elizabeth");
-        outstandingPerson2.setLastName("Nguyen");
-        outstandingPerson2.setZoneLocation("Palorinya Zone 3");
-
-
-        ClientInfo outstandingPerson3 = new ClientInfo();
-        outstandingPerson3.setFirstName("Cameron");
-        outstandingPerson3.setLastName("Ng");
-        outstandingPerson3.setZoneLocation("BidiBidi Zone 5");
-
-
-        priorityList.add(priorityPerson1);
-        priorityList.add(priorityPerson2);
-        priorityList.add(priorityPerson3);
-
-
-        outstandingList.add(outstandingPerson1);
-        outstandingList.add(outstandingPerson2);
-        outstandingList.add(outstandingPerson3);
-
     }
 
     private void setupPriorityListView() {
@@ -140,11 +113,12 @@ public class DashboardFragment extends Fragment {
         recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
-    private void setupOutstandingList() {
+    private void setupOutstandingListView() {
 
         RecyclerView recyclerView = binding.dashboardOutstandingList;
         LinearLayoutManager outstandingLayout = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(outstandingLayout);
+
         OutstandingListAdapter outstandingListAdapter = new OutstandingListAdapter(getActivity(), outstandingList, tempHomeFragmentInterface);
         recyclerView.setAdapter(outstandingListAdapter);
 
@@ -154,12 +128,17 @@ public class DashboardFragment extends Fragment {
 
     }
 
-    public static DashboardFragment newInstance() {
-        return new DashboardFragment();
+    @Override
+    public void setPresenter(DashboardPageContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    public static DashboardPageFragment newInstance() {
+        return new DashboardPageFragment();
     }
 
     public static String getFragmentTag() {
-        return DashboardFragment.class.getSimpleName();
+        return DashboardPageFragment.class.getSimpleName();
     }
 
     public interface TempHomeFragmentInterface {

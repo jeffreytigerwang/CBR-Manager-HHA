@@ -103,9 +103,10 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
         Intent intent = getIntent();
         clientInfo = (ClientInfo) intent.getSerializableExtra(CLIENT_INFO);
 
-        // TODO: 2021-03-10 Client ID from ClientInfo does not match with clientId in DB, wait for fix
-        if (clientId == -1) {
-            Log.d(LOG_TAG, "onCreate: failed to get client ID");
+        try {
+            clientId = Integer.parseInt(clientInfo.getId());
+        } catch (NullPointerException e) {
+            Toast.makeText(this, "Failed to get client ID.", Toast.LENGTH_SHORT).show();
         }
         Log.d(LOG_TAG, "onCreate: clientId=" + clientId);
 

@@ -6,6 +6,8 @@ import com.example.cbr.retrofit.RetrofitInit;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -19,12 +21,21 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
 
     private DashboardPageContract.View dashboardPageView;
 
+    private HashMap<String, Double> overallRiskMap;
+
     public DashboardPagePresenter(DashboardPageContract.View dashboardPageView) {
 
         retrofit = RetrofitInit.getInstance();
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         this.dashboardPageView = dashboardPageView;
+
+        overallRiskMap = new HashMap<String, Double>();
+        overallRiskMap.put("Low risk", Double.valueOf(0));
+        overallRiskMap.put("Medium risk",Double.valueOf(0.5));
+        overallRiskMap.put("High risk", Double.valueOf(3));
+        overallRiskMap.put("Critical risk", Double.valueOf(11));
+
     }
 
 
@@ -33,15 +44,16 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
         Call<List<ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
         Response<List<ClientInfo>> response = call.execute();
 
-        List<ClientInfo> priorityList = new ArrayList<>();
+        List<ClientInfo> priorityList = response.body();
 
-        for(ClientInfo clientInfo : response.body()) {
-            if(!clientInfo.getRateHealth().equals("Low") || !clientInfo.getRateEducation().equals("Low")
-                    || !clientInfo.getRateSocialStatus().equals("Low")) {
-                priorityList.add(clientInfo);
-            }
+        for(ClientInfo clientInfo : priorityList) {
+            double overallRisk = 0;
+            overallRisk += overallRiskMap.get(clientInfo.getRateEducation()) +
+                    overallRiskMap.get(clientInfo.getRateHealth()) +
+                    overallRiskMap.get(clientInfo.getRateSocialStatus());
+            clientInfo.setOverallRisk(overallRisk);
         }
-
+        Collections.sort(priorityList);
         return priorityList;
 
     }

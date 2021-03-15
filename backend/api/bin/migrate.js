@@ -72,7 +72,7 @@ async function seedData() {
   } else {
     var seed;
 
-    // create users
+    // create all users
 
     seed = await db.users.create({
             firstName: 'Team',
@@ -87,8 +87,8 @@ async function seedData() {
             lastName: 'Yusuf',
             phoneNumber: '6666666666',
             password: 'password',
-            zones: '',
-            userType: 'Admin'
+            zones: 'Bidibidi Zone 2',
+            userType: 'CBR Worker'
     });
     seed = await db.users.create({
             firstName: 'Eniola',
@@ -106,6 +106,57 @@ async function seedData() {
             zones: 'Bidibidi Zone 2',
             userType: 'CBR Worker'
     });
+    seed = await db.users.create({
+            firstName: 'Darasimi',
+            lastName: 'Ali',
+            phoneNumber: '1111111111',
+            password: 'password',
+            zones: 'Palorinya Zone 2',
+            userType: 'admin'
+    });
+    seed = await db.users.create({
+            firstName: 'Kikelomo',
+            lastName: 'Ali',
+            phoneNumber: '7787787788',
+            password: 'password',
+            zones: 'Palorinya Zone 3',
+            userType: 'CBR Worker'
+    });
+    seed = await db.users.create({
+            firstName: 'Bisi',
+            lastName: 'Garba',
+            phoneNumber: '7788788788',
+            password: 'password',
+            zones: 'Bidibidi Zone 3',
+            userType: 'CBR Worker'
+    });
+    seed = await db.users.create({
+            firstName: 'Olawale',
+            lastName: 'Umar',
+            phoneNumber: '1788283788',
+            password: 'password',
+            zones: 'Bidibidi Zone 2',
+            userType: 'CBR Worker'
+    });
+    seed = await db.users.create({
+            firstName: 'Damola',
+            lastName: 'Usman',
+            phoneNumber: '1688289988',
+            password: 'password',
+            zones: 'Bidibidi Zone 3',
+            userType: 'CBR Worker'
+    });
+    seed = await db.users.create({
+            firstName: 'Olaoluwa',
+            lastName: 'Abubakar',
+            phoneNumber: '1283283788',
+            password: 'password',
+            zones: 'Bidibidi Zone 5',
+            userType: 'CBR Worker'
+    });
+
+
+
     // create client #1 info
 
     seed = await db.clients.create({

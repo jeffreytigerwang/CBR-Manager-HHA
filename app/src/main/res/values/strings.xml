@@ -184,6 +184,8 @@
     <string name="education_question_record_successful">Education Question Record Successful</string>
     <string name="social_question_record_fail">Social Question Record Fail</string>
     <string name="social_question_record_successful">Social Question Record Successful</string>
+    <string name="general_question_record_fail">General Question Record Fail</string>
+    <string name="general_question_record_successful">General Question Record Successful</string>
 
 
 </resources>

@@ -19,6 +19,8 @@ import retrofit2.Retrofit;
 
 import static com.example.cbr.R.string.education_question_record_fail;
 import static com.example.cbr.R.string.education_question_record_successful;
+import static com.example.cbr.R.string.general_question_record_fail;
+import static com.example.cbr.R.string.general_question_record_successful;
 import static com.example.cbr.R.string.health_question_record_fail;
 import static com.example.cbr.R.string.health_question_record_successful;
 import static com.example.cbr.R.string.social_question_record_fail;
@@ -54,12 +56,12 @@ public class NewVisitPresenter implements NewVisitContract.Presenter {
 
                 if (!response.isSuccessful()) {
                     Toast.makeText(context,
-                            "General Question Record Fail", Toast.LENGTH_SHORT).show();
+                            general_question_record_fail, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 Toast.makeText(context,
-                        "General Question Record Successful", Toast.LENGTH_SHORT).show();
+                        general_question_record_successful, Toast.LENGTH_SHORT).show();
             }
 
             @Override

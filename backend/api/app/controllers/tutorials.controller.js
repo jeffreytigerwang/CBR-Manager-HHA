@@ -1,11 +1,11 @@
 const db = require("../models");
-const Users = db.users;
+const Tutorials = db.tutorial;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new data
 exports.create = (req, res) => {
   // Validate Request
-  if (!req.body.firstName) {
+  if (!req.body.title) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -13,18 +13,13 @@ exports.create = (req, res) => {
   }
 
   // Create Item
-  const user = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    phoneNumber: req.body.phoneNumber,
-    password: req.body.password,
-    priorityLevel: req.body.priorityLevel,
-    zones: req.body.zones,
-    userType: req.body.userType
+  const tutorial = {
+    title: req.body.title,
+    description: req.body.description,
   };
 
   // Save item in database
-  Users.create(user)
+  Tutorials.create(tutorial)
     .then(data => {
       res.send(data);
     })
@@ -39,29 +34,8 @@ exports.create = (req, res) => {
 
 // Retrieve all data from the database.
 exports.findAll = (req, res) => {
-  const firstName = req.query.firstName;
-  const lastName = req.query.lastName;
-  const name = req.query.name;
 
-  var condition;
-  if (firstName && lastName) {
-    condition = { [Op.and]: [{firstName: `${firstName}`},
-                             {lastName: `${lastName}`}] };
-  } else if (firstName) {
-    condition = { firstName: { [Op.like]: `%${firstName}%` }};
-  } else if (lastName) {
-    condition = { lastName: { [Op.like]: `%${lastName}%` }};
-  } else if (name) {
-    condition = { [Op.or]: [{firstName: `${name}`},
-                             {lastName: `${name}`}] };
-  } else { condition = null; }
-
-  console.log('firstName: ' + firstName);
-  console.log('lastName: ' + lastName);
-  console.log('name: ' + name);
-  console.log('condition: ' + condition);
-
-  Users.findAll({ where: condition })
+  Tutorials.findAll()
     .then(data => {
       res.send(data);
     })
@@ -77,7 +51,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Users.findByPk(id)
+  Tutorials.findByPk(id)
     .then(data => {
       res.send(data);
     })
@@ -92,7 +66,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Users.update(req.body, {
+  Tutorials.update(req.body, {
     where: { id: id }
   })
     .then(num => {
@@ -117,7 +91,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Users.destroy({
+  Tutorials.destroy({
     where: { id: id }
   })
     .then(num => {
@@ -140,7 +114,7 @@ exports.delete = (req, res) => {
 
 // Delete all data from the database.
 exports.deleteAll = (req, res) => {
-  Users.destroy({
+  Tutorials.destroy({
     where: {},
     truncate: false
   })

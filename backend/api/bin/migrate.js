@@ -422,6 +422,296 @@ async function seedData() {
             visitId: 8002
     });
 
+    // adding in bulk clients
+
+    seed = await db.clients.create({
+            firstName: 'Kanesha',
+            lastName: 'Tersoo',
+            clientId: 1230,
+            gpsLocation: '49.23, -120.00',
+            zoneLocation: 'Palorinya Basecamp',
+            villageNumber: 3,
+            dateJoined: '2021-03-10',
+            gender: 'female',
+            age: 56,
+            contactNumber: '7777777777',
+            caregiverContactNumber: 1234562222,
+            caregiverPresentForInterview: true,
+    });
+    seed = await db.disability.create({
+            clientId: 1230,
+            amputeeDisability: false,
+            polioDisability: true,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: true,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: false,
+            visualImpairmentDisability: false,
+            hearingImpairmentDisability: false,
+            doNotKnowDisability: false,
+            otherDisability: false,
+            specifyDisability: ''
+    });
+    seed = await db.health_aspect.create({
+            rateHealth: 'medium risk',
+            describeHealth: 'has been living with complications with awhile, but not much pain',
+            setGoalForHealth: 'get her to see a doctor at clinic more often',
+            clientId: 1230
+    });
+    seed = await db.education_aspect.create({
+            rateEducation: 'critical risk',
+            describeEducation: 'cant read, and needs assistance',
+            setGoalForEducation: 'find volunteer to read newspaper once a week',
+            clientId: 1230
+    });
+    seed = await db.social_aspect.create({
+            rateSocialStatus: 'high risk',
+            describeSocialStatus: 'Is not close with family, so needs to spend more time in community',
+            setGoalForSocialStatus: 'need to find a good club for her to join',
+            clientId: 1230
+    });
+
+
+    seed = await db.clients.create({
+            firstName: 'Abioye',
+            lastName: 'Deka',
+            clientId: 1220,
+            gpsLocation: '49.23, -120.00',
+            zoneLocation: 'Bidibidi Zone 4',
+            villageNumber: 4,
+            dateJoined: '2021-01-15',
+            gender: 'male',
+            age: 37,
+            contactNumber: '1111111111',
+            caregiverContactNumber: 1234562222,
+            caregiverPresentForInterview: true,
+    });
+    seed = await db.disability.create({
+            clientId: 1220,
+            amputeeDisability: false,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: false,
+            visualImpairmentDisability: true,
+            hearingImpairmentDisability: false,
+            doNotKnowDisability: false,
+            otherDisability: false,
+            specifyDisability: ''
+    });
+    seed = await db.health_aspect.create({
+            rateHealth: 'medium risk',
+            describeHealth: 'cant see at all, but family helps him',
+            setGoalForHealth: 'help find new tools to help him become more independent',
+            clientId: 1220
+    });
+    seed = await db.education_aspect.create({
+            rateEducation: 'low risk',
+            describeEducation: 'used to be a school teacher',
+            setGoalForEducation: 'make sure family reads things to him more often',
+            clientId: 1220
+    });
+    seed = await db.social_aspect.create({
+            rateSocialStatus: 'medium risk',
+            describeSocialStatus: 'socializes with family, but periods pass when he isnt spoken to',
+            setGoalForSocialStatus: 'need to speak with family and ensure his needs are met every day',
+            clientId: 1220
+    });
+
+
+    seed = await db.clients.create({
+            firstName: 'Lakista',
+            lastName: 'Onai',
+            clientId: 2220,
+            gpsLocation: '49.23, -120.00',
+            zoneLocation: 'Bidibidi Zone 4',
+            villageNumber: 4,
+            dateJoined: '2021-01-15',
+            gender: 'female',
+            age: 25,
+            contactNumber: '1111111111',
+            caregiverContactNumber: 1234562222,
+            caregiverPresentForInterview: true,
+    });
+    seed = await db.disability.create({
+            clientId: 2220,
+            amputeeDisability: false,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: false,
+            visualImpairmentDisability: true,
+            hearingImpairmentDisability: false,
+            doNotKnowDisability: false,
+            otherDisability: false,
+            specifyDisability: ''
+    });
+    seed = await db.health_aspect.create({
+            rateHealth: 'low risk',
+            describeHealth: 'healthy for their age',
+            setGoalForHealth: 'more vegetables for well rounded diet',
+            clientId: 2220
+    });
+    seed = await db.education_aspect.create({
+            rateEducation: 'low risk',
+            describeEducation: 'very smart',
+            setGoalForEducation: 'make sure they read more',
+            clientId: 2220
+    });
+    seed = await db.social_aspect.create({
+            rateSocialStatus: 'medium risk',
+            describeSocialStatus: 'doesnt have many people to talke to, and has periods of depression',
+            setGoalForSocialStatus: 'join our self help groups and socializing events each week',
+            clientId: 2220
+    });
+
+    seed = await db.clients.create({
+            firstName: 'Bimpe',
+            lastName: 'Umar',
+            clientId: 3220,
+            gpsLocation: '49.23, -120.00',
+            zoneLocation: 'Bidibidi Zone 1',
+            villageNumber: 3,
+            dateJoined: '2021-01-15',
+            gender: 'female',
+            age: 35,
+            contactNumber: '1111111111',
+            caregiverContactNumber: 1234562222,
+            caregiverPresentForInterview: true,
+    });
+    seed = await db.disability.create({
+            clientId: 3220,
+            amputeeDisability: false,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: false,
+            visualImpairmentDisability: true,
+            hearingImpairmentDisability: false,
+            doNotKnowDisability: false,
+            otherDisability: false,
+            specifyDisability: ''
+    });
+    seed = await db.health_aspect.create({
+            rateHealth: 'low risk',
+            describeHealth: 'healthy for their age',
+            setGoalForHealth: 'more vegetables for well rounded diet',
+            clientId: 3220
+    });
+    seed = await db.education_aspect.create({
+            rateEducation: 'low risk',
+            describeEducation: 'very smart',
+            setGoalForEducation: 'make sure they read more',
+            clientId: 3220
+    });
+    seed = await db.social_aspect.create({
+            rateSocialStatus: 'medium risk',
+            describeSocialStatus: 'doesnt have many people to talke to, and has periods of depression',
+            setGoalForSocialStatus: 'join our self help groups and socializing events each week',
+            clientId: 3220
+    });
+
+
+
+    seed = await db.clients.create({
+            firstName: 'Tosin',
+            lastName: 'Sani',
+            clientId: 4220,
+            gpsLocation: '49.23, -120.00',
+            zoneLocation: 'Bidibidi Zone 5',
+            villageNumber: 2,
+            dateJoined: '2021-01-15',
+            gender: 'male',
+            age: 45,
+            contactNumber: '1111111111',
+            caregiverContactNumber: 1234562222,
+            caregiverPresentForInterview: true,
+    });
+    seed = await db.disability.create({
+            clientId: 3220,
+            amputeeDisability: true,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: true,
+            visualImpairmentDisability: true,
+            hearingImpairmentDisability: false,
+            doNotKnowDisability: false,
+            otherDisability: false,
+            specifyDisability: ''
+    });
+    seed = await db.health_aspect.create({
+            rateHealth: 'low risk',
+            describeHealth: 'healthy for their age',
+            setGoalForHealth: 'more vegetables for well rounded diet',
+            clientId: 4220
+    });
+    seed = await db.education_aspect.create({
+            rateEducation: 'low risk',
+            describeEducation: 'very smart',
+            setGoalForEducation: 'make sure they read more',
+            clientId: 4220
+    });
+    seed = await db.social_aspect.create({
+            rateSocialStatus: 'medium risk',
+            describeSocialStatus: 'doesnt have many people to talke to, and has periods of depression',
+            setGoalForSocialStatus: 'join our self help groups and socializing events each week',
+            clientId: 4220
+    });
+
+
+    seed = await db.clients.create({
+            firstName: 'Ayomide',
+            lastName: 'Usman',
+            clientId: 5220,
+            gpsLocation: '49.23, -120.00',
+            zoneLocation: 'Bidibidi Zone 5',
+            villageNumber: 2,
+            dateJoined: '2021-01-15',
+            gender: 'male',
+            age: 45,
+            contactNumber: '1111111111',
+            caregiverContactNumber: 1234562222,
+            caregiverPresentForInterview: true,
+    });
+    seed = await db.disability.create({
+            clientId: 5220,
+            amputeeDisability: true,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: true,
+            visualImpairmentDisability: true,
+            hearingImpairmentDisability: false,
+            doNotKnowDisability: false,
+            otherDisability: false,
+            specifyDisability: ''
+    });
+    seed = await db.health_aspect.create({
+            rateHealth: 'low risk',
+            describeHealth: 'healthy for their age',
+            setGoalForHealth: 'more vegetables for well rounded diet',
+            clientId: 5220
+    });
+    seed = await db.education_aspect.create({
+            rateEducation: 'low risk',
+            describeEducation: 'very smart',
+            setGoalForEducation: 'make sure they read more',
+            clientId: 5220
+    });
+    seed = await db.social_aspect.create({
+            rateSocialStatus: 'medium risk',
+            describeSocialStatus: 'doesnt have many people to talke to, and has periods of depression',
+            setGoalForSocialStatus: 'join our self help groups and socializing events each week',
+            clientId: 5220
+    });
+
+
 
 
 

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientInfo implements Serializable {
+public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     private Boolean consentToInterview;
 
     private String gpsLocation;
@@ -45,6 +45,8 @@ public class ClientInfo implements Serializable {
     private String rateSocialStatus;
     private String describeSocialStatus;
     private String setGoalForSocialStatus;
+
+    private double overallRisk;
     
     public ClientInfo() {}
 
@@ -110,8 +112,16 @@ public class ClientInfo implements Serializable {
         this.rateSocialStatus = rateSocialStatus;
         this.describeSocialStatus = describeSocialStatus;
         this.setGoalForSocialStatus = setGoalForSocialStatus;
+        overallRisk = 0;
     }
 
+    public void setOverallRisk(double overallRisk){
+        this.overallRisk = overallRisk;
+    }
+
+    public double getOverallRisk(){
+        return overallRisk;
+    }
     public Boolean isConsentToInterview() {
         return consentToInterview;
     }
@@ -414,5 +424,10 @@ public class ClientInfo implements Serializable {
 
     public void setCaregiverPresentForInterview(Boolean caregiverPresentForInterview) {
         this.caregiverPresentForInterview = caregiverPresentForInterview;
+    }
+
+    @Override
+    public int compareTo(ClientInfo clientInfo) {
+        return (int) (this.getOverallRisk() - clientInfo.getOverallRisk());
     }
 }

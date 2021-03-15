@@ -2,6 +2,7 @@ package com.example.cbr.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,7 @@ import java.util.List;
 public class DashboardPageFragment extends Fragment implements DashboardPageContract.View {
 
     private FragmentDashboardBinding binding;
-    private TempHomeFragmentInterface tempHomeFragmentInterface;
+    private DashboardFragmentInterface dashboardFragmentInterface;
     private List<ClientInfo> priorityList;
     private List<ClientInfo> outstandingList;
     private DashboardPageContract.Presenter presenter;
@@ -35,26 +36,28 @@ public class DashboardPageFragment extends Fragment implements DashboardPageCont
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            tempHomeFragmentInterface = (TempHomeFragmentInterface) context;
+            dashboardFragmentInterface = (DashboardFragmentInterface) context;
         } catch (ClassCastException e) {
-            Log.e(getFragmentTag(), "Activity should implement tempHomeFragmentInterface");
+            Log.e(getFragmentTag(), "Activity should implement DashboardFragmentInterface");
         }
     }
 
     @Override
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
-        priorityList = new ArrayList<>();
-        outstandingList = new ArrayList<>();
-
         setPresenter(new DashboardPagePresenter(this));
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+
         populatePriorityList();
         populateOutstandingList();
 
-        setupPriorityListView();
-        setupOutstandingListView();
         setupNewClientButton();
         setupSyncButton();
+
 
         return binding.getRoot();
     }
@@ -74,30 +77,36 @@ public class DashboardPageFragment extends Fragment implements DashboardPageCont
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tempHomeFragmentInterface.swapToNewClient();
+                dashboardFragmentInterface.swapToNewClient();
             }
         });
     }
 
 
     private void populatePriorityList() {
+        priorityList = new ArrayList<>();
 
         try {
+
             priorityList.addAll(presenter.getTopPriority());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        setupPriorityListView();
 
     }
 
     private void populateOutstandingList() {
+        outstandingList = new ArrayList<>();
 
         try {
             outstandingList.addAll(presenter.getOutstandingReferral());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
+        setupOutstandingListView();
     }
 
     private void setupPriorityListView() {
@@ -105,7 +114,7 @@ public class DashboardPageFragment extends Fragment implements DashboardPageCont
         RecyclerView recyclerView = binding.dashboardPriorityList;
         LinearLayoutManager priorityLayout = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(priorityLayout);
-        PriorityListAdapter priorityListAdapter = new PriorityListAdapter(getActivity(), priorityList, tempHomeFragmentInterface);
+        PriorityListAdapter priorityListAdapter = new PriorityListAdapter(getActivity(), priorityList, dashboardFragmentInterface);
         recyclerView.setAdapter(priorityListAdapter);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
@@ -119,7 +128,7 @@ public class DashboardPageFragment extends Fragment implements DashboardPageCont
         LinearLayoutManager outstandingLayout = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(outstandingLayout);
 
-        OutstandingListAdapter outstandingListAdapter = new OutstandingListAdapter(getActivity(), outstandingList, tempHomeFragmentInterface);
+        OutstandingListAdapter outstandingListAdapter = new OutstandingListAdapter(getActivity(), outstandingList, dashboardFragmentInterface);
         recyclerView.setAdapter(outstandingListAdapter);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
@@ -141,7 +150,7 @@ public class DashboardPageFragment extends Fragment implements DashboardPageCont
         return DashboardPageFragment.class.getSimpleName();
     }
 
-    public interface TempHomeFragmentInterface {
+    public interface DashboardFragmentInterface {
         void swapToClientPage(ClientInfo clientInfo);
         void swapToNewClient();
     }

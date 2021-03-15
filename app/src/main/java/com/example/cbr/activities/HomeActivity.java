@@ -26,7 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class HomeActivity extends BaseActivity implements
-        DashboardPageFragment.TempHomeFragmentInterface,
+        DashboardPageFragment.DashboardFragmentInterface,
         ClientListFragment.ClientListFragmentInterface,
         ClientPageFragment.ClientPageFragmentInterface,
         HomePageFragment.HomePageFragmentInterface

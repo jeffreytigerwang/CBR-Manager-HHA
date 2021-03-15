@@ -19,7 +19,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
     private HomePageContract.Presenter homePagePresenter;
     private FragmentHomePageBinding binding;
     private HomePageFragmentInterface homePageFragmentInterface;
-    private DashboardPageFragment.TempHomeFragmentInterface tempHomeFragmentInterface;
+    private DashboardPageFragment.DashboardFragmentInterface dashboardFragmentInterface;
 
 
 
@@ -28,7 +28,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
         super.onAttach(context);
         try {
             homePageFragmentInterface = (HomePageFragment.HomePageFragmentInterface) context;
-            tempHomeFragmentInterface = (DashboardPageFragment.TempHomeFragmentInterface) context;
+            dashboardFragmentInterface = (DashboardPageFragment.DashboardFragmentInterface) context;
         } catch (ClassCastException e) {
             Log.e(getFragmentTag(), "Activity should implement HomePageFragmentInterface, " +
                     "TempHomeFragmentInterface.");
@@ -75,7 +75,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
                 break;
 
             case R.id.cardViewNewClient:
-                tempHomeFragmentInterface.swapToNewClient();
+                dashboardFragmentInterface.swapToNewClient();
                 break;
 
             default:

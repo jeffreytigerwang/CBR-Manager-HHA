@@ -26,6 +26,8 @@
         android:id="@+id/newVisit_backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/cbrViolet"
         android:text="@string/back"
@@ -38,7 +40,7 @@
     <FrameLayout
         android:id="@+id/newVisit_questionFrame"
         android:layout_width="match_parent"
-        android:layout_height="546dp"
+        android:layout_height="520dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="52dp"
         android:background="@drawable/customborder"

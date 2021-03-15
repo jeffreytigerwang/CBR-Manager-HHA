@@ -405,7 +405,7 @@ async function seedData() {
             isOrthoticChecked: false,
             isWheelChairRepairChecked: false,
             isReferralToHCChecked: true,
-            isHealthAdviceChecked: false,
+            isHealthAdviceChecked: true,
             isHealthAdvocacyChecked: false,
             isHealthEncouragementChecked: false,
             wheelChairDesc: "",
@@ -418,8 +418,8 @@ async function seedData() {
             healthEncouragementDesc: "",
             healthOutcomeDesc: "",
             healthGoalDesc: "Make sure grandkids learn to sign with grandpa",
-            clientId: 1234,
-            visitId: 9000
+            clientId: 1270,
+            visitId: 8002
     });
 
 

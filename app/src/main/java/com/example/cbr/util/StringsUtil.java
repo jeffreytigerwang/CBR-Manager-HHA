@@ -16,4 +16,14 @@ public class StringsUtil {
         SimpleDateFormat format = new SimpleDateFormat(UK_PATTERN, Locale.UK);
         return format.format(date);
     }
+
+    public static String boolToText(Boolean bool) {
+        if (bool == null) {
+            return "N/A";
+        } else if (bool) {
+            return "Yes";
+        } else {
+            return "No";
+        }
+    }
 }

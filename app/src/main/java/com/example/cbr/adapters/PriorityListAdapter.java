@@ -71,7 +71,7 @@ public class PriorityListAdapter extends RecyclerView.Adapter<PriorityListAdapte
 
             riskText.setText(risk);
             locationText.setText(clientInfo.getZoneLocation());
-            dateText.setText("Last Visit: February 10, 2021");
+            dateText.setText(R.string.dummy_data_last_vist2);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

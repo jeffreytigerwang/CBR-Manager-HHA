@@ -1,21 +1,17 @@
 package com.example.cbr.fragments.newvisit;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -26,7 +22,7 @@ import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.util.Constants;
 import com.example.cbr.util.StringsUtil;
 
-/*
+/**
 * Initial fragment class to display general questions (7 questions)
 * */
 
@@ -34,11 +30,9 @@ public class VisitFirstQuestionSetFragment extends Fragment {
 
     private static final String LOG_TAG = "FirstQuestionSetFragment";
 
-    private final ActivityNewVisitBinding containerBinding;
     private FragmentVisitFirstQuestionSetBinding binding;
 
     private final VisitGeneralQuestionSetData dataContainer;
-    private final Context parentContext;
     private FragmentActivity activity;
 
     private CheckBox health;
@@ -52,14 +46,9 @@ public class VisitFirstQuestionSetFragment extends Fragment {
 
     private RadioGroup questionOne;
     private Spinner spinnerLocation;
-    private TextView question2;
 
-    public VisitFirstQuestionSetFragment(
-            ActivityNewVisitBinding containerBinding,
-            VisitGeneralQuestionSetData dataContainer, Context parentContext) {
-        this.containerBinding = containerBinding;
+    public VisitFirstQuestionSetFragment(VisitGeneralQuestionSetData dataContainer) {
         this.dataContainer = dataContainer;
-        this.parentContext = parentContext;
     }
 
     @Override
@@ -98,13 +87,11 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         education = binding.newVisitEducationCheckBox;
         social = binding.newVisitSocialCheckBox;
 
-        question2 = binding.newVisitQ2TextView;
-
         spinnerLocation = binding.newVisitLocationSpinner;
     }
 
     private void setupSpinner() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 activity,
                 android.R.layout.simple_spinner_item,
                 getResources().getStringArray(R.array.zone_locations_array)
@@ -140,73 +127,32 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         questionOne.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                resetQuestionTwo();
-
                 if (checkedId == R.id.newVisit_CBRRadioButton) {
                     dataContainer.setPurposeOfVisit(Constants.CBR);
 
-                    int unlockedColor = ContextCompat.getColor(parentContext, R.color.black);
-                    toggleQuestionTwo(unlockedColor, true);
-                    toggleRecordButton(View.VISIBLE, View.GONE);
-
                 } else if (checkedId == R.id.newVisit_DCRradioButton) {
                     dataContainer.setPurposeOfVisit(Constants.DCR);
-                    toggleRecordButton(View.GONE, View.VISIBLE);
 
                 } else if (checkedId == R.id.newVisit_DCRFURadioButton) {
                     dataContainer.setPurposeOfVisit(Constants.DCRFU);
-                    toggleRecordButton(View.GONE, View.VISIBLE);
                 }
             }
         });
     }
 
-    private void toggleRecordButton(int nextVisibility, int recordVisibility) {
-        Button next = containerBinding.newVisitNextButton;
-        Button record = containerBinding.newVisitRecordButton;
-
-        next.setVisibility(nextVisibility);
-        record.setVisibility(recordVisibility);
+    public String getDate() {
+        return date.getText().toString();
     }
 
-
-    private void toggleQuestionTwo(int color, boolean toggle) {
-        question2.setTextColor(color);
-        health.setTextColor(color);
-        education.setTextColor(color);
-        social.setTextColor(color);
-
-        health.setClickable(toggle);
-        education.setClickable(toggle);
-        social.setClickable(toggle);
+    public String getCbrWorkerName() {
+        return cbrWorkerName.getText().toString();
     }
 
-    private void resetQuestionTwo() {
-        int lockedColor = ContextCompat.getColor(parentContext, R.color.colorLocked);
-        toggleQuestionTwo(lockedColor, false);
-
-        health.setChecked(false);
-        education.setChecked(false);
-        social.setChecked(false);
-
-        dataContainer.setHealthChecked(false);
-        dataContainer.setEducationChecked(false);
-        dataContainer.setSocialChecked(false);
+    public String getLocation() {
+        return location.getText().toString();
     }
 
-    public EditText getDate() {
-        return date;
-    }
-
-    public EditText getCbrWorkerName() {
-        return cbrWorkerName;
-    }
-
-    public EditText getLocation() {
-        return location;
-    }
-
-    public EditText getVillageNumber() {
-        return villageNumber;
+    public String getVillageNumber() {
+        return villageNumber.getText().toString();
     }
 }

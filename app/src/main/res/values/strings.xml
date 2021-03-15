@@ -37,6 +37,27 @@
     <string name="visit_date">Visit date</string>
     <string name="worker_name">Worker name</string>
 
+    <!-- New referral -->
+    <string name="service_requirements_question">What service does the client require?</string>
+    <string name="patient_conditions_question">What condition does the client have?</string>
+    <string name="other_option">If other, please describe:</string>
+    <string name="prosthetic_question">Is the injury below or above the knee?</string>
+    <string name="orthotic_question">Is the injury below or above the elbow?</string>
+    <string name="above_knee_question">Above the knee</string>
+    <string name="below_knee_question">Below the knee</string>
+    <string name="above_elbow_question">Above the elbow</string>
+    <string name="below_elbow_question">Below the elbow</string>
+    <string name="wheelchair_expertise_question">Is the user a basic or intermediate user?</string>
+    <string name="basic_user">Basic user</string>
+    <string name="intermediate_user">Intermediate user</string>
+    <string name="hip_width_question">What is the client\'s in inches?</string>
+    <string name="existing_wheelchair_question">Do they have an existing wheelchair?</string>
+    <string name="wheelchair_repair_question">Can the existing wheelchair be repaired?</string>
+    <string name="wheelchair_centre">*If yes, please bring the wheelchair to the centre</string>
+
+    <!-- View pager -->
+    <string name="viewpager_page_number">Page %1$d of %2$d</string>
+
     <!-- New client -->
     <string name="male">Male</string>
     <string name="female">Female</string>
@@ -75,7 +96,7 @@
     <string name="cbr">CBR</string>
     <string name="disability_centre_referral">Disability centre referral</string>
     <string name="disability_centre_referral_follow_up">Disability centre referral follow up</string>
-    <string name="if_cbr">2. If CBR* (check all that apply):</string>
+    <string name="new_visit_question_2">2. Select Aspect* (check all that apply):</string>
     <string name="health">Health</string>
     <string name="education">Education</string>
     <string name="social">Social</string>
@@ -90,6 +111,7 @@
     <string name="wheelchair">Wheelchair</string>
     <string name="description_max_100_characters">Description* (Max 100 characters)</string>
     <string name="description_max_100_characters_optional">Description (Max 100 characters)</string>
+    <string name="physiotherapy">Physiotherapy</string>
     <string name="prosthetic">Prosthetic</string>
     <string name="orthotic">Orthotic</string>
     <string name="wheelchair_repairs">Wheelchair repairs</string>
@@ -119,7 +141,6 @@
     <string name="question_2_not_filled">Question 2 not filled.</string>
     <string name="Login">Login</string>
     <string name="new_visit">New Visit</string>
-    <string name="new_client">New Client</string>
     <string name="patient_list">Patient List</string>
     <string name="initial_goal">Initial goal:</string>
     <string name="login_failed">Login Failed</string>
@@ -127,6 +148,24 @@
     <string name="database_on_response_fail_health_goal">Response fail to get client health goal.</string>
     <string name="initial_goal_not_found">Initial goal not found</string>
     <string name="search">Search</string>
+    <string name="phone_number">Phone number</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="select_one_or_more_zones">Select one or more zones</string>
+    <string name="bidibidi_zone_1">Bidibidi Zone 1</string>
+    <string name="bidibidi_zone_2">Bidibidi Zone 2</string>
+    <string name="bidibidi_zone_4">Bidibidi Zone 4</string>
+    <string name="bidibidi_zone_5">Bidibidi Zone 5</string>
+    <string name="palorinya_basecamp">Palorinya Basecamp</string>
+    <string name="palorinya_zone_1">Palorinya Zone 1</string>
+    <string name="palorinya_zone_2">Palorinya Zone 2</string>
+    <string name="palorinya_zone_3">Palorinya Zone 3</string>
+    <string name="select_type_of_user">Select type of user</string>
+    <string name="admin">Admin</string>
+    <string name="cbr_worker">CBR worker</string>
+    <string name="clinician">Clinician</string>
+    <string name="photo_preview">Photo preview</string>
+    <string name="client_photo">Client photo</string>
+    <string name="you_must_allow_this_app_to_use_your_camera_to_record_a_photo">You must allow this app to use your camera to record a photo</string>
     <string name="new_visit_title">New Visit</string>
     <string-array name="zone_locations_array">
         <item>BidiBidi Zone 1</item>
@@ -145,5 +184,30 @@
         <item>Medium risk</item>
         <item>Low risk</item>
     </string-array>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="priority_list">Priority List</string>
+    <string name="outstanding_referrals">Outstanding Referrals</string>
+    <string name="home">Home</string>
+    <string name="list">List</string>
+    <string name="discussion">Discussion</string>
+    <string name="notification">Notification</string>
+    <string name="new_referral">New Referral</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="new_client">New Client</string>
+    <string name="all_clients">All Clients</string>
+    <string name="sync">Sync</string>
+    <string name="dummy_data_last_visit1">Last Visit: February 9, 2021</string>
+    <string name="dummy_data_last_vist2">Last Visit: February 10, 2021</string>
+    <string name="failed_to_get_client_id">Failed to get client ID.</string>
+    <string name="health_question_record_fail">Health Question Record Fail</string>
+    <string name="health_question_record_successful">Health Question Record Successful</string>
+    <string name="education_question_record_fail">Education Question Record Fail</string>
+    <string name="education_question_record_successful">Education Question Record Successful</string>
+    <string name="social_question_record_fail">Social Question Record Fail</string>
+    <string name="social_question_record_successful">Social Question Record Successful</string>
+    <string name="general_question_record_fail">General Question Record Fail</string>
+    <string name="general_question_record_successful">General Question Record Successful</string>
+
 
 </resources>

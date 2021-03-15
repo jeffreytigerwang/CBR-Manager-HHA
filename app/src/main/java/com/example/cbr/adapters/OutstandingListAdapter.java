@@ -63,9 +63,9 @@ public class OutstandingListAdapter extends RecyclerView.Adapter<OutstandingList
         //TODO: find way to show most critical risk level and last visit date
         public void bind(final ClientInfo clientInfo){
             nameText.setText(clientInfo.getFullName());
-            referralText.setText("Outstanding Referral");
+            referralText.setText(R.string.outstanding_referrals);
             locationText.setText(clientInfo.getZoneLocation());
-            dateText.setText("Last Visit: February 9, 2021");
+            dateText.setText(R.string.dummy_data_last_visit1);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

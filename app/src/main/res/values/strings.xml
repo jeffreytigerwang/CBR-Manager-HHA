@@ -48,6 +48,8 @@
     <string name="above_elbow_question">Above the elbow</string>
     <string name="below_elbow_question">Below the elbow</string>
     <string name="wheelchair_expertise_question">Is the user a basic or intermediate user?</string>
+    <string name="basic_user">Basic user</string>
+    <string name="intermediate_user">Intermediate user</string>
     <string name="hip_width_question">What is the client\'s in inches?</string>
     <string name="existing_wheelchair_question">Do they have an existing wheelchair?</string>
     <string name="wheelchair_repair_question">Can the existing wheelchair be repaired?</string>

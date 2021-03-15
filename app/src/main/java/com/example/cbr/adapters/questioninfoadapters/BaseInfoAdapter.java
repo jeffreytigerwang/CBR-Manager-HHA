@@ -61,7 +61,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
     /**
      *
      */
-    abstract void onDataChanged(int positionChanged);
+    abstract void onDataChanged(int positionChanged, QuestionDataContainer questionDataContainer);
 
     public List<QuestionDataContainer> getQuestionDataContainerList() {
         return questionDataContainerList;
@@ -232,7 +232,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     editTextViewHolderData.setUserInput(s.toString());
-                    onDataChanged(getLayoutPosition());
+                    onDataChanged(getLayoutPosition(), editTextViewHolderData);
 
                 }
 
@@ -281,7 +281,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                             radioGroupViewHolderData.setCheckedIndex(i);
                         }
                     }
-                    onDataChanged(getLayoutPosition());
+                    onDataChanged(getLayoutPosition(), radioGroupViewHolderData);
                 }
             });
         }
@@ -307,7 +307,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     spinnerViewHolderData.setSelectedItem(spinner.getSelectedItem().toString());
-                    onDataChanged(getLayoutPosition());
+                    onDataChanged(getLayoutPosition(), spinnerViewHolderData);
                 }
             });
         }
@@ -328,7 +328,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     checkBoxViewContainer.setChecked(isChecked);
-                    onDataChanged(getLayoutPosition());
+                    onDataChanged(getLayoutPosition(), checkBoxViewContainer);
                 }
             });
         }

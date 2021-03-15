@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.cbr.adapters.questioninfoadapters.BaseInfoAdapter;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
 import com.example.cbr.fragments.QuestionsPageFragment;
 
@@ -34,6 +33,13 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
         notifyDataSetChanged();
     }
 
+    public void setPageActive(int page, boolean isActive) {
+        if (totalFragmentsList.get(page).isActive() != isActive) {
+            totalFragmentsList.get(page).setActive(isActive);
+            updatePages();
+        }
+    }
+
     @NonNull
     @Override
     public Fragment createFragment(int position) {
@@ -45,17 +51,30 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
         return activeFragmentsList.size();
     }
 
+    @Override
+    public boolean containsItem(long itemId) {
+        for (ViewPagerContainer viewPagerContainer : activeFragmentsList) {
+            if (viewPagerContainer.hashCode() == itemId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return activeFragmentsList.get(position).hashCode();
+    }
+
     public static class ViewPagerContainer implements Serializable {
         private final ArrayList<QuestionDataContainer> viewHolderDataList;
         private final OnViewPagerChangedListener onViewPagerChangedListener;
         private boolean isActive;
-        private boolean isOnScreen;
 
         public ViewPagerContainer(ArrayList<QuestionDataContainer> viewHolderDataList, boolean isActive, OnViewPagerChangedListener onViewPagerChangedListener) {
             this.viewHolderDataList = viewHolderDataList;
             this.isActive = isActive;
             this.onViewPagerChangedListener = onViewPagerChangedListener;
-            isOnScreen = false;
         }
 
         public ArrayList<QuestionDataContainer> getViewHolderDataList() {
@@ -73,17 +92,9 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
         public OnViewPagerChangedListener getOnViewPagerChangedListener() {
             return onViewPagerChangedListener;
         }
-
-        public boolean isOnScreen() {
-            return isOnScreen;
-        }
-
-        public void setOnScreen(boolean onScreen) {
-            isOnScreen = onScreen;
-        }
     }
 
     public interface OnViewPagerChangedListener {
-        void onChanged(int positionChanged);
+        void onChanged(int positionChanged, QuestionDataContainer questionDataContainer);
     }
 }

@@ -54,8 +54,8 @@ public class RadioGroupViewContainer extends QuestionDataContainer {
             return isChecked;
         }
 
-        public void setChecked(boolean checked) {
-            isChecked = checked;
+        public void setChecked(boolean isChecked) {
+            this.isChecked = isChecked;
         }
 
         public int getId() {

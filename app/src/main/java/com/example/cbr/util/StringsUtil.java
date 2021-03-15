@@ -1,9 +1,5 @@
 package com.example.cbr.util;
 
-import android.content.res.Resources;
-
-import com.example.cbr.R;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;

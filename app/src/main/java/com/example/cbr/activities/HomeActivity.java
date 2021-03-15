@@ -19,7 +19,6 @@ import com.example.cbr.fragments.clientpage.ClientPageFragment;
 import com.example.cbr.fragments.home.HomePageFragment;
 import com.example.cbr.fragments.newclient.NewClientFragment;
 import com.example.cbr.fragments.newreferral.NewReferralFragment;
-import com.example.cbr.fragments.notification.NotificationFragment;
 import com.example.cbr.fragments.visitpage.VisitPageFragment;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.VisitGeneralQuestionSetData;

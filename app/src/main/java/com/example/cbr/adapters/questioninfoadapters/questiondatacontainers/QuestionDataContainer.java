@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class QuestionDataContainer implements Parcelable, Serializable {
     public static final int SINGLE_TEXT_VIEW_TYPE = 0;

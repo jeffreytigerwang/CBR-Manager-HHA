@@ -30,13 +30,12 @@ import com.example.cbr.models.ClientSocialAspect;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.http.Field;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.cbr.util.Constants.CAMERA_PERMISSION_CODE;

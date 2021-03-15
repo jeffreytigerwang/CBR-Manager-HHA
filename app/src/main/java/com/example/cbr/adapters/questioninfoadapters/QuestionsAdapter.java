@@ -1,11 +1,8 @@
 package com.example.cbr.adapters.questioninfoadapters;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
-
-import java.util.List;
 
 public class QuestionsAdapter extends BaseInfoAdapter {
 
@@ -17,7 +14,7 @@ public class QuestionsAdapter extends BaseInfoAdapter {
     }
 
     @Override
-    void onDataChanged(int positionChanged) {
-        viewPagerContainer.getOnViewPagerChangedListener().onChanged(positionChanged);
+    void onDataChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+        viewPagerContainer.getOnViewPagerChangedListener().onChanged(positionChanged, questionDataContainer);
     }
 }

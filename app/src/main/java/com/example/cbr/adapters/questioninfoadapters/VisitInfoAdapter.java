@@ -2,9 +2,7 @@ package com.example.cbr.adapters.questioninfoadapters;
 
 import android.content.Context;
 
-import com.example.cbr.R;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
-import com.example.cbr.models.VisitGeneralQuestionSetData;
 
 import java.util.List;
 
@@ -16,7 +14,7 @@ public class VisitInfoAdapter extends BaseInfoAdapter {
     }
 
     @Override
-    void onDataChanged(int positionChanged) {
+    void onDataChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
         // no items that require input from user
     }
 }

@@ -22,7 +22,10 @@
         <ImageView
             android:id="@+id/activityMain_logoImage"
             android:layout_width="match_parent"
-            android:layout_height="175dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
             app:layout_constraintBottom_toTopOf="@id/text_sign_in"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

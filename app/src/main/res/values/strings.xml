@@ -37,6 +37,27 @@
     <string name="visit_date">Visit date</string>
     <string name="worker_name">Worker name</string>
 
+    <!-- New referral -->
+    <string name="service_requirements_question">What service does the client require?</string>
+    <string name="patient_conditions_question">What condition does the client have?</string>
+    <string name="other_option">If other, please describe:</string>
+    <string name="prosthetic_question">Is the injury below or above the knee?</string>
+    <string name="orthotic_question">Is the injury below or above the elbow?</string>
+    <string name="above_knee_question">Above the knee</string>
+    <string name="below_knee_question">Below the knee</string>
+    <string name="above_elbow_question">Above the elbow</string>
+    <string name="below_elbow_question">Below the elbow</string>
+    <string name="wheelchair_expertise_question">Is the user a basic or intermediate user?</string>
+    <string name="basic_user">Basic user</string>
+    <string name="intermediate_user">Intermediate user</string>
+    <string name="hip_width_question">What is the client\'s in inches?</string>
+    <string name="existing_wheelchair_question">Do they have an existing wheelchair?</string>
+    <string name="wheelchair_repair_question">Can the existing wheelchair be repaired?</string>
+    <string name="wheelchair_centre">*If yes, please bring the wheelchair to the centre</string>
+
+    <!-- View pager -->
+    <string name="viewpager_page_number">Page %1$d of %2$d</string>
+
     <!-- New client -->
     <string name="male">Male</string>
     <string name="female">Female</string>
@@ -75,7 +96,7 @@
     <string name="cbr">CBR</string>
     <string name="disability_centre_referral">Disability centre referral</string>
     <string name="disability_centre_referral_follow_up">Disability centre referral follow up</string>
-    <string name="if_cbr">2. If CBR* (check all that apply):</string>
+    <string name="new_visit_question_2">2. Select Aspect* (check all that apply):</string>
     <string name="health">Health</string>
     <string name="education">Education</string>
     <string name="social">Social</string>
@@ -90,6 +111,7 @@
     <string name="wheelchair">Wheelchair</string>
     <string name="description_max_100_characters">Description* (Max 100 characters)</string>
     <string name="description_max_100_characters_optional">Description (Max 100 characters)</string>
+    <string name="physiotherapy">Physiotherapy</string>
     <string name="prosthetic">Prosthetic</string>
     <string name="orthotic">Orthotic</string>
     <string name="wheelchair_repairs">Wheelchair repairs</string>
@@ -177,6 +199,15 @@
     <string name="sync">Sync</string>
     <string name="dummy_data_last_visit1">Last Visit: February 9, 2021</string>
     <string name="dummy_data_last_vist2">Last Visit: February 10, 2021</string>
+    <string name="failed_to_get_client_id">Failed to get client ID.</string>
+    <string name="health_question_record_fail">Health Question Record Fail</string>
+    <string name="health_question_record_successful">Health Question Record Successful</string>
+    <string name="education_question_record_fail">Education Question Record Fail</string>
+    <string name="education_question_record_successful">Education Question Record Successful</string>
+    <string name="social_question_record_fail">Social Question Record Fail</string>
+    <string name="social_question_record_successful">Social Question Record Successful</string>
+    <string name="general_question_record_fail">General Question Record Fail</string>
+    <string name="general_question_record_successful">General Question Record Successful</string>
 
 
 </resources>

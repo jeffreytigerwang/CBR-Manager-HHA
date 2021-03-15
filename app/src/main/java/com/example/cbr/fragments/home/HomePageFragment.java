@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentHomePageBinding;

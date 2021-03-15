@@ -208,6 +208,11 @@
     <string name="social_question_record_successful">Social Question Record Successful</string>
     <string name="general_question_record_fail">General Question Record Fail</string>
     <string name="general_question_record_successful">General Question Record Successful</string>
+    <string name="fragment_discussion">Fragment: Discussion</string>
+    <string name="fragment_notification">Fragment: Notification</string>
+    <string name="name">Name</string>
+    <string name="risk">Risk</string>
+    <string name="referral">Referral</string>
 
 
 </resources>

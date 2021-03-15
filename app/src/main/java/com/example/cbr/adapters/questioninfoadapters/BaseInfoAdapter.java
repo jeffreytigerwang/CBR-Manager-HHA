@@ -58,9 +58,6 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
         this.questionDataContainerList = questionDataContainerList;
     }
 
-    /**
-     *
-     */
     abstract void onDataChanged(int positionChanged, QuestionDataContainer questionDataContainer);
 
     public List<QuestionDataContainer> getQuestionDataContainerList() {

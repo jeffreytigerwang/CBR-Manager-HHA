@@ -1,7 +1,9 @@
     package com.example.cbr.activities;
 
+    import android.Manifest;
     import android.content.Context;
     import android.content.Intent;
+    import android.content.pm.PackageManager;
     import android.os.Bundle;
     import android.os.StrictMode;
     import android.util.Log;
@@ -14,6 +16,7 @@
 
     import androidx.annotation.NonNull;
     import androidx.appcompat.app.AppCompatActivity;
+    import androidx.core.app.ActivityCompat;
     import androidx.fragment.app.Fragment;
     import androidx.fragment.app.FragmentManager;
     import androidx.fragment.app.FragmentTransaction;
@@ -32,6 +35,9 @@
     import com.example.cbr.models.VisitGeneralQuestionSetData;
     import com.example.cbr.models.VisitHealthQuestionSetData;
     import com.example.cbr.models.VisitSocialQuestionSetData;
+    import com.example.cbr.util.Constants;
+    import com.example.cbr.util.CustomExceptions;
+    import com.example.cbr.util.LocationUtil;
 
     import java.util.ArrayList;
     import java.util.LinkedList;
@@ -45,7 +51,7 @@
 
 public class NewVisitActivity extends AppCompatActivity implements NewVisitContract.View {
 
-    private ActivityNewVisitBinding binding;
+        private ActivityNewVisitBinding binding;
 
     private static final String CLIENT_INFO = "clientInfo";
     private static final String LOG_TAG = "NewVisitActivity";
@@ -120,7 +126,7 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
         setVisitClientId();
         setWorkerName();
 
-        currentFragment = new VisitFirstQuestionSetFragment(generalQuestionSetData);
+        currentFragment = new VisitFirstQuestionSetFragment(generalQuestionSetData, this);
         manageFragment(currentFragment);
         totalFragments += 1;
         pageNum = 1;

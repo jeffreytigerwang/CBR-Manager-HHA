@@ -213,6 +213,13 @@
     <string name="name">Name</string>
     <string name="risk">Risk</string>
     <string name="referral">Referral</string>
+    <string name="location_permission_not_granted">ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION not granted. User did not give permission to access location.</string>
+    <string name="gps_alert_title">GPS settings</string>
+    <string name="gps_alert_message">GPS is not enabled. Do you want to go to settings menu?</string>
+    <string name="alert_settings_positive_button">Settings</string>
+    <string name="gps_not_enabled">User has not enabled GPS.</string>
+    <string name="lat_long_location">Lat: %f Long: %f</string>
+    <string name="location_not_found">Location could not be found.</string>
 
 
 </resources>

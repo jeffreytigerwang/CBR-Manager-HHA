@@ -1,6 +1,10 @@
 package com.example.cbr.fragments.newvisit;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +14,19 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.cbr.R;
-import com.example.cbr.databinding.ActivityNewVisitBinding;
 import com.example.cbr.databinding.FragmentVisitFirstQuestionSetBinding;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.util.Constants;
+import com.example.cbr.util.CustomExceptions;
+import com.example.cbr.util.LocationUtil;
 import com.example.cbr.util.StringsUtil;
 
 /**
@@ -33,6 +40,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     private FragmentVisitFirstQuestionSetBinding binding;
 
     private final VisitGeneralQuestionSetData dataContainer;
+    private final Context context;
     private FragmentActivity activity;
 
     private CheckBox health;
@@ -47,8 +55,11 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     private RadioGroup questionOne;
     private Spinner spinnerLocation;
 
-    public VisitFirstQuestionSetFragment(VisitGeneralQuestionSetData dataContainer) {
+    private String latLongLocation;
+
+    public VisitFirstQuestionSetFragment(VisitGeneralQuestionSetData dataContainer, Context context) {
         this.dataContainer = dataContainer;
+        this.context = context;
     }
 
     @Override
@@ -59,12 +70,56 @@ public class VisitFirstQuestionSetFragment extends Fragment {
 
         preLoadViews();
 
+        requestLocationPermissions();
+
         setupRadioGroup();
         setupCheckBox();
         setupSpinner();
 
         return binding.getRoot();
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == Constants.LOCATION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                setLatLongLocation();
+            } else {
+                Toast.makeText(context, R.string.location_permission_not_granted,
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void requestLocationPermissions() {
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED
+                &&
+                ActivityCompat.checkSelfPermission(context,
+                        Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity,
+                    new String[] {Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION}, Constants.LOCATION_REQUEST_CODE);
+        } else {
+            setLatLongLocation();
+        }
+    }
+
+    private void setLatLongLocation() {
+        try {
+            LocationUtil locationUtil = new LocationUtil(context);
+            latLongLocation = getString(R.string.lat_long_location,
+                    locationUtil.getLatitude(), locationUtil.getLongitude());
+            Log.d(LOG_TAG, "onRequestPermissionsResult: latLongLocation=" + latLongLocation);
+            location.setText(latLongLocation);
+        } catch (CustomExceptions.GPSNotEnabled gpsNotEnabled) {
+            Log.i(LOG_TAG, "onRequestPermissionsResult: " + gpsNotEnabled.getMessage());
+        }
+    }
+
 
     private void preLoadViews() {
         findViews();

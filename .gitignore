@@ -1,14 +1,56 @@
+# Android Root Git Ignore
+
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+android/.gradle
+android/local.properties
+android/.idea/caches
+android/.idea/libraries
+android/.idea/modules.xml
+android/.idea/workspace.xml
+android/.idea/navEditor.xml
+android/.idea/assetWizardSettings.xml
+android/.DS_Store
+android/build
+android/captures
+android.externalNativeBuild
+android.cxx
+
+
+# ----------------------
+# Android App Git Ignore
+
+android/app/build
+
+
+# ----------------------
+# Admin Page Git Ignore
+
+# dependencies
+backend/admin-web/node_modules
+backend/admin-web/.pnp
+backend/admin-web/.pnp.js
+backend/admin-web/package-lock.json
+
+# testing
+backend/admin-web/coverage
+
+# production
+backend/admin-web/build
+
+# misc
+backend/admin-web/.DS_Store
+backend/admin-web/.env.local
+backend/admin-web/.env.development.local
+backend/admin-web/.env.test.local
+backend/admin-web/.env.production.local
+
+backend/admin-web/npm-debug.log*
+backend/admin-web/yarn-debug.log*
+backend/admin-web/yarn-error.log*
+
+# ----------------------
+# API Git Ignore
+
+backend/api/node_modules/
+backend/api/app/config/db.config.js
+backend/api/package-lock.json

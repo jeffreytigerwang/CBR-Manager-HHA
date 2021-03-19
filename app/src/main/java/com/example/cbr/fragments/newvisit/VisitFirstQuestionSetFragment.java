@@ -115,6 +115,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
                     locationUtil.getLatitude(), locationUtil.getLongitude());
             Log.d(LOG_TAG, "onRequestPermissionsResult: latLongLocation=" + latLongLocation);
             location.setText(latLongLocation);
+            locationUtil.stopUpdateService();
         } catch (CustomExceptions.GPSNotEnabled gpsNotEnabled) {
             Log.i(LOG_TAG, "onRequestPermissionsResult: " + gpsNotEnabled.getMessage());
         }

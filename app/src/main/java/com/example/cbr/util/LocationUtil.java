@@ -148,7 +148,6 @@ public class LocationUtil extends Service implements LocationListener {
     @Override
     public void onLocationChanged(@NonNull Location location) {
         currentLocation = location;
-        stopUpdateService();
     }
 
     @Override

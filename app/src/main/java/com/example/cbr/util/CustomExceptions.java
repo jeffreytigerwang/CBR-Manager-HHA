@@ -8,6 +8,8 @@ public class CustomExceptions {
 
     /**
      * Thrown whenever checking for privacy permission fails.
+     * For example, checking if {@code Manifest.permission.ACCESS_FINE_LOCATION} does not equal to
+     * {@code PackageManager.PERMISSION_GRANTED}, then throw {@code PermissionNotGranted}.
      * */
     public static class PermissionNotGranted extends RuntimeException {
         /**
@@ -20,6 +22,7 @@ public class CustomExceptions {
 
     /**
      * Thrown when checking if the user has enabled GPS fails.
+     * Case: if {@code LocationManager#isLocationEnabled(LocationManager.GPS_PROVIDER)} is false.
      * */
     public static class GPSNotEnabled extends Exception {
         public GPSNotEnabled(String message) {

@@ -129,14 +129,12 @@ public class LocationUtil extends Service implements LocationListener {
             }
         });
 
-        // on pressing cancel button
         alertDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         });
 
-        // Showing Alert Message
         alertDialog.show();
     }
 

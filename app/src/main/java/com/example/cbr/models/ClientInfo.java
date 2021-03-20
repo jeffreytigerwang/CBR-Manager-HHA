@@ -4,6 +4,7 @@ import com.example.cbr.util.Constants;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ClientInfo implements Serializable, Comparable<ClientInfo>{
@@ -430,4 +431,19 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     public int compareTo(ClientInfo clientInfo) {
         return (int) (this.getOverallRisk() - clientInfo.getOverallRisk());
     }
+
+    public static final Comparator<ClientInfo> BY_TITLE_ASCENDING = new Comparator<ClientInfo>() {
+        @Override
+        public int compare(ClientInfo clientInfo, ClientInfo t1) {
+            return clientInfo.getFullName().compareTo(t1.getFullName());
+        }
+    };
+
+    public static final Comparator<ClientInfo> BY_TITLE_DESCENDING = new Comparator<ClientInfo>() {
+        @Override
+        public int compare(ClientInfo clientInfo, ClientInfo t1) {
+            return t1.getFullName().compareTo(clientInfo.getFullName());
+        }
+    };
+
 }

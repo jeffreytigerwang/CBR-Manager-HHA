@@ -1,6 +1,9 @@
 package com.example.cbr.fragments.clientlist;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -11,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -31,6 +35,7 @@ import com.example.cbr.retrofit.RetrofitInit;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -49,6 +54,10 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     private ClientListFragmentInterface clientListFragmentInterface;
     private ClientListContract.Presenter clientListPresenter;
     private ClientListAdapter adapter;
+    private SharedPreferences pref;
+
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -64,6 +73,9 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         setPresenter(new ClientListPresenter(this));
+
+        //Attempt to make the fragment remember the sort settings
+        pref = this.getActivity().getSharedPreferences("MY_DATA", Context.MODE_PRIVATE);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
@@ -85,14 +97,10 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
             e.printStackTrace();
         }
 
-        RecyclerView recyclerView = binding.recyclerViewClientlist;
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new ClientListAdapter(getActivity(), clientInfoArrayList, clientListFragmentInterface);
-        recyclerView.setAdapter(adapter);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                linearLayoutManager.getOrientation());
-        recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView = binding.recyclerViewClientlist;
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        showData();
+
 
         binding.textViewPatientList.setText(R.string.patient_list);
         setHasOptionsMenu(true);
@@ -102,9 +110,28 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         return view;
     }
 
+    private void showData(){
+
+        String mSortSettings = pref.getString("Sort", "descending");
+        
+        if (mSortSettings.equals("ascending")){
+            Collections.sort(clientInfoArrayList, ClientInfo.BY_TITLE_ASCENDING);
+        }
+        else if (mSortSettings.equals("descending")){
+            Collections.sort(clientInfoArrayList, ClientInfo.BY_TITLE_DESCENDING);
+        }
+
+        recyclerView.setLayoutManager(linearLayoutManager);
+        adapter = new ClientListAdapter(getActivity(), clientInfoArrayList, clientListFragmentInterface);
+        recyclerView.setAdapter(adapter);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                linearLayoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
+    }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.top_menu_search, menu);
+        inflater.inflate(R.menu.top_menu_clientlist, menu);
         super.onCreateOptionsMenu(menu, inflater);
 
         MenuItem searchItem = menu.findItem(R.id.clientListSearch);
@@ -124,6 +151,43 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.clientListSort){
+            showSortDialog();
+            // Toast.makeText(getActivity(), "Sort", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    private void showSortDialog() {
+        String[] options = {"Ascending", "Descending"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Sort By");
+        builder.setIcon(R.drawable.ic_action_sort);
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (i == 0){
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("Sort", "ascending");
+                    editor.apply();
+                    showData();
+                }
+
+                if (i == 1){
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("Sort", "descending");
+                    editor.apply();
+                    showData();
+                }
+            }
+        });
+        builder.create().show();
+    }
 
     private void getClientsInfo() throws IOException {
         Call<List<ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
@@ -181,6 +245,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
 
             clientInfoArrayList.set(i, clientInfo);
         }
+
     }
 
 

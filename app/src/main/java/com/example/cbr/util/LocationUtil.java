@@ -26,6 +26,8 @@ import java.lang.ref.WeakReference;
 /**
  * Location service API to handle any location jobs.
  * User must grant permission for the App to use location services before using this API.
+ * Client of this API should call {@link LocationUtil#stopUpdateService()} when this service
+ * is no longer needed to prevent battery drainage.
  * From: https://stackoverflow.com/a/40653111
  * */
 
@@ -90,7 +92,10 @@ public class LocationUtil extends Service implements LocationListener {
     }
 
     public Location getCurrentLocation() {
-        return currentLocation;
+        if (currentLocation != null) {
+            return currentLocation;
+        }
+        throw new CustomExceptions.LocationNotFound(getString(R.string.location_not_found));
     }
 
     public double getLatitude() {

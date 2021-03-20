@@ -51,7 +51,7 @@
 
 public class NewVisitActivity extends AppCompatActivity implements NewVisitContract.View {
 
-        private ActivityNewVisitBinding binding;
+    private ActivityNewVisitBinding binding;
 
     private static final String CLIENT_INFO = "clientInfo";
     private static final String LOG_TAG = "NewVisitActivity";

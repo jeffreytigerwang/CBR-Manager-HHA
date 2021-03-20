@@ -5,32 +5,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragmentHomePage"
     android:orientation="vertical"
-    android:weightSum="6"
-    android:background="@drawable/listbackground">
+    android:weightSum="5"
+    android:background="@drawable/background_homepage">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="2">
+
+        <ImageView
+            android:id="@+id/imageViewHome"
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            app:srcCompat="@drawable/home"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/home"
-            android:textColor="#FFFFFF"
-            android:textSize="23sp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
             android:textStyle="bold"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"/>
-
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="36sp"/>
     </RelativeLayout>
 
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="3"
         android:background="@drawable/background_white"
-        android:rowCount="3"
+        android:rowCount="2"
         android:columnCount="2"
         android:padding="10dp">
 
@@ -101,41 +110,6 @@
                     android:layout_marginStart="19dp"
                     android:layout_marginBottom="15dp"
                     android:text="@string/dashboard"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="10dp"
-            app:cardElevation="4dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            app:cardCornerRadius="8dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    android:src="@drawable/new_referral"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="15dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="19dp"
-                    android:layout_marginBottom="15dp"
-                    android:text="@string/new_referral"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />

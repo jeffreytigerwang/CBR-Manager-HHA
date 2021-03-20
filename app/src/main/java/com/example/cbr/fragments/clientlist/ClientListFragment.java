@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -58,6 +57,15 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
 
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
+    private static final String KEY = "Sort";
+
+    // static finals instead of enum as switch statement requires const variables.
+    private static final String ASCENDING_BY_NAME = "ascending by name";
+    private static final String DESCENDING_BY_NAME = "descending by name";
+    private static final String ASCENDING_BY_ID = "ascending by id";
+    private static final String DESCENDING_BY_ID = "descending by id";
+
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -115,13 +123,23 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
 
     private void showData(){
 
-        String mSortSettings = pref.getString("Sort", "ascending");
+        String mSortSettings = pref.getString(KEY, ASCENDING_BY_NAME);
 
-        if (mSortSettings.equals("ascending")){
-            Collections.sort(clientInfoArrayList, ClientInfo.BY_TITLE_ASCENDING);
-        }
-        else if (mSortSettings.equals("descending")){
-            Collections.sort(clientInfoArrayList, ClientInfo.BY_TITLE_DESCENDING);
+        switch (mSortSettings) {
+            case ASCENDING_BY_NAME:
+                Collections.sort(clientInfoArrayList, ClientInfo.BY_NAME_ASCENDING);
+                break;
+            case DESCENDING_BY_NAME:
+                Collections.sort(clientInfoArrayList, ClientInfo.BY_NAME_DESCENDING);
+                break;
+            case ASCENDING_BY_ID:
+                Collections.sort(clientInfoArrayList, ClientInfo.BY_ID_ASCENDING);
+                break;
+            case DESCENDING_BY_ID:
+                Collections.sort(clientInfoArrayList, ClientInfo.BY_ID_DESCENDING);
+                break;
+            default:
+                break;
         }
 
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -164,25 +182,39 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
 
 
     private void showSortDialog() {
-        String[] options = {"Ascending", "Descending"};
+        String[] options = {"Ascending by Name", "Descending by Name", "Ascending by ID",
+                "Descending by ID"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Sort By");
         builder.setIcon(R.drawable.ic_action_sort);
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (i == 0){
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putString("Sort", "ascending");
-                    editor.apply();
-                    showData();
-                }
+                SharedPreferences.Editor editor = pref.edit();
 
-                if (i == 1){
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putString("Sort", "descending");
-                    editor.apply();
-                    showData();
+                switch (i) {
+                    case 0:
+                        editor.putString(KEY, ASCENDING_BY_NAME);
+                        editor.apply();
+                        showData();
+                        break;
+                    case 1:
+                        editor.putString(KEY, DESCENDING_BY_NAME);
+                        editor.apply();
+                        showData();
+                        break;
+                    case 2:
+                        editor.putString(KEY, ASCENDING_BY_ID);
+                        editor.apply();
+                        showData();
+                        break;
+                    case 3:
+                        editor.putString(KEY, DESCENDING_BY_ID);
+                        editor.apply();
+                        showData();
+                        break;
+                    default:
+                        break;
                 }
             }
         });

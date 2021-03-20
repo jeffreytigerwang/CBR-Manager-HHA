@@ -432,17 +432,31 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         return (int) (this.getOverallRisk() - clientInfo.getOverallRisk());
     }
 
-    public static final Comparator<ClientInfo> BY_TITLE_ASCENDING = new Comparator<ClientInfo>() {
+    public static final Comparator<ClientInfo> BY_NAME_ASCENDING = new Comparator<ClientInfo>() {
         @Override
         public int compare(ClientInfo clientInfo, ClientInfo t1) {
             return clientInfo.getFullName().compareTo(t1.getFullName());
         }
     };
 
-    public static final Comparator<ClientInfo> BY_TITLE_DESCENDING = new Comparator<ClientInfo>() {
+    public static final Comparator<ClientInfo> BY_NAME_DESCENDING = new Comparator<ClientInfo>() {
         @Override
         public int compare(ClientInfo clientInfo, ClientInfo t1) {
             return t1.getFullName().compareTo(clientInfo.getFullName());
+        }
+    };
+
+    public static final Comparator<ClientInfo> BY_ID_ASCENDING = new Comparator<ClientInfo>() {
+        @Override
+        public int compare(ClientInfo clientInfo, ClientInfo t1) {
+            return clientInfo.getId().compareTo(t1.getId());
+        }
+    };
+
+    public static final Comparator<ClientInfo> BY_ID_DESCENDING = new Comparator<ClientInfo>() {
+        @Override
+        public int compare(ClientInfo clientInfo, ClientInfo t1) {
+            return t1.getId().compareTo(clientInfo.getId());
         }
     };
 

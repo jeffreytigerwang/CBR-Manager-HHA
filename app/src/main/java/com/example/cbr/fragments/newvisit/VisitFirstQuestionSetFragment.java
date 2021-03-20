@@ -55,8 +55,6 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     private RadioGroup questionOne;
     private Spinner spinnerLocation;
 
-    private String latLongLocation;
-
     public VisitFirstQuestionSetFragment(VisitGeneralQuestionSetData dataContainer, Context context) {
         this.dataContainer = dataContainer;
         this.context = context;
@@ -111,7 +109,7 @@ public class VisitFirstQuestionSetFragment extends Fragment {
     private void setLatLongLocation() {
         try {
             LocationUtil locationUtil = new LocationUtil(context);
-            latLongLocation = getString(R.string.lat_long_location,
+            String latLongLocation = getString(R.string.lat_long_location,
                     locationUtil.getLatitude(), locationUtil.getLongitude());
             Log.d(LOG_TAG, "onRequestPermissionsResult: latLongLocation=" + latLongLocation);
             location.setText(latLongLocation);

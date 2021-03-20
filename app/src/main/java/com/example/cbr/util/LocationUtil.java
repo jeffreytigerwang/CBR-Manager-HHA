@@ -45,7 +45,7 @@ public class LocationUtil extends Service implements LocationListener {
 
     private final LocationManager locationManager;
 
-    public LocationUtil(Context context)
+    public LocationUtil(@NonNull Context context)
             throws CustomExceptions.PermissionNotGranted, CustomExceptions.GPSNotEnabled {
         checkPermissions(context);
         this.context = new WeakReference<>(context);

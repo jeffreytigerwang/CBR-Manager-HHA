@@ -1,9 +1,7 @@
     package com.example.cbr.activities;
 
-    import android.Manifest;
     import android.content.Context;
     import android.content.Intent;
-    import android.content.pm.PackageManager;
     import android.os.Bundle;
     import android.os.StrictMode;
     import android.util.Log;
@@ -16,7 +14,6 @@
 
     import androidx.annotation.NonNull;
     import androidx.appcompat.app.AppCompatActivity;
-    import androidx.core.app.ActivityCompat;
     import androidx.fragment.app.Fragment;
     import androidx.fragment.app.FragmentManager;
     import androidx.fragment.app.FragmentTransaction;
@@ -35,9 +32,6 @@
     import com.example.cbr.models.VisitGeneralQuestionSetData;
     import com.example.cbr.models.VisitHealthQuestionSetData;
     import com.example.cbr.models.VisitSocialQuestionSetData;
-    import com.example.cbr.util.Constants;
-    import com.example.cbr.util.CustomExceptions;
-    import com.example.cbr.util.LocationUtil;
 
     import java.util.ArrayList;
     import java.util.LinkedList;
@@ -45,9 +39,9 @@
     import java.util.Stack;
     import java.util.concurrent.ThreadLocalRandom;
 
-    /**
-    * Activity to handle new visit questions, which holds four sets of questions (fragments)
-    * */
+/**
+* Activity to handle new visit questions, which holds four sets of questions (fragments)
+* */
 
 public class NewVisitActivity extends AppCompatActivity implements NewVisitContract.View {
 

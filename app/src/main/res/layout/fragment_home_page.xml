@@ -15,22 +15,23 @@
 
         <ImageView
             android:id="@+id/imageViewHome"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="135dp"
+            android:layout_height="135dp"
             app:srcCompat="@drawable/home"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"/>
+            android:layout_marginTop="25dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/home"
+            android:layout_marginBottom="15dp"
             android:layout_marginTop="10dp"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:layout_below="@+id/imageViewHome"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:textSize="32sp"/>
+            android:textSize="36sp"/>
     </RelativeLayout>
 
     <GridLayout

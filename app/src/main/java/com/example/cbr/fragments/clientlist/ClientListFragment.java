@@ -100,6 +100,9 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         recyclerView = binding.recyclerViewClientlist;
         linearLayoutManager = new LinearLayoutManager(getActivity());
         showData();
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                linearLayoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
 
         binding.textViewPatientList.setText(R.string.patient_list);
@@ -112,8 +115,8 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
 
     private void showData(){
 
-        String mSortSettings = pref.getString("Sort", "descending");
-        
+        String mSortSettings = pref.getString("Sort", "ascending");
+
         if (mSortSettings.equals("ascending")){
             Collections.sort(clientInfoArrayList, ClientInfo.BY_TITLE_ASCENDING);
         }
@@ -124,9 +127,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new ClientListAdapter(getActivity(), clientInfoArrayList, clientListFragmentInterface);
         recyclerView.setAdapter(adapter);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                linearLayoutManager.getOrientation());
-        recyclerView.addItemDecoration(dividerItemDecoration);
+
     }
 
     @Override
@@ -156,7 +157,6 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         int id = item.getItemId();
         if (id == R.id.clientListSort){
             showSortDialog();
-            // Toast.makeText(getActivity(), "Sort", Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);

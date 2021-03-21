@@ -11,7 +11,7 @@ import UsersList from "./components/users-list.component";
 import { AppBar, Toolbar, Typography, withStyles, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-
+/*
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
+*/
 
 class App extends Component {
   render() {
@@ -29,8 +30,9 @@ class App extends Component {
 
     return (
       <Grid className={classes.root} container direction="column" style={{backgroundColor: "#f5f5f5"}}>
+        <Grid item>
 
-        <Grid item AppBar className={classes.appBar} position="static">
+        <AppBar className={classes.appBar} position="static">
           <Toolbar>
             <Typography className={classes.name} variant="h6">
               Admin Page
@@ -46,16 +48,19 @@ class App extends Component {
             </Typography>
             </Link>
           </Toolbar>
+        </AppBar>
         </Grid>
 
         <Grid item container spacing={3}>
-          <Grid item xs={0} sm={1} />
-          <Grid item xs={12} sm={10} Switch>
+          <Grid item xs={1} sm={1} />
+          <Grid item xs={12} sm={10}>
+          <Switch>
               <Route exact path={["/", "/users"]} component={UsersList} />
               <Route exact path="/add" component={AddUser} />
               <Route path="/users/:id" component={User} />
+          </Switch>
           </Grid>
-          <Grid item xs={0} sm={1} />
+          <Grid item xs={1} sm={1} />
         </Grid>
 
       </Grid>

@@ -35,8 +35,8 @@ public class LocationUtil extends Service implements LocationListener {
 
     private final WeakReference<Context> context;
 
-    private static final int MIN_TIME_BETWEEN_UPDATES_MS = 0;
-    private static final int MIN_DISTANCE_CHANGE_FOR_UPDATES_M = 0;
+    private static final int MIN_TIME_BETWEEN_UPDATES_MS = 5000;
+    private static final int MIN_DISTANCE_CHANGE_FOR_UPDATES_M = 10;
 
 
     private boolean isGPSEnabled;
@@ -50,16 +50,16 @@ public class LocationUtil extends Service implements LocationListener {
         checkPermissions(context);
         this.context = new WeakReference<>(context);
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        requestLocation();
+        startUpdateService();
     }
 
     @SuppressLint("MissingPermission")
-    private void requestLocation() throws CustomExceptions.GPSNotEnabled {
-        checkProvidersEnabled();
+    private void startUpdateService() throws CustomExceptions.GPSNotEnabled {
+        setProvidersEnabled();
 
         if (!isGPSEnabled && !isNetworkEnabled) {
             showSettingsAlert();
-            throw new CustomExceptions.GPSNotEnabled(getString(R.string.gps_not_enabled));
+            throw new CustomExceptions.GPSNotEnabled(context.get().getString(R.string.gps_not_enabled));
         }
         if (isNetworkEnabled) {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
@@ -73,7 +73,7 @@ public class LocationUtil extends Service implements LocationListener {
         }
     }
 
-    private void checkProvidersEnabled() {
+    private void setProvidersEnabled() {
         isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
@@ -95,21 +95,21 @@ public class LocationUtil extends Service implements LocationListener {
         if (currentLocation != null) {
             return currentLocation;
         }
-        throw new CustomExceptions.LocationNotFound(getString(R.string.location_not_found));
+        throw new CustomExceptions.LocationNotFound(context.get().getString(R.string.location_not_found));
     }
 
     public double getLatitude() {
         if (currentLocation != null) {
             return currentLocation.getLatitude();
         }
-        throw new CustomExceptions.LocationNotFound(getString(R.string.location_not_found));
+        throw new CustomExceptions.LocationNotFound(context.get().getString(R.string.location_not_found));
     }
 
     public double getLongitude() {
         if (currentLocation != null) {
             return currentLocation.getLongitude();
         }
-        throw new CustomExceptions.LocationNotFound(getString(R.string.location_not_found));
+        throw new CustomExceptions.LocationNotFound(context.get().getString(R.string.location_not_found));
     }
 
     /**
@@ -119,7 +119,7 @@ public class LocationUtil extends Service implements LocationListener {
      * */
     public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context.get());
-        alertDialog.setTitle(R.string.gps_alert_title);
+        alertDialog.setTitle(R.string.location_alert_title);
         alertDialog.setMessage(R.string.gps_alert_message);
 
         alertDialog.setPositiveButton(R.string.alert_settings_positive_button, new DialogInterface.OnClickListener() {

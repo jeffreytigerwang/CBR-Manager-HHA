@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientInfo implements Serializable, Comparable<ClientInfo>{
-    private Boolean consentToInterview;
-
+    private boolean consentToInterview;
     private String gpsLocation;
     private String zoneLocation;
     private String villageNumber;
@@ -19,10 +18,8 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     private String id;
     private Integer age;
     private String contactNumber;
-
-    private Boolean caregiverPresentForInterview;
+    private boolean caregiverPresentForInterview;
     private String caregiverContactNumber;
-
     private boolean amputeeDisability;
     private boolean polioDisability;
     private boolean spinalCordInjuryDisability;
@@ -33,22 +30,20 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     private boolean hearingImpairmentDisability;
     private boolean doNotKnowDisability;
     private boolean otherDisability;
-
     private String rateHealth;
     private String describeHealth;
     private String setGoalForHealth;
-
     private String rateEducation;
     private String describeEducation;
     private String setGoalForEducation;
-
     private String rateSocialStatus;
     private String describeSocialStatus;
     private String setGoalForSocialStatus;
-
     private double overallRisk;
     
-    public ClientInfo() {}
+    public ClientInfo() {
+
+    }
 
     public ClientInfo(boolean consentToInterview,
                       String gpsLocation,
@@ -122,7 +117,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     public double getOverallRisk(){
         return overallRisk;
     }
-    public Boolean isConsentToInterview() {
+    public boolean isConsentToInterview() {
         return consentToInterview;
     }
 
@@ -410,7 +405,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         this.gender = gender;
     }
 
-    public Boolean getConsentToInterview() {
+    public boolean getConsentToInterview() {
         return consentToInterview;
     }
 

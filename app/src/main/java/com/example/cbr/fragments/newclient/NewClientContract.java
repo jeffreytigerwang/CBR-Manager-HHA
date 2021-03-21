@@ -7,12 +7,10 @@ import java.util.ArrayList;
 
 public interface NewClientContract {
     interface Presenter extends BasePresenter {
-        void onButtonClicked();
-        ArrayList<String> getLocationArray();
+
     }
 
     interface View extends BaseView<Presenter> {
-
 
     }
 }

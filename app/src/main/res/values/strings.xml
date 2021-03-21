@@ -25,7 +25,7 @@
     <string name="disability_clientpage">Disabilities: %1$s</string>
     <string name="disabilities">Disabilities</string>
     <string name="basic_information">Basic information</string>
-    <string name="social_status">Social status</string>
+    <string name="social_status">Social Status</string>
     <string name="visits">Visits</string>
     <string name="visits_list">Visit on: %1$s</string>
 
@@ -59,18 +59,25 @@
     <string name="viewpager_page_number">Page %1$d of %2$d</string>
 
     <!-- New client -->
+    <string name="basic_info">Basic Info</string>
+    <string name="location_info">Location Info</string>
+    <string name="caregiver_info">Caregiver Info</string>
+    <string name="photo">Photo</string>
+    <string name="interview_consent">To create a new client, the client must first consent to an interview.</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="last_name">Last name</string>
     <string name="village_number">Village number</string>
-    <string name="consent_to_interview">Consent to interview</string>
+    <string name="consent_to_interview">Consent to interview?</string>
     <string name="id_number">ID Number:</string>
     <string name="gps_location">GPS location</string>
     <string name="date">Date</string>
     <string name="first_name">First name</string>
     <string name="age">Age</string>
     <string name="contact_number">Contact number</string>
-    <string name="caregiver_present_for_interview">Caregiver present for interview</string>
+    <string name="caregiver_present_for_interview">Caregiver present for interview?</string>
+    <string name="caregiver_first_name">Caregiver first name</string>
+    <string name="caregiver_last_name">Caregiver last name</string>
     <string name="caregiver_contact_number">Caregiver contact number</string>
     <string name="record_client">Record Client</string>
     <string name="don_t_know">Don\'t know</string>
@@ -87,7 +94,7 @@
     <string name="set_individual_goal">Set individual goal</string>
     <string name="individual_goal">Individual goal</string>
     <string name="location">Location</string>
-    <string name="type_of_disability">Type of disability</string>
+    <string name="type_of_disability">Type of Disability</string>
     <string name="please_rate_how_you_consider_the_client_s_health_to_be">Please rate how you consider the client\'s health to be</string>
     <string name="please_rate_how_you_consider_the_client_s_social_status_to_be">Please rate how you consider the client\'s social status to be</string>
     <string name="please_rate_how_you_consider_the_client_s_education_status_to_be">Please rate how you consider the client\'s education status to be</string>
@@ -184,6 +191,7 @@
         <item>Medium risk</item>
         <item>Low risk</item>
     </string-array>
+    <string name="risk_level">Risk Level</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="priority_list">Priority List</string>
@@ -213,6 +221,5 @@
     <string name="name">Name</string>
     <string name="risk">Risk</string>
     <string name="referral">Referral</string>
-
 
 </resources>

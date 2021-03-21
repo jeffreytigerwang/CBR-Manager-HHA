@@ -2,8 +2,6 @@ package com.example.cbr.models;
 
 import androidx.annotation.NonNull;
 
-import com.example.cbr.util.Constants;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,6 +34,30 @@ public class VisitGeneralQuestionSetData implements Serializable {
         this.visitGpsLocation = "";
         this.villageNumber = "";
         this.visitZoneLocation = "";
+    }
+
+    public VisitGeneralQuestionSetData(Integer clientId,
+                                       Integer visitId,
+                                       boolean isHealthChecked,
+                                       boolean isEducationChecked,
+                                       boolean isSocialChecked,
+                                       String purposeOfVisit,
+                                       Date dateOfVisit,
+                                       String workerName,
+                                       String visitGpsLocation,
+                                       String villageNumber,
+                                       String visitZoneLocation) {
+        this.clientId = clientId;
+        this.visitId = visitId;
+        this.isHealthChecked = isHealthChecked;
+        this.isEducationChecked = isEducationChecked;
+        this.isSocialChecked = isSocialChecked;
+        this.purposeOfVisit = purposeOfVisit;
+        this.dateOfVisit = dateOfVisit;
+        this.workerName = workerName;
+        this.visitGpsLocation = visitGpsLocation;
+        this.villageNumber = villageNumber;
+        this.visitZoneLocation = visitZoneLocation;
     }
 
     public List<String> getEmptyQuestions() {

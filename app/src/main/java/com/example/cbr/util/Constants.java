@@ -34,6 +34,8 @@ public class Constants {
     public static final int CAMERA_REQUEST_CODE = 102;
     public static final int LOCATION_REQUEST_CODE = 103;
 
+    public static final int PRIMARY_TEXT_SIZE_SP = 16;
+
     // Disabilities
     public static String AMPUTEE_DISABILITY = "Amputee";
     public static String POLIO_DISABILITY = "Polio";

@@ -7,7 +7,7 @@ public class SpinnerViewContainer extends QuestionDataContainer {
     private final List<String> optionsList;
     private String selectedItem;
 
-    SpinnerViewContainer(String questionText, List<String> optionsList) {
+    public SpinnerViewContainer(String questionText, List<String> optionsList) {
         super(SPINNER_VIEW_TYPE);
         this.questionText = questionText;
         this.optionsList = optionsList;

@@ -35,11 +35,13 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
     private ArrayList<QuestionsFragmentPagerAdapter.ViewPagerContainer> viewPagerContainerList = new ArrayList<>();
     ReferralInfo referralInfo = new ReferralInfo();
 
-    private final int MAIN_PAGE = 0;
-    private final int PHYSIOTHERAPY_PAGE = 1;
-    private final int PROSTHETIC_PAGE = 2;
-    private final int ORTHOTIC_PAGE = 3;
-    private final int WHEELCHAIR_PAGE = 4;
+    private enum PAGES {
+        MAIN,
+        PHYSIOTHERAPY,
+        PROSTHETIC,
+        ORTHOTIC,
+        WHEELCHAIR
+    }
 
     private static final String NEW_REFERRAL_PAGE_BUNDLE = "newReferralPageBundle";
 
@@ -65,7 +67,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         viewPager2.setAdapter(questionsFragmentPagerAdapter);
         viewPager2.setOffscreenPageLimit(10);
 
-        updateDisplayInfo(MAIN_PAGE);
+        updateDisplayInfo(PAGES.MAIN.ordinal());
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -79,7 +81,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         int numTotalPage = questionsFragmentPagerAdapter.getItemCount();
         binding.questionsPagePageNumberText.setText(getString(R.string.viewpager_page_number, currentPage + 1, numTotalPage));
 
-        if (currentPage == MAIN_PAGE) {
+        if (currentPage == PAGES.MAIN.ordinal()) {
             binding.questionsPageNegativeButton.setText(R.string.cancel);
         } else {
             binding.questionsPageNegativeButton.setText(R.string.back);
@@ -111,7 +113,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         binding.questionsPageNegativeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (binding.questionsPageViewPager.getCurrentItem() == MAIN_PAGE) {
+                if (binding.questionsPageViewPager.getCurrentItem() == PAGES.MAIN.ordinal()) {
                     getActivity().getSupportFragmentManager().popBackStack();
                 }
                 binding.questionsPageViewPager.setCurrentItem(binding.questionsPageViewPager.getCurrentItem() - 1);
@@ -146,16 +148,16 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
 
                     if (serviceRequired.equals(getString(R.string.physiotherapy))) {
                         referralInfo.setRequirePhysiotherapy(isChecked);
-                        setPageActive(PHYSIOTHERAPY_PAGE, isChecked);
+                        setPageActive(PAGES.PHYSIOTHERAPY.ordinal(), isChecked);
                     } else if (serviceRequired.equals(getString(R.string.prosthetic))) {
                         referralInfo.setRequireProsthetic(isChecked);
-                        setPageActive(PROSTHETIC_PAGE, isChecked);
+                        setPageActive(PAGES.PROSTHETIC.ordinal(), isChecked);
                     } else if (serviceRequired.equals(getString(R.string.orthotic))) {
                         referralInfo.setRequireOrthotic(isChecked);
-                        setPageActive(ORTHOTIC_PAGE, isChecked);
+                        setPageActive(PAGES.ORTHOTIC.ordinal(), isChecked);
                     } else if (serviceRequired.equals(getString(R.string.wheelchair))) {
                         referralInfo.setRequireWheelchair(isChecked);
-                        setPageActive(WHEELCHAIR_PAGE, isChecked);
+                        setPageActive(PAGES.WHEELCHAIR.ordinal(), isChecked);
                     } else if (serviceRequired.equals(getString(R.string.other))) {
                         referralInfo.setRequireOther(isChecked);
                     }

@@ -242,7 +242,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     }
 
     private void generateHealthPage() {
-        ArrayList<QuestionDataContainer> healthPageViews = new ArrayList<>();
+        final ArrayList<QuestionDataContainer> healthPageViews = new ArrayList<>();
         healthPageViews.add(new HeaderViewContainer(getString(R.string.health)));
 
         healthPageViews.add(new SingleTextViewContainer(getString(R.string.for_health_what_was_provided),
@@ -302,7 +302,50 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                 new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+                if (questionDataContainer instanceof CheckBoxWithDescriptionViewContainer) {
+                    String checkBoxSelected = ((CheckBoxWithDescriptionViewContainer)
+                            questionDataContainer).getCheckBoxText();
+                    String description = ((CheckBoxWithDescriptionViewContainer)
+                            questionDataContainer).getUserInput();
+                    boolean isChecked = ((CheckBoxWithDescriptionViewContainer)
+                            questionDataContainer).isChecked();
 
+
+                    if (checkBoxSelected.equals(getString(R.string.wheelchair))) {
+                        healthQuestionSetData.setWheelChairChecked(isChecked);
+                        healthQuestionSetData.setWheelChairDesc(description);
+                    } else if (checkBoxSelected.equals(getString(R.string.prosthetic))) {
+                        healthQuestionSetData.setProstheticChecked(isChecked);
+                        healthQuestionSetData.setProstheticDesc(description);
+                    } else if (checkBoxSelected.equals(getString(R.string.orthotic))) {
+                        healthQuestionSetData.setOrthoticChecked(isChecked);
+                        healthQuestionSetData.setOrthoticDesc(description);
+                    } else if (checkBoxSelected.equals(getString(R.string.wheelchair_repairs))) {
+                        healthQuestionSetData.setWheelChairRepairChecked(isChecked);
+                        healthQuestionSetData.setWheelChairRepairDesc(description);
+                    } else if (checkBoxSelected.equals(getString(R.string.referral_to_health_centre))) {
+                        healthQuestionSetData.setReferralToHCChecked(isChecked);
+                        healthQuestionSetData.setReferralToHCDesc(description);
+                    } else if (checkBoxSelected.equals(getString(R.string.advice))) {
+                        healthQuestionSetData.setHealthAdviceChecked(isChecked);
+                        healthQuestionSetData.setHealthAdviceDesc(description);
+                    } else if (checkBoxSelected.equals(getString(R.string.advocacy))) {
+                        healthQuestionSetData.setHealthAdvocacyChecked(isChecked);
+                        healthQuestionSetData.setHealthAdvocacyDesc(description);
+                    } else if (checkBoxSelected.equals(getString(R.string.encouragement))) {
+                        healthQuestionSetData.setHealthEncouragementChecked(isChecked);
+                        healthQuestionSetData.setHealthEncouragementDesc(description);
+                    }
+                }
+                if (questionDataContainer instanceof RadioGroupViewContainer) {
+                    String selectedItem = ((RadioGroupViewContainer) questionDataContainer)
+                            .getCheckedItem().getDescription();
+                    healthQuestionSetData.setHealthGoalStatus(selectedItem);
+                }
+                if (questionDataContainer instanceof EditTextViewContainer) {
+                    String description = ((EditTextViewContainer) questionDataContainer).getUserInput();
+                    healthQuestionSetData.setHealthOutcomeDesc(description);
+                }
             }
         }));
     }

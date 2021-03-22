@@ -19,6 +19,8 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     private Integer age;
     private String contactNumber;
     private boolean caregiverPresentForInterview;
+    private String caregiverFirstName;
+    private String caregiverLastName;
     private String caregiverContactNumber;
     private boolean amputeeDisability;
     private boolean polioDisability;
@@ -30,6 +32,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     private boolean hearingImpairmentDisability;
     private boolean doNotKnowDisability;
     private boolean otherDisability;
+    private String describeOtherDisability;
     private String rateHealth;
     private String describeHealth;
     private String setGoalForHealth;
@@ -55,7 +58,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
                       String gender,
                       Integer age,
                       String contactNumber,
-                      Boolean caregiverPresentForInterview,
+                      boolean caregiverPresentForInterview,
                       String caregiverContactNumber,
                       boolean amputeeDisability,
                       boolean polioDisability,
@@ -117,6 +120,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     public double getOverallRisk(){
         return overallRisk;
     }
+
     public boolean isConsentToInterview() {
         return consentToInterview;
     }
@@ -155,7 +159,6 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         }
         return age;
     }
-
 
     public String getContactNumber() {
         return contactNumber;
@@ -417,10 +420,29 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         return caregiverPresentForInterview;
     }
 
-    public void setCaregiverPresentForInterview(Boolean caregiverPresentForInterview) {
-        this.caregiverPresentForInterview = caregiverPresentForInterview;
+    public String getCaregiverFirstName() {
+        return caregiverFirstName;
     }
 
+    public void setCaregiverFirstName(String caregiverFirstName) {
+        this.caregiverFirstName = caregiverFirstName;
+    }
+
+    public String getCaregiverLastName() {
+        return caregiverLastName;
+    }
+
+    public void setCaregiverLastName(String caregiverLastName) {
+        this.caregiverLastName = caregiverLastName;
+    }
+
+    public String getDescribeOtherDisability() {
+        return describeOtherDisability;
+    }
+
+    public void setDescribeOtherDisability(String describeOtherDisability) {
+        this.describeOtherDisability = describeOtherDisability;
+    }
     @Override
     public int compareTo(ClientInfo clientInfo) {
         return (int) (this.getOverallRisk() - clientInfo.getOverallRisk());

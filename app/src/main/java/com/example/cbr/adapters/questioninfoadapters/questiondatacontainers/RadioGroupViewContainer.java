@@ -35,6 +35,14 @@ public class RadioGroupViewContainer extends QuestionDataContainer {
         this.checkedIndex = checkedIndex;
     }
 
+    /**
+     * Gets the checked item at {@link RadioGroupViewContainer#checkedIndex}
+     * for any checked items in {@link RadioGroupViewContainer#descriptionList}.
+     * */
+    public RadioGroupListItem getCheckedItem() {
+        return descriptionList.get(checkedIndex);
+    }
+
     public static class RadioGroupListItem {
         private final String description;
         private boolean isChecked;

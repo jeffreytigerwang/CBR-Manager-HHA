@@ -5,6 +5,7 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager2.widget.ViewPager2;
@@ -48,7 +49,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     VisitSocialQuestionSetData socialQuestionSetData = new VisitSocialQuestionSetData();
 
     private enum PAGES {
-        MAIN,
+        GENERAL,
         HEALTH,
         EDUCATION,
         SOCIAL
@@ -61,7 +62,12 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         setPresenter(new NewVisitPresenter(this, getContext()));
         binding = FragmentQuestionspageBinding.inflate(inflater, container, false);
 
-        clientInfo = (ClientInfo) getArguments().getSerializable(NEW_VISIT_PAGE_BUNDLE);
+        if (getArguments() != null) {
+            clientInfo = (ClientInfo) getArguments().getSerializable(NEW_VISIT_PAGE_BUNDLE);
+        } else {
+            Toast.makeText(getContext(), getString(R.string.unable_to_retrieve_client_info),
+                    Toast.LENGTH_SHORT).show();
+        }
 
         setupViewPager();
         setupButtons();
@@ -78,7 +84,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         viewPager2.setAdapter(questionsFragmentPagerAdapter);
         viewPager2.setOffscreenPageLimit(10);
 
-        updateDisplayInfo(PAGES.MAIN.ordinal());
+        updateDisplayInfo(PAGES.GENERAL.ordinal());
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -92,7 +98,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         int numTotalPage = questionsFragmentPagerAdapter.getItemCount();
         binding.questionsPagePageNumberText.setText(getString(R.string.viewpager_page_number, currentPage + 1, numTotalPage));
 
-        if (currentPage == PAGES.MAIN.ordinal()) {
+        if (currentPage == PAGES.GENERAL.ordinal()) {
             binding.questionsPageNegativeButton.setText(R.string.cancel);
         } else {
             binding.questionsPageNegativeButton.setText(R.string.back);
@@ -124,7 +130,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         binding.questionsPageNegativeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (binding.questionsPageViewPager.getCurrentItem() == PAGES.MAIN.ordinal()) {
+                if (binding.questionsPageViewPager.getCurrentItem() == PAGES.GENERAL.ordinal()) {
                     getActivity().getSupportFragmentManager().popBackStack();
                 }
                 binding.questionsPageViewPager.setCurrentItem(binding.questionsPageViewPager.getCurrentItem() - 1);
@@ -155,7 +161,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                 true, radioGroupListItems));
 
         generalPageList.add(new SingleTextViewContainer(getString(R.string.new_visit_question_2),
-                Constants.PRIMARY_TEXT_SIZE_SP));
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP));
         generalPageList.add(new CheckBoxViewContainer(getString(R.string.health)));
         generalPageList.add(new CheckBoxViewContainer(getString(R.string.education)));
         generalPageList.add(new CheckBoxViewContainer(getString(R.string.social)));
@@ -182,7 +188,51 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                 new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
-
+                if (questionDataContainer instanceof RadioGroupViewContainer) {
+                    RadioGroupViewContainer.RadioGroupListItem listItem =
+                            ((RadioGroupViewContainer) questionDataContainer).getCheckedItem();
+                    String purposeOfVisit = listItem.getDescription();
+                    if (purposeOfVisit.equals(getString(R.string.cbr))) {
+                        generalQuestionSetData.setPurposeOfVisit(Constants.CBR);
+                    } else if (purposeOfVisit.equals(getString(R.string.disability_centre_referral))) {
+                        generalQuestionSetData.setPurposeOfVisit(Constants.DCR);
+                    } else {
+                        generalQuestionSetData.setPurposeOfVisit(Constants.DCRFU);
+                    }
+                }
+                if (questionDataContainer instanceof CheckBoxViewContainer) {
+                    String aspectSelected = ((CheckBoxViewContainer) questionDataContainer)
+                            .getQuestionText();
+                    boolean isChecked = ((CheckBoxViewContainer) questionDataContainer).isChecked();
+                    if (aspectSelected.equals(getString(R.string.health))) {
+                        generalQuestionSetData.setHealthChecked(isChecked);
+                        setPageActive(PAGES.HEALTH.ordinal(), isChecked);
+                    } else if (aspectSelected.equals(getString(R.string.education))) {
+                        generalQuestionSetData.setEducationChecked(isChecked);
+                        setPageActive(PAGES.EDUCATION.ordinal(), isChecked);
+                    } else if (aspectSelected.equals(getString(R.string.social))) {
+                        generalQuestionSetData.setSocialChecked(isChecked);
+                        setPageActive(PAGES.SOCIAL.ordinal(), isChecked);
+                    }
+                }
+                if (questionDataContainer instanceof EditTextViewContainer) {
+                    String userInput = ((EditTextViewContainer) generalPageList
+                            .get(positionChanged)).getUserInput();
+                    String questionText = ((EditTextViewContainer) generalPageList
+                            .get(positionChanged)).getQuestionText();
+                    if (questionText.equals(getString(R.string.name_of_cbr_worker))) {
+                        generalQuestionSetData.setWorkerName(userInput);
+                    } else if (questionText.equals(getString(R.string.location_of_visit))) {
+                        generalQuestionSetData.setVisitGpsLocation(userInput);
+                    } else if (questionText.equals(getString(R.string.village_no))) {
+                        generalQuestionSetData.setVillageNumber(userInput);
+                    }
+                }
+                if (questionDataContainer instanceof SpinnerViewContainer) {
+                    String itemSelected = ((SpinnerViewContainer) questionDataContainer)
+                            .getSelectedItem();
+                    generalQuestionSetData.setVisitZoneLocation(itemSelected);
+                }
             }
         }));
     }

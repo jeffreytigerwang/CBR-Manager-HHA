@@ -92,6 +92,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        holder.setIsRecyclable(false);
         switch (holder.getItemViewType()) {
             case SINGLE_TEXT_VIEW_TYPE:
                 ((SingleTextViewHolder) holder).bind((SingleTextViewContainer) questionDataContainerList.get(position));

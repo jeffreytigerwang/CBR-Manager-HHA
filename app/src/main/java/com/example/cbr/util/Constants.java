@@ -35,6 +35,7 @@ public class Constants {
     public static final int LOCATION_REQUEST_CODE = 103;
 
     public static final int PRIMARY_TEXT_SIZE_SP = 16;
+    public static final int PRIMARY_QUESTION_TEXT_SIZE_SP = 20;
 
     // Disabilities
     public static String AMPUTEE_DISABILITY = "Amputee";

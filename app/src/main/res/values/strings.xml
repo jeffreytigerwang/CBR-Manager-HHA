@@ -221,6 +221,7 @@
     <string name="lat_long_location">Lat: %f Long: %f</string>
     <string name="location_not_found">Location could not be found.</string>
     <string name="general_questions">General Questions</string>
+    <string name="unable_to_retrieve_client_info">Unable to retrieve client info.</string>
 
 
 </resources>

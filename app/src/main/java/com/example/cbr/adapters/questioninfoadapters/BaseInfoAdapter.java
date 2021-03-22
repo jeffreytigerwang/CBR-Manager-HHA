@@ -217,6 +217,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
 
         public void bind(final EditTextViewContainer editTextViewHolderData) {
             textView.setText(editTextViewHolderData.getQuestionText());
+            textView.setTextSize(editTextViewHolderData.getQuestionTextSizeSp());
             editText.setHint(editTextViewHolderData.getHintText());
             editText.setInputType(editTextViewHolderData.getInputType());
 
@@ -298,6 +299,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
 
         public void bind(final SpinnerViewContainer spinnerViewHolderData) {
             textView.setText(spinnerViewHolderData.getQuestionText());
+            textView.setTextSize(spinnerViewHolderData.getQuestionTextSizeSp());
             ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, spinnerViewHolderData.getOptionsList());
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);

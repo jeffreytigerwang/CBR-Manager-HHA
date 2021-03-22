@@ -13,6 +13,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.cbr.R;
 import com.example.cbr.adapters.questioninfoadapters.QuestionsFragmentPagerAdapter;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.CheckBoxViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DividerViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DoubleTextViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.EditTextViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.HeaderViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
@@ -31,8 +33,6 @@ import com.example.cbr.util.Constants;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-;
 
 public class NewVisitFragment extends BaseFragment implements NewVisitContract.View {
 
@@ -167,20 +167,23 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         generalPageViews.add(new CheckBoxViewContainer(getString(R.string.social)));
 
         generalPageViews.add(new EditTextViewContainer(getString(R.string.date_of_visit),
-                getString(R.string.yyyy_mm_dd), InputType.TYPE_DATETIME_VARIATION_DATE));
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, getString(R.string.yyyy_mm_dd),
+                InputType.TYPE_DATETIME_VARIATION_DATE));
 
         generalPageViews.add(new EditTextViewContainer(getString(R.string.name_of_cbr_worker),
-                getString(R.string.first_and_last_name), InputType.TYPE_TEXT_VARIATION_PERSON_NAME));
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, getString(R.string.first_and_last_name),
+                InputType.TYPE_TEXT_VARIATION_PERSON_NAME));
 
         generalPageViews.add(new EditTextViewContainer(getString(R.string.location_of_visit),
-                getString(R.string.gps_location), InputType.TYPE_CLASS_TEXT));
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, getString(R.string.gps_location), InputType.TYPE_CLASS_TEXT));
 
         List<String> siteLocations = new ArrayList<>(
                 Arrays.asList(getResources().getStringArray(R.array.zone_locations_array)));
-        generalPageViews.add(new SpinnerViewContainer(getString(R.string.site_location), siteLocations));
+        generalPageViews.add(new SpinnerViewContainer(getString(R.string.site_location),
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, siteLocations));
 
         generalPageViews.add(new EditTextViewContainer(getString(R.string.village_no),
-                getString(R.string.e_g_5), InputType.TYPE_CLASS_NUMBER));
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, getString(R.string.e_g_5), InputType.TYPE_CLASS_NUMBER));
 
         viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(
                 generalPageViews,
@@ -239,6 +242,41 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
     private void generateHealthPage() {
         ArrayList<QuestionDataContainer> healthPageViews = new ArrayList<>();
+        healthPageViews.add(new HeaderViewContainer(getString(R.string.health)));
+
+        healthPageViews.add(new SingleTextViewContainer(getString(R.string.for_health_what_was_provided),
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP));
+        healthPageViews.add(new CheckBoxViewContainer(getString(R.string.wheelchair)));
+        healthPageViews.add(new CheckBoxViewContainer(getString(R.string.prosthetic)));
+        healthPageViews.add(new CheckBoxViewContainer(getString(R.string.orthotic)));
+        healthPageViews.add(new CheckBoxViewContainer(getString(R.string.wheelchair_repairs)));
+        healthPageViews.add(new CheckBoxViewContainer(getString(R.string.referral_to_health_centre)));
+        healthPageViews.add(new CheckBoxViewContainer(getString(R.string.advice)));
+        healthPageViews.add(new CheckBoxViewContainer(getString(R.string.advocacy)));
+        healthPageViews.add(new CheckBoxViewContainer(getString(R.string.encouragement)));
+
+        healthPageViews.add(new DividerViewContainer());
+
+        healthPageViews.add(new DoubleTextViewContainer(getString(R.string.initial_goal),
+                clientInfo.getSetGoalForHealth()));
+
+        healthPageViews.add(new DividerViewContainer());
+
+        List<RadioGroupViewContainer.RadioGroupListItem> radioGroupListItems = new ArrayList<>();
+        radioGroupListItems.add(new RadioGroupViewContainer.RadioGroupListItem(
+                getString(R.string.cancelled), false, View.generateViewId()));
+        radioGroupListItems.add(new RadioGroupViewContainer.RadioGroupListItem(
+                getString(R.string.ongoing), false, View.generateViewId()));
+        radioGroupListItems.add(new RadioGroupViewContainer.RadioGroupListItem(
+                getString(R.string.concluded), false, View.generateViewId()));
+        healthPageViews.add(new RadioGroupViewContainer(getString(R.string.goal_met_9),
+                true, radioGroupListItems));
+
+        healthPageViews.add(new EditTextViewContainer(
+                getString(R.string.if_concluded_what_was_the_outcome_10),
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,
+                getString(R.string.description_max_100_characters_optional),
+                InputType.TYPE_CLASS_TEXT));
 
         viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(
                 healthPageViews,
@@ -253,8 +291,37 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
     private void generateEducationPage() {
         ArrayList<QuestionDataContainer> educationPageViews = new ArrayList<>();
+        educationPageViews.add(new HeaderViewContainer(getString(R.string.education)));
 
+        educationPageViews.add(new SingleTextViewContainer(getString(R.string.for_education_what_was_provided),
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP));
+        educationPageViews.add(new CheckBoxViewContainer(getString(R.string.advice)));
+        educationPageViews.add(new CheckBoxViewContainer(getString(R.string.advocacy)));
+        educationPageViews.add(new CheckBoxViewContainer(getString(R.string.referral_to_other_org)));
+        educationPageViews.add(new CheckBoxViewContainer(getString(R.string.encouragement)));
 
+        educationPageViews.add(new DividerViewContainer());
+
+        educationPageViews.add(new DoubleTextViewContainer(getString(R.string.initial_goal),
+                clientInfo.getSetGoalForEducation()));
+
+        educationPageViews.add(new DividerViewContainer());
+
+        List<RadioGroupViewContainer.RadioGroupListItem> radioGroupListItems = new ArrayList<>();
+        radioGroupListItems.add(new RadioGroupViewContainer.RadioGroupListItem(
+                getString(R.string.cancelled), false, View.generateViewId()));
+        radioGroupListItems.add(new RadioGroupViewContainer.RadioGroupListItem(
+                getString(R.string.ongoing), false, View.generateViewId()));
+        radioGroupListItems.add(new RadioGroupViewContainer.RadioGroupListItem(
+                getString(R.string.concluded), false, View.generateViewId()));
+        educationPageViews.add(new RadioGroupViewContainer(getString(R.string.goal_met_12),
+                true, radioGroupListItems));
+
+        educationPageViews.add(new EditTextViewContainer(
+                getString(R.string.if_concluded_what_was_the_outcome_13),
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,
+                getString(R.string.description_max_100_characters_optional),
+                InputType.TYPE_CLASS_TEXT));
 
         viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(
                 educationPageViews,
@@ -269,6 +336,37 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
     private void generateSocialPage() {
         ArrayList<QuestionDataContainer> socialPageViews = new ArrayList<>();
+        socialPageViews.add(new HeaderViewContainer(getString(R.string.education)));
+
+        socialPageViews.add(new SingleTextViewContainer(getString(R.string.for_social_what_was_provided),
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP));
+        socialPageViews.add(new CheckBoxViewContainer(getString(R.string.advice)));
+        socialPageViews.add(new CheckBoxViewContainer(getString(R.string.advocacy)));
+        socialPageViews.add(new CheckBoxViewContainer(getString(R.string.referral_to_other_org)));
+        socialPageViews.add(new CheckBoxViewContainer(getString(R.string.encouragement)));
+
+        socialPageViews.add(new DividerViewContainer());
+
+        socialPageViews.add(new DoubleTextViewContainer(getString(R.string.initial_goal),
+                clientInfo.getSetGoalForSocialStatus()));
+
+        socialPageViews.add(new DividerViewContainer());
+
+        List<RadioGroupViewContainer.RadioGroupListItem> radioGroupListItems = new ArrayList<>();
+        radioGroupListItems.add(new RadioGroupViewContainer.RadioGroupListItem(
+                getString(R.string.cancelled), false, View.generateViewId()));
+        radioGroupListItems.add(new RadioGroupViewContainer.RadioGroupListItem(
+                getString(R.string.ongoing), false, View.generateViewId()));
+        radioGroupListItems.add(new RadioGroupViewContainer.RadioGroupListItem(
+                getString(R.string.concluded), false, View.generateViewId()));
+        socialPageViews.add(new RadioGroupViewContainer(getString(R.string.goal_met_15),
+                true, radioGroupListItems));
+
+        socialPageViews.add(new EditTextViewContainer(
+                getString(R.string.if_concluded_what_was_the_outcome_16),
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,
+                getString(R.string.description_max_100_characters_optional),
+                InputType.TYPE_CLASS_TEXT));
 
         viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(
                 socialPageViews,

@@ -21,6 +21,7 @@ import com.example.cbr.databinding.FragmentQuestionspageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ReferralInfo;
+import com.example.cbr.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,7 +138,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.orthotic)));
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.wheelchair)));
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.other)));
-        mainPageList.add(new EditTextViewContainer(getString(R.string.other_option), getString(R.string.other), InputType.TYPE_CLASS_TEXT));
+        mainPageList.add(new EditTextViewContainer(getString(R.string.other_option), Constants.PRIMARY_TEXT_SIZE_SP, getString(R.string.other), InputType.TYPE_CLASS_TEXT));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
@@ -190,7 +191,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.visual_impairment)));
         physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.hearing_impairment)));
         physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.other)));
-        physioTherapyList.add(new EditTextViewContainer(getString(R.string.other_option), getString(R.string.other), InputType.TYPE_CLASS_TEXT));
+        physioTherapyList.add(new EditTextViewContainer(getString(R.string.other_option), Constants.PRIMARY_TEXT_SIZE_SP, getString(R.string.other), InputType.TYPE_CLASS_TEXT));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override

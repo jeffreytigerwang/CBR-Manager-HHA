@@ -2,14 +2,16 @@ package com.example.cbr.adapters.questioninfoadapters.questiondatacontainers;
 
 public class EditTextViewContainer extends QuestionDataContainer {
     private final String questionText;
+    private final int questionTextSizeSp;
     private final String hintText;
     private final int inputType;
 
     private String userInput = "";
 
-    public EditTextViewContainer(String questionText, String hintText, int inputType) {
+    public EditTextViewContainer(String questionText, int questionTextSizeSp, String hintText, int inputType) {
         super(EDIT_TEXT_VIEW_TYPE);
         this.questionText = questionText;
+        this.questionTextSizeSp = questionTextSizeSp;
         this.hintText = hintText;
         this.inputType = inputType;
     }
@@ -32,5 +34,9 @@ public class EditTextViewContainer extends QuestionDataContainer {
 
     public void setUserInput(String userInput) {
         this.userInput = userInput;
+    }
+
+    public int getQuestionTextSizeSp() {
+        return questionTextSizeSp;
     }
 }

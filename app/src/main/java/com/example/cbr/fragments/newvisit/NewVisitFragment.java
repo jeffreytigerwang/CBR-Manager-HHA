@@ -146,8 +146,8 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     }
 
     private void generateGeneralPage() {
-        final ArrayList<QuestionDataContainer> generalPageList = new ArrayList<>();
-        generalPageList.add(new HeaderViewContainer(getString(R.string.general_questions)));
+        final ArrayList<QuestionDataContainer> generalPageViews = new ArrayList<>();
+        generalPageViews.add(new HeaderViewContainer(getString(R.string.general_questions)));
 
         List<RadioGroupViewContainer.RadioGroupListItem> radioGroupListItems = new ArrayList<>();
         radioGroupListItems.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.cbr),
@@ -157,33 +157,33 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         radioGroupListItems.add(new RadioGroupViewContainer.RadioGroupListItem(
                 getString(R.string.disability_centre_referral_follow_up),
                 false, View.generateViewId()));
-        generalPageList.add(new RadioGroupViewContainer(getString(R.string.purpose_of_visit),
+        generalPageViews.add(new RadioGroupViewContainer(getString(R.string.purpose_of_visit),
                 true, radioGroupListItems));
 
-        generalPageList.add(new SingleTextViewContainer(getString(R.string.new_visit_question_2),
+        generalPageViews.add(new SingleTextViewContainer(getString(R.string.new_visit_question_2),
                 Constants.PRIMARY_QUESTION_TEXT_SIZE_SP));
-        generalPageList.add(new CheckBoxViewContainer(getString(R.string.health)));
-        generalPageList.add(new CheckBoxViewContainer(getString(R.string.education)));
-        generalPageList.add(new CheckBoxViewContainer(getString(R.string.social)));
+        generalPageViews.add(new CheckBoxViewContainer(getString(R.string.health)));
+        generalPageViews.add(new CheckBoxViewContainer(getString(R.string.education)));
+        generalPageViews.add(new CheckBoxViewContainer(getString(R.string.social)));
 
-        generalPageList.add(new EditTextViewContainer(getString(R.string.date_of_visit),
-                getString(R.string.yyyy_mm_dd), InputType.TYPE_CLASS_DATETIME));
+        generalPageViews.add(new EditTextViewContainer(getString(R.string.date_of_visit),
+                getString(R.string.yyyy_mm_dd), InputType.TYPE_DATETIME_VARIATION_DATE));
 
-        generalPageList.add(new EditTextViewContainer(getString(R.string.name_of_cbr_worker),
+        generalPageViews.add(new EditTextViewContainer(getString(R.string.name_of_cbr_worker),
                 getString(R.string.first_and_last_name), InputType.TYPE_TEXT_VARIATION_PERSON_NAME));
 
-        generalPageList.add(new EditTextViewContainer(getString(R.string.location_of_visit),
+        generalPageViews.add(new EditTextViewContainer(getString(R.string.location_of_visit),
                 getString(R.string.gps_location), InputType.TYPE_CLASS_TEXT));
 
         List<String> siteLocations = new ArrayList<>(
                 Arrays.asList(getResources().getStringArray(R.array.zone_locations_array)));
-        generalPageList.add(new SpinnerViewContainer(getString(R.string.site_location), siteLocations));
+        generalPageViews.add(new SpinnerViewContainer(getString(R.string.site_location), siteLocations));
 
-        generalPageList.add(new EditTextViewContainer(getString(R.string.village_no),
+        generalPageViews.add(new EditTextViewContainer(getString(R.string.village_no),
                 getString(R.string.e_g_5), InputType.TYPE_CLASS_NUMBER));
 
         viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(
-                generalPageList,
+                generalPageViews,
                 true,
                 new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
@@ -216,9 +216,9 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                     }
                 }
                 if (questionDataContainer instanceof EditTextViewContainer) {
-                    String userInput = ((EditTextViewContainer) generalPageList
+                    String userInput = ((EditTextViewContainer) generalPageViews
                             .get(positionChanged)).getUserInput();
-                    String questionText = ((EditTextViewContainer) generalPageList
+                    String questionText = ((EditTextViewContainer) generalPageViews
                             .get(positionChanged)).getQuestionText();
                     if (questionText.equals(getString(R.string.name_of_cbr_worker))) {
                         generalQuestionSetData.setWorkerName(userInput);
@@ -238,95 +238,47 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     }
 
     private void generateHealthPage() {
-        ArrayList<QuestionDataContainer> physioTherapyList = new ArrayList<>();
-        physioTherapyList.add(new HeaderViewContainer(getString(R.string.physiotherapy)));
-        physioTherapyList.add(new SingleTextViewContainer(getString(R.string.patient_conditions_question), 20));
-        physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.amputee)));
-        physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.polio)));
-        physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.spinal_cord_injury)));
-        physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.cerebral_palsy)));
-        physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.spina_bifida)));
-        physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.hydrocephalus)));
-        physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.visual_impairment)));
-        physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.hearing_impairment)));
-        physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.other)));
-        physioTherapyList.add(new EditTextViewContainer(getString(R.string.other_option), getString(R.string.other), InputType.TYPE_CLASS_TEXT));
+        ArrayList<QuestionDataContainer> healthPageViews = new ArrayList<>();
 
-        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(
+                healthPageViews,
+                false,
+                new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
-            }
-        };
 
-        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(physioTherapyList, false, onViewPagerChangedListener));
+            }
+        }));
     }
 
     private void generateEducationPage() {
-        ArrayList<QuestionDataContainer> prostheticList = new ArrayList<>();
+        ArrayList<QuestionDataContainer> educationPageViews = new ArrayList<>();
 
-        prostheticList.add(new HeaderViewContainer(getString(R.string.prosthetic)));
-        List<RadioGroupViewContainer.RadioGroupListItem> prostheticOptions = new ArrayList<>();
-        prostheticOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.above_knee_question), false, View.generateViewId()));
-        prostheticOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.below_knee_question), false, View.generateViewId()));
-        prostheticList.add(new RadioGroupViewContainer(getString(R.string.prosthetic_question), true, prostheticOptions));
 
-        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(
+                educationPageViews,
+                false,
+                new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
 
             }
-        };
-
-        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(prostheticList, false, onViewPagerChangedListener));
+        }));
     }
 
     private void generateSocialPage() {
-        ArrayList<QuestionDataContainer> orthoticList = new ArrayList<>();
+        ArrayList<QuestionDataContainer> socialPageViews = new ArrayList<>();
 
-        orthoticList.add(new HeaderViewContainer(getString(R.string.orthotic)));
-        List<RadioGroupViewContainer.RadioGroupListItem> orthoticOptions = new ArrayList<>();
-        orthoticOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.above_elbow_question), false, View.generateViewId()));
-        orthoticOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.below_elbow_question), false, View.generateViewId()));
-        orthoticList.add(new RadioGroupViewContainer(getString(R.string.orthotic_question), true, orthoticOptions));
-
-        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(
+                socialPageViews,
+                false,
+                new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
 
             }
-        };
-
-        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(orthoticList, false, onViewPagerChangedListener));
-    }
-
-    private void generateWheelchair() {
-        ArrayList<QuestionDataContainer> wheelchair = new ArrayList<>();
-
-        wheelchair.add(new HeaderViewContainer(getString(R.string.wheelchair)));
-        List<RadioGroupViewContainer.RadioGroupListItem> basicIntermediate = new ArrayList<>();
-        basicIntermediate.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.basic_user), false, View.generateViewId()));
-        basicIntermediate.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.intermediate_user), false, View.generateViewId()));
-        wheelchair.add(new RadioGroupViewContainer(getString(R.string.wheelchair_expertise_question), true, basicIntermediate));
-
-        List<RadioGroupViewContainer.RadioGroupListItem> existingWheelchair = new ArrayList<>();
-        existingWheelchair.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
-        existingWheelchair.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
-        wheelchair.add(new RadioGroupViewContainer(getString(R.string.existing_wheelchair_question), true, existingWheelchair));
-
-        List<RadioGroupViewContainer.RadioGroupListItem> wheelchairRepair = new ArrayList<>();
-        wheelchairRepair.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
-        wheelchairRepair.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
-        wheelchair.add(new RadioGroupViewContainer(getString(R.string.wheelchair_repair_question), true, wheelchairRepair));
-        wheelchair.add(new SingleTextViewContainer(getString(R.string.wheelchair_centre), 15));
-
-        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
-            @Override
-            public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
-
-            }
-        };
-
-        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(wheelchair, false, onViewPagerChangedListener));
+        }));
     }
 
     public static NewVisitFragment newInstance(ClientInfo clientInfo) {

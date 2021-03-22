@@ -92,7 +92,6 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        holder.setIsRecyclable(false);
         switch (holder.getItemViewType()) {
             case SINGLE_TEXT_VIEW_TYPE:
                 ((SingleTextViewHolder) holder).bind((SingleTextViewContainer) questionDataContainerList.get(position));
@@ -261,6 +260,8 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
             } else {
                 orientationType = RadioGroup.HORIZONTAL;
             }
+
+            radioGroup.removeAllViews();
 
             radioGroup.setOrientation(orientationType);
             for (RadioGroupViewContainer.RadioGroupListItem radioGroupListItem : radioGroupViewHolderData.getDescriptionList()) {

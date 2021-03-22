@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.cbr.R;
 import com.example.cbr.adapters.questioninfoadapters.QuestionsFragmentPagerAdapter;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.CheckBoxViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.CheckBoxWithDescriptionViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DividerViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DoubleTextViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.EditTextViewContainer;
@@ -246,14 +247,31 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
         healthPageViews.add(new SingleTextViewContainer(getString(R.string.for_health_what_was_provided),
                 Constants.PRIMARY_QUESTION_TEXT_SIZE_SP));
-        healthPageViews.add(new CheckBoxViewContainer(getString(R.string.wheelchair)));
-        healthPageViews.add(new CheckBoxViewContainer(getString(R.string.prosthetic)));
-        healthPageViews.add(new CheckBoxViewContainer(getString(R.string.orthotic)));
-        healthPageViews.add(new CheckBoxViewContainer(getString(R.string.wheelchair_repairs)));
-        healthPageViews.add(new CheckBoxViewContainer(getString(R.string.referral_to_health_centre)));
-        healthPageViews.add(new CheckBoxViewContainer(getString(R.string.advice)));
-        healthPageViews.add(new CheckBoxViewContainer(getString(R.string.advocacy)));
-        healthPageViews.add(new CheckBoxViewContainer(getString(R.string.encouragement)));
+        healthPageViews.add(new CheckBoxWithDescriptionViewContainer(
+                getString(R.string.wheelchair), getString(R.string.description_max_100_characters),
+                InputType.TYPE_CLASS_TEXT));
+        healthPageViews.add(new CheckBoxWithDescriptionViewContainer(
+                getString(R.string.prosthetic), getString(R.string.description_max_100_characters),
+                InputType.TYPE_CLASS_TEXT));
+        healthPageViews.add(new CheckBoxWithDescriptionViewContainer(
+                getString(R.string.orthotic), getString(R.string.description_max_100_characters),
+                InputType.TYPE_CLASS_TEXT));
+        healthPageViews.add(new CheckBoxWithDescriptionViewContainer(
+                getString(R.string.wheelchair_repairs), getString(R.string.description_max_100_characters),
+                InputType.TYPE_CLASS_TEXT));
+        healthPageViews.add(new CheckBoxWithDescriptionViewContainer(
+                getString(R.string.referral_to_health_centre),
+                getString(R.string.description_max_100_characters),
+                InputType.TYPE_CLASS_TEXT));
+        healthPageViews.add(new CheckBoxWithDescriptionViewContainer(
+                getString(R.string.advice), getString(R.string.description_max_100_characters),
+                InputType.TYPE_CLASS_TEXT));
+        healthPageViews.add(new CheckBoxWithDescriptionViewContainer(
+                getString(R.string.advocacy), getString(R.string.description_max_100_characters),
+                InputType.TYPE_CLASS_TEXT));
+        healthPageViews.add(new CheckBoxWithDescriptionViewContainer(
+                getString(R.string.encouragement), getString(R.string.description_max_100_characters),
+                InputType.TYPE_CLASS_TEXT));
 
         healthPageViews.add(new DividerViewContainer());
 
@@ -295,10 +313,14 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
         educationPageViews.add(new SingleTextViewContainer(getString(R.string.for_education_what_was_provided),
                 Constants.PRIMARY_QUESTION_TEXT_SIZE_SP));
-        educationPageViews.add(new CheckBoxViewContainer(getString(R.string.advice)));
-        educationPageViews.add(new CheckBoxViewContainer(getString(R.string.advocacy)));
-        educationPageViews.add(new CheckBoxViewContainer(getString(R.string.referral_to_other_org)));
-        educationPageViews.add(new CheckBoxViewContainer(getString(R.string.encouragement)));
+        educationPageViews.add(new CheckBoxWithDescriptionViewContainer(getString(R.string.advice),
+                getString(R.string.description_max_100_characters), InputType.TYPE_CLASS_TEXT));
+        educationPageViews.add(new CheckBoxWithDescriptionViewContainer(getString(R.string.advocacy),
+                getString(R.string.description_max_100_characters), InputType.TYPE_CLASS_TEXT));
+        educationPageViews.add(new CheckBoxWithDescriptionViewContainer(getString(R.string.referral_to_other_org),
+                getString(R.string.description_max_100_characters), InputType.TYPE_CLASS_TEXT));
+        educationPageViews.add(new CheckBoxWithDescriptionViewContainer(getString(R.string.encouragement),
+                getString(R.string.description_max_100_characters), InputType.TYPE_CLASS_TEXT));
 
         educationPageViews.add(new DividerViewContainer());
 
@@ -340,10 +362,14 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
         socialPageViews.add(new SingleTextViewContainer(getString(R.string.for_social_what_was_provided),
                 Constants.PRIMARY_QUESTION_TEXT_SIZE_SP));
-        socialPageViews.add(new CheckBoxViewContainer(getString(R.string.advice)));
-        socialPageViews.add(new CheckBoxViewContainer(getString(R.string.advocacy)));
-        socialPageViews.add(new CheckBoxViewContainer(getString(R.string.referral_to_other_org)));
-        socialPageViews.add(new CheckBoxViewContainer(getString(R.string.encouragement)));
+        socialPageViews.add(new CheckBoxWithDescriptionViewContainer(getString(R.string.advice),
+                getString(R.string.description_max_100_characters), InputType.TYPE_CLASS_TEXT));
+        socialPageViews.add(new CheckBoxWithDescriptionViewContainer(getString(R.string.advocacy),
+                getString(R.string.description_max_100_characters), InputType.TYPE_CLASS_TEXT));
+        socialPageViews.add(new CheckBoxWithDescriptionViewContainer(getString(R.string.referral_to_other_org),
+                getString(R.string.description_max_100_characters), InputType.TYPE_CLASS_TEXT));
+        socialPageViews.add(new CheckBoxWithDescriptionViewContainer(getString(R.string.encouragement),
+                getString(R.string.description_max_100_characters), InputType.TYPE_CLASS_TEXT));
 
         socialPageViews.add(new DividerViewContainer());
 

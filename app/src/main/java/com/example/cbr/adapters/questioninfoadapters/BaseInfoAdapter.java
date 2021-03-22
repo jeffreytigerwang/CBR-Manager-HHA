@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.CheckBoxViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.CheckBoxWithDescriptionViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.ClickableViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DoubleTextViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.EditTextViewContainer;
@@ -33,6 +34,7 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Spin
 import java.util.List;
 
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CHECK_BOX_VIEW_TYPE;
+import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CHECK_BOX_WITH_DESCRIPTION_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CLICKABLE_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.DIVIDER_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.DOUBLE_TEXT_VIEW_TYPE;
@@ -86,6 +88,8 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 return new SpinnerViewHolder(layoutInflater.inflate(R.layout.recyclerview_spinner, parent, false));
             case CHECK_BOX_VIEW_TYPE:
                 return new CheckBoxViewHolder(layoutInflater.inflate(R.layout.recyclerview_checkbox, parent, false));
+            case CHECK_BOX_WITH_DESCRIPTION_VIEW_TYPE:
+                return new CheckBoxWithDescriptionViewHolder(layoutInflater.inflate(R.layout.recyclerview_checkbox_with_description, parent, false));
         }
         return new SingleTextViewHolder(layoutInflater.inflate(R.layout.recyclerview_doubletext, parent, false));
     }
@@ -117,6 +121,9 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 break;
             case CHECK_BOX_VIEW_TYPE:
                 ((CheckBoxViewHolder) holder).bind((CheckBoxViewContainer) questionDataContainerList.get(position));
+                break;
+            case CHECK_BOX_WITH_DESCRIPTION_VIEW_TYPE:
+                ((CheckBoxWithDescriptionViewHolder) holder).bind((CheckBoxWithDescriptionViewContainer) questionDataContainerList.get(position));
                 break;
         }
     }
@@ -335,6 +342,53 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     checkBoxViewContainer.setChecked(isChecked);
                     onDataChanged(getLayoutPosition(), checkBoxViewContainer);
+                }
+            });
+        }
+    }
+
+    private class CheckBoxWithDescriptionViewHolder extends RecyclerView.ViewHolder {
+        private final CheckBox checkBox;
+        private final EditText editText;
+
+        public CheckBoxWithDescriptionViewHolder(@NonNull View itemView) {
+            super(itemView);
+            checkBox = itemView.findViewById(R.id.recyclerview_checkBox_with_description);
+            editText = itemView.findViewById(R.id.recyclerview_editText);
+        }
+
+        public void bind(final CheckBoxWithDescriptionViewContainer viewContainer) {
+            checkBox.setText(viewContainer.getCheckBoxText());
+            editText.setHint(viewContainer.getEditTextHint());
+            editText.setInputType(viewContainer.getInputType());
+
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    viewContainer.setChecked(isChecked);
+                    if (isChecked) {
+                        editText.setVisibility(View.VISIBLE);
+                    } else {
+                        editText.setVisibility(View.GONE);
+                    }
+                    onDataChanged(getLayoutPosition(), viewContainer);
+                }
+            });
+            editText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    viewContainer.setUserInput(s.toString());
+                    onDataChanged(getLayoutPosition(), viewContainer);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
                 }
             });
         }

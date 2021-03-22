@@ -15,6 +15,7 @@ public class QuestionDataContainer implements Parcelable, Serializable {
     public static final int RADIO_GROUP_VIEW_TYPE = 6;
     public static final int SPINNER_VIEW_TYPE = 7;
     public static final int CHECK_BOX_VIEW_TYPE = 8;
+    public static final int CHECK_BOX_WITH_DESCRIPTION_VIEW_TYPE = 9;
 
     private final int viewType;
 

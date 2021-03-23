@@ -21,7 +21,7 @@ public class VisitGeneralQuestionSetData implements Serializable {
     private boolean isSocialChecked;
 
     private String purposeOfVisit;
-    private Date dateOfVisit;
+    private final Date dateOfVisit;
     private String workerName;
     private String visitGpsLocation;
     private String villageNumber;
@@ -29,7 +29,7 @@ public class VisitGeneralQuestionSetData implements Serializable {
 
     public VisitGeneralQuestionSetData() {
         this.purposeOfVisit = "";
-        this.dateOfVisit = null;
+        this.dateOfVisit = new Date();
         this.workerName = "";
         this.visitGpsLocation = "";
         this.villageNumber = "";
@@ -141,10 +141,6 @@ public class VisitGeneralQuestionSetData implements Serializable {
 
     public void setPurposeOfVisit(String purposeOfVisit) {
         this.purposeOfVisit = purposeOfVisit;
-    }
-
-    public void setDateOfVisit(Date date) {
-        this.dateOfVisit = date;
     }
 
     public Date getDateOfVisit() {

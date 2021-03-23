@@ -224,6 +224,8 @@
     <string name="unable_to_retrieve_client_info">Unable to retrieve client info.</string>
     <string name="placeholder_text">Placeholder Text</string>
     <string name="missed_required_questions">Missed required questions</string>
+    <string name="pick_a_date">Pick a date</string>
+    <string name="dd_mm_yyyy">dd-MMM-yyyy</string>
 
 
 </resources>

@@ -26,6 +26,7 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Ques
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.RadioGroupViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SingleTextViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SpinnerViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.UnchangeableEditTextViewContainer;
 import com.example.cbr.databinding.FragmentQuestionspageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.models.ClientInfo;
@@ -34,6 +35,7 @@ import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.models.VisitHealthQuestionSetData;
 import com.example.cbr.models.VisitSocialQuestionSetData;
 import com.example.cbr.util.Constants;
+import com.example.cbr.util.StringsUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -282,9 +284,9 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         generalPageViews.add(new CheckBoxViewContainer(getString(R.string.education)));
         generalPageViews.add(new CheckBoxViewContainer(getString(R.string.social)));
 
-        generalPageViews.add(new EditTextViewContainer(getString(R.string.date_of_visit),
-                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, getString(R.string.yyyy_mm_dd),
-                InputType.TYPE_DATETIME_VARIATION_DATE));
+        generalPageViews.add(new UnchangeableEditTextViewContainer(getString(R.string.date_of_visit),
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,
+                StringsUtil.dateToUKFormat(generalQuestionSetData.getDateOfVisit())));
 
         generalPageViews.add(new EditTextViewContainer(getString(R.string.name_of_cbr_worker),
                 Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, getString(R.string.first_and_last_name),

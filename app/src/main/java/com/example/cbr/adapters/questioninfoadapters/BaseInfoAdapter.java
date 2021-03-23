@@ -30,6 +30,7 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Ques
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.RadioGroupViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SingleTextViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SpinnerViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.UnchangeableEditTextViewContainer;
 
 import java.util.List;
 
@@ -43,6 +44,7 @@ import static com.example.cbr.adapters.questioninfoadapters.questiondatacontaine
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.RADIO_GROUP_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.SINGLE_TEXT_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.SPINNER_VIEW_TYPE;
+import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.UNCHANGEABLE_EDIT_TEXT_VIEW_TYPE;
 
 /**
  * Base class for adapters that display information, currently supports headers, dividers, and two text fields
@@ -90,6 +92,8 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 return new CheckBoxViewHolder(layoutInflater.inflate(R.layout.recyclerview_checkbox, parent, false));
             case CHECK_BOX_WITH_DESCRIPTION_VIEW_TYPE:
                 return new CheckBoxWithDescriptionViewHolder(layoutInflater.inflate(R.layout.recyclerview_checkbox_with_description, parent, false));
+            case UNCHANGEABLE_EDIT_TEXT_VIEW_TYPE:
+                return new UnchangeableEditTextViewHolder(layoutInflater.inflate(R.layout.recyclerview_unchangeable_edit_text, parent, false));
         }
         return new SingleTextViewHolder(layoutInflater.inflate(R.layout.recyclerview_doubletext, parent, false));
     }
@@ -125,6 +129,9 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
             case CHECK_BOX_WITH_DESCRIPTION_VIEW_TYPE:
                 ((CheckBoxWithDescriptionViewHolder) holder).bind((CheckBoxWithDescriptionViewContainer) questionDataContainerList.get(position));
                 break;
+            case UNCHANGEABLE_EDIT_TEXT_VIEW_TYPE:
+                ((UnchangeableEditTextViewHolder) holder).bind((UnchangeableEditTextViewContainer) questionDataContainerList.get(position));
+            break;
         }
     }
 
@@ -391,6 +398,23 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
 
                 }
             });
+        }
+    }
+
+    private class UnchangeableEditTextViewHolder extends RecyclerView.ViewHolder {
+        private final TextView textView;
+        private final EditText editText;
+
+        public UnchangeableEditTextViewHolder(@NonNull View itemView) {
+            super(itemView);
+            textView = itemView.findViewById(R.id.recyclerview_dateQuestionTextView);
+            editText = itemView.findViewById(R.id.recyclerview_dateEditText);
+        }
+
+        public void bind(final UnchangeableEditTextViewContainer viewContainer) {
+            textView.setText(viewContainer.getQuestionText());
+            textView.setTextSize(viewContainer.getQuestionTextSizeSp());
+            editText.setText(viewContainer.getTextEditText());
         }
     }
 }

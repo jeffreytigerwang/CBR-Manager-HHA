@@ -72,6 +72,9 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         setupViewPager();
         setupButtons();
 
+        // referral need clientId to identify which client a referral belong to
+        referralInfo.setClientId(clientInfo.getClientId());
+
         return binding.getRoot();
     }
 
@@ -122,6 +125,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
             public void onClick(View v) {
                 if (binding.questionsPageViewPager.getCurrentItem() == questionsFragmentPagerAdapter.getItemCount() - 1) {
                     getActivity().getSupportFragmentManager().popBackStack();
+                    createReferralInfo(referralInfo);
                 }
                 binding.questionsPageViewPager.setCurrentItem(binding.questionsPageViewPager.getCurrentItem() + 1);
             }
@@ -144,6 +148,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         generateProsthetic();
         generateOrthotic();
         generateWheelchair();
+
     }
 
     private void generateMainPage() {
@@ -188,6 +193,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
                         referralInfo.setOtherDescription(userInput);
                     }
                 }
+
             }
         };
 
@@ -315,12 +321,11 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
             public void onResponse(Call<ReferralInfo> call, Response<ReferralInfo> response) {
 
                 if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Referral Record Fail", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 ReferralInfo referralResponse = response.body();
-                Toast.makeText(getActivity(),  "Referral Record Successful", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override

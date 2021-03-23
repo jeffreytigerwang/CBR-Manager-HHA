@@ -2,6 +2,7 @@ package com.example.cbr.models;
 
 public class ReferralInfo {
 
+    private Integer clientId;
     private boolean requirePhysiotherapy;
     private boolean requireProsthetic;
     private boolean requireOrthotic;
@@ -29,7 +30,8 @@ public class ReferralInfo {
 
     }
 
-    public ReferralInfo(boolean requirePhysiotherapy,
+    public ReferralInfo(Integer clientId,
+                        boolean requirePhysiotherapy,
                         boolean requireProsthetic,
                         boolean requireOrthotic,
                         boolean requireWheelchair,
@@ -51,6 +53,7 @@ public class ReferralInfo {
                         boolean hasExistingWheelchair,
                         boolean canRepairWheelchair,
                         String outcome) {
+        this.clientId = clientId;
         this.requirePhysiotherapy = requirePhysiotherapy;
         this.requireProsthetic = requireProsthetic;
         this.requireOrthotic = requireOrthotic;
@@ -73,6 +76,14 @@ public class ReferralInfo {
         this.hasExistingWheelchair = hasExistingWheelchair;
         this.canRepairWheelchair = canRepairWheelchair;
         this.outcome = outcome;
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
     }
 
     public boolean isRequirePhysiotherapy() {

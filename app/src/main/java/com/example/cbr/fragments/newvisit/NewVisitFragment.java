@@ -53,6 +53,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     VisitEducationQuestionSetData educationQuestionSetData = new VisitEducationQuestionSetData();
     VisitSocialQuestionSetData socialQuestionSetData = new VisitSocialQuestionSetData();
 
+
     private enum PAGES {
         GENERAL,
         HEALTH,
@@ -60,16 +61,20 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         SOCIAL
     }
 
+    private Menu menu;
+
     private static final String NEW_VISIT_PAGE_BUNDLE = "newVisitPageBundle";
 
     @Override
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setPresenter(new NewVisitPresenter(this, getContext()));
         binding = FragmentQuestionspageBinding.inflate(inflater, container, false);
+        getActivity().setTitle(getString(R.string.new_visit_title));
         setHasOptionsMenu(true);
 
         if (getArguments() != null) {
             clientInfo = (ClientInfo) getArguments().getSerializable(NEW_VISIT_PAGE_BUNDLE);
+            binding.questionsPageTitle.setText(clientInfo.getFullName());
         } else {
             Toast.makeText(getContext(), getString(R.string.unable_to_retrieve_client_info),
                     Toast.LENGTH_SHORT).show();
@@ -82,8 +87,18 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+    public void onDestroy() {
+        super.onDestroy();
+
+        getActivity().setTitle(getString(R.string.app_name));
         menu.clear();
+        setHasOptionsMenu(false);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        this.menu = menu;
+        this.menu.clear();
         // inflate action bar items here
         inflater.inflate(R.menu.action_bar_record, menu);
         super.onCreateOptionsMenu(menu, inflater);

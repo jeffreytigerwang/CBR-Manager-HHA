@@ -1,10 +1,10 @@
 module.exports = (sequelize, Sequelize) => {
     const Referral = sequelize.define("Referrals", {
         clientId: {
-            type: Sequelize.BOOLEAN
+            type: Sequelize.INTEGER
         },
         visitId: {
-            type: Sequelize.BOOLEAN
+            type: Sequelize.INTEGER
         },
         requirePhysiotherapy: {
             type: Sequelize.BOOLEAN

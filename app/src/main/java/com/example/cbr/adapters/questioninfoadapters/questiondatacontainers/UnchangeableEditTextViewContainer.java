@@ -3,7 +3,7 @@ package com.example.cbr.adapters.questioninfoadapters.questiondatacontainers;
 /**
  * A class that contains information on {@code recyclerview_unchangeable_edit_text.xml}.
  * <p>The {@code EditText} is set to be disabled; meaning the user will not be able to
- * interact with it. However, The text can be set progammically using
+ * interact with it. However, The text can be set programmatically using
  * {@link UnchangeableEditTextViewContainer#textEditText textEditText}.
  *
  * @see com.example.cbr.adapters.questioninfoadapters.BaseInfoAdapter BaseInfoAdapter

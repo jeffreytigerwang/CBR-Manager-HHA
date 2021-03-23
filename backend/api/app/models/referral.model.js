@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Referral = sequelize.define("Referral", {
+    const referral = sequelize.define("referral", {
         clientId: {
             type: Sequelize.BOOLEAN
         },
@@ -71,5 +71,5 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
 
-    return Referral;
+    return referral;
 };

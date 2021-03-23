@@ -55,7 +55,7 @@ exports.create = (req, res) => {
 
 // Retrieve all data from the database.
 exports.findAll = (req, res) => {
-  Referral.findAll()
+  Referrals.findAll()
     .then(data => {
       res.send(data);
     })

@@ -126,7 +126,10 @@ public class HomeActivity extends BaseActivity implements
     @Override
     public void swapToNewVisitPage(ClientInfo clientInfo) {
         NewVisitFragment newVisitFragment = NewVisitFragment.newInstance(clientInfo);
-        addFragment(R.id.homeFragmentContainer, newVisitFragment, NewVisitFragment.getFragmentTag());
+        addFragmentWithAnimation(R.id.homeFragmentContainer, newVisitFragment,
+                NewVisitFragment.getFragmentTag(),
+                android.R.anim.fade_in, android.R.anim.fade_out,
+                android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @Override

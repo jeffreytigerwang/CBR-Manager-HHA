@@ -1,5 +1,5 @@
 const db = require("../models");
-const Refferals = db.refferals;
+const Referrals = db.referrals;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new data
@@ -13,7 +13,7 @@ exports.create = (req, res) => {
   }
 
   // Create Item
-  const refferal = {
+  const referral = {
     clientId: req.body.clientId,
     visitId: req.body.visitId,
     requirePhysiotherapy: req.body.requirePhysiotherapy,

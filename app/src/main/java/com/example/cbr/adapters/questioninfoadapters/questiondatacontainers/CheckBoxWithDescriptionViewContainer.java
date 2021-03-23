@@ -6,6 +6,8 @@ package com.example.cbr.adapters.questioninfoadapters.questiondatacontainers;
  * <p>The {@code EditText} will only be <strong>VISIBLE</strong>
  * to the user when the {@code CheckBox} attached
  * is checked, <strong>GONE</strong> when not.
+ *
+ * @see com.example.cbr.adapters.questioninfoadapters.BaseInfoAdapter BaseInfoAdapter
  * */
 
 public class CheckBoxWithDescriptionViewContainer extends QuestionDataContainer {

@@ -1,7 +1,11 @@
 package com.example.cbr.fragments.newvisit;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cbr.R;
@@ -35,11 +40,17 @@ import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.models.VisitHealthQuestionSetData;
 import com.example.cbr.models.VisitSocialQuestionSetData;
 import com.example.cbr.util.Constants;
+import com.example.cbr.util.CustomExceptions;
+import com.example.cbr.util.LocationUtil;
 import com.example.cbr.util.StringsUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+/**
+ * Fragment for the CBR worker to fill out information on a client for a new visit.
+ * */
 
 public class NewVisitFragment extends BaseFragment implements NewVisitContract.View {
 
@@ -49,6 +60,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     private ClientInfo clientInfo;
     private QuestionsFragmentPagerAdapter questionsFragmentPagerAdapter;
     private final ArrayList<QuestionsFragmentPagerAdapter.ViewPagerContainer> viewPagerContainerList = new ArrayList<>();
+    private String latLongLocation;
 
     VisitGeneralQuestionSetData generalQuestionSetData = new VisitGeneralQuestionSetData();
     VisitHealthQuestionSetData healthQuestionSetData = new VisitHealthQuestionSetData();
@@ -66,6 +78,54 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     private Menu menu;
 
     private static final String NEW_VISIT_PAGE_BUNDLE = "newVisitPageBundle";
+    private static final String LOG_TAG = "NewVisitFragment";
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        requestLocationPermissions();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == Constants.LOCATION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                setLatLongLocation();
+            } else {
+                Toast.makeText(getContext(), R.string.location_permission_not_granted,
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void requestLocationPermissions() {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED
+                &&
+                ActivityCompat.checkSelfPermission(getContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION}, Constants.LOCATION_REQUEST_CODE);
+        } else {
+            setLatLongLocation();
+        }
+    }
+
+    private void setLatLongLocation() {
+        try {
+            LocationUtil locationUtil = new LocationUtil(getContext());
+            latLongLocation = getString(R.string.lat_long_location,
+                    locationUtil.getLatitude(), locationUtil.getLongitude());
+            generalQuestionSetData.setVisitGpsLocation(latLongLocation);
+            Log.d(LOG_TAG, "latLongLocation=" + latLongLocation);
+            locationUtil.stopUpdateService();
+        } catch (CustomExceptions.GPSNotEnabled gpsNotEnabled) {
+            Log.i(LOG_TAG, "setLatLongLocation: " + gpsNotEnabled.getMessage());
+        }
+    }
 
     @Override
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

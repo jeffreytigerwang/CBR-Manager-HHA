@@ -1,5 +1,5 @@
 module.exports = app => {
-    const referral = require("../controllers/referral.controller.js");
+    const referrals = require("../controllers/referral.controller.js");
 
     var router = require("express").Router();
 

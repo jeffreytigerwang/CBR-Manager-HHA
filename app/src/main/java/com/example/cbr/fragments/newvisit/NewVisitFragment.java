@@ -3,8 +3,12 @@ package com.example.cbr.fragments.newvisit;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -62,6 +66,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setPresenter(new NewVisitPresenter(this, getContext()));
         binding = FragmentQuestionspageBinding.inflate(inflater, container, false);
+        setHasOptionsMenu(true);
 
         if (getArguments() != null) {
             clientInfo = (ClientInfo) getArguments().getSerializable(NEW_VISIT_PAGE_BUNDLE);
@@ -76,7 +81,102 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         return binding.getRoot();
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        // inflate action bar items here
+        inflater.inflate(R.menu.action_bar_record, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Handle action bar item clicks here
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.newVisit_recordButton) {
+            handleRecord();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void handleRecord() {
+        final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
+        final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();
+        final List<String> emptyEducationQuestions = educationQuestionSetData.getEmptyQuestions();
+        final List<String> emptySocialQuestions = socialQuestionSetData.getEmptyQuestions();
+
+        boolean isAllFilled = isAllRequiredQuestionsFilled(emptyGeneralQuestions,
+                emptyHealthQuestions, emptyEducationQuestions, emptySocialQuestions);
+        if (isAllFilled) {
+            recordAndFinish();
+        } else {
+            List<String> emptyQuestions = new ArrayList<>(emptyGeneralQuestions);
+            if (generalQuestionSetData.isHealthChecked()) {
+                emptyQuestions.addAll(emptyHealthQuestions);
+                displayNumberEmpty(emptyQuestions);
+            }
+            if (generalQuestionSetData.isEducationChecked()) {
+                emptyQuestions.addAll(emptyEducationQuestions);
+            }
+            if (generalQuestionSetData.isSocialChecked()) {
+                emptyQuestions.addAll(emptySocialQuestions);
+            }
+            displayNumberEmpty(emptyQuestions);
+        }
+    }
+
+    private void recordAndFinish() {
+        presenter.createVisitGeneralQuestionSetData(generalQuestionSetData);
+        if (generalQuestionSetData.isHealthChecked()) {
+            presenter.createVisitHealthQuestionSetData(healthQuestionSetData);
+        }
+        if (generalQuestionSetData.isEducationChecked()) {
+            presenter.createVisitEducationQuestionSetData(educationQuestionSetData);
+        }
+        if (generalQuestionSetData.isSocialChecked()) {
+            presenter.createVisitSocialQuestionSetData(socialQuestionSetData);
+        }
+        getActivity().getSupportFragmentManager().popBackStack();
+    }
+
+    private boolean isAllRequiredQuestionsFilled(List<String> emptyGeneralQuestions,
+                                                 List<String> emptyHealthQuestions,
+                                                 List<String> emptyEducationQuestions,
+                                                 List<String> emptySocialQuestions) {
+        boolean isAllFilled;
+
+        final boolean isHealthChecked = generalQuestionSetData.isHealthChecked();
+        final boolean isEducationChecked = generalQuestionSetData.isEducationChecked();
+        final boolean isSocialChecked = generalQuestionSetData.isSocialChecked();
+
+        // This one-liner may obscure readability, but it is necessary to remove
+        // 'if' statements (improve performance).
+        // All is filled under the condition that the empty question lists are empty,
+        // it can depend on whether health, education, or social is considered required.
+        isAllFilled = emptyGeneralQuestions.isEmpty()
+                && (!isHealthChecked || emptyHealthQuestions.isEmpty())
+                && (!isEducationChecked || emptyEducationQuestions.isEmpty())
+                && (!isSocialChecked || emptySocialQuestions.isEmpty());
+
+        return isAllFilled;
+    }
+
+    private void displayNumberEmpty(List<String> emptyQuestions) {
+        TextView textViewMissedRequiredQuestions = binding.questionsPageMissedRequiredQuestionsTextView;
+        TextView textViewQuestionNumbers = binding.questionsPageQuestionNumbersTextView;
+
+        textViewMissedRequiredQuestions.setVisibility(View.VISIBLE);
+        textViewQuestionNumbers.setVisibility(View.VISIBLE);
+
+        StringBuilder questionNumbers = new StringBuilder();
+        for (int i = 0; i < emptyQuestions.size(); i++) {
+            questionNumbers.append(emptyQuestions.get(i)).append(" ");
+        }
+        textViewQuestionNumbers.setText(questionNumbers.toString());
+    }
 
     private void setupViewPager() {
         generateViewPagerList();
@@ -106,9 +206,9 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         }
 
         if (currentPage == numTotalPage - 1) {
-            binding.questionsPagePositiveButton.setText(R.string.record);
+            binding.questionsPagePositiveButton.setVisibility(View.GONE);
         } else {
-            binding.questionsPagePositiveButton.setText(R.string.next);
+            binding.questionsPagePositiveButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -180,7 +280,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
         List<String> siteLocations = new ArrayList<>(
                 Arrays.asList(getResources().getStringArray(R.array.zone_locations_array)));
-        generalPageViews.add(new SpinnerViewContainer(getString(R.string.site_location),
+        generalPageViews.add(new SpinnerViewContainer(getString(R.string.new_vist_location),
                 Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, siteLocations));
 
         generalPageViews.add(new EditTextViewContainer(getString(R.string.village_no),

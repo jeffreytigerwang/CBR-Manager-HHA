@@ -18,8 +18,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/questionsPage_cardView"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/questionsPage_missedRequiredQuestionsTextView"
         app:layout_constraintHorizontal_bias="0.0" />
+
+    <TextView
+        android:id="@+id/questionsPage_missedRequiredQuestionsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="@string/missed_required_questions"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@id/questionsPage_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/questionsPage_questionNumbersTextView"/>
+
+    <TextView
+        android:id="@+id/questionsPage_questionNumbersTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/errorRed"
+        android:textSize="16sp"
+        android:text="@string/placeholder_text"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@id/questionsPage_missedRequiredQuestionsTextView"
+        app:layout_constraintTop_toTopOf="@id/questionsPage_missedRequiredQuestionsTextView"
+        app:layout_constraintEnd_toEndOf="@id/questionsPage_missedRequiredQuestionsTextView"
+        app:layout_constraintBottom_toTopOf="@id/questionsPage_cardView"/>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/questionsPage_cardView"

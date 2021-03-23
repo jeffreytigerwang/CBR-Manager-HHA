@@ -21,7 +21,7 @@ public class VisitGeneralQuestionSetData implements Serializable {
     private boolean isSocialChecked;
 
     private String purposeOfVisit;
-    private final Date dateOfVisit;
+    private Date dateOfVisit;
     private String workerName;
     private String visitGpsLocation;
     private String villageNumber;
@@ -29,7 +29,7 @@ public class VisitGeneralQuestionSetData implements Serializable {
 
     public VisitGeneralQuestionSetData() {
         this.purposeOfVisit = "";
-        this.dateOfVisit = new Date();
+        this.dateOfVisit = null;
         this.workerName = "";
         this.visitGpsLocation = "";
         this.villageNumber = "";
@@ -65,6 +65,7 @@ public class VisitGeneralQuestionSetData implements Serializable {
 
         boolean isQuestionOneEmpty = purposeOfVisit.isEmpty();
         boolean isQuestionTwoChecked = isHealthChecked || isEducationChecked || isSocialChecked;
+        boolean isQuestionThreeNull = dateOfVisit == null;
         boolean isQuestionFourEmpty = workerName.isEmpty();
         boolean isQuestionFiveEmpty = visitGpsLocation.isEmpty();
         boolean isQuestionSixEmpty = visitZoneLocation.isEmpty();
@@ -75,6 +76,9 @@ public class VisitGeneralQuestionSetData implements Serializable {
         }
         if (!isQuestionTwoChecked) {
             questionNumbers.add("2.");
+        }
+        if (isQuestionThreeNull) {
+            questionNumbers.add("3.");
         }
         if (isQuestionFourEmpty) {
             questionNumbers.add("4.");
@@ -137,6 +141,10 @@ public class VisitGeneralQuestionSetData implements Serializable {
 
     public void setPurposeOfVisit(String purposeOfVisit) {
         this.purposeOfVisit = purposeOfVisit;
+    }
+
+    public void setDateOfVisit(Date date) {
+        this.dateOfVisit = date;
     }
 
     public Date getDateOfVisit() {

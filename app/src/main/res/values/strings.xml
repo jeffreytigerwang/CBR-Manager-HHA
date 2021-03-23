@@ -223,6 +223,7 @@
     <string name="general_questions">General Questions</string>
     <string name="unable_to_retrieve_client_info">Unable to retrieve client info.</string>
     <string name="placeholder_text">Placeholder Text</string>
+    <string name="missed_required_questions">Missed required questions</string>
 
 
 </resources>

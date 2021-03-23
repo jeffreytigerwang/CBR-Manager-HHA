@@ -394,7 +394,36 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                 new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
-
+                if (questionDataContainer instanceof CheckBoxWithDescriptionViewContainer) {
+                    String checkBoxSelected = ((CheckBoxWithDescriptionViewContainer)
+                            questionDataContainer).getCheckBoxText();
+                    String description = ((CheckBoxWithDescriptionViewContainer)
+                            questionDataContainer).getUserInput();
+                    boolean isChecked = ((CheckBoxWithDescriptionViewContainer)
+                            questionDataContainer).isChecked();
+                    if (checkBoxSelected.equals(getString(R.string.advice))) {
+                        educationQuestionSetData.setEducationAdviceChecked(isChecked);
+                        educationQuestionSetData.setEducationAdviceDesc(description);
+                    } else if (checkBoxSelected.equals(getString(R.string.advocacy))) {
+                        educationQuestionSetData.setEducationAdvocacyChecked(isChecked);
+                        educationQuestionSetData.setEducationAdvocacyDesc(description);
+                    } else if (checkBoxSelected.equals(getString(R.string.referral_to_other_org))) {
+                        educationQuestionSetData.setEducationReferralChecked(isChecked);
+                        educationQuestionSetData.setEducationReferralDesc(description);
+                    } else if (checkBoxSelected.equals(getString(R.string.encouragement))) {
+                        educationQuestionSetData.setEducationEncouragementChecked(isChecked);
+                        educationQuestionSetData.setEducationEncouragementDesc(description);
+                    }
+                }
+                if (questionDataContainer instanceof RadioGroupViewContainer) {
+                    String selectedItem = ((RadioGroupViewContainer) questionDataContainer)
+                            .getCheckedItem().getDescription();
+                    educationQuestionSetData.setEducationGoalStatus(selectedItem);
+                }
+                if (questionDataContainer instanceof EditTextViewContainer) {
+                    String description = ((EditTextViewContainer) questionDataContainer).getUserInput();
+                    educationQuestionSetData.setEducationOutcomeDesc(description);
+                }
             }
         }));
     }
@@ -443,7 +472,36 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                 new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
-
+                if (questionDataContainer instanceof CheckBoxWithDescriptionViewContainer) {
+                    String checkBoxSelected = ((CheckBoxWithDescriptionViewContainer)
+                            questionDataContainer).getCheckBoxText();
+                    String description = ((CheckBoxWithDescriptionViewContainer)
+                            questionDataContainer).getUserInput();
+                    boolean isChecked = ((CheckBoxWithDescriptionViewContainer)
+                            questionDataContainer).isChecked();
+                    if (checkBoxSelected.equals(getString(R.string.advice))) {
+                        socialQuestionSetData.setSocialAdviceChecked(isChecked);
+                        socialQuestionSetData.setSocialAdviceDesc(description);
+                    } else if (checkBoxSelected.equals(getString(R.string.advocacy))) {
+                        socialQuestionSetData.setSocialAdvocacyChecked(isChecked);
+                        socialQuestionSetData.setSocialAdvocacyDesc(description);
+                    } else if (checkBoxSelected.equals(getString(R.string.referral_to_other_org))) {
+                        socialQuestionSetData.setSocialReferralChecked(isChecked);
+                        socialQuestionSetData.setSocialReferralDesc(description);
+                    } else if (checkBoxSelected.equals(getString(R.string.encouragement))) {
+                        socialQuestionSetData.setSocialEncouragementChecked(isChecked);
+                        socialQuestionSetData.setSocialEncouragementDesc(description);
+                    }
+                }
+                if (questionDataContainer instanceof RadioGroupViewContainer) {
+                    String selectedItem = ((RadioGroupViewContainer) questionDataContainer)
+                            .getCheckedItem().getDescription();
+                    socialQuestionSetData.setSocialGoalStatus(selectedItem);
+                }
+                if (questionDataContainer instanceof EditTextViewContainer) {
+                    String description = ((EditTextViewContainer) questionDataContainer).getUserInput();
+                    socialQuestionSetData.setSocialOutcomeDesc(description);
+                }
             }
         }));
     }

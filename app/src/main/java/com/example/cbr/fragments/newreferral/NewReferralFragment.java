@@ -5,6 +5,7 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager2.widget.ViewPager2;
@@ -20,12 +21,24 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Sing
 import com.example.cbr.databinding.FragmentQuestionspageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.ClientSocialAspect;
 import com.example.cbr.models.ReferralInfo;
+import com.example.cbr.retrofit.JsonPlaceHolderApi;
+import com.example.cbr.retrofit.RetrofitInit;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class NewReferralFragment extends BaseFragment implements NewReferralContract.View {
+
+    // Init API
+    private Retrofit retrofit;
+    private JsonPlaceHolderApi jsonPlaceHolderApi;
 
     private FragmentQuestionspageBinding binding;
     private NewReferralContract.Presenter clientListPresenter;
@@ -49,6 +62,10 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setPresenter(new NewReferralPresenter(this));
         binding = FragmentQuestionspageBinding.inflate(inflater, container, false);
+
+        // Init Retrofit & NodeJs stuff
+        retrofit = RetrofitInit.getInstance();
+        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         clientInfo = (ClientInfo) getArguments().getSerializable(NEW_REFERRAL_PAGE_BUNDLE);
 
@@ -288,4 +305,29 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
     public static String getFragmentTag() {
         return NewReferralFragment.class.getSimpleName();
     }
+
+
+    private void createReferralInfo(ReferralInfo referralInfo) {
+        Call<ReferralInfo> call = jsonPlaceHolderApi.createReferralInfo(referralInfo);
+
+        call.enqueue(new Callback<ReferralInfo>() {
+            @Override
+            public void onResponse(Call<ReferralInfo> call, Response<ReferralInfo> response) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Referral Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ReferralInfo referralResponse = response.body();
+                Toast.makeText(getActivity(),  "Referral Record Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ReferralInfo> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

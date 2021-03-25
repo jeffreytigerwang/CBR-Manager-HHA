@@ -25,10 +25,12 @@ import java.lang.ref.WeakReference;
 /**
  * Location service API to handle any location jobs.
  * User must grant permission for the App to use location services before using this API.
- * <p>This service automatically starts the update service to retrieve the current location.
- * Thus, clients of this API should call {@link LocationUtil#stopUpdateService()} when this service
+ * <p>This service automatically starts the update service upon construction to retrieve
+ * the current location. Thus, clients of this API should call
+ * {@link LocationUtil#stopUpdateService()} when this service
  * is no longer needed to prevent battery drainage.
- * From: https://stackoverflow.com/a/40653111
+ *
+ * <p>From: https://stackoverflow.com/a/40653111
  * */
 
 public class LocationUtil extends Service implements LocationListener {

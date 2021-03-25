@@ -61,7 +61,6 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
     private ClientInfo clientInfo;
     private Integer clientId;
-    private Integer visitId;
     private QuestionsFragmentPagerAdapter questionsFragmentPagerAdapter;
     private final ArrayList<QuestionsFragmentPagerAdapter.ViewPagerContainer> viewPagerContainerList = new ArrayList<>();
     private String latLongLocation;
@@ -146,7 +145,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
             try {
                 clientId = Integer.parseInt(clientInfo.getId());
             } catch (NullPointerException e) {
-                Log.i(LOG_TAG, "onCreateView: clientInfo=" + clientInfo);
+                Log.i(LOG_TAG, "onCreateView: clientId=" + clientInfo.getId());
                 Toast.makeText(getContext(), getResources().getString(R.string.failed_to_get_client_id),
                         Toast.LENGTH_SHORT).show();
                 finish();
@@ -155,6 +154,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         } else {
             Toast.makeText(getContext(), getString(R.string.unable_to_retrieve_client_info),
                     Toast.LENGTH_SHORT).show();
+            finish();
         }
 
         setupViewPager();

@@ -10,6 +10,7 @@ import java.util.List;
 public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     private Boolean consentToInterview;
 
+    private Integer clientId;
     private String gpsLocation;
     private String zoneLocation;
     private String villageNumber;
@@ -52,6 +53,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     public ClientInfo() {}
 
     public ClientInfo(boolean consentToInterview,
+                      Integer clientId,
                       String gpsLocation,
                       String zoneLocation,
                       String villageNumber,
@@ -83,6 +85,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
                       String describeSocialStatus,
                       String setGoalForSocialStatus) {
         this.consentToInterview = consentToInterview;
+        this.clientId = clientId;
         this.gpsLocation = gpsLocation;
         this.zoneLocation = zoneLocation;
         this.villageNumber = villageNumber;
@@ -114,6 +117,14 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         this.describeSocialStatus = describeSocialStatus;
         this.setGoalForSocialStatus = setGoalForSocialStatus;
         overallRisk = 0;
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
     }
 
     public void setOverallRisk(double overallRisk){

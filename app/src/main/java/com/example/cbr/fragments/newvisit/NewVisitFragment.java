@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,6 +48,7 @@ import com.example.cbr.util.StringsUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Fragment for the CBR worker to fill out information on a client for a new visit.
@@ -58,6 +60,8 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     private NewVisitContract.Presenter presenter;
 
     private ClientInfo clientInfo;
+    private Integer clientId;
+    private Integer visitId;
     private QuestionsFragmentPagerAdapter questionsFragmentPagerAdapter;
     private final ArrayList<QuestionsFragmentPagerAdapter.ViewPagerContainer> viewPagerContainerList = new ArrayList<>();
     private String latLongLocation;
@@ -128,6 +132,9 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
     @Override
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         setPresenter(new NewVisitPresenter(this, getContext()));
         binding = FragmentQuestionspageBinding.inflate(inflater, container, false);
         getActivity().setTitle(getString(R.string.new_visit_title));
@@ -136,6 +143,15 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         if (getArguments() != null) {
             clientInfo = (ClientInfo) getArguments().getSerializable(NEW_VISIT_PAGE_BUNDLE);
             binding.questionsPageTitle.setText(clientInfo.getFullName());
+            try {
+                clientId = Integer.parseInt(clientInfo.getId());
+            } catch (NullPointerException e) {
+                Log.i(LOG_TAG, "onCreateView: clientInfo=" + clientInfo);
+                Toast.makeText(getContext(), getResources().getString(R.string.failed_to_get_client_id),
+                        Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            setVisitClientId();
         } else {
             Toast.makeText(getContext(), getString(R.string.unable_to_retrieve_client_info),
                     Toast.LENGTH_SHORT).show();
@@ -178,6 +194,10 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         return super.onOptionsItemSelected(item);
     }
 
+    private void finish() {
+        getActivity().getSupportFragmentManager().popBackStack();
+    }
+
     private void handleRecord() {
         final List<String> emptyGeneralQuestions = generalQuestionSetData.getEmptyQuestions();
         final List<String> emptyHealthQuestions = healthQuestionSetData.getEmptyQuestions();
@@ -215,7 +235,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         if (generalQuestionSetData.isSocialChecked()) {
             presenter.createVisitSocialQuestionSetData(socialQuestionSetData);
         }
-        getActivity().getSupportFragmentManager().popBackStack();
+        finish();
     }
 
     private boolean isAllRequiredQuestionsFilled(List<String> emptyGeneralQuestions,
@@ -249,6 +269,22 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
             questionNumbers.append(emptyQuestions.get(i)).append(" ");
         }
         textViewQuestionNumbers.setText(questionNumbers.toString());
+    }
+
+    private void setVisitClientId() {
+        int visitId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
+
+        generalQuestionSetData.setClientId(clientId);
+        generalQuestionSetData.setVisitId(visitId);
+
+        healthQuestionSetData.setClientId(clientId);
+        healthQuestionSetData.setVisitId(visitId);
+
+        educationQuestionSetData.setClientId(clientId);
+        educationQuestionSetData.setVisitId(visitId);
+
+        socialQuestionSetData.setClientId(clientId);
+        socialQuestionSetData.setVisitId(visitId);
     }
 
     private void setupViewPager() {
@@ -295,7 +331,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
             @Override
             public void onClick(View v) {
                 if (binding.questionsPageViewPager.getCurrentItem() == questionsFragmentPagerAdapter.getItemCount() - 1) {
-                    getActivity().getSupportFragmentManager().popBackStack();
+                    finish();
                 }
                 binding.questionsPageViewPager.setCurrentItem(binding.questionsPageViewPager.getCurrentItem() + 1);
             }
@@ -305,7 +341,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
             @Override
             public void onClick(View v) {
                 if (binding.questionsPageViewPager.getCurrentItem() == PAGES.GENERAL.ordinal()) {
-                    getActivity().getSupportFragmentManager().popBackStack();
+                    finish();
                 }
                 binding.questionsPageViewPager.setCurrentItem(binding.questionsPageViewPager.getCurrentItem() - 1);
             }

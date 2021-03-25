@@ -37,8 +37,6 @@ public class NewVisitPresenter implements NewVisitContract.Presenter {
     public NewVisitPresenter(NewVisitContract.View view, Context context) {
         this.view = view;
         this.context = context;
-        // Init Retrofit & NodeJs stuff
-        // Init API
         Retrofit retrofit = RetrofitInit.getInstance();
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
     }

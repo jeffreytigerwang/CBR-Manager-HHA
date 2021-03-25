@@ -121,7 +121,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                     locationUtil.getLatitude(), locationUtil.getLongitude());
             generalQuestionSetData.setVisitGpsLocation(latLongLocation);
             locationUtil.stopUpdateService();
-        } catch (CustomExceptions.GPSNotEnabled gpsNotEnabled) {
+        } catch (CustomExceptions.GPSNotEnabled | CustomExceptions.LocationNotFound gpsNotEnabled) {
             Log.i(LOG_TAG, "setLatLongLocation: " + gpsNotEnabled.getMessage());
         }
     }

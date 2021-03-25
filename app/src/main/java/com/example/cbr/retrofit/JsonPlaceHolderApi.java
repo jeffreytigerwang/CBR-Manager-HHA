@@ -82,9 +82,7 @@ public interface JsonPlaceHolderApi {
     @GET("api/users")
     Call<List<Users>> getUsers();
 
-    /*
-        New GET request
-     */
+    // New GET requests
 
     @GET("api/disability")
     Call<List<ClientDisability>> getClientDisability();
@@ -98,10 +96,7 @@ public interface JsonPlaceHolderApi {
     @GET("api/socialAspect")
     Call<List<ClientSocialAspect>> getClientSocialAspect();
 
-
-    /*
-        Referrals
-     */
+    // Referrals
 
     @POST("api/referrals")
     Call<ReferralInfo> createReferralInfo(@Body ReferralInfo referralInfo);

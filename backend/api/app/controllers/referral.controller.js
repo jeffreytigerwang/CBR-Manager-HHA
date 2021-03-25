@@ -127,7 +127,7 @@ exports.delete = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not referral with id=" + id
+        message: "Could not find referral with id=" + id
       });
     });
 };

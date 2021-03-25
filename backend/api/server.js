@@ -46,6 +46,7 @@ require("./app/routes/social_aspect.routes")(app);
 require("./app/routes/social_progress.routes")(app);
 require("./app/routes/disability.routes")(app);
 require("./app/routes/tutorials.routes")(app);
+require("./app/routes/referral.routes")(app);
 
 
 

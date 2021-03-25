@@ -120,7 +120,6 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
             latLongLocation = getString(R.string.lat_long_location,
                     locationUtil.getLatitude(), locationUtil.getLongitude());
             generalQuestionSetData.setVisitGpsLocation(latLongLocation);
-            Log.d(LOG_TAG, "latLongLocation=" + latLongLocation);
             locationUtil.stopUpdateService();
         } catch (CustomExceptions.GPSNotEnabled gpsNotEnabled) {
             Log.i(LOG_TAG, "setLatLongLocation: " + gpsNotEnabled.getMessage());
@@ -223,7 +222,6 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                                                  List<String> emptyHealthQuestions,
                                                  List<String> emptyEducationQuestions,
                                                  List<String> emptySocialQuestions) {
-        boolean isAllFilled;
 
         final boolean isHealthChecked = generalQuestionSetData.isHealthChecked();
         final boolean isEducationChecked = generalQuestionSetData.isEducationChecked();
@@ -233,12 +231,10 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         // 'if' statements (improve performance).
         // All is filled under the condition that the empty question lists are empty,
         // it can depend on whether health, education, or social is considered required.
-        isAllFilled = emptyGeneralQuestions.isEmpty()
+        return emptyGeneralQuestions.isEmpty()
                 && (!isHealthChecked || emptyHealthQuestions.isEmpty())
                 && (!isEducationChecked || emptyEducationQuestions.isEmpty())
                 && (!isSocialChecked || emptySocialQuestions.isEmpty());
-
-        return isAllFilled;
     }
 
     private void displayNumberEmpty(List<String> emptyQuestions) {

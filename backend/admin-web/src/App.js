@@ -31,12 +31,18 @@ class App extends Component {
                 Add
             </Typography>
             </Link>
+            <Link to={"/report"} className={classes.link}>
+              <Typography variant="body2">
+                Report
+            </Typography>
+            </Link>
           </Toolbar>
         </AppBar>
 
           <Switch>
             <Route exact path={["/", "/users"]} component={UsersList} />
             <Route exact path="/add" component={AddUser} />
+            <Route exact path="/report" component={Report} />
             <Route path="/users/:id" component={User} />
           </Switch>
       </div>

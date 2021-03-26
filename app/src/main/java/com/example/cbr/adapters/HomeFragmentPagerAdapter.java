@@ -7,7 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.cbr.fragments.DashboardPageFragment;
 import com.example.cbr.fragments.clientlist.ClientListFragment;
-import com.example.cbr.fragments.discussion.DiscussionFragment;
+import com.example.cbr.fragments.map.map;
 import com.example.cbr.fragments.home.HomePageFragment;
 import com.example.cbr.fragments.notification.NotificationFragment;
 
@@ -44,7 +44,7 @@ public class HomeFragmentPagerAdapter extends FragmentStateAdapter {
             case LIST_POSITION:
                 return ClientListFragment.newInstance();
             case DISCUSSION_POSITION:
-                return DiscussionFragment.newInstance();
+                return map.newInstance();
             case NOTIFICATION_POSITION:
                 return NotificationFragment.newInstance();
             default:

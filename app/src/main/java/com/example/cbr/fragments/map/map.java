@@ -1,4 +1,4 @@
-package com.example.cbr.fragments.discussion;
+package com.example.cbr.fragments.map;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,18 +11,18 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cbr.R;
 
-public class DiscussionFragment extends Fragment {
+public class map extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_dicussion, container, false);
+        return inflater.inflate(R.layout.fragment_map, container, false);
     }
 
-    public static DiscussionFragment newInstance() {
-        return new DiscussionFragment();
+    public static map newInstance() {
+        return new map();
     }
 
     public static String getFragmentTag() {
-        return DiscussionFragment.class.getSimpleName();
+        return map.class.getSimpleName();
     }
 }

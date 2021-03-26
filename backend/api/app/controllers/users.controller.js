@@ -16,10 +16,11 @@ exports.create = (req, res) => {
   const user = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    phone: req.body.phone,
+    phoneNumber: req.body.phoneNumber,
     password: req.body.password,
     priorityLevel: req.body.priorityLevel,
-    zone: req.body.zone
+    zones: req.body.zones,
+    userType: req.body.userType
   };
 
   // Save item in database
@@ -40,10 +41,24 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
   const firstName = req.query.firstName;
   const lastName = req.query.lastName;
-  var condition = firstName ? { firstName: { [Op.like]: `%${firstName}%` },
-                                lastName: { [Op.like]: `%${lastName}%` } } : null;
+  const name = req.query.name;
+
+  var condition;
+  if (firstName && lastName) {
+    condition = { [Op.and]: [{firstName: `${firstName}`},
+                             {lastName: `${lastName}`}] };
+  } else if (firstName) {
+    condition = { firstName: { [Op.like]: `%${firstName}%` }};
+  } else if (lastName) {
+    condition = { lastName: { [Op.like]: `%${lastName}%` }};
+  } else if (name) {
+    condition = { [Op.or]: [{firstName: `${name}`},
+                             {lastName: `${name}`}] };
+  } else { condition = null; }
+
   console.log('firstName: ' + firstName);
   console.log('lastName: ' + lastName);
+  console.log('name: ' + name);
   console.log('condition: ' + condition);
 
   Users.findAll({ where: condition })

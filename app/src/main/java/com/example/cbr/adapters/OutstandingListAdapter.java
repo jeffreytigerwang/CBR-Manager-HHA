@@ -10,23 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
-import com.example.cbr.fragments.TempHomeFragment.TempHomeFragmentInterface;
+import com.example.cbr.fragments.DashboardPageFragment.DashboardFragmentInterface;
 import com.example.cbr.models.ClientInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OutstandingListAdapter extends RecyclerView.Adapter<OutstandingListAdapter.ViewHolder>{
     private LayoutInflater inflater;
     private Context context;
     private List<ClientInfo> outstandingList;
-    private TempHomeFragmentInterface tempHomeFragmentInterface;
+    private DashboardFragmentInterface dashboardFragmentInterface;
 
 
-    public OutstandingListAdapter(Context context, ArrayList<ClientInfo> outstandingList, TempHomeFragmentInterface tempHomeFragmentInterface){
+    public OutstandingListAdapter(Context context, List<ClientInfo> outstandingList, DashboardFragmentInterface dashboardFragmentInterface){
         this.context = context;
         this.outstandingList = outstandingList;
-        this.tempHomeFragmentInterface = tempHomeFragmentInterface;
+        this.dashboardFragmentInterface = dashboardFragmentInterface;
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -63,14 +62,14 @@ public class OutstandingListAdapter extends RecyclerView.Adapter<OutstandingList
         //TODO: find way to show most critical risk level and last visit date
         public void bind(final ClientInfo clientInfo){
             nameText.setText(clientInfo.getFullName());
-            referralText.setText("Outstanding Referral");
+            referralText.setText(R.string.outstanding_referrals);
             locationText.setText(clientInfo.getZoneLocation());
-            dateText.setText("Last Visit: February 9, 2021");
+            dateText.setText(R.string.dummy_data_last_visit1);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tempHomeFragmentInterface.swapToClientPage(clientInfo);
+                    dashboardFragmentInterface.swapToClientPage(clientInfo);
                 }
             });
 

@@ -236,18 +236,18 @@
             android:layout_marginStart="8dp"
             android:text="@string/if_concluded_what_was_the_outcome_10"
             android:textColor="#000000"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <EditText
             android:id="@+id/newVisit_healthOutcomeEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:autofillHints="no"
             android:ems="18"
             android:hint="@string/description_max_100_characters_optional"
+            android:inputType="text"
             android:maxLength="100"
-            android:visibility="gone"
-            android:autofillHints="no"
-            android:inputType="text" />
+            android:visibility="visible" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

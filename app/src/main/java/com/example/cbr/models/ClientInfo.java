@@ -4,11 +4,13 @@ import com.example.cbr.util.Constants;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class ClientInfo implements Serializable {
+public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     private Boolean consentToInterview;
 
+    private Integer clientId;
     private String gpsLocation;
     private String zoneLocation;
     private String villageNumber;
@@ -45,10 +47,13 @@ public class ClientInfo implements Serializable {
     private String rateSocialStatus;
     private String describeSocialStatus;
     private String setGoalForSocialStatus;
+
+    private double overallRisk;
     
     public ClientInfo() {}
 
     public ClientInfo(boolean consentToInterview,
+                      Integer clientId,
                       String gpsLocation,
                       String zoneLocation,
                       String villageNumber,
@@ -80,6 +85,7 @@ public class ClientInfo implements Serializable {
                       String describeSocialStatus,
                       String setGoalForSocialStatus) {
         this.consentToInterview = consentToInterview;
+        this.clientId = clientId;
         this.gpsLocation = gpsLocation;
         this.zoneLocation = zoneLocation;
         this.villageNumber = villageNumber;
@@ -110,8 +116,24 @@ public class ClientInfo implements Serializable {
         this.rateSocialStatus = rateSocialStatus;
         this.describeSocialStatus = describeSocialStatus;
         this.setGoalForSocialStatus = setGoalForSocialStatus;
+        overallRisk = 0;
     }
 
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
+    }
+
+    public void setOverallRisk(double overallRisk){
+        this.overallRisk = overallRisk;
+    }
+
+    public double getOverallRisk(){
+        return overallRisk;
+    }
     public Boolean isConsentToInterview() {
         return consentToInterview;
     }
@@ -415,4 +437,38 @@ public class ClientInfo implements Serializable {
     public void setCaregiverPresentForInterview(Boolean caregiverPresentForInterview) {
         this.caregiverPresentForInterview = caregiverPresentForInterview;
     }
+
+    @Override
+    public int compareTo(ClientInfo clientInfo) {
+        return (int) (this.getOverallRisk() - clientInfo.getOverallRisk());
+    }
+
+    public static final Comparator<ClientInfo> BY_NAME_ASCENDING = new Comparator<ClientInfo>() {
+        @Override
+        public int compare(ClientInfo clientInfo, ClientInfo t1) {
+            return clientInfo.getFullName().compareTo(t1.getFullName());
+        }
+    };
+
+    public static final Comparator<ClientInfo> BY_NAME_DESCENDING = new Comparator<ClientInfo>() {
+        @Override
+        public int compare(ClientInfo clientInfo, ClientInfo t1) {
+            return t1.getFullName().compareTo(clientInfo.getFullName());
+        }
+    };
+
+    public static final Comparator<ClientInfo> BY_ID_ASCENDING = new Comparator<ClientInfo>() {
+        @Override
+        public int compare(ClientInfo clientInfo, ClientInfo t1) {
+            return clientInfo.getId().compareTo(t1.getId());
+        }
+    };
+
+    public static final Comparator<ClientInfo> BY_ID_DESCENDING = new Comparator<ClientInfo>() {
+        @Override
+        public int compare(ClientInfo clientInfo, ClientInfo t1) {
+            return t1.getId().compareTo(clientInfo.getId());
+        }
+    };
+
 }

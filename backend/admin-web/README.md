@@ -1,12 +1,13 @@
 # Coding Diary
 
 - Components work and UI loads
-- search function doesnt work
-- phone needs to be updated in master
-- need some padding with components
+- search function works
+- phone updated in master
+- Added padding with components
 - needs conditions checking
-- needs an 'active' property
+- needs an 'active' property in models
 - needs to remove all tutorials code
+- need to fix how ui looks
 
 # Admin Web Interface Info
 

@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
                 int checkPassword = 0;
 
                 for (Users users: userResponse) {
-                    if (users.getPhone().equals(phone)) {
+                    if (users.getPhoneNumber().equals(phone)) {
 
                         final String decryptPassword = AES.decrypt(users.getPassword());
 
@@ -141,13 +141,14 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
                             Users userInstance = Users.getInstance();
                             userInstance.setFirstName(users.getFirstName());
                             userInstance.setLastName(users.getLastName());
-                            userInstance.setPhone(phone);
+                            userInstance.setPhoneNumber(phone);
                             userInstance.setPassword(password);
 
                             Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
                             Intent intent = HomeActivity.makeIntent(MainActivity.this);
                             startActivity(intent);
+                            finish();
                         }
                     }
                 }
@@ -196,17 +197,19 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
     }
 
     @Override
-    public void applyInfo(String firstName, String lastName, String phone, String password, String confirmPassword) {
-        createUser(firstName, lastName, phone, password);
+    public void applyInfo(String firstName, String lastName, String phoneNumber, String zones, String userType, String password, String confirmPassword) {
+        createUser(firstName, lastName, phoneNumber, zones, userType, password);
     }
 
 
     // API call for registration users
-    private void createUser(String firstName, String lastName, String phone, String password) {
+    private void createUser(String firstName, String lastName, String phoneNumber, String zones, String userType, String password) {
         Users users = Users.getInstance();
         users.setFirstName(firstName);
         users.setLastName(lastName);
-        users.setPhone(phone);
+        users.setPhoneNumber(phoneNumber);
+        users.setZones(zones);
+        users.setUserType(userType);
         users.setPassword(password);
 
         Call<Users> call = jsonPlaceHolderApi.createUser(users);
@@ -223,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
                 Toast.makeText(MainActivity.this, "Register Successful", Toast.LENGTH_SHORT).show();
 
                 Users usersResponse = response.body();
-                edt_username.setText(usersResponse.getPhone());
+                edt_username.setText(usersResponse.getPhoneNumber());
             }
 
             @Override

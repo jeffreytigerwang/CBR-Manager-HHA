@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import UserDataService from "../services/user.service";
 
-import { TextField, Button, withStyles } from "@material-ui/core"
+import { TextField, Button, withStyles, Grid, Paper } from "@material-ui/core"
 import { styles } from "../css-common"
 
 class AddUser extends Component {
@@ -12,31 +12,39 @@ class AddUser extends Component {
         this.saveTutorial = this.saveTutorial.bind(this);
         this.newTutorial = this.newTutorial.bind(this);
 
-        this.onChangePhone = this.onChangePhone.bind(this);
+        this.onChangePhoneNumber = this.onChangePhoneNumber.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.saveUser = this.saveUser.bind(this);
         this.newUser = this.newUser.bind(this);
         this.onChangeFirstName = this.onChangeFirstName.bind(this);
         this.onChangeLastName = this.onChangeLastName.bind(this);
         this.onChangePriorityLevel = this.onChangePriorityLevel.bind(this);
-        this.onChangeZone = this.onChangeZone.bind(this);
+        this.onChangeZones = this.onChangeZones.bind(this);
+        this.onChangeUserType = this.onChangeUserType.bind(this);
 
 
         this.state = {
             id: null,
             firstName: "",
             lastName: "",
-            phone: "",
+            phoneNumber: "",
             password: "",
             priorityLevel: "",
-            zone: "",
+            userType: "",
+            zones: "",
             submitted: false
         };
     }
 
-    onChangeZone(e) {
+    onChangeZones(e) {
         this.setState({
-            zone: e.target.value
+            zones: e.target.value
+        });
+    }
+
+    onChangeUserType(e) {
+        this.setState({
+            userType: e.target.value
         });
     }
 
@@ -64,9 +72,9 @@ class AddUser extends Component {
         });
     }
 
-    onChangePhone(e) {
+    onChangePhoneNumber(e) {
         this.setState({
-            phone: e.target.value
+            phoneNumber: e.target.value
         });
     }
 
@@ -85,10 +93,11 @@ class AddUser extends Component {
         var data = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
-            phone: this.state.phone,
+            phoneNumber: this.state.phoneNumber,
             password: this.state.password,
             priorityLevel: this.state.priorityLevel,
-            zone: this.state.zone
+            zones: this.state.zones,
+            userType: this.state.userType
         };
 
         UserDataService.create(data)
@@ -96,11 +105,12 @@ class AddUser extends Component {
                 this.setState({
                     firstName: response.data.firstName,
                     lastName: response.data.lastName,
-                    phone: response.data.phone,
+                    phoneNumber: response.data.phoneNumber,
                     password: response.data.password,
                     priorityLevel: response.data.priorityLevel,
-                    zone: response.data.zone,
+                    zones: response.data.zones,
                     id: response.data.id,
+                    userType: response.userType,
 
                     submitted: true
                 });
@@ -116,10 +126,11 @@ class AddUser extends Component {
             id: null,
             firstName: "",
             lastName: "",
-            phone: "",
+            phoneNumber: "",
             password: "",
             priorityLevel: "",
-            zone: "",
+            zones: "",
+            userType: "",
 
             submitted: false
         });
@@ -164,6 +175,7 @@ class AddUser extends Component {
 
         return (
             <React.Fragment>
+            <Paper className={classes.listAddUser} style={{marginTop:"15px"}}>
                 {this.state.submitted ? (
                     <div className={classes.form}>
                         <h4>You submitted successfully!</h4>
@@ -177,6 +189,7 @@ class AddUser extends Component {
                     </div>
                 ) : (
                         <div className={classes.form}>
+                            <h2>Add a User</h2>
                             <div className={classes.textField}>
                                 <TextField
                                     label="First Name"
@@ -200,9 +213,9 @@ class AddUser extends Component {
                             <div className={classes.textField}>
                                 <TextField
                                     label="Phone Number"
-                                    name="phone"
-                                    value={this.state.phone}
-                                    onChange={this.onChangePhone}
+                                    name="phoneNumber"
+                                    value={this.state.phoneNumber}
+                                    onChange={this.onChangePhoneNumber}
                                     required
                                 />
                             </div>
@@ -219,20 +232,20 @@ class AddUser extends Component {
 
                             <div className={classes.textField}>
                                 <TextField
-                                    label="Priority Level"
-                                    name="priorityLevel"
-                                    value={this.state.priorityLevel}
-                                    onChange={this.onChangePriorityLevel}
+                                    label="User Type"
+                                    name="userType"
+                                    value={this.state.userType}
+                                    onChange={this.onChangeUserType}
                                     required
                                 />
                             </div>
 
                             <div className={classes.textField}>
                                 <TextField
-                                    label="Zone"
-                                    name="zone"
-                                    value={this.state.zone}
-                                    onChange={this.onChangeZone}
+                                    label="Zones"
+                                    name="zones"
+                                    value={this.state.zones}
+                                    onChange={this.onChangeZones}
                                     required
                                 />
                             </div>
@@ -245,11 +258,13 @@ class AddUser extends Component {
                                 size="small"
                                 color="primary"
                                 variant="contained"
+                                className={classes.searchBar}
                                 onClick={this.saveUser}>
                                 Submit
                             </Button>
                         </div>
                     )}
+            </Paper>
             </React.Fragment>
         );
     }

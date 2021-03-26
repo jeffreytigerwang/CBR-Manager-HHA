@@ -1,32 +1,35 @@
 package com.example.cbr.fragments.newvisit;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.cbr.R;
-import com.example.cbr.databinding.ActivityNewVisitBinding;
 import com.example.cbr.databinding.FragmentVisitFirstQuestionSetBinding;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.util.Constants;
+import com.example.cbr.util.CustomExceptions;
+import com.example.cbr.util.LocationUtil;
 import com.example.cbr.util.StringsUtil;
 
-/*
+/**
 * Initial fragment class to display general questions (7 questions)
 * */
 
@@ -34,11 +37,10 @@ public class VisitFirstQuestionSetFragment extends Fragment {
 
     private static final String LOG_TAG = "FirstQuestionSetFragment";
 
-    private final ActivityNewVisitBinding containerBinding;
     private FragmentVisitFirstQuestionSetBinding binding;
 
     private final VisitGeneralQuestionSetData dataContainer;
-    private final Context parentContext;
+    private final Context context;
     private FragmentActivity activity;
 
     private CheckBox health;
@@ -52,14 +54,10 @@ public class VisitFirstQuestionSetFragment extends Fragment {
 
     private RadioGroup questionOne;
     private Spinner spinnerLocation;
-    private TextView question2;
 
-    public VisitFirstQuestionSetFragment(
-            ActivityNewVisitBinding containerBinding,
-            VisitGeneralQuestionSetData dataContainer, Context parentContext) {
-        this.containerBinding = containerBinding;
+    public VisitFirstQuestionSetFragment(VisitGeneralQuestionSetData dataContainer, Context context) {
         this.dataContainer = dataContainer;
-        this.parentContext = parentContext;
+        this.context = context;
     }
 
     @Override
@@ -70,12 +68,57 @@ public class VisitFirstQuestionSetFragment extends Fragment {
 
         preLoadViews();
 
+        requestLocationPermissions();
+
         setupRadioGroup();
         setupCheckBox();
         setupSpinner();
 
         return binding.getRoot();
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == Constants.LOCATION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                setLatLongLocation();
+            } else {
+                Toast.makeText(context, R.string.location_permission_not_granted,
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void requestLocationPermissions() {
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED
+                &&
+                ActivityCompat.checkSelfPermission(context,
+                        Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity,
+                    new String[] {Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION}, Constants.LOCATION_REQUEST_CODE);
+        } else {
+            setLatLongLocation();
+        }
+    }
+
+    private void setLatLongLocation() {
+        try {
+            LocationUtil locationUtil = new LocationUtil(context);
+            String latLongLocation = getString(R.string.lat_long_location,
+                    locationUtil.getLatitude(), locationUtil.getLongitude());
+            Log.d(LOG_TAG, "onRequestPermissionsResult: latLongLocation=" + latLongLocation);
+            location.setText(latLongLocation);
+            locationUtil.stopUpdateService();
+        } catch (CustomExceptions.GPSNotEnabled gpsNotEnabled) {
+            Log.i(LOG_TAG, "onRequestPermissionsResult: " + gpsNotEnabled.getMessage());
+        }
+    }
+
 
     private void preLoadViews() {
         findViews();
@@ -98,13 +141,11 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         education = binding.newVisitEducationCheckBox;
         social = binding.newVisitSocialCheckBox;
 
-        question2 = binding.newVisitQ2TextView;
-
         spinnerLocation = binding.newVisitLocationSpinner;
     }
 
     private void setupSpinner() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 activity,
                 android.R.layout.simple_spinner_item,
                 getResources().getStringArray(R.array.zone_locations_array)
@@ -140,73 +181,32 @@ public class VisitFirstQuestionSetFragment extends Fragment {
         questionOne.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                resetQuestionTwo();
-
                 if (checkedId == R.id.newVisit_CBRRadioButton) {
                     dataContainer.setPurposeOfVisit(Constants.CBR);
 
-                    int unlockedColor = ContextCompat.getColor(parentContext, R.color.black);
-                    toggleQuestionTwo(unlockedColor, true);
-                    toggleRecordButton(View.VISIBLE, View.GONE);
-
                 } else if (checkedId == R.id.newVisit_DCRradioButton) {
                     dataContainer.setPurposeOfVisit(Constants.DCR);
-                    toggleRecordButton(View.GONE, View.VISIBLE);
 
                 } else if (checkedId == R.id.newVisit_DCRFURadioButton) {
                     dataContainer.setPurposeOfVisit(Constants.DCRFU);
-                    toggleRecordButton(View.GONE, View.VISIBLE);
                 }
             }
         });
     }
 
-    private void toggleRecordButton(int nextVisibility, int recordVisibility) {
-        Button next = containerBinding.newVisitNextButton;
-        Button record = containerBinding.newVisitRecordButton;
-
-        next.setVisibility(nextVisibility);
-        record.setVisibility(recordVisibility);
+    public String getDate() {
+        return date.getText().toString();
     }
 
-
-    private void toggleQuestionTwo(int color, boolean toggle) {
-        question2.setTextColor(color);
-        health.setTextColor(color);
-        education.setTextColor(color);
-        social.setTextColor(color);
-
-        health.setClickable(toggle);
-        education.setClickable(toggle);
-        social.setClickable(toggle);
+    public String getCbrWorkerName() {
+        return cbrWorkerName.getText().toString();
     }
 
-    private void resetQuestionTwo() {
-        int lockedColor = ContextCompat.getColor(parentContext, R.color.colorLocked);
-        toggleQuestionTwo(lockedColor, false);
-
-        health.setChecked(false);
-        education.setChecked(false);
-        social.setChecked(false);
-
-        dataContainer.setHealthChecked(false);
-        dataContainer.setEducationChecked(false);
-        dataContainer.setSocialChecked(false);
+    public String getLocation() {
+        return location.getText().toString();
     }
 
-    public EditText getDate() {
-        return date;
-    }
-
-    public EditText getCbrWorkerName() {
-        return cbrWorkerName;
-    }
-
-    public EditText getLocation() {
-        return location;
-    }
-
-    public EditText getVillageNumber() {
-        return villageNumber;
+    public String getVillageNumber() {
+        return villageNumber.getText().toString();
     }
 }

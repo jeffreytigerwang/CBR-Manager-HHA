@@ -30,6 +30,10 @@ public class Constants {
             "Low risk"));
     public static final String AES_KEY = "Bar12345Bar12345";
 
+    public static final int CAMERA_PERMISSION_CODE = 101;
+    public static final int CAMERA_REQUEST_CODE = 102;
+    public static final int LOCATION_REQUEST_CODE = 103;
+
     // Disabilities
     public static String AMPUTEE_DISABILITY = "Amputee";
     public static String POLIO_DISABILITY = "Polio";

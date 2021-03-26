@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="12dp">
@@ -10,7 +8,8 @@
         android:id="@+id/imageView"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginEnd="8dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -22,7 +21,7 @@
             android:id="@+id/dashboard_priorityListName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:text="@string/name"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -30,21 +29,21 @@
             android:id="@+id/dashboard_priorityListRisk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Risk"
+            android:text="@string/risk"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/dashboard_priorityListLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Location"
+            android:text="@string/location"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/dashboard_priorityListDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date"
+            android:text="@string/date"
             android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

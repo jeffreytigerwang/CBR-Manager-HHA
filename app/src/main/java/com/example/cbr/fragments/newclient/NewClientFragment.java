@@ -1,6 +1,11 @@
 package com.example.cbr.fragments.newclient;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentNewclientBinding;
@@ -23,16 +30,18 @@ import com.example.cbr.models.ClientSocialAspect;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.http.Field;
 
-import java.util.concurrent.ThreadLocalRandom;
+import static android.app.Activity.RESULT_OK;
+import static com.example.cbr.util.Constants.CAMERA_PERMISSION_CODE;
+import static com.example.cbr.util.Constants.CAMERA_REQUEST_CODE;
 
 public class NewClientFragment extends BaseFragment implements NewClientContract.View {
-
     private int clientId;
 
     private FragmentNewclientBinding binding;
@@ -62,6 +71,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         populateRateClientHealthSpinner();
         populateRateClientEducationSpinner();
         populateRateClientSocialStatusSpinner();
+        setupCameraButton();
         setupRecordClientButton();
         return binding.getRoot();
     }
@@ -93,6 +103,48 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.client_ratings_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+    }
+
+    private void setupCameraButton() {
+        Button button = binding.newClientCameraButton;
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setupCameraPermissions();
+            }
+        });
+    }
+
+    private void setupCameraPermissions() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+        } else {
+            takePicture();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                takePicture();
+            } else {
+                Toast.makeText(getActivity(), "Camera Permission is Required to Use the Camera", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void takePicture() {
+        Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(camera, CAMERA_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+            Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+            binding.newClientPhotoOfClientImageView.setImageBitmap(imageBitmap);
+        }
     }
 
     private void setupRecordClientButton() {

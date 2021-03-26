@@ -5,12 +5,15 @@ import com.example.cbr.models.ClientEducationAspect;
 import com.example.cbr.models.ClientHealthAspect;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ClientSocialAspect;
+import com.example.cbr.models.VisitGeneralQuestionSetData;
+import com.example.cbr.models.VisitSocialQuestionSetData;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -54,9 +57,9 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
 
         for(ClientInfo clientInfo : priorityList) {
             double overallRisk = 0;
-            overallRisk += overallRiskMap.get(clientInfo.getRateEducation()) +
-                    overallRiskMap.get(clientInfo.getRateHealth()) +
-                    overallRiskMap.get(clientInfo.getRateSocialStatus());
+            overallRisk += overallRiskMap.getOrDefault(clientInfo.getRateEducation(), 0.0) +
+                    overallRiskMap.getOrDefault(clientInfo.getRateHealth(), 0.0) +
+                    overallRiskMap.getOrDefault(clientInfo.getRateSocialStatus(), 0.0);
             clientInfo.setOverallRisk(overallRisk);
         }
         Collections.sort(priorityList);
@@ -121,6 +124,34 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
             clientInfo.setSetGoalForSocialStatus(clientSocialAspectList.get(i).getSetGoalForSocialStatus());
 
         }
+
+    }
+
+    @Override
+    public List<String> getDatesOfLastVisits(List<ClientInfo> clientInfoList) throws IOException {
+
+        List<String> dates = new ArrayList<>();
+        Call<List<VisitGeneralQuestionSetData>> call = jsonPlaceHolderApi.getVisitGeneralQuestionSetData();
+        Response<List<VisitGeneralQuestionSetData>> response = call.execute();
+        List<VisitGeneralQuestionSetData> visits = response.body();
+
+        for(ClientInfo client : clientInfoList) {
+            Date dateOfLastVisit = new Date(Long.MIN_VALUE);
+            for(VisitGeneralQuestionSetData visit : visits) {
+                if(client.getClientId().equals(visit.getClientId())) {
+                    if(dateOfLastVisit.before(visit.getDateOfVisit())) {
+                        dateOfLastVisit = visit.getDateOfVisit();
+                    }
+                }
+            }
+            if(dateOfLastVisit.equals(new Date(Long.MIN_VALUE))) {
+                dates.add(client.getDateJoined());
+            } else {
+                dates.add(String.valueOf(dateOfLastVisit));
+            }
+        }
+
+        return dates;
 
     }
 }

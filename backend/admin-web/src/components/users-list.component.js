@@ -146,7 +146,9 @@ class UsersList extends Component {
                   ))}
               </div>
               </Grid>
-              {/*
+
+              {/* TODO: Implement in with alert to stop admin from deleting data
+                too easily
               <Button
                 className={`${classes.button} ${classes.removeAll}`}
                 size="small"

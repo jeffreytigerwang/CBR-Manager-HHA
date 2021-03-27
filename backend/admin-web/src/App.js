@@ -11,19 +11,6 @@ import UsersList from "./components/users-list.component";
 import { AppBar, Toolbar, Typography, withStyles, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-/*
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-}));
-*/
-
 class App extends Component {
   render() {
     const { classes } = this.props

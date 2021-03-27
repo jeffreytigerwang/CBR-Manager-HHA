@@ -15,7 +15,6 @@ class User extends Component {
         this.onChangeLastName = this.onChangeLastName.bind(this);
         this.onChangePhoneNumber = this.onChangePhoneNumber.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
-        //this.onChangePriorityLevel = this.onChangePriorityLevel.bind(this);
         this.onChangeZones = this.onChangeZones.bind(this);
         this.onChangeUserType = this.onChangeUserType.bind(this);
         this.getUser = this.getUser.bind(this);

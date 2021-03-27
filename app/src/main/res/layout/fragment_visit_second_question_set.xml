@@ -9,7 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/newVisit_Q8TextView"
@@ -111,7 +112,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/referral_to_health_centre" />
+            android:text="@string/referral_to_health_centre"
+            android:layout_marginLeft="16dp" />
 
         <EditText
             android:id="@+id/newVisit_healthReferralToHCEditText"
@@ -123,14 +125,16 @@
             android:maxLength="100"
             android:visibility="gone"
             android:autofillHints="no"
-            android:inputType="text" />
+            android:inputType="text"
+            android:layout_marginLeft="8dp" />
 
         <CheckBox
             android:id="@+id/newVisit_healthAdviceCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/advice" />
+            android:text="@string/advice"
+            android:layout_marginLeft="16dp" />
 
         <EditText
             android:id="@+id/newVisit_healthAdviceEditText"
@@ -142,14 +146,16 @@
             android:maxLength="100"
             android:visibility="gone"
             android:autofillHints="no"
-            android:inputType="text" />
+            android:inputType="text"
+            android:layout_marginLeft="8dp" />
 
         <CheckBox
             android:id="@+id/newVisit_healthAdvocacyCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/advocacy" />
+            android:text="@string/advocacy"
+            android:layout_marginLeft="16dp" />
 
         <EditText
             android:id="@+id/newVisit_healthAdvocacyEditText"
@@ -161,14 +167,16 @@
             android:maxLength="100"
             android:visibility="gone"
             android:autofillHints="no"
-            android:inputType="text" />
+            android:inputType="text"
+            android:layout_marginLeft="8dp" />
 
         <CheckBox
             android:id="@+id/newVisit_healthEncouragementCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/encouragement" />
+            android:text="@string/encouragement"
+            android:layout_marginLeft="16dp" />
 
         <EditText
             android:id="@+id/newVisit_healthEncouragementEditText"

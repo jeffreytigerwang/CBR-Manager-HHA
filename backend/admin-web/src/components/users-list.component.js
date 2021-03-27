@@ -131,7 +131,7 @@ class UsersList extends Component {
           <Grid item sm={4}>
             <Paper Grid container direction="column" justify="center"
             alignItems="center">
-              <Grid item><h2>Users List</h2></Grid>
+              <Grid item><h2>Users List</h2>
               <div className="listGroup">
                 {users &&
                   users.map((user, index) => (
@@ -145,7 +145,10 @@ class UsersList extends Component {
                     </ListItem>
                   ))}
               </div>
-              {/*
+              </Grid>
+
+              {/* TODO: Implement in with alert to stop admin from deleting data
+                too easily
               <Button
                 className={`${classes.button} ${classes.removeAll}`}
                 size="small"

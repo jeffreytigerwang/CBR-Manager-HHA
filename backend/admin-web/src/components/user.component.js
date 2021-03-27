@@ -45,46 +45,74 @@ class User extends Component {
     }
 
     onChangeFirstName(e) {
-        this.setState({
-            firstName: e.target.value
+        const firstName = e.target.value;
+        this.setState(function (prevState) {
+            return {
+                currentUser: {
+                    ...prevState.currentUser,
+                    firstName: firstName
+                }
+            };
         });
     }
 
     onChangeLastName(e) {
-        this.setState({
-            lastName: e.target.value
+        const lastName = e.target.value;
+        this.setState(function (prevState) {
+            return {
+                currentUser: {
+                    ...prevState.lastName,
+                    lastName: lastName
+                }
+            };
         });
     }
 
     onChangeZones(e) {
-        this.setState({
-            zones: e.target.value
+        const zones = e.target.value;
+        this.setState(function (prevState) {
+            return {
+                currentUser: {
+                    ...prevState.zones,
+                    zones: zones
+                }
+           };
         });
     }
-
-/*
-    onChangePriorityLevel(e) {
-        this.setState({
-            priorityLevel: e.target.value
-        });
-    }
-*/
 
     onChangePassword(e) {
-        this.setState({
-            password: e.target.value
+        const password = e.target.value;
+        this.setState(function (prevState) {
+            return {
+                currentUser: {
+                    ...prevState.password,
+                    password: password
+                }
+            };
         });
     }
 
     onChangePhoneNumber(e) {
-        this.setState({
-            phoneNumber: e.target.value
+        const phoneNumber = e.target.value;
+        this.setState(function (prevState) {
+            return {
+                currentUser: {
+                    ...prevState.phoneNumber,
+                    phoneNumber: phoneNumber
+                }
+            };
         });
     }
 
     onChangeUserType(e) {
-        this.setState({
-            userType: e.target.value
+        const userType = e.target.value;
+        this.setState(function (prevState) {
+            return {
+                currentUser: {
+                    ...prevState.userType,
+                    userType: userType
+                }
+            };
         });
     }
 

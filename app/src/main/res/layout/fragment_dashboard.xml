@@ -4,9 +4,66 @@
     android:id="@+id/fragmentHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/listbackground">
+    android:background="@drawable/gradient_background">
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/dashboard_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:padding="16dp"
+            android:text="@string/dashboard"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:background="@drawable/star_pattern"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="175dp"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <Button
+                android:id="@+id/dashboard_newClientButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/cbrViolet"
+                android:fontFamily="sans-serif"
+                android:text="@string/new_client"
+                android:textSize="14sp"
+                android:layout_centerVertical="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dashboard_syncButton"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/dashboard_syncButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/cbrViolet"
+                android:fontFamily="sans-serif"
+                android:text="@string/sync"
+                android:textSize="14sp"
+                android:layout_marginLeft="130dp"
+                android:layout_centerVertical="true"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <!--TextView
         android:id="@+id/dashboard_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,6 +90,7 @@
         android:text="@string/new_client"
         android:textSize="14sp"
         android:fontFamily="sans-serif"
+        android:backgroundTint="@color/cbrViolet"
         app:layout_constraintBottom_toTopOf="@+id/dashboard_constraintContainer"
         app:layout_constraintEnd_toStartOf="@+id/dashboard_syncButton"
         app:layout_constraintTop_toTopOf="parent"
@@ -49,20 +107,22 @@
         android:text="@string/sync"
         android:textSize="14sp"
         android:fontFamily="sans-serif"
+        android:backgroundTint="@color/cbrViolet"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/dashboard_constraintContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        android:layout_marginRight="16dp" />
+        android:layout_marginRight="16dp" /-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/dashboard_constraintContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@drawable/rounded_white_cube"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dashboard_title"
+        app:layout_constraintTop_toBottomOf="@id/top"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
@@ -85,6 +145,7 @@
             android:id="@+id/dashboard_priorityList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:paddingHorizontal="16dp"
             app:layout_constraintBottom_toTopOf="@+id/dashboard_outstandingTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -111,6 +172,7 @@
             android:id="@+id/dashboard_outstandingList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:paddingHorizontal="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

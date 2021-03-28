@@ -4,16 +4,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
 import com.example.cbr.adapters.questioninfoadapters.DiscussionAdapter;
 import com.example.cbr.models.Messages;
+import com.example.cbr.models.Users;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 
@@ -24,6 +28,7 @@ import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
@@ -38,6 +43,11 @@ public class DiscussionFragment extends Fragment {
 
     private ArrayList<Messages> messagesArrayList;
     private ArrayList<Integer> imgDrawableId;
+    private Messages newRefreshMessage;
+
+    private Users user;
+    private EditText discussion_sendText;
+    private Button discussion_sendButton;
 
     private DiscussionAdapter adapter;
 
@@ -46,6 +56,12 @@ public class DiscussionFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_dicussion, container, false);
         discussionRecyclerView = (RecyclerView) view.findViewById(R.id.discussion_recycleReview);
+
+        user = Users.getInstance();
+        discussion_sendText = (EditText) view.findViewById(R.id.discussion_sendText);
+        discussion_sendButton = (Button) view.findViewById(R.id.discussion_sendButton);
+
+        setSendButton();
 
         // Init Retrofit & NodeJs stuff
         retrofit = RetrofitInit.getInstance();
@@ -68,6 +84,21 @@ public class DiscussionFragment extends Fragment {
         return view;
     }
 
+    private void setSendButton() {
+        discussion_sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createMessages();
+                discussion_sendText.getText().clear();
+
+                messagesArrayList.add(newRefreshMessage);
+
+                adapter = new DiscussionAdapter(getActivity(), messagesArrayList);
+                discussionRecyclerView.setAdapter(adapter);
+            }
+        });
+    }
+
     public static DiscussionFragment newInstance() {
         return new DiscussionFragment();
     }
@@ -78,6 +109,8 @@ public class DiscussionFragment extends Fragment {
 
 
     private void getMessage() throws IOException {
+        messagesArrayList = new ArrayList<>();
+
         Call<List<Messages>> callMessages = jsonPlaceHolderApi.getMessages();
 
         Response<List<Messages>> responseMessages = callMessages.execute();
@@ -104,11 +137,38 @@ public class DiscussionFragment extends Fragment {
             messagesArrayList.add(newMessage);
         }
 
-        for (int i = 0; i < messagesList.size(); i++) {
-            System.out.println("firstName " + messagesArrayList.get(i).getFirstName());
-            System.out.println("lastName " + messagesArrayList.get(i).getLastName());
-            System.out.println("message " + messagesArrayList.get(i).getMessage());
-        }
+    }
+
+
+    private void createMessages()  {
+
+        Date currentDate = Calendar.getInstance().getTime();
+
+        Messages message = new Messages();
+        message.setUserId(user.getId());
+        message.setFirstName(user.getFirstName());
+        message.setLastName(user.getLastName());
+        message.setMessage(discussion_sendText.getText().toString());
+        message.setPostDate(currentDate);
+
+        this.newRefreshMessage = message;
+        newRefreshMessage.setImg(R.drawable.discussion_sample_avatar_6);
+
+        Call<Messages> call = jsonPlaceHolderApi.createMessages(message);
+
+        call.enqueue(new Callback<Messages>() {
+            @Override
+            public void onResponse(Call<Messages> call, Response<Messages> response) {
+                if (!response.isSuccessful()) {
+                    return;
+                }
+                Messages messagesResponse = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<Messages> call, Throwable t) {
+            }
+        });
     }
 
     private void setImgDrawableId() {

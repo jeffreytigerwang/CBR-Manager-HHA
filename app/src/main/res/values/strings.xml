@@ -221,5 +221,20 @@
     <string name="name">Name</string>
     <string name="risk">Risk</string>
     <string name="referral">Referral</string>
+    <string name="must_consent_to_interview">Must consent to interview</string>
+    <string name="first_name_cannot_be_empty">First name cannot be empty</string>
+    <string name="last_name_cannot_be_empty">Last name cannot be empty</string>
+    <string name="age_cannot_be_empty">Age cannot be empty</string>
+    <string name="gender_cannot_be_empty">Gender cannot be empty</string>
+    <string name="village_number_cannot_be_empty">Village number cannot be empty</string>
+    <string name="health_description_cannot_be_empty">Health description cannot be empty</string>
+    <string name="health_goal_cannot_be_empty">Health goal cannot be empty</string>
+    <string name="education_description_cannot_be_empty">Education description cannot be empty</string>
+    <string name="education_goal_cannot_be_empty">Education goal cannot be empty</string>
+    <string name="social_status_description_cannot_be_empty">Social status description cannot be empty</string>
+    <string name="social_status_goal_cannot_be_empty">Social status goal cannot be empty</string>
+    <string name="caregiver_first_name_cannot_be_empty">Caregiver first name cannot be empty</string>
+    <string name="caregiver_last_name_cannot_be_empty">Caregiver last name cannot be empty</string>
+    <string name="other_disability_description_cannot_be_empty">Other disability description cannot be empty</string>
 
 </resources>

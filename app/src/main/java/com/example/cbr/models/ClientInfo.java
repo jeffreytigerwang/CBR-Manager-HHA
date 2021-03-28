@@ -3,25 +3,27 @@ package com.example.cbr.models;
 import com.example.cbr.util.Constants;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClientInfo implements Serializable, Comparable<ClientInfo>{
+    private String id;
     private boolean consentToInterview;
+    private String firstName;
+    private String lastName;
+    private Integer age;
+    private String gender;
+    private String contactNumber;
+    private String dateJoined;
     private String gpsLocation;
     private String zoneLocation;
     private String villageNumber;
-    private String dateJoined;
-    private String firstName;
-    private String lastName;
-    private String gender;
-    private String id;
-    private Integer age;
-    private String contactNumber;
     private boolean caregiverPresentForInterview;
     private String caregiverFirstName;
     private String caregiverLastName;
     private String caregiverContactNumber;
+    private Blob image;
     private boolean amputeeDisability;
     private boolean polioDisability;
     private boolean spinalCordInjuryDisability;
@@ -121,10 +123,6 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         return overallRisk;
     }
 
-    public boolean isConsentToInterview() {
-        return consentToInterview;
-    }
-
     public String getGpsLocation() {
         return gpsLocation;
     }
@@ -164,30 +162,26 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         return contactNumber;
     }
 
-    public Boolean isCaregiverPresentForInterview() {
-        return caregiverPresentForInterview;
-    }
-
     public String getCaregiverContactNumber() {
         return caregiverContactNumber;
     }
 
     public List<String> getDisabilityList() {
         List<String> disabilityList = new ArrayList<>();
-        if (isDoNotKnowDisability()) {
+        if (getDoNotKnowDisability()) {
             disabilityList.add(Constants.UNKNOWN_DISABILITY);
             return disabilityList;
         }
 
-        if (isAmputeeDisability()) disabilityList.add(Constants.AMPUTEE_DISABILITY);
-        if (isPolioDisability()) disabilityList.add(Constants.POLIO_DISABILITY);
-        if (isSpinalCordInjuryDisability()) disabilityList.add(Constants.SPINAL_CORD_INJURY_DISABILITY);
-        if (isCerebralPalsyDisability()) disabilityList.add(Constants.CEREBRAL_PALSY_DISABILITY);
-        if (isSpinaBifidaDisability()) disabilityList.add(Constants.SPINA_BIFIDA_DISABILITY);
-        if (isHydrocephalusDisability()) disabilityList.add(Constants.HYDROCEPHALUS_DISABILITY);
-        if (isVisualImpairmentDisability()) disabilityList.add(Constants.VISUAL_IMPAIRMENT_DISABILITY);
-        if (isHearingImpairmentDisability()) disabilityList.add(Constants.HEARING_IMPAIRMENT_DISABILITY);
-        if (isOtherDisability()) disabilityList.add(Constants.OTHER_DISABILITY);
+        if (getAmputeeDisability()) disabilityList.add(Constants.AMPUTEE_DISABILITY);
+        if (getPolioDisability()) disabilityList.add(Constants.POLIO_DISABILITY);
+        if (getSpinalCordInjuryDisability()) disabilityList.add(Constants.SPINAL_CORD_INJURY_DISABILITY);
+        if (getCerebralPalsyDisability()) disabilityList.add(Constants.CEREBRAL_PALSY_DISABILITY);
+        if (getSpinaBifidaDisability()) disabilityList.add(Constants.SPINA_BIFIDA_DISABILITY);
+        if (getHydrocephalusDisability()) disabilityList.add(Constants.HYDROCEPHALUS_DISABILITY);
+        if (getVisualImpairmentDisability()) disabilityList.add(Constants.VISUAL_IMPAIRMENT_DISABILITY);
+        if (getHearingImpairmentDisability()) disabilityList.add(Constants.HEARING_IMPAIRMENT_DISABILITY);
+        if (getOtherDisability()) disabilityList.add(Constants.OTHER_DISABILITY);
 
         return disabilityList;
     }
@@ -196,43 +190,43 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         return getDisabilityList().toString().replace("[", "").replace("]", "");
     }
 
-    public boolean isAmputeeDisability() {
+    public boolean getAmputeeDisability() {
         return amputeeDisability;
     }
 
-    public boolean isPolioDisability() {
+    public boolean getPolioDisability() {
         return polioDisability;
     }
 
-    public boolean isSpinalCordInjuryDisability() {
+    public boolean getSpinalCordInjuryDisability() {
         return spinalCordInjuryDisability;
     }
 
-    public boolean isCerebralPalsyDisability() {
+    public boolean getCerebralPalsyDisability() {
         return cerebralPalsyDisability;
     }
 
-    public boolean isSpinaBifidaDisability() {
+    public boolean getSpinaBifidaDisability() {
         return spinaBifidaDisability;
     }
 
-    public boolean isHydrocephalusDisability() {
+    public boolean getHydrocephalusDisability() {
         return hydrocephalusDisability;
     }
 
-    public boolean isVisualImpairmentDisability() {
+    public boolean getVisualImpairmentDisability() {
         return visualImpairmentDisability;
     }
 
-    public boolean isHearingImpairmentDisability() {
+    public boolean getHearingImpairmentDisability() {
         return hearingImpairmentDisability;
     }
 
-    public boolean isDoNotKnowDisability() {
+    public boolean getDoNotKnowDisability() {
         return doNotKnowDisability;
     }
 
-    public boolean isOtherDisability() {
+    public boolean getOtherDisability() {
         return otherDisability;
     }
 
@@ -412,10 +406,6 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         return consentToInterview;
     }
 
-    public void setConsentToInterview(Boolean consentToInterview) {
-        this.consentToInterview = consentToInterview;
-    }
-
     public Boolean getCaregiverPresentForInterview() {
         return caregiverPresentForInterview;
     }
@@ -426,10 +416,6 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
 
     public void setCaregiverFirstName(String caregiverFirstName) {
         this.caregiverFirstName = caregiverFirstName;
-    }
-
-    public String getCaregiverLastName() {
-        return caregiverLastName;
     }
 
     public void setCaregiverLastName(String caregiverLastName) {
@@ -443,6 +429,11 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     public void setDescribeOtherDisability(String describeOtherDisability) {
         this.describeOtherDisability = describeOtherDisability;
     }
+
+    public String getCaregiverLastName() {
+        return caregiverLastName;
+    }
+
     @Override
     public int compareTo(ClientInfo clientInfo) {
         return (int) (this.getOverallRisk() - clientInfo.getOverallRisk());

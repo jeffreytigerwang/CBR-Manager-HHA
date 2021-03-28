@@ -26,6 +26,7 @@ import com.example.cbr.models.ClientInfo;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 import com.example.cbr.util.StringsUtil;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -158,7 +159,14 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                     } else if (questionText.equals(getString(R.string.last_name))) {
                         clientInfo.setLastName(userInput);
                     } else if (questionText.equals(getString(R.string.age))) {
-                        clientInfo.setAge(Integer.parseInt(userInput));
+                        // If the user enters a number then deletes it, the app will crash
+                        if (userInput != null) {
+                            if (userInput.equals("")) {
+                                clientInfo.setAge(-1);
+                            } else {
+                                clientInfo.setAge(Integer.parseInt(userInput));
+                            }
+                        }
                     } else if (questionText.equals(getString(R.string.contact_number))) {
                         clientInfo.setContactNumber(userInput);
                     }
@@ -425,9 +433,11 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
             @Override
             public void onClick(View v) {
                 if (binding.newClientPageViewPager.getCurrentItem() == newClientFragmentAdapter.getItemCount() - 1) {
-                    getActivity().getSupportFragmentManager().popBackStack();
-                    // Call error checking functions
+                    boolean isAllFilled = isAllRequiredQuestionsFilled();
+
                     // Make API call to database
+
+//                    getActivity().getSupportFragmentManager().popBackStack();
                 }
                 binding.newClientPageViewPager.setCurrentItem(binding.newClientPageViewPager.getCurrentItem() + 1);
             }
@@ -444,6 +454,99 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         });
     }
 
+    private boolean isAllRequiredQuestionsFilled() {
+        final boolean isConsentChecked = clientInfo.getConsentToInterview();
+        final String firstName = clientInfo.getFirstName();
+        final String lastName = clientInfo.getLastName();
+        final Integer age = clientInfo.getAge();
+        final String gender = clientInfo.getGender();
+        final String villageNumber = clientInfo.getVillageNumber();
+        final boolean isCaregiverPresent = clientInfo.getCaregiverPresentForInterview();
+        final String caregiverFirstName = clientInfo.getCaregiverFirstName();
+        final String caregiverLastName = clientInfo.getCaregiverLastName();
+        final boolean isOtherDisabilityChecked = clientInfo.getOtherDisability();
+        final String describeOtherDisability = clientInfo.getDescribeOtherDisability();
+        final String describeHealth = clientInfo.getDescribeHealth();
+        final String healthGoal = clientInfo.getSetGoalForHealth();
+        final String describeEducation = clientInfo.getDescribeEducation();
+        final String educationGoal = clientInfo.getSetGoalForEducation();
+        final String describeSocialStatus = clientInfo.getDescribeSocialStatus();
+        final String socialStatusGoal = clientInfo.getSetGoalForSocialStatus();
+
+        // Error checking for the consent page
+        if (!isConsentChecked) {
+            showOkDialog(getString(R.string.missing_fields), getString(R.string.must_consent_to_interview), null);
+            return false;
+        }
+
+        // Error checking for the Basic Info page
+        if (isStringFieldNull(firstName, getString(R.string.first_name_cannot_be_empty)) ||
+            isStringFieldNull(lastName, getString(R.string.last_name_cannot_be_empty)))
+        {
+            return false;
+        }
+
+        if (age == -1) {
+            showOkDialog(getString(R.string.missing_fields), getString(R.string.age_cannot_be_empty), null);
+            return false;
+        }
+
+        if (isStringFieldNull(gender, getString(R.string.gender_cannot_be_empty))) {
+            return false;
+        }
+
+        // Error checking for the Location Info page
+        if (isStringFieldNull(villageNumber, getString(R.string.village_number_cannot_be_empty))) {
+            return false;
+        }
+
+        // Error checking for the Caregiver Info page
+        if (isCaregiverPresent) {
+            if (isStringFieldNull(caregiverFirstName, getString(R.string.caregiver_first_name_cannot_be_empty)) ||
+                    isStringFieldNull(caregiverLastName, getString(R.string.caregiver_last_name_cannot_be_empty)))
+            {
+                return false;
+            }
+        }
+
+        // Error checking for the Type of Disability page
+        if (isOtherDisabilityChecked) {
+            if (isStringFieldNull(describeOtherDisability, getString(R.string.other_disability_description_cannot_be_empty))) {
+                return false;
+            }
+        }
+
+        // Error checking for the Health page
+        if (isStringFieldNull(describeHealth, getString(R.string.health_description_cannot_be_empty)) ||
+            isStringFieldNull(healthGoal, getString(R.string.health_goal_cannot_be_empty)))
+        {
+            return false;
+        }
+
+        // Error checking for the Education page
+        if (isStringFieldNull(describeEducation, getString(R.string.education_description_cannot_be_empty)) ||
+            isStringFieldNull(educationGoal, getString(R.string.education_goal_cannot_be_empty)))
+        {
+            return false;
+        }
+
+        // Error checking for the Social Status page
+        if (isStringFieldNull(describeSocialStatus, getString(R.string.social_status_description_cannot_be_empty)) ||
+            isStringFieldNull(socialStatusGoal, getString(R.string.social_status_goal_cannot_be_empty)))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isStringFieldNull(String field, String message) {
+        if (field == null) {
+            showOkDialog(getString(R.string.missing_fields), message, null);
+            return true;
+        }
+        return false;
+    }
 
     private void updateDisplayInfo(int currentPage) {
         int numTotalPage = newClientFragmentAdapter.getItemCount();

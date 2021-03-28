@@ -113,7 +113,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         // Add client info to the data container list
         List<QuestionDataContainer> questionDataContainerList = new ArrayList<>();
         questionDataContainerList.add(new HeaderViewContainer(getString(R.string.basic_information)));
-        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.consent_to_interview), StringsUtil.boolToText(clientInfo.isConsentToInterview())));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.consent_to_interview), StringsUtil.boolToText(clientInfo.getConsentToInterview())));
 
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.gps_location), clientInfo.getGpsLocation()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.location), clientInfo.getZoneLocation()));
@@ -123,7 +123,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.last_name), clientInfo.getLastName()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.age), clientInfo.getAge().toString()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.contact_number), clientInfo.getContactNumber()));
-        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.caregiver_present_for_interview), StringsUtil.boolToText(clientInfo.isCaregiverPresentForInterview())));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.caregiver_present_for_interview), StringsUtil.boolToText(clientInfo.getCaregiverPresentForInterview())));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.caregiver_contact_number), clientInfo.getCaregiverContactNumber()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.disabilities), clientInfo.getDisabilityListFormatted()));
 

@@ -72,7 +72,7 @@
                     android:layout_marginBottom="15dp"
                     android:text="@string/new_client"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
             </RelativeLayout>
@@ -111,7 +111,7 @@
                     android:layout_marginBottom="15dp"
                     android:text="@string/dashboard"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
             </RelativeLayout>
@@ -147,7 +147,7 @@
                     android:layout_marginBottom="15dp"
                     android:text="@string/all_clients"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
             </RelativeLayout>
@@ -182,7 +182,7 @@
                     android:layout_marginBottom="15dp"
                     android:text="@string/sync"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
             </RelativeLayout>

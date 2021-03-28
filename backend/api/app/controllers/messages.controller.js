@@ -1,11 +1,11 @@
 const db = require("../models");
-const Users = db.users;
+const Messages = db.message;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new data
 exports.create = (req, res) => {
   // Validate Request
-  if (!req.body.firstName) {
+  if (!req.body.userId) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -13,24 +13,24 @@ exports.create = (req, res) => {
   }
 
   // Create Item
-  const user = {
+  const message = {
+    userId: req.body.userId,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    phoneNumber: req.body.phoneNumber,
-    password: req.body.password,
-    zones: req.body.zones,
-    userType: req.body.userType
+    message: req.body.message,
+    postDate: req.body.postDate,
+    pic: req.body.pic
   };
 
   // Save item in database
-  Users.create(user)
+  Messages.create(message)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Error occured creating a user."
+          err.message || "Error occured creating a message."
       });
     });
 
@@ -38,36 +38,15 @@ exports.create = (req, res) => {
 
 // Retrieve all data from the database.
 exports.findAll = (req, res) => {
-  const firstName = req.query.firstName;
-  const lastName = req.query.lastName;
-  const name = req.query.name;
 
-  var condition;
-  if (firstName && lastName) {
-    condition = { [Op.and]: [{firstName: `${firstName}`},
-                             {lastName: `${lastName}`}] };
-  } else if (firstName) {
-    condition = { firstName: { [Op.like]: `%${firstName}%` }};
-  } else if (lastName) {
-    condition = { lastName: { [Op.like]: `%${lastName}%` }};
-  } else if (name) {
-    condition = { [Op.or]: [{firstName: `${name}`},
-                             {lastName: `${name}`}] };
-  } else { condition = null; }
-
-  console.log('firstName: ' + firstName);
-  console.log('lastName: ' + lastName);
-  console.log('name: ' + name);
-  console.log('condition: ' + condition);
-
-  Users.findAll({ where: condition })
+  Messages.findAll()
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving users."
+          err.message || "Some error occurred while retrieving messages."
       });
     });
 };
@@ -76,13 +55,13 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Users.findByPk(id)
+  Messages.findByPk(id)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving user with id=" + id
+        message: "Error retrieving message with id=" + id
       });
     });
 };
@@ -91,23 +70,23 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Users.update(req.body, {
+  Messages.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "user was updated successfully."
+          message: "message was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update user with id=${id}. Maybe item was not found or req.body is empty!`
+          message: `Cannot update message with id=${id}. Maybe item was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating user with id=" + id
+        message: "Error updating message with id=" + id
       });
     });
 };
@@ -116,35 +95,35 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Users.destroy({
+  Messages.destroy({
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "user was deleted successfully!"
+          message: "message was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete user with id=${id}. Maybe item was not found!`
+          message: `Cannot delete message with id=${id}. Maybe item was not found!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not user with id=" + id
+        message: "Could not find message with id=" + id
       });
     });
 };
 
 // Delete all data from the database.
 exports.deleteAll = (req, res) => {
-  Users.destroy({
+  Messages.destroy({
     where: {},
     truncate: false
   })
     .then(nums => {
-      res.send({ message: `${nums} users were deleted successfully!` });
+      res.send({ message: `${nums} messages were deleted successfully!` });
     })
     .catch(err => {
       res.status(500).send({

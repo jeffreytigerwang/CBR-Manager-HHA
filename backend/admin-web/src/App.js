@@ -7,7 +7,7 @@ import { styles } from "./css-common"
 import AddUser from "./components/add-user.component";
 import User from "./components/user.component";
 import UsersList from "./components/users-list.component";
-import Report from "./components/report";
+import Report from "./components/report.component";
 
 import { AppBar, Toolbar, Typography, withStyles, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';

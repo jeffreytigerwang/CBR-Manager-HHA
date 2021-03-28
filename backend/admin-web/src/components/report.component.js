@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import UserDataService from "../services/user.service"
 import ClientDataService from "../services/client.service"
 import VisitDataService from "../services/visit.service"
+import statsDataService from "../services/stats.service"
 
 import { TextField, Button, withStyles, Grid, Paper, ListItem } from "@material-ui/core"
 import { styles } from "../css-common"
@@ -16,11 +17,13 @@ class Report extends Component {
         this.getAllClients = this.getAllClients.bind(this);
         this.getAllVisitsFromId = this.getAllVisitsFromId.bind(this);
         this.getAllVisits = this.getAllVisits.bind(this);
+        this.getAllStats = this.getAllStats.bind(this);
 
         this.state = {
             isLoading: false,
             allClients: new Array(),
-            visits: new Array()
+            visits: new Array(),
+            stats: new Array()
         };
     }
 
@@ -28,6 +31,20 @@ class Report extends Component {
         // this.getUser(this.props.match.params.id);
         this.getAllClients();
         this.getAllVisits();
+        this.getAllStats(state.stats);
+    }
+
+    getAllStats(json) {
+        statsDataService.test(json)
+        .then(response => {
+            console.log(response);
+            this.setState({
+                stats: response.data
+            });
+        })
+        .catch(e => {
+            console.log(e);
+        });
     }
 
     getAllClients() {
@@ -59,9 +76,9 @@ class Report extends Component {
             });
     }
 
-    getAllVisits() {
-        this.setState({isLoading: true})
-        VisitDataService.getAll(id)
+    getAllVisits(id) {
+        this.setState({isLoading: true});
+        VisitDataService.getAllVisitsFromId(id)
             .then(response => {
                 console.log(response.data);
                 this.setState({
@@ -81,7 +98,7 @@ class Report extends Component {
         const { classes } = this.props;
         const {visits} = this.state;
 
-        var sumOfVisits = visits.group({ id: id, count: { $sum: 1 } }).exec()
+        //var sumOfVisits = visits.group({ id: id, count: { $sum: 1 } }).exec()
 
 
         return (

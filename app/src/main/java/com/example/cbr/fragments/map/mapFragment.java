@@ -17,7 +17,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class map extends Fragment {
+public class mapFragment extends Fragment {
 
     private GoogleMap mMap;
 
@@ -43,11 +43,11 @@ public class map extends Fragment {
         return view;
     }
 
-    public static map newInstance() {
-        return new map();
+    public static mapFragment newInstance() {
+        return new mapFragment();
     }
 
     public static String getFragmentTag() {
-        return map.class.getSimpleName();
+        return mapFragment.class.getSimpleName();
     }
 }

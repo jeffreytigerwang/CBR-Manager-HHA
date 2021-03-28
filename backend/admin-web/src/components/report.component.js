@@ -27,6 +27,7 @@ class Report extends Component {
     componentDidMount() {
         // this.getUser(this.props.match.params.id);
         this.getAllClients();
+        this.getAllVisits();
     }
 
     getAllClients() {
@@ -65,7 +66,7 @@ class Report extends Component {
                 console.log(response.data);
                 this.setState({
                     isLoading: false,
-                    visits: response.data
+                    visits: response
                 });
             })
             .catch(e => {
@@ -77,12 +78,15 @@ class Report extends Component {
         const currentUser = this.state.isLoading ? LOADING : this.state.currentUser
         // const allClients = this.state.isLoading ? LOADING : this.state.allClients
         const {searchName, allClients, cuurentClient, currentIndex} = this.state;
-        const { classes } = this.props
-        const {visits} = this.state
-        
+        const { classes } = this.props;
+        const {visits} = this.state;
+
+        var sumOfVisits = visits.group({ id: id, count: { $sum: 1 } }).exec()
+
+
         return (
             <div>
-                <h1>SWAG </h1>
+                <h1>SWAG sumOfVisits</h1>
                 <Grid item sm={4}>
                     <Paper Grid container direction="column" justify="center"
                     alignItems="center">

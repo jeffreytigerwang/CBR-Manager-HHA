@@ -20,7 +20,6 @@
         app:layout_constraintBottom_toTopOf="@id/questionsPage_cardView"
         app:layout_constraintEnd_toStartOf="@id/questionsPage_missedRequiredQuestionsTextView"
         app:layout_constraintHorizontal_bias="0.0" />
-        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/questionsPage_missedRequiredQuestionsTextView"

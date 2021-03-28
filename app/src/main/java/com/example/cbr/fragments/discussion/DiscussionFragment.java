@@ -57,6 +57,7 @@ public class DiscussionFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dicussion, container, false);
         discussionRecyclerView = (RecyclerView) view.findViewById(R.id.discussion_recycleReview);
 
+
         user = Users.getInstance();
         discussion_sendText = (EditText) view.findViewById(R.id.discussion_sendText);
         discussion_sendButton = (Button) view.findViewById(R.id.discussion_sendButton);
@@ -79,7 +80,10 @@ public class DiscussionFragment extends Fragment {
 
         adapter = new DiscussionAdapter(getActivity(), messagesArrayList);
         discussionRecyclerView.setAdapter(adapter);
-        discussionRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setStackFromEnd(true);
+        discussionRecyclerView.setLayoutManager(linearLayoutManager);
 
         return view;
     }

@@ -1,7 +1,5 @@
 package com.example.cbr.fragments.base;
 
-import androidx.annotation.AnimRes;
-import androidx.annotation.AnimatorRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -20,17 +18,16 @@ public class BaseActivity extends AppCompatActivity {
      * {@link androidx.fragment.app.FragmentTransaction#setCustomAnimations(int, int, int, int)
      * setCustomAnimations(int, int, int, int)} to set the animation when entering it's view and
      * popping back to the last fragment/activity.
+     * <p>Uses the built in {@code android.R.anim.fade_in} and
+     * {@code android.R.anim.fade_out} animations.
      *
      * @see BaseActivity#addFragment(int, Fragment, String)
      * */
-    protected void addFragmentWithAnimation(int containerViewId, Fragment fragment, String fragmentTag,
-                                            @AnimatorRes @AnimRes int enter,
-                                            @AnimatorRes @AnimRes int exit,
-                                            @AnimatorRes @AnimRes int popEnter,
-                                            @AnimatorRes @AnimRes int popExit) {
+    protected void addFragmentWithAnimation(int containerViewId, Fragment fragment, String fragmentTag) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .setCustomAnimations(enter, exit, popEnter, popExit)
+                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out,
+                        android.R.anim.fade_in, android.R.anim.fade_out)
                 .add(containerViewId, fragment, fragmentTag)
                 .addToBackStack(fragmentTag)
                 .commit();

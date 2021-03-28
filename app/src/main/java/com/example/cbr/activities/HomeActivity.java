@@ -120,34 +120,37 @@ public class HomeActivity extends BaseActivity implements
     @Override
     public void swapToClientPage(ClientInfo clientInfo) {
         ClientPageFragment clientPageFragment = ClientPageFragment.newInstance(clientInfo);
-        addFragment(R.id.homeFragmentContainer, clientPageFragment, ClientPageFragment.getFragmentTag());
+        addFragmentWithAnimation(R.id.homeFragmentContainer, clientPageFragment,
+                ClientPageFragment.getFragmentTag());
     }
 
     @Override
     public void swapToNewVisitPage(ClientInfo clientInfo) {
         NewVisitFragment newVisitFragment = NewVisitFragment.newInstance(clientInfo);
         addFragmentWithAnimation(R.id.homeFragmentContainer, newVisitFragment,
-                NewVisitFragment.getFragmentTag(),
-                android.R.anim.fade_in, android.R.anim.fade_out,
-                android.R.anim.fade_in, android.R.anim.fade_out);
+                NewVisitFragment.getFragmentTag()
+        );
     }
 
     @Override
     public void swapToVisitPage(VisitGeneralQuestionSetData visitGeneralQuestionSetData) {
         VisitPageFragment visitPageFragment = VisitPageFragment.newInstance(visitGeneralQuestionSetData);
-        addFragment(R.id.homeFragmentContainer, visitPageFragment, VisitPageFragment.getFragmentTag());
+        addFragmentWithAnimation(R.id.homeFragmentContainer, visitPageFragment,
+                VisitPageFragment.getFragmentTag());
     }
 
     @Override
     public void swapToReferralPage(ClientInfo clientInfo) {
         NewReferralFragment newReferralFragment = NewReferralFragment.newInstance(clientInfo);
-        addFragment(R.id.homeFragmentContainer, newReferralFragment, NewReferralFragment.getFragmentTag());
+        addFragmentWithAnimation(R.id.homeFragmentContainer, newReferralFragment,
+                NewReferralFragment.getFragmentTag());
     }
 
     @Override
     public void swapToNewClient() {
         NewClientFragment newClientFragment = NewClientFragment.newInstance();
-        addFragment(R.id.homeFragmentContainer, newClientFragment, NewClientFragment.getFragmentTag());
+        addFragmentWithAnimation(R.id.homeFragmentContainer, newClientFragment,
+                NewClientFragment.getFragmentTag());
     }
 
     @Override
@@ -164,6 +167,15 @@ public class HomeActivity extends BaseActivity implements
     @Override
     protected void addFragment(int containerViewId, Fragment fragment, String fragmentTag) {
         super.addFragment(containerViewId, fragment, fragmentTag);
+
+        viewPager.setVisibility(View.GONE);
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void addFragmentWithAnimation(int containerViewId, Fragment fragment,
+                                            String fragmentTag) {
+        super.addFragmentWithAnimation(containerViewId, fragment, fragmentTag);
 
         viewPager.setVisibility(View.GONE);
         bottomNavigationView.setVisibility(View.GONE);

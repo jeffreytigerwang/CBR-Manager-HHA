@@ -23,7 +23,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     private String caregiverFirstName;
     private String caregiverLastName;
     private String caregiverContactNumber;
-    private Blob image;
+    private Blob photo;
     private boolean amputeeDisability;
     private boolean polioDisability;
     private boolean spinalCordInjuryDisability;
@@ -51,17 +51,20 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     }
 
     public ClientInfo(boolean consentToInterview,
+                      String firstName,
+                      String lastName,
+                      Integer age,
+                      String gender,
+                      String contactNumber,
+                      String dateJoined,
                       String gpsLocation,
                       String zoneLocation,
                       String villageNumber,
-                      String dateJoined,
-                      String firstName,
-                      String lastName,
-                      String gender,
-                      Integer age,
-                      String contactNumber,
                       boolean caregiverPresentForInterview,
+                      String caregiverFirstName,
+                      String caregiverLastName,
                       String caregiverContactNumber,
+                      Blob photo,
                       boolean amputeeDisability,
                       boolean polioDisability,
                       boolean spinalCordInjuryDisability,
@@ -72,6 +75,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
                       boolean hearingImpairmentDisability,
                       boolean doNotKnowDisability,
                       boolean otherDisability,
+                      String describeOtherDisability,
                       String rateHealth,
                       String describeHealth,
                       String setGoalForHealth,
@@ -82,17 +86,20 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
                       String describeSocialStatus,
                       String setGoalForSocialStatus) {
         this.consentToInterview = consentToInterview;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.gender = gender;
+        this.contactNumber = contactNumber;
+        this.dateJoined = dateJoined;
         this.gpsLocation = gpsLocation;
         this.zoneLocation = zoneLocation;
         this.villageNumber = villageNumber;
-        this.dateJoined = dateJoined;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
-        this.age = age;
-        this.contactNumber = contactNumber;
         this.caregiverPresentForInterview = caregiverPresentForInterview;
+        this.caregiverFirstName = caregiverFirstName;
+        this.caregiverLastName = caregiverLastName;
         this.caregiverContactNumber = caregiverContactNumber;
+        this.photo = photo;
         this.amputeeDisability = amputeeDisability;
         this.polioDisability = polioDisability;
         this.spinalCordInjuryDisability = spinalCordInjuryDisability;
@@ -433,6 +440,15 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     public String getCaregiverLastName() {
         return caregiverLastName;
     }
+
+    public Blob getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Blob photo) {
+        this.photo = photo;
+    }
+
 
     @Override
     public int compareTo(ClientInfo clientInfo) {

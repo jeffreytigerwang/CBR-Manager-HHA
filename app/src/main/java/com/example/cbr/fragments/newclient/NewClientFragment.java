@@ -22,7 +22,11 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Sing
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SpinnerViewContainer;
 import com.example.cbr.databinding.FragmentNewclientBinding;
 import com.example.cbr.fragments.base.BaseFragment;
+import com.example.cbr.models.ClientDisability;
+import com.example.cbr.models.ClientEducationAspect;
+import com.example.cbr.models.ClientHealthAspect;
 import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.ClientSocialAspect;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 import com.example.cbr.util.StringsUtil;
@@ -31,7 +35,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class NewClientFragment extends BaseFragment implements NewClientContract.View {
@@ -436,8 +444,11 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                     boolean isAllFilled = isAllRequiredQuestionsFilled();
 
                     // Make API call to database
+                    clientId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
 
-//                    getActivity().getSupportFragmentManager().popBackStack();
+                    if (isAllFilled) {
+                        getActivity().getSupportFragmentManager().popBackStack();
+                    }
                 }
                 binding.newClientPageViewPager.setCurrentItem(binding.newClientPageViewPager.getCurrentItem() + 1);
             }
@@ -563,6 +574,120 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         } else {
             binding.newClientPagePositiveButton.setText(R.string.next);
         }
+    }
+
+    private void createClientDisability(ClientDisability clientDisability) {
+        Call<ClientDisability> call = jsonPlaceHolderApi.createClientDisability(clientDisability);
+
+        call.enqueue(new Callback<ClientDisability>() {
+            @Override
+            public void onResponse(Call<ClientDisability> call, Response<ClientDisability> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Disability Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ClientDisability clientInfoResponse = response.body();
+                Toast.makeText(getActivity(),  "Disability Record Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ClientDisability> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void createClientHealthAspect(ClientHealthAspect clientHealthAspect) {
+        Call<ClientHealthAspect> call = jsonPlaceHolderApi.createClientHealthAspect(clientHealthAspect);
+
+        call.enqueue(new Callback<ClientHealthAspect>() {
+            @Override
+            public void onResponse(Call<ClientHealthAspect> call, Response<ClientHealthAspect> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Health Aspect Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ClientHealthAspect clientHealthAspectResponse = response.body();
+                Toast.makeText(getActivity(),  "Health Aspect Record Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ClientHealthAspect> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void createClientEducationAspect(ClientEducationAspect clientEducationAspect) {
+        Call<ClientEducationAspect> call = jsonPlaceHolderApi.createClientEducationAspect(clientEducationAspect);
+
+        call.enqueue(new Callback<ClientEducationAspect>() {
+            @Override
+            public void onResponse(Call<ClientEducationAspect> call, Response<ClientEducationAspect> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Education Aspect Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ClientEducationAspect clientEducationAspectResponse = response.body();
+                Toast.makeText(getActivity(),  "Education Aspect Record Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ClientEducationAspect> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void createClientSocialAspect(ClientSocialAspect clientSocialAspect) {
+        Call<ClientSocialAspect> call = jsonPlaceHolderApi.createClientSocialAspect(clientSocialAspect);
+
+        call.enqueue(new Callback<ClientSocialAspect>() {
+            @Override
+            public void onResponse(Call<ClientSocialAspect> call, Response<ClientSocialAspect> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Social Aspect Record Fail", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ClientSocialAspect clientSocialAspectResponse = response.body();
+                Toast.makeText(getActivity(),  "Social Aspect Record Successful", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ClientSocialAspect> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void createClientBasicInfo(Integer clientId, String firstName, String lastName, String gpsLocation, String location,
+                                       Integer villageNumber, String gender, Integer age, String contactNumber, boolean caregiverPresentForInterview,
+                                       Integer caregiverContactNumber) {
+
+        Call<ClientInfo> call = jsonPlaceHolderApi.createClient(clientId, firstName, lastName, gpsLocation, location,
+                villageNumber, gender, age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
+
+        call.enqueue(new Callback<ClientInfo>() {
+            @Override
+            public void onResponse(Call<ClientInfo> call, Response<ClientInfo> response) {
+                if (!response.isSuccessful()) {
+                    showErrorDialog("Record Fail", null);
+                    return;
+                }
+
+                ClientInfo clientInfoResponse = response.body();
+                showOkDialog("", clientInfoResponse.getFullName() + "\n" + "Record Successful", null);
+            }
+
+            @Override
+            public void onFailure(Call<ClientInfo> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

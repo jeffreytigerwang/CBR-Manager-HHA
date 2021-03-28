@@ -11,7 +11,9 @@
         android:id="@+id/discussion_recycleReview"
         android:layout_width="397dp"
         android:layout_height="541dp"
-        tools:layout_editor_absoluteY="4dp" />
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/discussion_sendText"

@@ -8,18 +8,19 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
 import com.example.cbr.adapters.questioninfoadapters.DiscussionAdapter;
-import com.example.cbr.databinding.FragmentClientlistBinding;
-import com.example.cbr.models.ClientDisability;
 import com.example.cbr.models.Messages;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,23 +34,26 @@ public class DiscussionFragment extends Fragment {
     private JsonPlaceHolderApi jsonPlaceHolderApi;
 
     private RecyclerView discussionRecyclerView;
+    private DiscussionContract.Presenter discussionPresenter;
 
-    private ArrayList<String> firstName;
-    private ArrayList<String> lastName;
-    private ArrayList<String> message;
+    private ArrayList<Messages> messagesArrayList;
+    private ArrayList<Integer> imgDrawableId;
 
-    DiscussionAdapter adapter;
+    private DiscussionAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_dicussion, container, false);
+        discussionRecyclerView = (RecyclerView) view.findViewById(R.id.discussion_recycleReview);
 
         // Init Retrofit & NodeJs stuff
         retrofit = RetrofitInit.getInstance();
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-        firstName = new ArrayList<>();
-        lastName = new ArrayList<>();
-        message = new ArrayList<>();
+
+        messagesArrayList = new ArrayList<>();
+        imgDrawableId = new ArrayList<>();
+        setImgDrawableId();
 
         try {
             getMessage();
@@ -57,9 +61,9 @@ public class DiscussionFragment extends Fragment {
             e.printStackTrace();
         }
 
-        adapter = new DiscussionAdapter(getActivity(), firstName, lastName, message);
-
-        discussionRecyclerView = (RecyclerView) view.findViewById(R.id.discussion_recycleReview);
+        adapter = new DiscussionAdapter(getActivity(), messagesArrayList);
+        discussionRecyclerView.setAdapter(adapter);
+        discussionRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return view;
     }
@@ -79,16 +83,41 @@ public class DiscussionFragment extends Fragment {
         Response<List<Messages>> responseMessages = callMessages.execute();
         List<Messages> messagesList = responseMessages.body();
 
-        for (int i = 0; i < messagesList.size(); i++) {
-            firstName.add(messagesList.get(i).getFirstName());
-            lastName.add(messagesList.get(i).getLastName());
-            message.add(messagesList.get(i).getMessage());
+        Date currentDate = Calendar.getInstance().getTime();
+
+        int imgIndex = 0;
+        for (int i = 0; i < messagesList.size(); i++, imgIndex++) {
+            if (imgIndex == imgDrawableId.size()) imgIndex = imgDrawableId.size() - 1;
+            Messages newMessage = new Messages();
+            newMessage.setImg(imgDrawableId.get(imgIndex));
+            newMessage.setFirstName(messagesList.get(i).getFirstName());
+            newMessage.setLastName(messagesList.get(i).getLastName());
+            newMessage.setMessage(messagesList.get(i).getMessage());
+
+            if (messagesList.get(i).getPostDate() == null) {
+                newMessage.setPostDate(currentDate);
+            }
+            else {
+                newMessage.setPostDate(messagesList.get(i).getPostDate());
+            }
+
+            messagesArrayList.add(newMessage);
         }
 
         for (int i = 0; i < messagesList.size(); i++) {
-            System.out.println("firstName" + firstName.get(i));
-            System.out.println("lastName" + lastName.get(i));
-            System.out.println("message" + message.get(i));
+            System.out.println("firstName " + messagesArrayList.get(i).getFirstName());
+            System.out.println("lastName " + messagesArrayList.get(i).getLastName());
+            System.out.println("message " + messagesArrayList.get(i).getMessage());
         }
     }
+
+    private void setImgDrawableId() {
+        this.imgDrawableId.add(R.drawable.discussion_sample_avatar_1);
+        this.imgDrawableId.add(R.drawable.discussion_sample_avatar_2);
+        this.imgDrawableId.add(R.drawable.discussion_sample_avatar_3);
+        this.imgDrawableId.add(R.drawable.discussion_sample_avatar_4);
+        this.imgDrawableId.add(R.drawable.discussion_sample_avatar_5);
+        this.imgDrawableId.add(R.drawable.discussion_sample_avatar_6);
+    }
+
 }

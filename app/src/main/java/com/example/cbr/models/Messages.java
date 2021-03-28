@@ -8,6 +8,7 @@ public class Messages {
     private String lastName;
     private String message;
     private Date postDate;
+    private Integer img;
 
     public Messages(int userId, String firstName, String lastName, String message, Date postDate) {
         this.userId = userId;
@@ -15,6 +16,9 @@ public class Messages {
         this.lastName = lastName;
         this.message = message;
         this.postDate = postDate;
+    }
+
+    public Messages() {
     }
 
     public int getUserId() {
@@ -55,5 +59,13 @@ public class Messages {
 
     public void setPostDate(Date postDate) {
         this.postDate = postDate;
+    }
+
+    public Integer getImg() {
+        return img;
+    }
+
+    public void setImg(Integer img) {
+        this.img = img;
     }
 }

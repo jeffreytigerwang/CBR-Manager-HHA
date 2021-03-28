@@ -39,9 +39,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity
-            android:name=".activities.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+
         <activity android:name=".activities.NewVisitActivity" />
         <activity
             android:name=".activities.HomeActivity"

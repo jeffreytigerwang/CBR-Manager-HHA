@@ -73,7 +73,7 @@ public class HomeActivity extends BaseActivity implements
                         bottomNavigationView.getMenu().findItem(R.id.bottomMenuClientList).setChecked(true);
                         break;
                     case HomeFragmentPagerAdapter.DISCUSSION_POSITION:
-                        bottomNavigationView.getMenu().findItem(R.id.bottomMenuDiscussion).setChecked(true);
+                        bottomNavigationView.getMenu().findItem(R.id.bottomMenuMap).setChecked(true);
                         break;
                     case HomeFragmentPagerAdapter.NOTIFICATION_POSITION:
                         bottomNavigationView.getMenu().findItem(R.id.bottomMenuNotification).setChecked(true);
@@ -98,7 +98,7 @@ public class HomeActivity extends BaseActivity implements
                                 currentTabPosition = HomeFragmentPagerAdapter.LIST_POSITION;
                                 break;
 
-                            case R.id.bottomMenuDiscussion:
+                            case R.id.bottomMenuMap:
                                 currentTabPosition = HomeFragmentPagerAdapter.DISCUSSION_POSITION;
                                 break;
 

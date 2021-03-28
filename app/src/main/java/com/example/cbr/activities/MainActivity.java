@@ -68,14 +68,6 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btn = (Button) findViewById(R.id.button);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent (MainActivity.this, MapsActivity.class);
-                startActivity(intent);
-            }
-        });
 
         // Init Retrofit & NodeJs stuff
         retrofit = RetrofitInit.getInstance();

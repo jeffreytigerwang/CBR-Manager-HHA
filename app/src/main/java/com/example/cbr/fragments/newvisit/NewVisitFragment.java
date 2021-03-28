@@ -315,10 +315,15 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         }
 
         if (currentPage == numTotalPage - 1) {
-            binding.questionsPagePositiveButton.setVisibility(View.GONE);
+            setButtonActive(View.INVISIBLE, false);
         } else {
-            binding.questionsPagePositiveButton.setVisibility(View.VISIBLE);
+            setButtonActive(View.VISIBLE, true);
         }
+    }
+
+    private void setButtonActive(int visibility, boolean isActive) {
+        binding.questionsPagePositiveButton.setVisibility(visibility);
+        binding.questionsPagePositiveButton.setClickable(isActive);
     }
 
     private void setPageActive(int page, boolean isActive) {

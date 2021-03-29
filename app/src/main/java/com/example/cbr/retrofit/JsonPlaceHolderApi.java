@@ -49,16 +49,16 @@ public interface JsonPlaceHolderApi {
             @Field("clientId") Integer clientId,
             @Field("firstName") String firstName,
             @Field("lastName") String lastName,
+            @Field("age") Integer age,
+            @Field("gender") String gender,
+            @Field("contactNumber") String contactNumber,
             @Field("gpsLocation") String gpsLocation,
             @Field("zoneLocation") String zoneLocation,
             @Field("villageNumber") Integer villageNumber,
-            @Field("gender") String gender,
-            @Field("age") Integer age,
-            @Field("contactNumber") String contactNumber,
             @Field("caregiverPresentForInterview") boolean caregiverPresentForInterview,
             @Field("caregiverFirstName") String caregiverFirstName,
             @Field("caregiverLastName") String caregiverLastName,
-            @Field("caregiverContactNumber") Integer caregiverContactNumber
+            @Field("caregiverContactNumber") String caregiverContactNumber
     );
 
 

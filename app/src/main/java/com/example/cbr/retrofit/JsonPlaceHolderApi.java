@@ -56,6 +56,8 @@ public interface JsonPlaceHolderApi {
             @Field("age") Integer age,
             @Field("contactNumber") String contactNumber,
             @Field("caregiverPresentForInterview") boolean caregiverPresentForInterview,
+            @Field("caregiverFirstName") String caregiverFirstName,
+            @Field("caregiverLastName") String caregiverLastName,
             @Field("caregiverContactNumber") Integer caregiverContactNumber
     );
 

@@ -443,11 +443,20 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                 if (binding.newClientPageViewPager.getCurrentItem() == newClientFragmentAdapter.getItemCount() - 1) {
                     boolean isAllFilled = isAllRequiredQuestionsFilled();
 
-                    // Make API call to database
-                    clientId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
-
                     if (isAllFilled) {
-                        getActivity().getSupportFragmentManager().popBackStack();
+                        // Make API call to database
+                        clientId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
+
+                        ClientHealthAspect clientHealthAspect = new ClientHealthAspect(
+                                clientId,
+                                clientInfo.getRateHealth(),
+                                clientInfo.getDescribeHealth(),
+                                clientInfo.getSetGoalForHealth()
+                        );
+
+                        createClientHealthAspect(clientHealthAspect);
+
+//                        getActivity().getSupportFragmentManager().popBackStack();
                     }
                 }
                 binding.newClientPageViewPager.setCurrentItem(binding.newClientPageViewPager.getCurrentItem() + 1);
@@ -664,31 +673,31 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         });
     }
 
-    private void createClientBasicInfo(Integer clientId, String firstName, String lastName, String gpsLocation, String location,
-                                       Integer villageNumber, String gender, Integer age, String contactNumber, boolean caregiverPresentForInterview,
-                                       Integer caregiverContactNumber) {
-
-        Call<ClientInfo> call = jsonPlaceHolderApi.createClient(clientId, firstName, lastName, gpsLocation, location,
-                villageNumber, gender, age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
-
-        call.enqueue(new Callback<ClientInfo>() {
-            @Override
-            public void onResponse(Call<ClientInfo> call, Response<ClientInfo> response) {
-                if (!response.isSuccessful()) {
-                    showErrorDialog("Record Fail", null);
-                    return;
-                }
-
-                ClientInfo clientInfoResponse = response.body();
-                showOkDialog("", clientInfoResponse.getFullName() + "\n" + "Record Successful", null);
-            }
-
-            @Override
-            public void onFailure(Call<ClientInfo> call, Throwable t) {
-
-            }
-        });
-    }
+//    private void createClientBasicInfo(Integer clientId, String firstName, String lastName, String gpsLocation, String location,
+//                                       Integer villageNumber, String gender, Integer age, String contactNumber, boolean caregiverPresentForInterview,
+//                                       Integer caregiverContactNumber) {
+//
+//        Call<ClientInfo> call = jsonPlaceHolderApi.createClient(clientId, firstName, lastName, gpsLocation, location,
+//                villageNumber, gender, age, contactNumber, caregiverPresentForInterview, caregiverContactNumber);
+//
+//        call.enqueue(new Callback<ClientInfo>() {
+//            @Override
+//            public void onResponse(Call<ClientInfo> call, Response<ClientInfo> response) {
+//                if (!response.isSuccessful()) {
+//                    showErrorDialog("Record Fail", null);
+//                    return;
+//                }
+//
+//                ClientInfo clientInfoResponse = response.body();
+//                showOkDialog("", clientInfoResponse.getFullName() + "\n" + "Record Successful", null);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ClientInfo> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
     @Override
     public void setPresenter(NewClientContract.Presenter presenter) {

@@ -110,6 +110,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         this.hearingImpairmentDisability = hearingImpairmentDisability;
         this.doNotKnowDisability = doNotKnowDisability;
         this.otherDisability = otherDisability;
+        this.describeOtherDisability = describeOtherDisability;
         this.rateHealth = rateHealth;
         this.describeHealth = describeHealth;
         this.setGoalForHealth = setGoalForHealth;

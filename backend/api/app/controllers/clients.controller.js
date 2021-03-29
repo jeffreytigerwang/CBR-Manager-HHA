@@ -26,7 +26,10 @@ exports.create = (req, res) => {
     contactNumber: req.body.contactNumber,
     caregiverContactNumber: req.body.caregiverContactNumber,
     caregiverPresentForInterview: req.body.caregiverPresentForInterview,
-    photo: req.body.photo
+    photo: req.body.photo,
+    describeOtherDisability: req.body.describeOtherDisability,
+    careGiverFirstName: req.body.careGiverFirstName,
+    careGiverLastName: req.body.careGiverLastName
   };
 
   // Save item in database

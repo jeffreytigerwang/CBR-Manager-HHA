@@ -38,6 +38,15 @@ module.exports = (sequelize, Sequelize) => {
         },
         photo: {
             type: Sequelize.BLOB('long')
+        },
+        careGiverFirstName: {
+            type: Sequelize.STRING
+        },
+        careGiverLastName: {
+            type: Sequelize.STRING
+        },
+        describeOtherDisability: {
+            type: Sequelize.STRING
         }
 
 

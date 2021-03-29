@@ -212,7 +212,6 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
             List<String> emptyQuestions = new ArrayList<>(emptyGeneralQuestions);
             if (generalQuestionSetData.isHealthChecked()) {
                 emptyQuestions.addAll(emptyHealthQuestions);
-                displayNumberEmpty(emptyQuestions);
             }
             if (generalQuestionSetData.isEducationChecked()) {
                 emptyQuestions.addAll(emptyEducationQuestions);
@@ -221,6 +220,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                 emptyQuestions.addAll(emptySocialQuestions);
             }
             displayNumberEmpty(emptyQuestions);
+            showErrorDialog(getString(R.string.record_error), null);
         }
     }
 

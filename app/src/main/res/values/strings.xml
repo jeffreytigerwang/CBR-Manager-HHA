@@ -226,6 +226,7 @@
     <string name="missed_required_questions">Missed required questions</string>
     <string name="pick_a_date">Pick a date</string>
     <string name="dd_mm_yyyy">dd-MMM-yyyy</string>
+    <string name="record_error">There are <b>empty</b> required <b>fields</b>. Please fill them in before recording.</string>
 
 
 </resources>

@@ -155,7 +155,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/client_photo"
                 android:textColor="@color/black"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/newClient_photoConsentTextView"
@@ -163,7 +164,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/you_must_allow_this_app_to_use_your_camera_to_record_a_photo"
                 android:textColor="@color/black"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"/>
 
             <ImageView
                 android:id="@+id/newClient_photoOfClientImageView"
@@ -178,7 +180,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Use Camera"/>
+                android:text="Use Camera"
+                android:textSize="14sp"/>
 
             <include
                 layout="@layout/recyclerview_divider"/>
@@ -189,7 +192,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/type_of_disability"
                 android:textColor="@color/black"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"/>
 
             <CheckBox
                 android:id="@+id/newClient_amputeeDisabilityCheckBox"
@@ -270,6 +274,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:textSize="14sp"
                 android:text="@string/please_rate_how_you_consider_the_client_s_health_to_be"
                 android:textColor="@color/black"/>
 
@@ -287,7 +292,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/please_describe_what_they_require"
                 android:textColor="@color/black"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"/>
 
             <EditText
                 android:id="@+id/newClient_describeClientHealthEditText"
@@ -304,7 +310,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/set_individual_goal"
                 android:textColor="@color/black"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"/>
 
             <EditText
                 android:id="@+id/newClient_setGoalForClientHealthEditText"
@@ -326,7 +333,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/please_rate_how_you_consider_the_client_s_education_status_to_be"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="14sp"/>
 
             <Spinner
                 android:id="@+id/newClient_rateClientEducationSpinner"
@@ -342,6 +350,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/please_describe_what_they_require"
                 android:textColor="@color/black"
+                android:textSize="14sp"
                 android:layout_marginTop="10dp"/>
 
             <EditText
@@ -358,6 +367,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/set_individual_goal"
+                android:textSize="14sp"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp" />
 
@@ -379,6 +389,7 @@
                 android:id="@+id/newClient_rateClientSocialStatusTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="14sp"
                 android:layout_marginTop="10dp"
                 android:text="@string/please_rate_how_you_consider_the_client_s_social_status_to_be"
                 android:textColor="@color/black"/>
@@ -413,6 +424,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/set_individual_goal"
+                android:textSize="14sp"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"/>
 
@@ -431,6 +443,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:textSize="14sp"
                 android:text="@string/record_client" />
 
         </LinearLayout>
@@ -445,9 +458,10 @@
         android:layout_marginTop="32dp"
         android:text="@string/new_client"
         android:textColor="@color/white"
-        android:textSize="23sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

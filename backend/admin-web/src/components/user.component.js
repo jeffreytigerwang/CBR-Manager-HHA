@@ -15,7 +15,6 @@ class User extends Component {
         this.onChangeLastName = this.onChangeLastName.bind(this);
         this.onChangePhoneNumber = this.onChangePhoneNumber.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
-        this.onChangePriorityLevel = this.onChangePriorityLevel.bind(this);
         this.onChangeZones = this.onChangeZones.bind(this);
         this.onChangeUserType = this.onChangeUserType.bind(this);
         this.getUser = this.getUser.bind(this);
@@ -25,15 +24,17 @@ class User extends Component {
         this.deleteUser = this.deleteUser.bind(this);
 
         this.state = {
+          currentUser: {
             id: null,
             firstName: "",
             lastName: "",
             phoneNumber: "",
             password: "",
-            priorityLevel: "",
             zones: "",
             userType: "",
             submitted: false
+          },
+          message: ""
         };
     }
 
@@ -43,44 +44,74 @@ class User extends Component {
     }
 
     onChangeFirstName(e) {
-        this.setState({
-            firstName: e.target.value
+        const firstName = e.target.value;
+        this.setState(function (prevState) {
+            return {
+                currentUser: {
+                    ...prevState.currentUser,
+                    firstName: firstName
+                }
+            };
         });
     }
 
     onChangeLastName(e) {
-        this.setState({
-            lastName: e.target.value
+        const lastName = e.target.value;
+        this.setState(function (prevState) {
+            return {
+                currentUser: {
+                    ...prevState.lastName,
+                    lastName: lastName
+                }
+            };
         });
     }
 
     onChangeZones(e) {
-        this.setState({
-            zones: e.target.value
-        });
-    }
-
-    onChangePriorityLevel(e) {
-        this.setState({
-            priorityLevel: e.target.value
+        const zones = e.target.value;
+        this.setState(function (prevState) {
+            return {
+                currentUser: {
+                    ...prevState.zones,
+                    zones: zones
+                }
+           };
         });
     }
 
     onChangePassword(e) {
-        this.setState({
-            password: e.target.value
+        const password = e.target.value;
+        this.setState(function (prevState) {
+            return {
+                currentUser: {
+                    ...prevState.password,
+                    password: password
+                }
+            };
         });
     }
 
     onChangePhoneNumber(e) {
-        this.setState({
-            phoneNumber: e.target.value
+        const phoneNumber = e.target.value;
+        this.setState(function (prevState) {
+            return {
+                currentUser: {
+                    ...prevState.phoneNumber,
+                    phoneNumber: phoneNumber
+                }
+            };
         });
     }
 
     onChangeUserType(e) {
-        this.setState({
-            userType: e.target.value
+        const userType = e.target.value;
+        this.setState(function (prevState) {
+            return {
+                currentUser: {
+                    ...prevState.userType,
+                    userType: userType
+                }
+            };
         });
     }
 
@@ -157,7 +188,7 @@ class User extends Component {
                     <div className={classes.form}>
                         <h2>Update User</h2>
                         <form>
-                            <div>
+                           <div>
                                 <TextField
                                     className={classes.textField}
                                     label="First Name"
@@ -167,7 +198,7 @@ class User extends Component {
                                     required
                                 />
                             </div>
-                              <div>
+                            <div>
                                 <TextField
                                     className={classes.textField}
                                     label="Last Name"
@@ -200,16 +231,6 @@ class User extends Component {
                             <div>
                                 <TextField
                                     className={classes.textField}
-                                    label="Priority Level"
-                                    name="priorityLevel"
-                                    value={currentUser.priorityLevel}
-                                    onChange={this.onChangePriorityLevel}
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <TextField
-                                    className={classes.textField}
                                     label="Zones"
                                     name="zones"
                                     value={currentUser.zones}
@@ -233,7 +254,7 @@ class User extends Component {
                                 <label>
                                     <strong>Status: </strong>
                                 </label>
-                                {currentUser.published ? "Active" : "Pending"}
+                                Active
                             </div>
                         </form>
                         <div className={classes.buttonWrapper}>
@@ -255,7 +276,7 @@ class User extends Component {
                                 onClick={this.deleteUser}
                             >
                                 Delete
-            </Button>
+                            </Button>
 
                             <Button
                                 type="submit"
@@ -263,7 +284,7 @@ class User extends Component {
                                 onClick={this.updateUser}
                             >
                                 Update
-            </Button>
+                            </Button>
                         </div>
                         <p>{this.state.message}</p>
                     </div>

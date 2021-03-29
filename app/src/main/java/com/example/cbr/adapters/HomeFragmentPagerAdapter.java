@@ -20,18 +20,10 @@ public class HomeFragmentPagerAdapter extends FragmentStateAdapter {
     public static final int MAP_POSITION = 4;
 
 
+    public static final int NUM_FRAGMENTS = 5;
+
     public HomeFragmentPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
-        initBaseFragments();
-    }
-
-
-    private void initBaseFragments() {
-        createFragment(HOME_POSITION);
-        createFragment(DASHBOARD_POSITION);
-        createFragment(LIST_POSITION);
-        createFragment(NOTIFICATION_POSITION);
-        createFragment(MAP_POSITION);
     }
 
     @NonNull
@@ -55,6 +47,6 @@ public class HomeFragmentPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 5;
+        return NUM_FRAGMENTS;
     }
 }

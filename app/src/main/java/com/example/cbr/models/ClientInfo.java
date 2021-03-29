@@ -10,14 +10,8 @@ import java.util.List;
 
 public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     private String id;
-    private boolean consentToInterview;
-    private Boolean consentToInterview;
-
     private Integer clientId;
-    private String gpsLocation;
-    private String zoneLocation;
-    private String villageNumber;
-    private String dateJoined;
+    private boolean consentToInterview;
     private String firstName;
     private String lastName;
     private Integer age;
@@ -58,12 +52,8 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
 
     }
 
-    public ClientInfo(boolean consentToInterview,
-                      Integer clientId,
-                      String gpsLocation,
-                      String zoneLocation,
-                      String villageNumber,
-                      String dateJoined,
+    public ClientInfo(Integer clientId,
+                      boolean consentToInterview,
                       String firstName,
                       String lastName,
                       Integer age,
@@ -98,12 +88,8 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
                       String rateSocialStatus,
                       String describeSocialStatus,
                       String setGoalForSocialStatus) {
-        this.consentToInterview = consentToInterview;
         this.clientId = clientId;
-        this.gpsLocation = gpsLocation;
-        this.zoneLocation = zoneLocation;
-        this.villageNumber = villageNumber;
-        this.dateJoined = dateJoined;
+        this.consentToInterview = consentToInterview;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -325,7 +311,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;//this.id = id;
+        this.lastName = lastName;
     }
 
     public void setAge(Integer age) {

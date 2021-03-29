@@ -571,7 +571,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         }
 
         // Error checking for the Location Info page
-        if (villageNumber == -1) {
+        if (villageNumber == null) {
             showOkDialog(getString(R.string.missing_fields), getString(R.string.village_number_cannot_be_empty), null);
             return false;
         }

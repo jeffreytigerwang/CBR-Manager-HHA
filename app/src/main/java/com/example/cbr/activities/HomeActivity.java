@@ -58,6 +58,7 @@ public class HomeActivity extends BaseActivity implements
         viewPager = findViewById(R.id.homeViewPager);
         homeFragmentPagerAdapter = new HomeFragmentPagerAdapter(this);
         viewPager.setAdapter(homeFragmentPagerAdapter);
+        viewPager.setOffscreenPageLimit(5);
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -142,12 +143,14 @@ public class HomeActivity extends BaseActivity implements
 
     @Override
     public void swapToClientList() {
-        viewPager.setCurrentItem(2);
+        currentTabPosition = HomeFragmentPagerAdapter.LIST_POSITION;
+        viewPager.setCurrentItem(HomeFragmentPagerAdapter.LIST_POSITION);
     }
 
     @Override
     public void swapToDashboard() {
-        viewPager.setCurrentItem(1);
+        currentTabPosition = HomeFragmentPagerAdapter.DASHBOARD_POSITION;
+        viewPager.setCurrentItem(HomeFragmentPagerAdapter.DASHBOARD_POSITION);
     }
 
 

@@ -1,0 +1,153 @@
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".MainActivity\">\r\n\r\n    <TextView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Hello World!\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_main.xml	(revision 387af1fda4a38eac441c5430582d90a5284868e4)
++++ app/src/main/res/layout/activity_main.xml	(date 1616450357000)
+@@ -4,15 +4,134 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    tools:context=".MainActivity">
++    tools:context=".activities.MainActivity"
++    android:background="@drawable/background_login">
++
++    <androidx.constraintlayout.widget.ConstraintLayout
++        android:id="@+id/activityMain_layoutContainer"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginHorizontal="25dp"
++        android:layout_marginTop="50dp"
++        android:background="#fff"
++        app:layout_constraintBottom_toTopOf="@id/button_login"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent">
++
++        <ImageView
++            android:id="@+id/activityMain_logoImage"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="20dp"
++            android:scaleType="centerCrop"
++            android:adjustViewBounds="true"
++            app:layout_constraintBottom_toTopOf="@id/text_sign_in"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintTop_toTopOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:srcCompat="@drawable/logo" />
+ 
+-    <TextView
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:text="Hello World!"
++        <TextView
++            android:id="@+id/text_sign_in"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="10dp"
++            android:text="@string/sign_in"
++            android:textColor="#009dc5"
++            android:textSize="24sp"
++            android:textStyle="bold"
++            app:layout_constraintBottom_toTopOf="@id/mainActivity_username"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toBottomOf="@+id/activityMain_logoImage" />
++
++        <EditText
++            android:id="@+id/mainActivity_username"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:paddingVertical="20dp"
++            android:layout_marginTop="32dp"
++            android:layout_marginHorizontal="25dp"
++            android:alpha="0.5"
++            android:background="@drawable/login_border"
++            android:drawableLeft="@drawable/ic_baseline_person_24"
++            android:ems="10"
++            android:paddingLeft="10dp"
++            android:textColor="#03AAE1"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintBottom_toTopOf="@id/mainActivity_password"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toBottomOf="@+id/text_sign_in"
++            android:hint="Phone"
++            android:singleLine="true"
++            android:ellipsize="end"
++            android:textColorHint="@color/grey" />
++
++        <EditText
++            android:id="@+id/mainActivity_password"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:paddingVertical="20dp"
++            android:layout_marginTop="28dp"
++            android:layout_marginHorizontal="25dp"
++            android:alpha="0.5"
++            android:background="@drawable/login_border"
++            android:drawableLeft="@drawable/ic_baseline_lock_24"
++            android:paddingLeft="10dp"
++            android:ems="10"
++            android:hint="@string/password"
++            android:inputType="textPassword"
++            android:textColor="#03AAE1"
++            android:textColorHint="@color/grey"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toBottomOf="@+id/mainActivity_username"
++            app:layout_constraintBottom_toTopOf="@id/btn_register"
++            android:ellipsize="end"
++            android:autofillHints="Password" />
++
++        <Button
++            android:id="@+id/btn_register"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="20dp"
++            android:text="REGISTER"
++            app:layout_constraintBottom_toTopOf="@+id/textView_terms"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toBottomOf="@+id/mainActivity_password"
++            app:layout_constraintEnd_toEndOf="parent" />
++
++        <TextView
++            android:id="@+id/textView_terms"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginVertical="20dp"
++            android:text="@string/terms_of_service_and_privacy_policy"
++            android:textColor="#009dc5"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toBottomOf="@+id/btn_register" />
++
++
++
++    </androidx.constraintlayout.widget.ConstraintLayout>
++
++    <Button
++        android:id="@+id/button_login"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginHorizontal="25dp"
++        android:layout_marginVertical="20dp"
++        android:background="@drawable/button_login"
++        android:text="@string/Login"
++        android:textColor="#FFFFFF"
++        android:textSize="18sp"
++        android:textStyle="bold"
+         app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintLeft_toLeftOf="parent"
+-        app:layout_constraintRight_toRightOf="parent"
+-        app:layout_constraintTop_toTopOf="parent" />
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/activityMain_layoutContainer" />
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file

@@ -39,9 +39,9 @@
     import java.util.Stack;
     import java.util.concurrent.ThreadLocalRandom;
 
-    /**
-    * Activity to handle new visit questions, which holds four sets of questions (fragments)
-    * */
+/**
+* Activity to handle new visit questions, which holds four sets of questions (fragments)
+* */
 
 public class NewVisitActivity extends AppCompatActivity implements NewVisitContract.View {
 
@@ -120,7 +120,7 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
         setVisitClientId();
         setWorkerName();
 
-        currentFragment = new VisitFirstQuestionSetFragment(generalQuestionSetData);
+        currentFragment = new VisitFirstQuestionSetFragment(generalQuestionSetData, this);
         manageFragment(currentFragment);
         totalFragments += 1;
         pageNum = 1;

@@ -236,5 +236,13 @@
     <string name="caregiver_first_name_cannot_be_empty">Caregiver first name cannot be empty</string>
     <string name="caregiver_last_name_cannot_be_empty">Caregiver last name cannot be empty</string>
     <string name="other_disability_description_cannot_be_empty">Other disability description cannot be empty</string>
+    <string name="location_permission_not_granted">ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION not granted. User did not give permission to access location.</string>
+    <string name="location_alert_title">Location settings</string>
+    <string name="gps_alert_message">GPS is not enabled or your location is turned off. Do you want to go to settings menu?</string>
+    <string name="alert_settings_positive_button">Settings</string>
+    <string name="gps_not_enabled">User has not enabled GPS.</string>
+    <string name="lat_long_location">Lat: %f Long: %f</string>
+    <string name="location_not_found">Location could not be found.</string>
+
 
 </resources>

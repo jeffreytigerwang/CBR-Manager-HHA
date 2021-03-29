@@ -14,13 +14,15 @@
         android:layout_marginVertical="32dp"
         android:text="@string/dashboard"
         android:textColor="#FFFFFF"
-        android:textSize="23sp"
+        android:textSize="24sp"
         android:textStyle="bold"
+        android:fontFamily="sans-serif"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/dashboard_constraintContainer"
-        app:layout_constraintHorizontal_bias="0.0"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginLeft="16dp" />
 
     <Button
         android:id="@+id/dashboard_newClientButton"
@@ -29,12 +31,14 @@
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="8dp"
         android:text="@string/new_client"
-        android:textSize="12sp"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif"
         app:layout_constraintBottom_toTopOf="@+id/dashboard_constraintContainer"
         app:layout_constraintEnd_toStartOf="@+id/dashboard_syncButton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"/>
+        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginRight="12dp" />
 
     <Button
         android:id="@+id/dashboard_syncButton"
@@ -43,12 +47,14 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:text="@string/sync"
-        android:textSize="12sp"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/dashboard_constraintContainer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"/>
+        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginRight="16dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/dashboard_constraintContainer"
@@ -66,13 +72,14 @@
             android:layout_marginStart="16dp"
             android:layout_marginVertical="10dp"
             android:text="@string/priority_list"
-            android:textSize="23sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/dashboard_priorityList"
-            app:layout_constraintHorizontal_bias="0.0"/>
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginLeft="16dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dashboard_priorityList"
@@ -91,12 +98,14 @@
             android:layout_marginStart="16dp"
             android:layout_marginVertical="10dp"
             android:text="@string/outstanding_referrals"
-            android:textSize="23sp"
+            android:textSize="24sp"
             android:textStyle="bold"
+            android:fontFamily="sans-serif"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dashboard_priorityList"
-            app:layout_constraintBottom_toTopOf="@id/dashboard_outstandingList"/>
+            app:layout_constraintBottom_toTopOf="@id/dashboard_outstandingList"
+            android:layout_marginLeft="16dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dashboard_outstandingList"

@@ -10,6 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.cbr.R;
+import com.example.cbr.databinding.FragmentClientlistBinding;
+import com.example.cbr.databinding.FragmentMapBinding;
+import com.example.cbr.fragments.base.BaseFragment;
+import com.example.cbr.fragments.clientlist.ClientListContract;
+import com.example.cbr.fragments.clientlist.ClientListPresenter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -17,14 +22,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class mapFragment extends Fragment {
-
+public class MapFragment extends BaseFragment implements MapContract.View {
+    private  MapContract.Presenter mapContractPresenter;
+    private FragmentMapBinding binding;
     private GoogleMap mMap;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_map, container, false);
+        setPresenter(new MapPresenter(this));
+
+        binding = FragmentMapBinding.inflate(inflater, container, false);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
@@ -40,14 +48,20 @@ public class mapFragment extends Fragment {
             }
         });
 
+        View view = binding.getRoot();
         return view;
     }
 
-    public static mapFragment newInstance() {
-        return new mapFragment();
+    public static MapFragment newInstance() {
+        return new MapFragment();
     }
 
     public static String getFragmentTag() {
-        return mapFragment.class.getSimpleName();
+        return MapFragment.class.getSimpleName();
+    }
+
+    @Override
+    public void setPresenter(MapContract.Presenter presenter) {
+        mapContractPresenter = presenter;
     }
 }

@@ -18,7 +18,6 @@ exports.create = (req, res) => {
     lastName: req.body.lastName,
     phoneNumber: req.body.phoneNumber,
     password: req.body.password,
-    priorityLevel: req.body.priorityLevel,
     zones: req.body.zones,
     userType: req.body.userType
   };

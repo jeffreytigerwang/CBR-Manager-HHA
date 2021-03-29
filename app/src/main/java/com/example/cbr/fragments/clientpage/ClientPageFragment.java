@@ -117,7 +117,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
 
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.gps_location), clientInfo.getGpsLocation()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.location), clientInfo.getZoneLocation()));
-        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.village_number), clientInfo.getVillageNumber()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.village_number), Integer.toString(clientInfo.getVillageNumber())));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.date), clientInfo.getDateJoined()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.first_name), clientInfo.getFirstName()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.last_name), clientInfo.getLastName()));

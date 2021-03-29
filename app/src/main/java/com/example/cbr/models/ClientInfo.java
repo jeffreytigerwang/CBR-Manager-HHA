@@ -18,7 +18,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     private String dateJoined;
     private String gpsLocation;
     private String zoneLocation;
-    private String villageNumber;
+    private Integer villageNumber;
     private boolean caregiverPresentForInterview;
     private String caregiverFirstName;
     private String caregiverLastName;
@@ -59,7 +59,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
                       String dateJoined,
                       String gpsLocation,
                       String zoneLocation,
-                      String villageNumber,
+                      Integer villageNumber,
                       boolean caregiverPresentForInterview,
                       String caregiverFirstName,
                       String caregiverLastName,
@@ -139,7 +139,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         return zoneLocation;
     }
 
-    public String getVillageNumber() {
+    public Integer getVillageNumber() {
         return villageNumber;
     }
 
@@ -286,7 +286,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         this.zoneLocation = zoneLocation;
     }
 
-    public void setVillageNumber(String villageNumber) {
+    public void setVillageNumber(Integer villageNumber) {
         this.villageNumber = villageNumber;
     }
 

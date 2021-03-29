@@ -210,7 +210,13 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                     if (questionText.equals(getString(R.string.gps_location))) {
                         clientInfo.setGpsLocation(userInput);
                     } else if (questionText.equals(getString(R.string.village_number))) {
-                        clientInfo.setVillageNumber(userInput);
+                        if (userInput != null) {
+                            if (userInput.equals("")) {
+                                clientInfo.setVillageNumber(-1);
+                            } else {
+                                clientInfo.setVillageNumber(Integer.parseInt(userInput));
+                            }
+                        }
                     }
                 }
 
@@ -456,7 +462,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                                 clientInfo.getContactNumber(),
                                 clientInfo.getGpsLocation(),
                                 clientInfo.getZoneLocation(),
-                                Integer.parseInt(clientInfo.getVillageNumber()),
+                                clientInfo.getVillageNumber(),
                                 clientInfo.getCaregiverPresentForInterview(),
                                 clientInfo.getCaregiverFirstName(),
                                 clientInfo.getCaregiverLastName(),
@@ -504,7 +510,8 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                         createClientEducationAspect(clientEducationAspect);
                         createClientSocialAspect(clientSocialAspect);
 
-                        getActivity().getSupportFragmentManager().popBackStack();
+                        // The below is commented out because the app will crash if it is uncommented
+                        // getActivity().getSupportFragmentManager().popBackStack();
                     }
                 }
                 binding.newClientPageViewPager.setCurrentItem(binding.newClientPageViewPager.getCurrentItem() + 1);
@@ -528,7 +535,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         final String lastName = clientInfo.getLastName();
         final Integer age = clientInfo.getAge();
         final String gender = clientInfo.getGender();
-        final String villageNumber = clientInfo.getVillageNumber();
+        final Integer villageNumber = clientInfo.getVillageNumber();
         final boolean isCaregiverPresent = clientInfo.getCaregiverPresentForInterview();
         final String caregiverFirstName = clientInfo.getCaregiverFirstName();
         final String caregiverLastName = clientInfo.getCaregiverLastName();
@@ -564,7 +571,8 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         }
 
         // Error checking for the Location Info page
-        if (isStringFieldNull(villageNumber, getString(R.string.village_number_cannot_be_empty))) {
+        if (villageNumber == -1) {
+            showOkDialog(getString(R.string.missing_fields), getString(R.string.village_number_cannot_be_empty), null);
             return false;
         }
 

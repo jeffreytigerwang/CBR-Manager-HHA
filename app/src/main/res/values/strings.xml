@@ -243,6 +243,16 @@
     <string name="gps_not_enabled">User has not enabled GPS.</string>
     <string name="lat_long_location">Lat: %f Long: %f</string>
     <string name="location_not_found">Location could not be found.</string>
+    <string name="disability_record_fail">Disability Record Fail</string>
+    <string name="disability_record_successful">Disability Record Successful</string>
+    <string name="health_aspect_record_fail">Health Aspect Record Fail</string>
+    <string name="health_aspect_record_successful">Health Aspect Record Successful</string>
+    <string name="education_aspect_record_fail">Education Aspect Record Fail</string>
+    <string name="education_aspect_record_successful">Education Aspect Record Successful</string>
+    <string name="social_aspect_record_fail">Social Aspect Record Fail</string>
+    <string name="social_aspect_record_successful">Social Aspect Record Successful</string>
+    <string name="client_record_fail">Client record Fail</string>
+    <string name="record_successful">Record Successful</string>
 
 
 </resources>

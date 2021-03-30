@@ -145,15 +145,15 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
     private void generateBasicInfo() {
         final ArrayList<QuestionDataContainer> basicInfoList = new ArrayList<>();
         basicInfoList.add(new HeaderViewContainer(getString(R.string.basic_info)));
-        basicInfoList.add(new EditTextViewContainer(getString(R.string.first_name), "First name", InputType.TYPE_CLASS_TEXT));
-        basicInfoList.add(new EditTextViewContainer(getString(R.string.last_name), "Last name", InputType.TYPE_CLASS_TEXT));
-        basicInfoList.add(new EditTextViewContainer(getString(R.string.age), "Age", InputType.TYPE_CLASS_NUMBER));
+        basicInfoList.add(new EditTextViewContainer(getString(R.string.first_name), getString(R.string.first_name), InputType.TYPE_CLASS_TEXT));
+        basicInfoList.add(new EditTextViewContainer(getString(R.string.last_name), getString(R.string.last_name), InputType.TYPE_CLASS_TEXT));
+        basicInfoList.add(new EditTextViewContainer(getString(R.string.age), getString(R.string.age), InputType.TYPE_CLASS_NUMBER));
         List<RadioGroupViewContainer.RadioGroupListItem> genderOptions = new ArrayList<>();
         genderOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.male), false, View.generateViewId()));
         genderOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.female), false, View.generateViewId()));
         basicInfoList.add(new RadioGroupViewContainer(getString(R.string.gender), true, genderOptions));
-        basicInfoList.add(new EditTextViewContainer(getString(R.string.contact_number), "Contact number", InputType.TYPE_CLASS_NUMBER));
-        basicInfoList.add(new EditTextViewContainer(getString(R.string.date), "Date", InputType.TYPE_CLASS_DATETIME));
+        basicInfoList.add(new EditTextViewContainer(getString(R.string.contact_number), getString(R.string.contact_number), InputType.TYPE_CLASS_NUMBER));
+        basicInfoList.add(new EditTextViewContainer(getString(R.string.date), getString(R.string.date), InputType.TYPE_CLASS_DATETIME));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
@@ -194,11 +194,11 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
     private void generateLocationInfo() {
         final ArrayList<QuestionDataContainer> locationInfoList = new ArrayList<>();
         locationInfoList.add(new HeaderViewContainer(getString(R.string.location_info)));
-        locationInfoList.add(new EditTextViewContainer(getString(R.string.gps_location), "GPS location", InputType.TYPE_CLASS_TEXT));
+        locationInfoList.add(new EditTextViewContainer(getString(R.string.gps_location), getString(R.string.gps_location), InputType.TYPE_CLASS_TEXT));
         List<String> zoneOptions = new ArrayList<>(
                 Arrays.asList(getResources().getStringArray(R.array.zone_locations_array)));
         locationInfoList.add(new SpinnerViewContainer(getString(R.string.zone_location), zoneOptions));
-        locationInfoList.add(new EditTextViewContainer(getString(R.string.village_number), "Village number", InputType.TYPE_CLASS_NUMBER));
+        locationInfoList.add(new EditTextViewContainer(getString(R.string.village_number), getString(R.string.village_number), InputType.TYPE_CLASS_NUMBER));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
@@ -234,9 +234,9 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         final ArrayList<QuestionDataContainer> caregiverInfoList = new ArrayList<>();
         caregiverInfoList.add(new HeaderViewContainer(getString(R.string.caregiver_info)));
         caregiverInfoList.add(new CheckBoxViewContainer(getString(R.string.caregiver_present_for_interview)));
-        caregiverInfoList.add(new EditTextViewContainer(getString(R.string.caregiver_first_name), "Caregiver first name", InputType.TYPE_CLASS_TEXT));
-        caregiverInfoList.add(new EditTextViewContainer(getString(R.string.caregiver_last_name), "Caregiver last name", InputType.TYPE_CLASS_TEXT));
-        caregiverInfoList.add(new EditTextViewContainer(getString(R.string.caregiver_contact_number), "Caregiver contact number", InputType.TYPE_CLASS_NUMBER));
+        caregiverInfoList.add(new EditTextViewContainer(getString(R.string.caregiver_first_name), getString(R.string.caregiver_first_name), InputType.TYPE_CLASS_TEXT));
+        caregiverInfoList.add(new EditTextViewContainer(getString(R.string.caregiver_last_name), getString(R.string.caregiver_last_name), InputType.TYPE_CLASS_TEXT));
+        caregiverInfoList.add(new EditTextViewContainer(getString(R.string.caregiver_contact_number), getString(R.string.caregiver_contact_number), InputType.TYPE_CLASS_NUMBER));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
@@ -648,12 +648,12 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
             @Override
             public void onResponse(Call<ClientDisability> call, Response<ClientDisability> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Disability Record Fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.disability_record_fail), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 ClientDisability clientInfoResponse = response.body();
-                Toast.makeText(getActivity(),  "Disability Record Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),  getString(R.string.disability_record_successful), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -670,12 +670,12 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
             @Override
             public void onResponse(Call<ClientHealthAspect> call, Response<ClientHealthAspect> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Health Aspect Record Fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.health_aspect_record_fail), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 ClientHealthAspect clientHealthAspectResponse = response.body();
-                Toast.makeText(getActivity(),  "Health Aspect Record Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),  getString(R.string.health_aspect_record_successful), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -692,12 +692,12 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
             @Override
             public void onResponse(Call<ClientEducationAspect> call, Response<ClientEducationAspect> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Education Aspect Record Fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.education_aspect_record_fail), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 ClientEducationAspect clientEducationAspectResponse = response.body();
-                Toast.makeText(getActivity(),  "Education Aspect Record Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),  getString(R.string.education_aspect_record_successful), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -714,12 +714,12 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
             @Override
             public void onResponse(Call<ClientSocialAspect> call, Response<ClientSocialAspect> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Social Aspect Record Fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.social_aspect_record_fail), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 ClientSocialAspect clientSocialAspectResponse = response.body();
-                Toast.makeText(getActivity(),  "Social Aspect Record Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),  getString(R.string.social_aspect_record_successful), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -764,12 +764,12 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
             @Override
             public void onResponse(Call<ClientInfo> call, Response<ClientInfo> response) {
                 if (!response.isSuccessful()) {
-                    showErrorDialog("Record Fail", null);
+                    showErrorDialog(getString(R.string.client_record_fail), null);
                     return;
                 }
 
                 ClientInfo clientInfoResponse = response.body();
-                showOkDialog("", clientInfoResponse.getFullName() + "\n" + "Record Successful", null);
+                showOkDialog("", clientInfoResponse.getFullName() + "\n" + getString(R.string.record_successful), null);
             }
 
             @Override

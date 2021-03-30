@@ -41,10 +41,10 @@ public class MapFragment extends BaseFragment implements MapContract.View {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
-                // Add a marker in Sydney and move the camera
-                LatLng sydney = new LatLng(1.3733, 32.2903);
-                mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Uganda"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                // Add a marker in Uganda and move the camera
+                LatLng uganda = new LatLng(1.3733, 32.2903);
+                mMap.addMarker(new MarkerOptions().position(uganda).title(getString(R.string.marker_in_Uganda)));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(uganda));
             }
         });
 

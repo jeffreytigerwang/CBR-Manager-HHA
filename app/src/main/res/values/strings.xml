@@ -224,5 +224,6 @@
     <string name="title_activity_maps">Map</string>
 
     <string name="google_map_api_key">AIzaSyB_JlRLqJ_ASLFjJW_qIBNK_Eev0jUCF0k</string>
+    <string name="marker_in_Uganda">Marker in Uganda</string>
 
 </resources>

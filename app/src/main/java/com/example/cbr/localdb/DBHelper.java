@@ -2,6 +2,7 @@ package com.example.cbr.localdb;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -16,6 +17,9 @@ import com.example.cbr.models.VisitHealthQuestionSetData;
 import com.example.cbr.models.VisitSocialQuestionSetData;
 import com.example.cbr.util.Constants;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String USER_TABLE = "USER_TABLE";
@@ -28,6 +32,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String EDUCATION_PROGRESS_TABLE = "EDUCATION_PROGRESS_TABLE";
     public static final String HEALTH_PROGRESS_TABLE = "HEALTH_PROGRESS_TABLE";
     public static final String SOCIAL_PROGRESS_TABLE = "SOCIAL_PROGRESS_TABLE";
+    public static final String SELECT_ALL_FROM = "SELECT * FROM ";
 
 
 
@@ -113,7 +118,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean addUser(Users user){
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put(FIRST_NAME, user.getFirstName());
@@ -129,7 +134,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean addClient(ClientInfo client) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put(FIRST_NAME, client.getFirstName());
@@ -151,7 +156,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean addDisability(ClientInfo client) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put("CLIENT_ID", client.getId());
@@ -170,7 +175,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean addVisit(VisitGeneralQuestionSetData visit) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put("CLIENT_ID", visit.getClientId());
@@ -190,7 +195,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean addEducationAspect(ClientEducationAspect aspect) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put("CLIENT_ID", aspect.getClientId());
@@ -204,7 +209,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean addEducationProgress(VisitEducationQuestionSetData progress) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put("CLIENT_ID", progress.getClientId());
@@ -225,7 +230,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean addHealthAspect(ClientHealthAspect aspect) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put("CLIENT_ID", aspect.getClientId());
@@ -239,7 +244,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean addHealthProgress(VisitHealthQuestionSetData progress) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put("CLIENT_ID", progress.getClientId());
@@ -268,7 +273,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean addSocialAspect(ClientSocialAspect aspect) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put("CLIENT_ID", aspect.getClientId());
@@ -281,7 +286,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean addSocialProgress(VisitSocialQuestionSetData progress) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put("CLIENT_ID", progress.getClientId());
@@ -299,6 +304,54 @@ public class DBHelper extends SQLiteOpenHelper {
 
         long success = db.insert(SOCIAL_PROGRESS_TABLE, null, cv);
         return success != -1;
+    }
+
+    public List<ClientInfo> getAllClients() {
+        List<ClientInfo> clientInfoList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = SELECT_ALL_FROM + CLIENT_TABLE;
+        Cursor clientCursor = db.rawQuery(query, null);
+
+        if(clientCursor.moveToFirst()) {
+            do {
+
+                String firstName = clientCursor.getString(0);
+                String lastName = clientCursor.getString(1);
+                int id = clientCursor.getInt(2);
+                String gender = clientCursor.getString(3);
+                int age = clientCursor.getInt(4);
+                String contactNumber = clientCursor.getString(5);
+                String dateJoined = clientCursor.getString(6);
+                String villageNumber = clientCursor.getString(7);
+                String zone = clientCursor.getString(8);
+                String gpsLocation = clientCursor.getString(9);
+                boolean caregiverPresent = clientCursor.getInt(10) == 1;
+                String caregiverContact = clientCursor.getString(11);
+
+                ClientInfo client = new ClientInfo();
+                client.setFirstName(firstName);
+                client.setLastName(lastName);
+                client.setId(String.valueOf(id));
+                client.setGender(gender);
+                client.setAge(age);
+                client.setContactNumber(contactNumber);
+                client.setDateJoined(dateJoined);
+                client.setVillageNumber(villageNumber);
+                client.setZoneLocation(zone);
+                client.setGpsLocation(gpsLocation);
+                client.setCaregiverPresentForInterview(caregiverPresent);
+                client.setCaregiverContactNumber(caregiverContact);
+
+                clientInfoList.add(client);
+
+            } while (clientCursor.moveToFirst());
+
+        }
+
+        return clientInfoList;
+
     }
 
 

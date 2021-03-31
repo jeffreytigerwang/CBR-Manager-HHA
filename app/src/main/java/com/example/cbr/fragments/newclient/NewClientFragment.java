@@ -451,65 +451,6 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
 
                     if (isAllFilled) {
                         recordAndFinish();
-
-//                        createClientBasicInfo(
-//                                clientId,
-//                                clientInfo.getFirstName(),
-//                                clientInfo.getLastName(),
-//                                clientInfo.getAge(),
-//                                clientInfo.getGender(),
-//                                clientInfo.getContactNumber(),
-//                                clientInfo.getGpsLocation(),
-//                                clientInfo.getZoneLocation(),
-//                                clientInfo.getVillageNumber(),
-//                                clientInfo.getCaregiverPresentForInterview(),
-//                                clientInfo.getCaregiverFirstName(),
-//                                clientInfo.getCaregiverLastName(),
-//                                clientInfo.getCaregiverContactNumber()
-//                        );
-//
-//                        ClientDisability clientDisability = new ClientDisability(
-//                                clientId,
-//                                clientInfo.getAmputeeDisability(),
-//                                clientInfo.getPolioDisability(),
-//                                clientInfo.getSpinalCordInjuryDisability(),
-//                                clientInfo.getCerebralPalsyDisability(),
-//                                clientInfo.getSpinaBifidaDisability(),
-//                                clientInfo.getHydrocephalusDisability(),
-//                                clientInfo.getVisualImpairmentDisability(),
-//                                clientInfo.getHearingImpairmentDisability(),
-//                                clientInfo.getDoNotKnowDisability(),
-//                                clientInfo.getOtherDisability(),
-//                                clientInfo.getDescribeOtherDisability()
-//                        );
-//
-//                        ClientHealthAspect clientHealthAspect = new ClientHealthAspect(
-//                                clientId,
-//                                clientInfo.getRateHealth(),
-//                                clientInfo.getDescribeHealth(),
-//                                clientInfo.getSetGoalForHealth()
-//                        );
-//
-//                        ClientEducationAspect clientEducationAspect = new ClientEducationAspect(
-//                                clientId,
-//                                clientInfo.getRateEducation(),
-//                                clientInfo.getDescribeEducation(),
-//                                clientInfo.getSetGoalForEducation()
-//                        );
-//
-//                        ClientSocialAspect clientSocialAspect = new ClientSocialAspect(
-//                                clientId,
-//                                clientInfo.getRateSocialStatus(),
-//                                clientInfo.getDescribeSocialStatus(),
-//                                clientInfo.getSetGoalForSocialStatus()
-//                        );
-//
-//                        createClientDisability(clientDisability);
-//                        createClientHealthAspect(clientHealthAspect);
-//                        createClientEducationAspect(clientEducationAspect);
-//                        createClientSocialAspect(clientSocialAspect);
-
-                        // The below is commented out because the app will crash if it is uncommented
                         // getActivity().getSupportFragmentManager().popBackStack();
                     }
                 }
@@ -529,25 +470,65 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
     }
 
     private void recordAndFinish() {
-        // Make API call to database
         clientId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
 
-            ClientDisability clientDisability = new ClientDisability(
-                clientId,
-                clientInfo.getAmputeeDisability(),
-                clientInfo.getPolioDisability(),
-                clientInfo.getSpinalCordInjuryDisability(),
-                clientInfo.getCerebralPalsyDisability(),
-                clientInfo.getSpinaBifidaDisability(),
-                clientInfo.getHydrocephalusDisability(),
-                clientInfo.getVisualImpairmentDisability(),
-                clientInfo.getHearingImpairmentDisability(),
-                clientInfo.getDoNotKnowDisability(),
-                clientInfo.getOtherDisability(),
-                clientInfo.getDescribeOtherDisability()
-            );
+        ClientDisability clientDisability = new ClientDisability(
+            clientId,
+            clientInfo.getAmputeeDisability(),
+            clientInfo.getPolioDisability(),
+            clientInfo.getSpinalCordInjuryDisability(),
+            clientInfo.getCerebralPalsyDisability(),
+            clientInfo.getSpinaBifidaDisability(),
+            clientInfo.getHydrocephalusDisability(),
+            clientInfo.getVisualImpairmentDisability(),
+            clientInfo.getHearingImpairmentDisability(),
+            clientInfo.getDoNotKnowDisability(),
+            clientInfo.getOtherDisability(),
+            clientInfo.getDescribeOtherDisability()
+        );
 
+        ClientHealthAspect clientHealthAspect = new ClientHealthAspect(
+                clientId,
+                clientInfo.getRateHealth(),
+                clientInfo.getDescribeHealth(),
+                clientInfo.getSetGoalForHealth()
+        );
+
+        ClientEducationAspect clientEducationAspect = new ClientEducationAspect(
+                clientId,
+                clientInfo.getRateEducation(),
+                clientInfo.getDescribeEducation(),
+                clientInfo.getSetGoalForEducation()
+        );
+
+        ClientSocialAspect clientSocialAspect = new ClientSocialAspect(
+                clientId,
+                clientInfo.getRateSocialStatus(),
+                clientInfo.getDescribeSocialStatus(),
+                clientInfo.getSetGoalForSocialStatus()
+        );
+
+        createClientBasicInfo(
+            clientId,
+            clientInfo.getFirstName(),
+            clientInfo.getLastName(),
+            clientInfo.getAge(),
+            clientInfo.getGender(),
+            clientInfo.getContactNumber(),
+            clientInfo.getGpsLocation(),
+            clientInfo.getZoneLocation(),
+            clientInfo.getVillageNumber(),
+            clientInfo.getCaregiverPresentForInterview(),
+            clientInfo.getCaregiverFirstName(),
+            clientInfo.getCaregiverLastName(),
+            clientInfo.getCaregiverContactNumber()
+        );
+
+//        presenter.createClientInfo(clientInfo); // Need to refactor the createClientInfo function
         presenter.createClientDisability(clientDisability);
+        presenter.createClientHealthAspect(clientHealthAspect);
+        presenter.createClientEducationAspect(clientEducationAspect);
+        presenter.createClientSocialAspect(clientSocialAspect);
     }
 
     private boolean isAllRequiredQuestionsFilled() {
@@ -569,42 +550,42 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         final String describeSocialStatus = clientInfo.getDescribeSocialStatus();
         final String socialStatusGoal = clientInfo.getSetGoalForSocialStatus();
 
-//        // Error checking for the consent page
-//        if (!isConsentChecked) {
-//            showOkDialog(getString(R.string.missing_fields), getString(R.string.must_consent_to_interview), null);
-//            return false;
-//        }
-//
-//        // Error checking for the Basic Info page
-//        if (isStringFieldNull(firstName, getString(R.string.first_name_cannot_be_empty)) ||
-//            isStringFieldNull(lastName, getString(R.string.last_name_cannot_be_empty)))
-//        {
-//            return false;
-//        }
-//
-//        if (age == -1) {
-//            showOkDialog(getString(R.string.missing_fields), getString(R.string.age_cannot_be_empty), null);
-//            return false;
-//        }
-//
-//        if (isStringFieldNull(gender, getString(R.string.gender_cannot_be_empty))) {
-//            return false;
-//        }
-//
-//        // Error checking for the Location Info page
-//        if (villageNumber == null) {
-//            showOkDialog(getString(R.string.missing_fields), getString(R.string.village_number_cannot_be_empty), null);
-//            return false;
-//        }
-//
-//        // Error checking for the Caregiver Info page
-//        if (isCaregiverPresent) {
-//            if (isStringFieldNull(caregiverFirstName, getString(R.string.caregiver_first_name_cannot_be_empty)) ||
-//                    isStringFieldNull(caregiverLastName, getString(R.string.caregiver_last_name_cannot_be_empty)))
-//            {
-//                return false;
-//            }
-//        }
+        // Error checking for the consent page
+        if (!isConsentChecked) {
+            showOkDialog(getString(R.string.missing_fields), getString(R.string.must_consent_to_interview), null);
+            return false;
+        }
+
+        // Error checking for the Basic Info page
+        if (isStringFieldNull(firstName, getString(R.string.first_name_cannot_be_empty)) ||
+            isStringFieldNull(lastName, getString(R.string.last_name_cannot_be_empty)))
+        {
+            return false;
+        }
+
+        if (age == -1) {
+            showOkDialog(getString(R.string.missing_fields), getString(R.string.age_cannot_be_empty), null);
+            return false;
+        }
+
+        if (isStringFieldNull(gender, getString(R.string.gender_cannot_be_empty))) {
+            return false;
+        }
+
+        // Error checking for the Location Info page
+        if (villageNumber == null) {
+            showOkDialog(getString(R.string.missing_fields), getString(R.string.village_number_cannot_be_empty), null);
+            return false;
+        }
+
+        // Error checking for the Caregiver Info page
+        if (isCaregiverPresent) {
+            if (isStringFieldNull(caregiverFirstName, getString(R.string.caregiver_first_name_cannot_be_empty)) ||
+                    isStringFieldNull(caregiverLastName, getString(R.string.caregiver_last_name_cannot_be_empty)))
+            {
+                return false;
+            }
+        }
 
         // Error checking for the Type of Disability page
         if (isOtherDisabilityChecked) {
@@ -613,26 +594,26 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
             }
         }
 
-//        // Error checking for the Health page
-//        if (isStringFieldNull(describeHealth, getString(R.string.health_description_cannot_be_empty)) ||
-//            isStringFieldNull(healthGoal, getString(R.string.health_goal_cannot_be_empty)))
-//        {
-//            return false;
-//        }
-//
-//        // Error checking for the Education page
-//        if (isStringFieldNull(describeEducation, getString(R.string.education_description_cannot_be_empty)) ||
-//            isStringFieldNull(educationGoal, getString(R.string.education_goal_cannot_be_empty)))
-//        {
-//            return false;
-//        }
-//
-//        // Error checking for the Social Status page
-//        if (isStringFieldNull(describeSocialStatus, getString(R.string.social_status_description_cannot_be_empty)) ||
-//            isStringFieldNull(socialStatusGoal, getString(R.string.social_status_goal_cannot_be_empty)))
-//        {
-//            return false;
-//        }
+        // Error checking for the Health page
+        if (isStringFieldNull(describeHealth, getString(R.string.health_description_cannot_be_empty)) ||
+            isStringFieldNull(healthGoal, getString(R.string.health_goal_cannot_be_empty)))
+        {
+            return false;
+        }
+
+        // Error checking for the Education page
+        if (isStringFieldNull(describeEducation, getString(R.string.education_description_cannot_be_empty)) ||
+            isStringFieldNull(educationGoal, getString(R.string.education_goal_cannot_be_empty)))
+        {
+            return false;
+        }
+
+        // Error checking for the Social Status page
+        if (isStringFieldNull(describeSocialStatus, getString(R.string.social_status_description_cannot_be_empty)) ||
+            isStringFieldNull(socialStatusGoal, getString(R.string.social_status_goal_cannot_be_empty)))
+        {
+            return false;
+        }
 
         return true;
     }
@@ -660,94 +641,6 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         } else {
             binding.newClientPagePositiveButton.setText(R.string.next);
         }
-    }
-
-    private void createClientDisability(ClientDisability clientDisability) {
-        Call<ClientDisability> call = jsonPlaceHolderApi.createClientDisability(clientDisability);
-
-        call.enqueue(new Callback<ClientDisability>() {
-            @Override
-            public void onResponse(Call<ClientDisability> call, Response<ClientDisability> response) {
-                if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), getString(R.string.disability_record_fail), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                ClientDisability clientInfoResponse = response.body();
-                Toast.makeText(getActivity(),  getString(R.string.disability_record_successful), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<ClientDisability> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private void createClientHealthAspect(ClientHealthAspect clientHealthAspect) {
-        Call<ClientHealthAspect> call = jsonPlaceHolderApi.createClientHealthAspect(clientHealthAspect);
-
-        call.enqueue(new Callback<ClientHealthAspect>() {
-            @Override
-            public void onResponse(Call<ClientHealthAspect> call, Response<ClientHealthAspect> response) {
-                if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), getString(R.string.health_aspect_record_fail), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                ClientHealthAspect clientHealthAspectResponse = response.body();
-                Toast.makeText(getActivity(),  getString(R.string.health_aspect_record_successful), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<ClientHealthAspect> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private void createClientEducationAspect(ClientEducationAspect clientEducationAspect) {
-        Call<ClientEducationAspect> call = jsonPlaceHolderApi.createClientEducationAspect(clientEducationAspect);
-
-        call.enqueue(new Callback<ClientEducationAspect>() {
-            @Override
-            public void onResponse(Call<ClientEducationAspect> call, Response<ClientEducationAspect> response) {
-                if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), getString(R.string.education_aspect_record_fail), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                ClientEducationAspect clientEducationAspectResponse = response.body();
-                Toast.makeText(getActivity(),  getString(R.string.education_aspect_record_successful), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<ClientEducationAspect> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private void createClientSocialAspect(ClientSocialAspect clientSocialAspect) {
-        Call<ClientSocialAspect> call = jsonPlaceHolderApi.createClientSocialAspect(clientSocialAspect);
-
-        call.enqueue(new Callback<ClientSocialAspect>() {
-            @Override
-            public void onResponse(Call<ClientSocialAspect> call, Response<ClientSocialAspect> response) {
-                if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), getString(R.string.social_aspect_record_fail), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                ClientSocialAspect clientSocialAspectResponse = response.body();
-                Toast.makeText(getActivity(),  getString(R.string.social_aspect_record_successful), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<ClientSocialAspect> call, Throwable t) {
-
-            }
-        });
     }
 
     private void createClientBasicInfo(

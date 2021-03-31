@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         // Init Retrofit & NodeJs stuff
         retrofit = RetrofitInit.getInstance();
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);

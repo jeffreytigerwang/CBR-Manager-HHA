@@ -39,6 +39,12 @@ public class HomeActivity extends BaseActivity implements
     private int currentTabPosition;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);

@@ -65,10 +65,10 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     private final ArrayList<QuestionsFragmentPagerAdapter.ViewPagerContainer> viewPagerContainerList = new ArrayList<>();
     private String latLongLocation;
 
-    VisitGeneralQuestionSetData generalQuestionSetData = new VisitGeneralQuestionSetData();
-    VisitHealthQuestionSetData healthQuestionSetData = new VisitHealthQuestionSetData();
-    VisitEducationQuestionSetData educationQuestionSetData = new VisitEducationQuestionSetData();
-    VisitSocialQuestionSetData socialQuestionSetData = new VisitSocialQuestionSetData();
+    private final VisitGeneralQuestionSetData generalQuestionSetData = new VisitGeneralQuestionSetData();
+    private final VisitHealthQuestionSetData healthQuestionSetData = new VisitHealthQuestionSetData();
+    private final VisitEducationQuestionSetData educationQuestionSetData = new VisitEducationQuestionSetData();
+    private final VisitSocialQuestionSetData socialQuestionSetData = new VisitSocialQuestionSetData();
 
 
     private enum PAGES {
@@ -178,7 +178,29 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         this.menu.clear();
         // inflate action bar items here
         inflater.inflate(R.menu.action_bar_record, menu);
+        setupMenuItem(menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    /**
+     * For menu items using {@code app:actionLayout}, it is important to setup
+     * on click listeners. Otherwise,
+     * {@link androidx.fragment.app.Fragment#onOptionsItemSelected(MenuItem)
+     * onOptionsItemSelected(MenuItem)}
+     * will not be called.
+     * <p>Also, make sure that all views on the action layouts are set to
+     * {@code android:clickable="false"}. Otherwise, the listener on those
+     * views will steal the result.
+     * */
+    private void setupMenuItem(@NonNull Menu menu) {
+        final MenuItem item = menu.findItem(R.id.newVisit_recordButton);
+        View actionView = item.getActionView();
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOptionsItemSelected(item);
+            }
+        });
     }
 
     @Override
@@ -644,7 +666,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
     private void generateSocialPage() {
         ArrayList<QuestionDataContainer> socialPageViews = new ArrayList<>();
-        socialPageViews.add(new HeaderViewContainer(getString(R.string.education)));
+        socialPageViews.add(new HeaderViewContainer(getString(R.string.social)));
 
         socialPageViews.add(new SingleTextViewContainer(getString(R.string.for_social_what_was_provided),
                 Constants.PRIMARY_QUESTION_TEXT_SIZE_SP));

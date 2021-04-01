@@ -416,6 +416,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
         List<String> siteLocations = new ArrayList<>(
                 Arrays.asList(getResources().getStringArray(R.array.zone_locations_array)));
+        generalQuestionSetData.setVisitZoneLocation(siteLocations.get(0));
         generalPageViews.add(new SpinnerViewContainer(getString(R.string.new_vist_location),
                 Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, siteLocations));
 

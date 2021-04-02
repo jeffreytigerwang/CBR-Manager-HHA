@@ -1,8 +1,12 @@
 import http from "../http-common";
 
 class VisitDataService {
-  getAll() {
+  getAllGeneralData() {
     return http.get("/visits");
+  }
+
+  getAllHealthData() {
+    return http.get("/healthprogress")
   }
 
   get(id) {

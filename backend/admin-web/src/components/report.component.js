@@ -15,19 +15,22 @@ class Report extends Component {
 
         this.getAllClients = this.getAllClients.bind(this);
         this.getAllVisitsFromId = this.getAllVisitsFromId.bind(this);
-        this.getAllVisits = this.getAllVisits.bind(this);
+        this.getAllGeneralVisitData = this.getAllGeneralVisitData.bind(this);
+        this.getAllHealthVisitData = this.getAllHealthVisitData.bind(this);
 
         this.state = {
             isLoading: false,
             allClients: new Array(),
-            visits: new Array()
+            generalVisitData: new Array(),
+            healthVisitData: new Array()
         };
     }
 
     componentDidMount() {
         // this.getUser(this.props.match.params.id);
         this.getAllClients();
-        this.getAllVisits();
+        this.getAllGeneralVisitData();
+        this.getAllHealthVisitData();
     }
 
     getAllClients() {
@@ -60,14 +63,29 @@ class Report extends Component {
 
     }
 
-    getAllVisits() {
+    getAllGeneralVisitData() {
         this.setState({isLoading: true})
-        VisitDataService.getAll()
+        VisitDataService.getAllGeneralData()
             .then(response => {
                 console.log(response.data);
                 this.setState({
                     isLoading: false,
-                    visits: response.data
+                    generalVisitData: response.data
+                });
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    }
+
+    getAllHealthVisitData() {
+        this.setState({isLoading: true})
+        VisitDataService.getAllHealthData()
+            .then(response => {
+                console.log(response.data);
+                this.setState({
+                    isLoading: false,
+                    healthVisitData: response.data
                 });
             })
             .catch(e => {
@@ -76,19 +94,35 @@ class Report extends Component {
     }
 
     render() {
-        const currentUser = this.state.isLoading ? LOADING : this.state.currentUser
-        // const allClients = this.state.isLoading ? LOADING : this.state.allClients
-        const {searchName, allClients, cuurentClient, currentIndex} = this.state;
+        const currentUser = this.state.isLoading ? LOADING : this.state.currentUser;
+        // const {searchName, allClients, cuurentClient, currentIndex} = this.state;
         const { classes } = this.props;
-        const {visits} = this.state;
+        const {generalVisitData} = this.state;
+        const {healthVisitData} = this.state;
 
-        
+        var numberOfVisits = 0;
+        var numberOfWheelChair = 0;
 
+        generalVisitData.forEach(element => {
+            numberOfVisits++;
+        });
+
+        healthVisitData.forEach(element => {
+            if (element.isWheelChairChecked) {
+                numberOfWheelChair++;
+            }
+        });
 
         return (
             <div>
                 <h1>SWAG</h1>
-                <Grid item sm={4}>
+                <div>
+                    <ul>
+                        <li>Number of visits: {numberOfVisits}</li>
+                        <li>Number of wheel chairs: {numberOfWheelChair}</li>
+                    </ul>
+                </div>
+                {/* <Grid item sm={4}>
                     <Paper Grid container direction="column" justify="center"
                     alignItems="center">
                     <Grid item><h2>Users List</h2>
@@ -105,7 +139,7 @@ class Report extends Component {
                     </div>
                     </Grid>
                     </Paper>
-                </Grid>
+                </Grid> */}
             </div>
         )
     }

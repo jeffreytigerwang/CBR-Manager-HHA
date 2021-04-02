@@ -64,16 +64,15 @@ public class PriorityListAdapter extends RecyclerView.Adapter<PriorityListAdapte
             dateText = itemView.findViewById(R.id.dashboard_priorityListDate);
         }
 
-        //TODO: find way to show most critical risk level and last visit date
         public void bind(final ClientInfo clientInfo, String dateOfLastVisit){
             nameText.setText(clientInfo.getFullName());
 
-            String risk = "Education " + clientInfo.getRateEducation() + ", Health " +
-                    clientInfo.getRateHealth() + ", Social Status " + clientInfo.getRateSocialStatus();
+            String risk = context.getString(R.string.risk_levels_message, clientInfo.getRateEducation(),
+                    clientInfo.getRateHealth(), clientInfo.getRateSocialStatus());
 
             riskText.setText(risk);
             locationText.setText(clientInfo.getZoneLocation());
-            dateText.setText(dateOfLastVisit);
+            dateText.setText(context.getString(R.string.last_visit_message,dateOfLastVisit));
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

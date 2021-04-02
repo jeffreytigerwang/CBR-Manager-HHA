@@ -57,16 +57,17 @@ class Report extends Component {
             .catch(e => {
                 console.log(e);
             });
+
     }
 
     getAllVisits() {
         this.setState({isLoading: true})
-        VisitDataService.getAll(id)
+        VisitDataService.getAll()
             .then(response => {
                 console.log(response.data);
                 this.setState({
                     isLoading: false,
-                    visits: response
+                    visits: response.data
                 });
             })
             .catch(e => {
@@ -81,12 +82,12 @@ class Report extends Component {
         const { classes } = this.props;
         const {visits} = this.state;
 
-        var sumOfVisits = visits.group({ id: id, count: { $sum: 1 } }).exec()
+        
 
 
         return (
             <div>
-                <h1>SWAG sumOfVisits</h1>
+                <h1>SWAG</h1>
                 <Grid item sm={4}>
                     <Paper Grid container direction="column" justify="center"
                     alignItems="center">

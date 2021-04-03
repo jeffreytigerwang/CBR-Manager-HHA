@@ -540,7 +540,7 @@ public class NewVisitActivity extends AppCompatActivity {
 
         generalQuestionSetData.setWorkerName(workerName.getText().toString());
         generalQuestionSetData.setVisitGpsLocation(locationOfVisit.getText().toString());
-        generalQuestionSetData.setVillageNumber(villageNumberString.getText().toString());
+        generalQuestionSetData.setVillageNumber(Integer.parseInt(villageNumberString.getText().toString()));
     }
 
     private void manageFragment(Fragment fragment) {

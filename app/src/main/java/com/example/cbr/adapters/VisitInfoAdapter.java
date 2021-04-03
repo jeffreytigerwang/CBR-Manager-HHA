@@ -28,7 +28,7 @@ public class VisitInfoAdapter extends BaseInfoAdapter {
         addTextViewType(context.getString(R.string.visit_date), visitGeneralQuestionSetData.getDateOfVisit().toString());
         addTextViewType(context.getString(R.string.worker_name), visitGeneralQuestionSetData.getWorkerName());
         addTextViewType(context.getString(R.string.gps_location), visitGeneralQuestionSetData.getVisitGpsLocation());
-        addTextViewType(context.getString(R.string.village_number), visitGeneralQuestionSetData.getVillageNumber());
+        addTextViewType(context.getString(R.string.village_number), String.valueOf(visitGeneralQuestionSetData.getVillageNumber()));
         addTextViewType(context.getString(R.string.zone_location), visitGeneralQuestionSetData.getVisitZoneLocation());
     }
 }

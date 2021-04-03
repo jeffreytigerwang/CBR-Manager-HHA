@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.cbr.models.ClientDisability;
 import com.example.cbr.models.ClientEducationAspect;
 import com.example.cbr.models.ClientHealthAspect;
 import com.example.cbr.models.ClientInfo;
@@ -18,6 +19,7 @@ import com.example.cbr.models.VisitSocialQuestionSetData;
 import com.example.cbr.util.Constants;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -40,9 +42,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String ID = "ID";
     public static final String FIRST_NAME = "FIRST_NAME";
     public static final String LAST_NAME = "LAST_NAME";
-    public static final String USER_PHONE_NUMBER = "PHONE_NUMBER";
+/*    public static final String USER_PHONE_NUMBER = "PHONE_NUMBER";
     public static final String USER_PASSWORD = "PASSWORD";
-    public static final String USER_TYPE = "USER_TYPE";
+    public static final String USER_TYPE = "USER_TYPE";*/
     public static final String ZONE = "ZONE";
 
 
@@ -52,24 +54,27 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+/*
         String createUsers = "CREATE TABLE " + USER_TABLE + " (" + ID + " INT PRIMARY KEY, "
                 + FIRST_NAME + " TEXT, " + LAST_NAME + " TEXT, " +  USER_PHONE_NUMBER + " INT, " + USER_PASSWORD
                 + " TEXT, " + USER_TYPE + " TEXT, " + ZONE + " TEXT)";
         sqLiteDatabase.execSQL(createUsers);
+*/
 
         String createClients = "CREATE TABLE CLIENT_TABLE (ID INT PRIMARY KEY, " + FIRST_NAME +
-                " TEXT, " + LAST_NAME + " TEXT, " + "GENDER TEXT, AGE INT, CONTACT_NUMBER TEXT, " +
-                "DATE_JOINED TEXT, VILLAGE_NUMBER TEXT, " + ZONE + " TEXT, GPS_LOCATION TEXT, " +
-                "CAREGIVER_PRESENT BOOL, CAREGIVER_CONTACT_NUMBER TEXT)";
+                " TEXT, " + LAST_NAME + " TEXT, " + "GENDER TEXT, AGE INTEGER, CONTACT_NUMBER TEXT, " +
+                "DATE_JOINED DATE, VILLAGE_NUMBER TEXT, " + ZONE + " TEXT, GPS_LOCATION TEXT, " +
+                "CAREGIVER_PRESENT BOOL, CAREGIVER_CONTACT_NUMBER TEXT, PHOTO BLOB)";
         sqLiteDatabase.execSQL(createClients);
 
         String createDisability = "CREATE TABLE DISABILITY_TABLE (CLIENT_ID INT, AMPUTEE BOOL, " +
                 "POLIO BOOL, SPINAL_CORD_INJURY BOOL, CEREBRAL_PALSY BOOL, SPINAL_BIFIDA BOOL, " +
-                "HYDROCEPHALUS BOOL, VISUAL_IMPAIRMENT BOOL, DO_KNOW_KNOW BOOL, OTHER BOOL)";
+                "HYDROCEPHALUS BOOL, VISUAL_IMPAIRMENT BOOL, HEARING_IMPAIRMENT BOOL, " +
+                "DO_KNOW_KNOW BOOL, OTHER BOOL)";
         sqLiteDatabase.execSQL(createDisability);
 
         String createVisits = "CREATE TABLE VISITS_TABLE (CLIENT_ID INT, VISIT_ID INTEGER, " +
-                "IS_HEALTH_CHECKED BOOL, IS_EDUCATION_CHECKED, BOOL, IS_SOCIAL_CHECKED BOOL, " +
+                "IS_HEALTH_CHECKED BOOL, IS_EDUCATION_CHECKED BOOL, IS_SOCIAL_CHECKED BOOL, " +
                 "PURPOSE_OF_VISIT TEXT, DATE_OF_VISIT DATE, WORKER_NAME TEXT, GPS_LOCATION TEXT, " +
                 "ZONE_LOCATION TEXT, VILLAGE_NUMBER INT)";
         sqLiteDatabase.execSQL(createVisits);
@@ -95,7 +100,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "IS_HEALTH_ADVICE_CHECKED BOOL, IS_HEALTH_ADVOCACY_CHECKED BOOL, IS_HEALTH_ENCOURAGEMENT_CHECKED BOOL," +
                 "WHEEL_CHAIR_DESC TEXT, PROSTHETIC_DESC TEXT, ORTHOTIC_DESC TEXT, WHEEL_CHAIR_REPAIR_DESC TEXT, " +
                 "REFERRAL_TO_HC_DESC TEXT, HEALTH_ADVICE_DESC TEXT, HEALTH_ADVOCACY_DESC TEXT, " +
-                "HEALTH_ENCOURAGEMENT_DESC TEXT, HEALTH_OUTCOME_DESC TEXT)";
+                "HEALTH_ENCOURAGEMENT_DESC TEXT, HEALTH_OUTCOME_DESC TEXT, HEALTH_GOAL_DESC TEXT)";
         sqLiteDatabase.execSQL(createHealthProgress);
 
         String createSocialAspect = "CREATE TABLE SOCIAL_ASPECT_TABLE (CLIENT_ID INT, " +
@@ -117,7 +122,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addUser(Users user){
+   /* public boolean addUser(Users user){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -131,7 +136,7 @@ public class DBHelper extends SQLiteOpenHelper {
         long success = db.insert(USER_TABLE, null, cv);
 
         return success != -1;
-    }
+    }*/
 
     public boolean addClient(ClientInfo client) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -167,6 +172,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("SPINAL_BIFIDA", client.isSpinaBifidaDisability());
         cv.put("HYDROCEPHALUS", client.isHydrocephalusDisability());
         cv.put("VISUAL_IMPAIRMENT", client.isVisualImpairmentDisability());
+        cv.put("HEARING_IMPAIRMENT", client.isHearingImpairmentDisability());
         cv.put("DO_NOT_KNOW", client.isDoNotKnowDisability());
         cv.put("OTHER", client.isOtherDisability());
 
@@ -346,13 +352,317 @@ public class DBHelper extends SQLiteOpenHelper {
 
                 clientInfoList.add(client);
 
-            } while (clientCursor.moveToFirst());
+            } while (clientCursor.moveToNext());
+        }
+        return clientInfoList;
+    }
 
+    //TODO: FIGURE OUT DATE ISSUES
+    public List<VisitGeneralQuestionSetData> getAllVisitGeneralQuestions() {
+        List<VisitGeneralQuestionSetData> visitsList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = SELECT_ALL_FROM + VISIT_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int clientId = cursor.getInt(0);
+                int visitId = cursor.getInt(1);
+                boolean isHealthChecked = cursor.getInt(2) == 1;
+                boolean isEducationChecked = cursor.getInt(3) == 1;
+                boolean isSocialChecked = cursor.getInt(4) == 1;
+                String visitPurpose = cursor.getString(5);
+//                Date dateOfVisit = cursor.
+                String workerName = cursor.getString(7);
+                String gpsLocation = cursor.getString(8);
+                String zoneLocation = cursor.getString(9);
+                int villageNumber = cursor.getInt(10);
+
+                VisitGeneralQuestionSetData visit = new VisitGeneralQuestionSetData();
+                visit.setClientId(clientId);
+                visit.setVisitId(visitId);
+                visit.setHealthChecked(isHealthChecked);
+                visit.setEducationChecked(isEducationChecked);
+                visit.setSocialChecked(isSocialChecked);
+                visit.setPurposeOfVisit(visitPurpose);
+//                visit.
+                visit.setWorkerName(workerName);
+                visit.setVisitGpsLocation(gpsLocation);
+                visit.setVisitZoneLocation(zoneLocation);
+                visit.setVillageNumber(villageNumber);
+
+                visitsList.add(visit);
+
+            } while (cursor.moveToNext());
+        }
+        return visitsList;
+    }
+
+    public List<VisitHealthQuestionSetData> getAllVisitHealthQuestions(){
+        List<VisitHealthQuestionSetData> visitsList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = SELECT_ALL_FROM + HEALTH_PROGRESS_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int clientId = cursor.getInt(0);
+                int visitId = cursor.getInt(1);
+                boolean isWheelChairChecked = cursor.getInt(2) == 1;
+                boolean isProstheticChecked = cursor.getInt(3) == 1;
+                boolean isOrthoticChecked = cursor.getInt(4) == 1;
+                boolean isWheelChairRepairChecked = cursor.getInt(5) == 1;
+                boolean isReferralToHccChecked = cursor.getInt(6) == 1;
+                boolean isHealthAdviceChecked = cursor.getInt(7) == 1;
+                boolean isHealthAdvocacyChecked = cursor.getInt(8) == 1;
+                boolean isHealthEncouragementChecked = cursor.getInt(9) == 1;
+                String wheelChairDesc = cursor.getString(10);
+                String prostheticDesc = cursor.getString(11);
+                String orthoticDesc = cursor.getString(12);
+                String wheelChairRepairDesc = cursor.getString(13);
+                String referralToHcc = cursor.getString(14);
+                String healthAdvice = cursor.getString(15);
+                String healthAdvocacy = cursor.getString(16);
+                String healthEncouragement = cursor.getString(17);
+                String healthOutcome = cursor.getString(18);
+                String healthGoal = cursor.getString(19);
+
+                VisitHealthQuestionSetData visit = new VisitHealthQuestionSetData();
+                visit.setClientId(clientId);
+                visit.setVisitId(visitId);
+                visit.setWheelChairChecked(isWheelChairChecked);
+                visit.setProstheticChecked(isProstheticChecked);
+                visit.setOrthoticChecked(isOrthoticChecked);
+                visit.setWheelChairRepairChecked(isWheelChairRepairChecked);
+                visit.setReferralToHCChecked(isReferralToHccChecked);
+                visit.setHealthAdviceChecked(isHealthAdviceChecked);
+                visit.setHealthAdvocacyChecked(isHealthAdvocacyChecked);
+                visit.setHealthEncouragementChecked(isHealthEncouragementChecked);
+                visit.setWheelChairDesc(wheelChairDesc);
+                visit.setProstheticDesc(prostheticDesc);
+                visit.setOrthoticDesc(orthoticDesc);
+                visit.setWheelChairRepairDesc(wheelChairRepairDesc);
+                visit.setReferralToHCDesc(referralToHcc);
+                visit.setHealthAdviceDesc(healthAdvice);
+                visit.setHealthAdvocacyDesc(healthAdvocacy);
+                visit.setHealthEncouragementDesc(healthEncouragement);
+                visit.setHealthOutcomeDesc(healthOutcome);
+                visit.setHealthGoalStatus(healthGoal);
+
+                visitsList.add(visit);
+
+            } while(cursor.moveToNext());
         }
 
-        return clientInfoList;
-
+        return visitsList;
     }
+
+    public List<VisitEducationQuestionSetData> getAllVisitEducationQuestions() {
+        List<VisitEducationQuestionSetData> visitsList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = SELECT_ALL_FROM + EDUCATION_PROGRESS_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int clientId = cursor.getInt(0);
+                int visitId = cursor.getInt(1);
+
+                boolean isEducationAdviceChecked = cursor.getInt(2) == 1;
+                boolean isEducationAdvocacyChecked = cursor.getInt(3) == 1;
+                boolean isEducationReferralChecked = cursor.getInt(4) == 1;
+                boolean isEducationEncouragementChecked = cursor.getInt(5) == 1;
+                String educationAdvice = cursor.getString(6);
+                String educationAdvocacy = cursor.getString(7);
+                String educationReferral = cursor.getString(8);
+                String educationEncouragement = cursor.getString(9);
+                String educationOutcome = cursor.getString(10);
+                String educationGoal = cursor.getString(11);
+
+                VisitEducationQuestionSetData visit = new VisitEducationQuestionSetData();
+                visit.setClientId(clientId);
+                visit.setVisitId(visitId);
+                visit.setEducationAdviceChecked(isEducationAdviceChecked);
+                visit.setEducationAdvocacyChecked(isEducationAdvocacyChecked);
+                visit.setEducationEncouragementChecked(isEducationEncouragementChecked);
+                visit.setEducationReferralChecked(isEducationReferralChecked);
+                visit.setEducationAdviceDesc(educationAdvice);
+                visit.setEducationAdvocacyDesc(educationAdvocacy);
+                visit.setEducationEncouragementDesc(educationEncouragement);
+                visit.setEducationReferralDesc(educationReferral);
+                visit.setEducationOutcomeDesc(educationOutcome);
+                visit.setEducationGoalStatus(educationGoal);
+
+                visitsList.add(visit);
+
+            } while(cursor.moveToNext());
+        }
+
+        return visitsList;
+    }
+
+    public List<VisitSocialQuestionSetData> getAllVisitSocialQuestions() {
+        List<VisitSocialQuestionSetData> visitsList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = SELECT_ALL_FROM + SOCIAL_PROGRESS_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int clientId = cursor.getInt(0);
+                int visitId = cursor.getInt(1);
+
+                boolean isSocialAdviceChecked = cursor.getInt(2) == 1;
+                boolean isSocialAdvocacyChecked = cursor.getInt(3) == 1;
+                boolean isSocialReferralChecked = cursor.getInt(4) == 1;
+                boolean isSocialEncouragementChecked = cursor.getInt(5) == 1;
+                String socialAdvice = cursor.getString(6);
+                String socialAdvocacy = cursor.getString(7);
+                String socialReferral = cursor.getString(8);
+                String socialEncouragement = cursor.getString(9);
+                String socialOutcome = cursor.getString(10);
+                String socialGoal = cursor.getString(11);
+
+                VisitSocialQuestionSetData visit = new VisitSocialQuestionSetData();
+                visit.setClientId(clientId);
+                visit.setVisitId(visitId);
+                visit.setSocialAdviceChecked(isSocialAdviceChecked);
+                visit.setSocialAdvocacyChecked(isSocialAdvocacyChecked);
+                visit.setSocialEncouragementChecked(isSocialEncouragementChecked);
+                visit.setSocialReferralChecked(isSocialReferralChecked);
+                visit.setSocialAdviceDesc(socialAdvice);
+                visit.setSocialAdvocacyDesc(socialAdvocacy);
+                visit.setSocialEncouragementDesc(socialEncouragement);
+                visit.setSocialReferralDesc(socialReferral);
+                visit.setSocialOutcomeDesc(socialOutcome);
+                visit.setSocialGoalStatus(socialGoal);
+
+                visitsList.add(visit);
+
+            } while(cursor.moveToNext());
+        }
+
+        return visitsList;
+    }
+
+    public List<ClientHealthAspect> getAllClientHealthAspects() {
+
+        List<ClientHealthAspect> clientList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = SELECT_ALL_FROM + HEALTH_ASPECT_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int clientId = cursor.getInt(0);
+                String rateHealth = cursor.getString(1);
+                String describeHealth = cursor.getString(2);
+                String setGoalForHealth = cursor.getString(3);
+
+                ClientHealthAspect client = new ClientHealthAspect(clientId, rateHealth,
+                        describeHealth, setGoalForHealth);
+
+                clientList.add(client);
+
+            } while(cursor.moveToNext());
+        }
+
+        return clientList;
+    }
+
+    public List<ClientEducationAspect> getAllClientEducationAspects() {
+        List<ClientEducationAspect> clientList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = SELECT_ALL_FROM + EDUCATION_ASPECT_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int clientId = cursor.getInt(0);
+                String rateEducation = cursor.getString(1);
+                String describeEducation = cursor.getString(2);
+                String setGoalForEducation = cursor.getString(3);
+
+                ClientEducationAspect client = new ClientEducationAspect(clientId, rateEducation,
+                        describeEducation, setGoalForEducation);
+
+                clientList.add(client);
+
+            } while(cursor.moveToNext());
+        }
+
+        return clientList;
+    }
+
+    public List<ClientSocialAspect> getAllClientSocialAspects() {
+        List<ClientSocialAspect> clientList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = SELECT_ALL_FROM + SOCIAL_STATUS_ASPECT_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int clientId = cursor.getInt(0);
+                String rateSocial = cursor.getString(1);
+                String describeSocial = cursor.getString(2);
+                String setGoalForSocial = cursor.getString(3);
+
+                ClientSocialAspect client = new ClientSocialAspect(clientId, rateSocial,
+                        describeSocial, setGoalForSocial);
+
+                clientList.add(client);
+
+            } while(cursor.moveToNext());
+        }
+
+        return clientList;
+    }
+
+    public List<ClientDisability> getAllDisability() {
+        List<ClientDisability> clientDisabilities = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = SELECT_ALL_FROM + DISABILITY_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int clientId = cursor.getInt(0);
+                boolean amputeeDisability = cursor.getInt(1) == 1;
+                boolean polioDisability = cursor.getInt(1) == 1;
+                boolean spinalCordInjuryDisability = cursor.getInt(1) == 1;
+                boolean cerebralPalsyDisability = cursor.getInt(1) == 1;
+                boolean spinaBifidaDisability = cursor.getInt(1) == 1;
+                boolean hydrocephalusDisability = cursor.getInt(1) == 1;
+                boolean visualImpairmentDisability = cursor.getInt(1) == 1;
+                boolean hearingImpairmentDisability = cursor.getInt(1) == 1;
+                boolean doNotKnowDisability = cursor.getInt(1) == 1;
+                boolean otherDisability = cursor.getInt(1) == 1;
+
+                ClientDisability client = new ClientDisability(clientId, amputeeDisability,
+                        polioDisability, spinalCordInjuryDisability, cerebralPalsyDisability,
+                        spinaBifidaDisability, hydrocephalusDisability, visualImpairmentDisability,
+                        hearingImpairmentDisability, doNotKnowDisability, otherDisability);
+
+                clientDisabilities.add(client);
+
+            } while(cursor.moveToNext());
+        }
+
+        return clientDisabilities;
+    }
+
 
 
 }

@@ -14,6 +14,9 @@ exports.create = (req, res) => {
 
   // Create Item
   const educationProgress = {
+    isGoalCanceled: req.body.isGoalCanceled,
+    isGoalOngoing: req.body.isGoalOngoing,
+    isGoalConcluded: req.body.isGoalConcluded,
     isEducationAdviceChecked: req.body.isEducationAdviceChecked,
     isEducationAdvocacyChecked: req.body.isEducationAdvocacyChecked,
     isEducationReferralChecked: req.body.isEducationReferralChecked,

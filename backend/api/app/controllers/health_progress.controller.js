@@ -14,6 +14,9 @@ exports.create = (req, res) => {
 
   // Create Item
   const healthProgress = {
+    isGoalCanceled: req.body.isGoalCanceled,
+    isGoalOngoing: req.body.isGoalOngoing,
+    isGoalConcluded: req.body.isGoalConcluded,
     isWheelChairChecked: req.body.isWheelChairChecked,
     isProstheticChecked: req.body.isProstheticChecked,
     isOrthoticChecked: req.body.isOrthoticChecked,

@@ -1,5 +1,14 @@
 module.exports = (sequelize, Sequelize) => {
     const SocialProgress = sequelize.define("SocialProgress", {
+        isGoalCanceled: {
+            type: Sequelize.BOOLEAN
+        },
+        isGoalOngoing: {
+            type: Sequelize.BOOLEAN
+        },
+        isGoalConcluded: {
+            type: Sequelize.BOOLEAN
+        },
         isSocialAdviceChecked: {
             type: Sequelize.BOOLEAN
         },
@@ -13,7 +22,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.BOOLEAN
         },
         socialAdviceDesc: {
-            type: Sequelize.STRING  
+            type: Sequelize.STRING
         },
         socialAdvocacyDesc: {
             type: Sequelize.STRING

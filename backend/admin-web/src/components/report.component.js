@@ -20,6 +20,7 @@ class Report extends Component {
 
         this.state = {
             isLoading: false,
+            currentUser: new Array(),
             allClients: new Array(),
             generalVisitData: new Array(),
             healthVisitData: new Array()
@@ -28,7 +29,7 @@ class Report extends Component {
 
     componentDidMount() {
         // this.getUser(this.props.match.params.id);
-        this.getAllClients();
+        // this.getAllClients();
         this.getAllGeneralVisitData();
         this.getAllHealthVisitData();
     }
@@ -100,11 +101,20 @@ class Report extends Component {
         const {generalVisitData} = this.state;
         const {healthVisitData} = this.state;
 
-        var numberOfVisits = 0;
+        var numberOfVisits = generalVisitData.length;
+        var numberOfCBRVisits = 0;
+        var numberOfDCRVisits = 0;
+        var numberOfDCRFUVisits = 0;
         var numberOfWheelChair = 0;
 
         generalVisitData.forEach(element => {
-            numberOfVisits++;
+            if (element.isCBRChecked) {
+                numberOfCBRVisits++;
+            } else if (element.isDCRChecked) {
+                numberOfDCRVisits++;
+            } else {
+                numberOfDCRFUVisits++;
+            }
         });
 
         healthVisitData.forEach(element => {
@@ -119,6 +129,9 @@ class Report extends Component {
                 <div>
                     <ul>
                         <li>Number of visits: {numberOfVisits}</li>
+                        <li>Number of CBR visits: {numberOfCBRVisits}</li>
+                        <li>Number of Disability Centre referral visits: {numberOfDCRVisits}</li>
+                        <li>Number of Disability Centre referral follow up visits: {numberOfDCRFUVisits}</li>
                         <li>Number of wheel chairs: {numberOfWheelChair}</li>
                     </ul>
                 </div>

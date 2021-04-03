@@ -21,6 +21,7 @@ import com.example.cbr.adapters.PriorityListAdapter;
 import com.example.cbr.databinding.FragmentDashboardBinding;
 import com.example.cbr.models.ClientInfo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,11 +111,19 @@ public class DashboardPageFragment extends Fragment implements DashboardPageCont
     }
 
     private void setupPriorityListView() {
+        List<String> dateOfLastVisits = new ArrayList<>();
+
+        try {
+            dateOfLastVisits.addAll(presenter.getDatesOfLastVisits(priorityList));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         RecyclerView recyclerView = binding.dashboardPriorityList;
         LinearLayoutManager priorityLayout = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(priorityLayout);
-        PriorityListAdapter priorityListAdapter = new PriorityListAdapter(getActivity(), priorityList, dashboardFragmentInterface);
+        PriorityListAdapter priorityListAdapter = new PriorityListAdapter(getActivity(), priorityList,
+                dashboardFragmentInterface, dateOfLastVisits);
         recyclerView.setAdapter(priorityListAdapter);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),

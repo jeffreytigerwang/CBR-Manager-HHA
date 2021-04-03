@@ -24,7 +24,7 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final String USER_TABLE = "USER_TABLE";
+//    public static final String USER_TABLE = "USER_TABLE";
     public static final String CLIENT_TABLE = "CLIENT_TABLE";
     public static final String DISABILITY_TABLE = "DISABILITY_TABLE";
     public static final String VISIT_TABLE = "VISIT_TABLE";

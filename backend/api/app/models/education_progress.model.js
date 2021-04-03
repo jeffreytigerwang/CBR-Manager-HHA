@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const EducationProgress = sequelize.define("EducationProgress", {
-        isGoalCanceled: {
+        isGoalCancelled: {
             type: Sequelize.BOOLEAN
         },
         isGoalOngoing: {

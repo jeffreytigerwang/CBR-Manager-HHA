@@ -14,7 +14,7 @@ exports.create = (req, res) => {
 
   // Create Item
   const socialProgress = {
-    isGoalCanceled: req.body.isGoalCanceled,
+    isGoalCancelled: req.body.isGoalCancelled,
     isGoalOngoing: req.body.isGoalOngoing,
     isGoalConcluded: req.body.isGoalConcluded,
     isSocialAdviceChecked: req.body.isSocialAdviceChecked,

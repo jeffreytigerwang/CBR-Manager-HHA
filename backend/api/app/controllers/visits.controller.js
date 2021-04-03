@@ -14,6 +14,9 @@ exports.create = (req, res) => {
 
   // Create a visit
   const visit = {
+    isCBRChecked: req.body.isCBRChecked,
+    isDCRChecked: req.body.isDCRChecked,
+    isDCRFUChecked: req.body.isDCRFUChecked,
     isHealthChecked: req.body.isHealthChecked,
     isEducationChecked: req.body.isEducationChecked,
     isSocialChecked: req.body.isSocialChecked,

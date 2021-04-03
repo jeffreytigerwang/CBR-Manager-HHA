@@ -640,15 +640,15 @@ public class DBHelper extends SQLiteOpenHelper {
             do {
                 int clientId = cursor.getInt(0);
                 boolean amputeeDisability = cursor.getInt(1) == 1;
-                boolean polioDisability = cursor.getInt(1) == 1;
-                boolean spinalCordInjuryDisability = cursor.getInt(1) == 1;
-                boolean cerebralPalsyDisability = cursor.getInt(1) == 1;
-                boolean spinaBifidaDisability = cursor.getInt(1) == 1;
-                boolean hydrocephalusDisability = cursor.getInt(1) == 1;
-                boolean visualImpairmentDisability = cursor.getInt(1) == 1;
-                boolean hearingImpairmentDisability = cursor.getInt(1) == 1;
-                boolean doNotKnowDisability = cursor.getInt(1) == 1;
-                boolean otherDisability = cursor.getInt(1) == 1;
+                boolean polioDisability = cursor.getInt(2) == 1;
+                boolean spinalCordInjuryDisability = cursor.getInt(3) == 1;
+                boolean cerebralPalsyDisability = cursor.getInt(4) == 1;
+                boolean spinaBifidaDisability = cursor.getInt(5) == 1;
+                boolean hydrocephalusDisability = cursor.getInt(6) == 1;
+                boolean visualImpairmentDisability = cursor.getInt(7) == 1;
+                boolean hearingImpairmentDisability = cursor.getInt(8) == 1;
+                boolean doNotKnowDisability = cursor.getInt(9) == 1;
+                boolean otherDisability = cursor.getInt(10) == 1;
 
                 ClientDisability client = new ClientDisability(clientId, amputeeDisability,
                         polioDisability, spinalCordInjuryDisability, cerebralPalsyDisability,

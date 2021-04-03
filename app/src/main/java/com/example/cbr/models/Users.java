@@ -3,6 +3,7 @@ package com.example.cbr.models;
 public class Users {
     private static Users instance;
 
+    private int id;
     private String firstName;
     private String lastName;
     private String phoneNumber;
@@ -20,6 +21,14 @@ public class Users {
             instance = new Users();
         }
         return instance;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {

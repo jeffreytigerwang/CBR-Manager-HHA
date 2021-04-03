@@ -383,7 +383,7 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
 
         generalQuestionSetData.setWorkerName(firstFragment.getCbrWorkerName());
         generalQuestionSetData.setVisitGpsLocation(firstFragment.getLocation());
-        generalQuestionSetData.setVillageNumber(firstFragment.getVillageNumber());
+        generalQuestionSetData.setVillageNumber(Integer.parseInt(firstFragment.getVillageNumber()));
     }
 
     private void manageFragment(Fragment fragment) {

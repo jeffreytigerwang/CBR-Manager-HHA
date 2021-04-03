@@ -8,11 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentHomePageBinding;
-import com.example.cbr.fragments.DashboardFragment;
+import com.example.cbr.fragments.DashboardPageFragment;
 import com.example.cbr.fragments.base.BaseFragment;
 
 
@@ -20,7 +19,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
     private HomePageContract.Presenter homePagePresenter;
     private FragmentHomePageBinding binding;
     private HomePageFragmentInterface homePageFragmentInterface;
-    private DashboardFragment.TempHomeFragmentInterface tempHomeFragmentInterface;
+    private DashboardPageFragment.DashboardFragmentInterface dashboardFragmentInterface;
 
 
 
@@ -29,7 +28,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
         super.onAttach(context);
         try {
             homePageFragmentInterface = (HomePageFragment.HomePageFragmentInterface) context;
-            tempHomeFragmentInterface = (DashboardFragment.TempHomeFragmentInterface) context;
+            dashboardFragmentInterface = (DashboardPageFragment.DashboardFragmentInterface) context;
         } catch (ClassCastException e) {
             Log.e(getFragmentTag(), "Activity should implement HomePageFragmentInterface, " +
                     "TempHomeFragmentInterface.");
@@ -76,7 +75,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
                 break;
 
             case R.id.cardViewNewClient:
-                tempHomeFragmentInterface.swapToNewClient();
+                dashboardFragmentInterface.swapToNewClient();
                 break;
 
             default:

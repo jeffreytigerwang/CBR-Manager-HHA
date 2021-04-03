@@ -18,7 +18,6 @@ exports.create = (req, res) => {
     lastName: req.body.lastName,
     phoneNumber: req.body.phoneNumber,
     password: req.body.password,
-    priorityLevel: req.body.priorityLevel,
     zones: req.body.zones,
     userType: req.body.userType
   };
@@ -39,8 +38,29 @@ exports.create = (req, res) => {
 
 // Retrieve all data from the database.
 exports.findAll = (req, res) => {
+  const firstName = req.query.firstName;
+  const lastName = req.query.lastName;
+  const name = req.query.name;
 
-  Users.findAll()
+  var condition;
+  if (firstName && lastName) {
+    condition = { [Op.and]: [{firstName: `${firstName}`},
+                             {lastName: `${lastName}`}] };
+  } else if (firstName) {
+    condition = { firstName: { [Op.like]: `%${firstName}%` }};
+  } else if (lastName) {
+    condition = { lastName: { [Op.like]: `%${lastName}%` }};
+  } else if (name) {
+    condition = { [Op.or]: [{firstName: `${name}`},
+                             {lastName: `${name}`}] };
+  } else { condition = null; }
+
+  console.log('firstName: ' + firstName);
+  console.log('lastName: ' + lastName);
+  console.log('name: ' + name);
+  console.log('condition: ' + condition);
+
+  Users.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })

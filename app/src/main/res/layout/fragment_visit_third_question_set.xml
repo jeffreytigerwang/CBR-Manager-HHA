@@ -18,14 +18,17 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/for_education_what_was_provided"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="8dp"
+            android:textSize="14sp"/>
 
         <CheckBox
             android:id="@+id/newVisit_educationAdviceCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/advice" />
+            android:text="@string/advice"
+            android:layout_marginLeft="16dp" />
 
         <EditText
             android:id="@+id/newVisit_educationAdviceEditText"
@@ -37,14 +40,16 @@
             android:maxLength="100"
             android:visibility="gone"
             android:autofillHints="no"
-            android:inputType="text" />
+            android:inputType="text"
+            android:layout_marginLeft="8dp" />
 
         <CheckBox
             android:id="@+id/newVisit_educationAdvocacyCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/advocacy" />
+            android:text="@string/advocacy"
+            android:layout_marginLeft="16dp" />
 
         <EditText
             android:id="@+id/newVisit_educationAdvocacyEditText"
@@ -56,14 +61,16 @@
             android:maxLength="100"
             android:visibility="gone"
             android:autofillHints="no"
-            android:inputType="text" />
+            android:inputType="text"
+            android:layout_marginLeft="8dp" />
 
         <CheckBox
             android:id="@+id/newVisit_educationRefcheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/referral_to_other_org" />
+            android:text="@string/referral_to_other_org"
+            android:layout_marginLeft="16dp" />
 
         <EditText
             android:id="@+id/newVisit_educationRefEditText"
@@ -75,14 +82,16 @@
             android:maxLength="100"
             android:visibility="gone"
             android:autofillHints="no"
-            android:inputType="text" />
+            android:inputType="text"
+            android:layout_marginLeft="8dp" />
 
         <CheckBox
             android:id="@+id/newVisit_educationEncouragementCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/encouragement" />
+            android:text="@string/encouragement"
+            android:layout_marginLeft="16dp" />
 
         <EditText
             android:id="@+id/newVisit_educationEncouragementEditText"
@@ -94,7 +103,8 @@
             android:hint="@string/description_max_100_characters"
             android:maxLength="100"
             android:visibility="gone"
-            android:inputType="text" />
+            android:inputType="text"
+            android:layout_marginLeft="8dp" />
 
         <TextView
             android:id="@+id/newVisit_Q12TextView"
@@ -102,21 +112,25 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/goal_met_12"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:layout_marginLeft="8dp"
+            android:textSize="14sp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginStart="8dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginLeft="8dp">
 
             <TextView
                 android:id="@+id/newVisit_educationGoalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/initial_goal"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/newVisit_educationInitialGoalBoxTextView"
@@ -124,14 +138,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:textColor="#000000"/>
+                android:textColor="#000000"
+                android:layout_marginLeft="8dp"
+                android:textSize="14sp"/>
         </LinearLayout>
 
         <RadioGroup
             android:id="@+id/newVisit_educationGoalStatusRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp">
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp">
 
             <RadioButton
                 android:id="@+id/newVisit_educationCancelledRadioButton"
@@ -160,18 +177,21 @@
             android:layout_marginStart="8dp"
             android:text="@string/if_concluded_what_was_the_outcome_13"
             android:textColor="#000000"
-            android:visibility="gone" />
+            android:visibility="visible"
+            android:textSize="14sp"
+            android:layout_marginLeft="8dp" />
 
         <EditText
             android:id="@+id/newVisit_EducationOutcomeEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:maxLength="100"
+            android:autofillHints="no"
             android:ems="18"
             android:hint="@string/description_max_100_characters_optional"
-            android:visibility="gone"
-            android:autofillHints="no"
-            android:inputType="text" />
+            android:inputType="text"
+            android:maxLength="100"
+            android:visibility="visible"
+            android:layout_marginLeft="8dp" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

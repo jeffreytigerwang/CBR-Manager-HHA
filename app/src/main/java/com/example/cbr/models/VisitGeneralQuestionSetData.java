@@ -43,12 +43,7 @@ public class VisitGeneralQuestionSetData implements Serializable {
         List<String> questionNumbers = new ArrayList<>();
 
         boolean isQuestionOneEmpty = purposeOfVisit.isEmpty();
-        boolean isQuestionTwoChecked;
-        if (purposeOfVisit.equalsIgnoreCase(Constants.CBR)) {
-            isQuestionTwoChecked = isHealthChecked || isEducationChecked || isSocialChecked;
-        } else {
-            isQuestionTwoChecked = true;
-        }
+        boolean isQuestionTwoChecked = isHealthChecked || isEducationChecked || isSocialChecked;
         boolean isQuestionFourEmpty = workerName.isEmpty();
         boolean isQuestionFiveEmpty = visitGpsLocation.isEmpty();
         boolean isQuestionSixEmpty = visitZoneLocation.isEmpty();

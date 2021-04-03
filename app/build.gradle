@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 30
     buildToolsVersion '30.0.3'
@@ -54,5 +55,9 @@ dependencies {
 
     // Material Dialog
     implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1'
+
+    //Google services
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
 }

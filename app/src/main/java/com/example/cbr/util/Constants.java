@@ -32,6 +32,7 @@ public class Constants {
 
     public static final int CAMERA_PERMISSION_CODE = 101;
     public static final int CAMERA_REQUEST_CODE = 102;
+    public static final int LOCATION_REQUEST_CODE = 103;
 
     // Disabilities
     public static String AMPUTEE_DISABILITY = "Amputee";

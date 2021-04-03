@@ -7,7 +7,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8080"
+  origin: "http://localhost:8081"
 };
 
 app.use(cors(corsOptions));
@@ -45,6 +45,9 @@ require("./app/routes/health_progress.routes")(app);
 require("./app/routes/social_aspect.routes")(app);
 require("./app/routes/social_progress.routes")(app);
 require("./app/routes/disability.routes")(app);
+require("./app/routes/tutorials.routes")(app);
+require("./app/routes/referral.routes")(app);
+require("./app/routes/messages.routes")(app);
 
 
 

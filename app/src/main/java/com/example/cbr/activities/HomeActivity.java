@@ -12,12 +12,13 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cbr.R;
 import com.example.cbr.adapters.HomeFragmentPagerAdapter;
-import com.example.cbr.fragments.DashboardFragment;
+import com.example.cbr.fragments.DashboardPageFragment;
 import com.example.cbr.fragments.base.BaseActivity;
 import com.example.cbr.fragments.clientlist.ClientListFragment;
 import com.example.cbr.fragments.clientpage.ClientPageFragment;
 import com.example.cbr.fragments.home.HomePageFragment;
 import com.example.cbr.fragments.newclient.NewClientFragment;
+import com.example.cbr.fragments.newreferral.NewReferralFragment;
 import com.example.cbr.fragments.visitpage.VisitPageFragment;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
@@ -25,7 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class HomeActivity extends BaseActivity implements
-        DashboardFragment.TempHomeFragmentInterface,
+        DashboardPageFragment.DashboardFragmentInterface,
         ClientListFragment.ClientListFragmentInterface,
         ClientPageFragment.ClientPageFragmentInterface,
         HomePageFragment.HomePageFragmentInterface
@@ -57,6 +58,7 @@ public class HomeActivity extends BaseActivity implements
         viewPager = findViewById(R.id.homeViewPager);
         homeFragmentPagerAdapter = new HomeFragmentPagerAdapter(this);
         viewPager.setAdapter(homeFragmentPagerAdapter);
+        viewPager.setOffscreenPageLimit(5);
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -71,13 +73,15 @@ public class HomeActivity extends BaseActivity implements
                     case HomeFragmentPagerAdapter.LIST_POSITION:
                         bottomNavigationView.getMenu().findItem(R.id.bottomMenuClientList).setChecked(true);
                         break;
-                    case HomeFragmentPagerAdapter.DISCUSSION_POSITION:
-                        bottomNavigationView.getMenu().findItem(R.id.bottomMenuDiscussion).setChecked(true);
+                    case HomeFragmentPagerAdapter.MAP_POSITION:
+                        bottomNavigationView.getMenu().findItem(R.id.bottomMenuMap).setChecked(true);
                         break;
                     case HomeFragmentPagerAdapter.NOTIFICATION_POSITION:
                         bottomNavigationView.getMenu().findItem(R.id.bottomMenuNotification).setChecked(true);
                         break;
                 }
+
+                viewPager.setUserInputEnabled(position != HomeFragmentPagerAdapter.MAP_POSITION);
             }
         });
 
@@ -97,8 +101,8 @@ public class HomeActivity extends BaseActivity implements
                                 currentTabPosition = HomeFragmentPagerAdapter.LIST_POSITION;
                                 break;
 
-                            case R.id.bottomMenuDiscussion:
-                                currentTabPosition = HomeFragmentPagerAdapter.DISCUSSION_POSITION;
+                            case R.id.bottomMenuMap:
+                                currentTabPosition = HomeFragmentPagerAdapter.MAP_POSITION;
                                 break;
 
                             case R.id.bottomMenuNotification:
@@ -128,6 +132,12 @@ public class HomeActivity extends BaseActivity implements
     }
 
     @Override
+    public void swapToReferralPage(ClientInfo clientInfo) {
+        NewReferralFragment newReferralFragment = NewReferralFragment.newInstance(clientInfo);
+        addFragment(R.id.homeFragmentContainer, newReferralFragment, NewReferralFragment.getFragmentTag());
+    }
+
+    @Override
     public void swapToNewClient() {
         NewClientFragment newClientFragment = NewClientFragment.newInstance();
         addFragment(R.id.homeFragmentContainer, newClientFragment, NewClientFragment.getFragmentTag());
@@ -135,12 +145,14 @@ public class HomeActivity extends BaseActivity implements
 
     @Override
     public void swapToClientList() {
-        viewPager.setCurrentItem(2);
+        currentTabPosition = HomeFragmentPagerAdapter.LIST_POSITION;
+        viewPager.setCurrentItem(HomeFragmentPagerAdapter.LIST_POSITION);
     }
 
     @Override
     public void swapToDashboard() {
-        viewPager.setCurrentItem(1);
+        currentTabPosition = HomeFragmentPagerAdapter.DASHBOARD_POSITION;
+        viewPager.setCurrentItem(HomeFragmentPagerAdapter.DASHBOARD_POSITION);
     }
 
 
@@ -163,6 +175,4 @@ public class HomeActivity extends BaseActivity implements
     public static Intent makeIntent(Context context){
         return new Intent(context, HomeActivity.class);
     }
-
-
 }

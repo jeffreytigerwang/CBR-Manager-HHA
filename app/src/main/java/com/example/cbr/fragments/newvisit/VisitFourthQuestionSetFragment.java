@@ -20,7 +20,7 @@ import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.VisitSocialQuestionSetData;
 import com.example.cbr.util.Constants;
 
-/*
+/**
 * Fragment class is displayed if CBR is checked in question 1. and social is checked for question 2.
 * */
 
@@ -42,7 +42,6 @@ public class VisitFourthQuestionSetFragment extends Fragment {
     private CheckBox checkBoxAdvocacy;
     private CheckBox checkBoxRef;
     private CheckBox checkBoxEncouragement;
-    private TextView question16;
     private TextView initialGoal;
 
     public VisitFourthQuestionSetFragment(VisitSocialQuestionSetData dataContainer,
@@ -102,8 +101,6 @@ public class VisitFourthQuestionSetFragment extends Fragment {
             this.goalStatus.check(R.id.newVisit_healthOngoingRadioButton);
         } else if (goalStatus.equalsIgnoreCase(Constants.CONCLUDED)) {
             this.goalStatus.check(R.id.newVisit_healthConcludedRadioButton);
-            question16.setVisibility(View.VISIBLE);
-            editTextSocialOutcome.setVisibility(View.VISIBLE);
         }
     }
 
@@ -129,7 +126,6 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         checkBoxRef = binding.newVisitSocialRefCheckBox;
         checkBoxEncouragement = binding.newVisitSocialEncouragementCheckBox;
 
-        question16 = binding.newVisitQ16TextView;
         initialGoal = binding.newVisitSocialInitialGoalBoxTextView;
     }
 
@@ -141,16 +137,11 @@ public class VisitFourthQuestionSetFragment extends Fragment {
 
                 if (checkedId == R.id.newVisit_socialConcludedRadioButton) {
                     dataContainer.setSocialGoalStatus(Constants.CONCLUDED);
-                    question16.setVisibility(View.VISIBLE);
-                    editTextSocialOutcome.setVisibility(View.VISIBLE);
-                } else {
-                    question16.setVisibility(View.GONE);
-                    editTextSocialOutcome.setVisibility(View.GONE);
-                }
-                if (checkedId == R.id.newVisit_socialCancelledRadioButton) {
+
+                } else if (checkedId == R.id.newVisit_socialCancelledRadioButton) {
                     dataContainer.setSocialGoalStatus(Constants.CANCELLED);
-                }
-                if (checkedId == R.id.newVisit_socialOngoingRadioButton) {
+
+                } else if (checkedId == R.id.newVisit_socialOngoingRadioButton) {
                     dataContainer.setSocialGoalStatus(Constants.ONGOING);
                 }
             }
@@ -189,23 +180,23 @@ public class VisitFourthQuestionSetFragment extends Fragment {
         });
     }
 
-    public EditText getEditTextAdvice() {
-        return editTextAdvice;
+    public String getSocialAdvice() {
+        return editTextAdvice.getText().toString();
     }
 
-    public EditText getEditTextAdvocacy() {
-        return editTextAdvocacy;
+    public String getSocialAdvocacy() {
+        return editTextAdvocacy.getText().toString();
     }
 
-    public EditText getEditTextRef() {
-        return editTextRef;
+    public String getSocialRef() {
+        return editTextRef.getText().toString();
     }
 
-    public EditText getEditTextEncouragement() {
-        return editTextEncouragement;
+    public String getSocialEncouragement() {
+        return editTextEncouragement.getText().toString();
     }
 
-    public EditText getEditTextSocialOutcome() {
-        return editTextSocialOutcome;
+    public String getSocialSocialOutcome() {
+        return editTextSocialOutcome.getText().toString();
     }
 }

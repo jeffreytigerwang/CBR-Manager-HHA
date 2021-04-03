@@ -14,12 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
 import com.example.cbr.activities.NewVisitActivity;
-import com.example.cbr.adapters.ClientInfoAdapter;
+import com.example.cbr.adapters.questioninfoadapters.ClientInfoAdapter;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.ClickableViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DividerViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DoubleTextViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.HeaderViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
 import com.example.cbr.databinding.FragmentClientpageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
+import com.example.cbr.util.StringsUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientPageFragment extends BaseFragment implements ClientPageContract.View {
@@ -45,7 +52,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
     }
 
     @Override
-    public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setPresenter(new ClientPagePresenter(this));
         binding = FragmentClientpageBinding.inflate(inflater, container, false);
 
@@ -84,6 +91,13 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
                 startActivity(intent);
             }
         });
+
+        binding.clientPageNewReferralButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clientPageFragmentInterface.swapToReferralPage(clientInfo);
+            }
+        });
     }
 
     private void setupRecyclerView() {
@@ -91,8 +105,63 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        clientInfoAdapter = new ClientInfoAdapter(getActivity(), clientInfo, visitsList, clientPageFragmentInterface);
+        clientInfoAdapter = new ClientInfoAdapter(getActivity(), generateDataContainerList());
         recyclerView.setAdapter(clientInfoAdapter);
+    }
+
+    private List<QuestionDataContainer> generateDataContainerList() {
+        // Add client info to the data container list
+        List<QuestionDataContainer> questionDataContainerList = new ArrayList<>();
+        questionDataContainerList.add(new HeaderViewContainer(getString(R.string.basic_information)));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.consent_to_interview), StringsUtil.boolToText(clientInfo.isConsentToInterview())));
+
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.gps_location), clientInfo.getGpsLocation()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.location), clientInfo.getZoneLocation()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.village_number), clientInfo.getVillageNumber()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.date), clientInfo.getDateJoined()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.first_name), clientInfo.getFirstName()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.last_name), clientInfo.getLastName()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.age), clientInfo.getAge().toString()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.contact_number), clientInfo.getContactNumber()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.caregiver_present_for_interview), StringsUtil.boolToText(clientInfo.isCaregiverPresentForInterview())));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.caregiver_contact_number), clientInfo.getCaregiverContactNumber()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.disabilities), clientInfo.getDisabilityListFormatted()));
+
+        questionDataContainerList.add(new HeaderViewContainer(getString((R.string.health))));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.please_rate_how_you_consider_the_client_s_health_to_be), clientInfo.getRateHealth()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.please_describe_what_they_require), clientInfo.getDescribeHealth()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.individual_goal), clientInfo.getSetGoalForHealth()));
+
+        questionDataContainerList.add(new HeaderViewContainer(getString((R.string.education))));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.please_rate_how_you_consider_the_client_s_education_status_to_be), clientInfo.getRateEducation()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.please_describe_what_they_require), clientInfo.getDescribeEducation()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.individual_goal), clientInfo.getSetGoalForEducation()));
+
+        questionDataContainerList.add(new HeaderViewContainer(getString((R.string.social_status))));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.please_rate_how_you_consider_the_client_s_social_status_to_be), clientInfo.getRateSocialStatus()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.please_describe_what_they_require), clientInfo.getDescribeSocialStatus()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.individual_goal), clientInfo.getSetGoalForSocialStatus()));
+
+        if (visitsList.isEmpty()) {
+            return questionDataContainerList;
+        }
+
+        // add visit info to the data container list, if the list is not empty
+        questionDataContainerList.add(new HeaderViewContainer(getString(R.string.visits)));
+        questionDataContainerList.add(new DividerViewContainer());
+        for (final VisitGeneralQuestionSetData visitGeneralQuestionSetData: visitsList) {
+            ClickableViewContainer.ClickableViewHolderBehavior clickableViewHolderBehavior = new ClickableViewContainer.ClickableViewHolderBehavior() {
+                @Override
+                public void onClick() {
+                    clientPageFragmentInterface.swapToVisitPage(visitGeneralQuestionSetData);
+                }
+            };
+
+            questionDataContainerList.add(new ClickableViewContainer(getString(R.string.visits_list, visitGeneralQuestionSetData.getDateOfVisit()), clickableViewHolderBehavior));
+            questionDataContainerList.add(new DividerViewContainer());
+        }
+
+        return questionDataContainerList;
     }
 
     @Override
@@ -116,5 +185,6 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
 
     public interface ClientPageFragmentInterface {
         void swapToVisitPage(VisitGeneralQuestionSetData visitGeneralQuestionSetData);
+        void swapToReferralPage(ClientInfo clientInfo);
     }
 }

@@ -433,12 +433,19 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                     RadioGroupViewContainer.RadioGroupListItem listItem =
                             ((RadioGroupViewContainer) questionDataContainer).getCheckedItem();
                     String purposeOfVisit = listItem.getDescription();
+                    generalQuestionSetData.setPurposeOfVisit(purposeOfVisit);
                     if (purposeOfVisit.equals(getString(R.string.cbr))) {
-                        generalQuestionSetData.setPurposeOfVisit(Constants.CBR);
+                        generalQuestionSetData.setCBRChecked(true);
+                        generalQuestionSetData.setDCRChecked(false);
+                        generalQuestionSetData.setDCRFUChecked(false);
                     } else if (purposeOfVisit.equals(getString(R.string.disability_centre_referral))) {
-                        generalQuestionSetData.setPurposeOfVisit(Constants.DCR);
+                        generalQuestionSetData.setDCRChecked(true);
+                        generalQuestionSetData.setCBRChecked(false);
+                        generalQuestionSetData.setDCRFUChecked(false);
                     } else {
-                        generalQuestionSetData.setPurposeOfVisit(Constants.DCRFU);
+                        generalQuestionSetData.setDCRFUChecked(true);
+                        generalQuestionSetData.setCBRChecked(false);
+                        generalQuestionSetData.setDCRChecked(false);
                     }
                 }
                 if (questionDataContainer instanceof CheckBoxViewContainer) {
@@ -578,6 +585,19 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                     String selectedItem = ((RadioGroupViewContainer) questionDataContainer)
                             .getCheckedItem().getDescription();
                     healthQuestionSetData.setHealthGoalStatus(selectedItem);
+                    if (selectedItem.equalsIgnoreCase(getString(R.string.concluded))) {
+                        healthQuestionSetData.setGoalConcluded(true);
+                        healthQuestionSetData.setGoalCancelled(false);
+                        healthQuestionSetData.setGoalOngoing(false);
+                    } else if (selectedItem.equalsIgnoreCase(getString(R.string.cancelled))) {
+                        healthQuestionSetData.setGoalCancelled(true);
+                        healthQuestionSetData.setGoalConcluded(false);
+                        healthQuestionSetData.setGoalOngoing(false);
+                    } else {
+                        healthQuestionSetData.setGoalOngoing(true);
+                        healthQuestionSetData.setGoalConcluded(false);
+                        healthQuestionSetData.setGoalCancelled(false);
+                    }
                 }
                 if (questionDataContainer instanceof EditTextViewContainer) {
                     String description = ((EditTextViewContainer) questionDataContainer).getUserInput();
@@ -656,6 +676,19 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                     String selectedItem = ((RadioGroupViewContainer) questionDataContainer)
                             .getCheckedItem().getDescription();
                     educationQuestionSetData.setEducationGoalStatus(selectedItem);
+                    if (selectedItem.equalsIgnoreCase(getString(R.string.concluded))) {
+                        educationQuestionSetData.setGoalConcluded(true);
+                        educationQuestionSetData.setGoalCancelled(false);
+                        educationQuestionSetData.setGoalOngoing(false);
+                    } else if (selectedItem.equalsIgnoreCase(getString(R.string.cancelled))) {
+                        educationQuestionSetData.setGoalCancelled(true);
+                        educationQuestionSetData.setGoalConcluded(false);
+                        educationQuestionSetData.setGoalOngoing(false);
+                    } else {
+                        educationQuestionSetData.setGoalOngoing(true);
+                        educationQuestionSetData.setGoalConcluded(false);
+                        educationQuestionSetData.setGoalCancelled(false);
+                    }
                 }
                 if (questionDataContainer instanceof EditTextViewContainer) {
                     String description = ((EditTextViewContainer) questionDataContainer).getUserInput();
@@ -734,6 +767,19 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                     String selectedItem = ((RadioGroupViewContainer) questionDataContainer)
                             .getCheckedItem().getDescription();
                     socialQuestionSetData.setSocialGoalStatus(selectedItem);
+                    if (selectedItem.equalsIgnoreCase(getString(R.string.concluded))) {
+                        socialQuestionSetData.setGoalConcluded(true);
+                        socialQuestionSetData.setGoalCancelled(false);
+                        socialQuestionSetData.setGoalOngoing(false);
+                    } else if (selectedItem.equalsIgnoreCase(getString(R.string.cancelled))) {
+                        socialQuestionSetData.setGoalCancelled(true);
+                        socialQuestionSetData.setGoalConcluded(false);
+                        socialQuestionSetData.setGoalOngoing(false);
+                    } else {
+                        socialQuestionSetData.setGoalOngoing(true);
+                        socialQuestionSetData.setGoalConcluded(false);
+                        socialQuestionSetData.setGoalCancelled(false);
+                    }
                 }
                 if (questionDataContainer instanceof EditTextViewContainer) {
                     String description = ((EditTextViewContainer) questionDataContainer).getUserInput();

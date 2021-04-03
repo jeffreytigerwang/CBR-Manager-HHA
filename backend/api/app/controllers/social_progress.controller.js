@@ -52,7 +52,7 @@ exports.findAll = (req, res) => {
   console.log('clientId: ' + clientId);
   console.log('condition: ' + condition);
 
-  SOcialProgress.findAll({ where: condition })
+  SocialProgress.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })

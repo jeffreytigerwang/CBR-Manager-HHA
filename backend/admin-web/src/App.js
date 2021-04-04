@@ -7,7 +7,6 @@ import { styles } from "./css-common"
 import AddUser from "./components/add-user.component";
 import User from "./components/user.component";
 import UsersList from "./components/users-list.component";
-import Report from "./components/report.component";
 
 import { AppBar, Toolbar, Typography, withStyles, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -35,11 +34,6 @@ class App extends Component {
                 Add
             </Typography>
             </Link>
-            <Link to={"/report"} className={classes.link}>
-              <Typography variant="body2">
-                Report
-            </Typography>
-            </Link>
           </Toolbar>
         </AppBar>
         </Grid>
@@ -50,7 +44,6 @@ class App extends Component {
           <Switch>
               <Route exact path={["/", "/users"]} component={UsersList} />
               <Route exact path="/add" component={AddUser} />
-              <Route exact path="/report" component={Report} />
               <Route path="/users/:id" component={User} />
               <Route path="/reports" component={Report} />
           </Switch>

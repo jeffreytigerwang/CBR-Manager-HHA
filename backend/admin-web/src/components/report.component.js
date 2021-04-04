@@ -19,12 +19,14 @@ class Report extends Component {
 
         this.getAllGeneralVisitData = this.getAllGeneralVisitData.bind(this);
         this.getAllHealthVisitData = this.getAllHealthVisitData.bind(this);
+        this.getHealthRiskStats = this.getHealthRiskStats.bind(this);
 
         this.state = {
             isLoading: false,
             currentUser: new Array(),
             generalVisitData: new Array(),
-            healthVisitData: new Array()
+            healthVisitData: new Array(),
+            healthRiskStats: []
         };
     }
 
@@ -32,9 +34,10 @@ class Report extends Component {
         // this.getUser(this.props.match.params.id);
         this.getAllGeneralVisitData();
         this.getAllHealthVisitData();
+        this.getHealthRiskStats();
     }
 
-    getAllGeneralVisitData() {
+    getAllGeneralVisitData = () => {
         this.setState({isLoading: true})
         VisitDataService.getAllGeneralData()
             .then(response => {
@@ -48,8 +51,8 @@ class Report extends Component {
                 console.log(e);
             });
     }
-
-    getAllHealthVisitData() {
+    
+    getAllHealthVisitData = () => {
         this.setState({isLoading: true})
         VisitDataService.getAllHealthData()
             .then(response => {
@@ -62,6 +65,18 @@ class Report extends Component {
             .catch(e => {
                 console.log(e);
             });
+    } 
+    
+    getHealthRiskStats = () => {
+        this.setState({isLoading: true})
+        StatsDataService.getRisks()
+            .then(result => {
+                console.log(result.data);
+                this.setState({
+                    isLoading: false,
+                    healthRiskStats: result
+                })
+            });
     }
 
     render() {
@@ -69,16 +84,19 @@ class Report extends Component {
         const { classes } = this.props;
         const {generalVisitData} = this.state;
         const {healthVisitData} = this.state;
-        const riskData = StatsDataService.getRisks();
-        console.log(riskData);
+        const {healthRiskStats} = this.state;
+        // Bug: when trying to access arrays or any data that
+        // requires API calls here, you get TypeError.
+        // React Lesson: You need to add condition because 
+        // on initial render the healthRiskStats is empty array 
+        // and doesn’t have any objects in it. E.g.,
+        // healthRiskStats.length ? console.log(healthRiskStats[0].percentage) : console.log(LOADING);
 
         var numberOfVisits = generalVisitData.length;
         var numberOfCBRVisits = 0;
         var numberOfDCRVisits = 0;
         var numberOfDCRFUVisits = 0;
         var numberOfWheelChair = 0;
-
-        var totalHealthRisk = riskData.reduce((a, b) => a + b);
 
         generalVisitData.forEach(element => {
             if (element.isCBRChecked) {
@@ -96,16 +114,13 @@ class Report extends Component {
             }
         });
 
-        const options = {
-            interactivityEnabled: false,
-			animationEnabled: true,
-            animationDuration: 1000,
-            theme: "light1",
+        const dummyOptions = {
+            animationEnabled: true,
 			title: {
-				text: "Customer Satisfaction"
+				text: "Dummy Graph"
 			},
 			subtitles: [{
-				text: "71% Positive",
+				text: "Actual Graph has not loaded yet",
 				verticalAlign: "center",
 				fontSize: 24,
 				dockInsidePlotArea: true
@@ -123,7 +138,35 @@ class Report extends Component {
 					{ name: "Neutral", y: 7 }
 				]
 			}]
-		}
+        }
+
+        const options = healthRiskStats.length ? {
+            interactivityEnabled: false,
+			animationEnabled: true,
+            animationDuration: 1000,
+            theme: "light1",
+			title: {
+				text: "Health Risk Levels"
+			},
+			subtitles: [{
+				text: "71% Positive",
+				verticalAlign: "center",
+				fontSize: 24,
+				dockInsidePlotArea: true
+			}],
+			data: [{
+				type: "doughnut",
+				showInLegend: true,
+				indexLabel: "{name}: {y}",
+				yValueFormatString: "###.##%",
+				dataPoints: [
+					{ name: "Critical Risk", y: healthRiskStats[0].percentage },
+					{ name: "High Risk", y: healthRiskStats[1].percentage },
+					{ name: "Medium Risk", y: healthRiskStats[2].percentage },
+					{ name: "Low Risk", y: healthRiskStats[3].percentage },
+				]
+			}]
+		} : dummyOptions;
 
         return (
             <div>
@@ -138,9 +181,13 @@ class Report extends Component {
                     </ul>
                 </div>
                 <div>
-                    <CanvasJSChart options = {options} 
-                        onRef = {ref => this.chart = ref}
-                    />
+                    {
+                        this.state.isLoading ? LOADING :
+                        <CanvasJSChart options = {options} 
+                            onRef = {ref => this.chart = ref}
+                        />
+                    }
+                    
                 </div>
             </div>
         )

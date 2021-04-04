@@ -10,27 +10,50 @@ class statsDataService {
       const aggregate = jsonAggregate.create(json).match({ clientId: 1234 }).exec();
       console.log('aggregated to: ');
       console.log(aggregate);
-      //return json;
-      //return jsonAggregate.create(json).match({ clientId: 1234 }).exec();
+      return aggregate;
   }
 
-  getAllVisitsFromId(id) {
+  async getRisks() {
+      const res = await http.get(`/healthAspect`)
+                            .catch(err => { console.log(err); });
+      const healthData = jsonAggregate.create(JSON.stringify(res.data));
+
+      var statsArray = [];
+
+      // Filter by Risk & Sum
+      const healthCriticalCount = healthData
+                                  .match({ rateHealth: 'critical risk' })
+                                  .group({ id: 'rateHealth',
+                                           count: { $sum: 1 } })
+                                  .exec();
+
+      const healthHighCount = healthData
+                                  .match({ rateHealth: 'high risk' })
+                                  .group({ id: 'rateHealth',
+                                           count: { $sum: 1 } })
+                                  .exec();
+
+      const healthMediumCount = healthData
+                                  .match({ rateHealth: 'medium risk' })
+                                  .group({ id: 'rateHealth',
+                                           count: { $sum: 1 } })
+                                  .exec();
+
+
+      const healthLowCount = healthData
+                                  .match({ rateHealth: 'low risk' })
+                                  .group({ id: 'rateHealth',
+                                           count: { $sum: 1 } })
+                                  .exec();
+
+      var healthRiskStats = [healthCriticalCount, healthMediumCount,
+                        healthHighCount, healthLowCount];
+      console.log('aggregated to: ');
+      console.log(healthRiskStats);
+
+      return healthRiskStats;
   }
 
-  create(data) {
-  }
-
-  update(id, data) {
-  }
-
-  delete(id) {
-  }
-
-  deleteAll() {
-  }
 }
-
-const data = statsDataService.test();
-console.log(data);
 
 export default new statsDataService();

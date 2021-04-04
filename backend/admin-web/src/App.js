@@ -45,6 +45,7 @@ class App extends Component {
               <Route exact path={["/", "/users"]} component={UsersList} />
               <Route exact path="/add" component={AddUser} />
               <Route path="/users/:id" component={User} />
+              <Route path="/reports" component={Report} />
           </Switch>
           </Grid>
           <Grid item xs={1} sm={1} />

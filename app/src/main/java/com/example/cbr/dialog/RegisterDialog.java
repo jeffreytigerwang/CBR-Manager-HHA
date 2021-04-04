@@ -249,7 +249,6 @@ public class RegisterDialog extends AppCompatDialogFragment {
         Call<List<Users>> call = jsonPlaceHolderApi.getUsers();
 
         Response<List<Users>> response = call.execute();
-//        Log.d("test", response.body());
         List<Users> usersList = response.body();
 
         for (int i = 0; i < usersList.size(); i++) {

@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
                         } else {
                             successfulLogin = 1;
                             Users userInstance = Users.getInstance();
+                            userInstance.setId(users.getId());
                             userInstance.setFirstName(users.getFirstName());
                             userInstance.setLastName(users.getLastName());
                             userInstance.setPhoneNumber(phone);

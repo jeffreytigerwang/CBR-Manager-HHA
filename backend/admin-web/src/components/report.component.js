@@ -7,6 +7,10 @@ import VisitDataService from "../services/visit.service"
 import { TextField, Button, withStyles, Grid, Paper, ListItem } from "@material-ui/core"
 import { styles } from "../css-common"
 
+import CanvasJSReact from './canvasjs.react';
+var CanvasJS = CanvasJSReact.CanvasJS;
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
 const LOADING = "Loading...";
 
 class Report extends Component {
@@ -96,7 +100,6 @@ class Report extends Component {
 
     render() {
         const currentUser = this.state.isLoading ? LOADING : this.state.currentUser;
-        // const {searchName, allClients, cuurentClient, currentIndex} = this.state;
         const { classes } = this.props;
         const {generalVisitData} = this.state;
         const {healthVisitData} = this.state;
@@ -123,6 +126,35 @@ class Report extends Component {
             }
         });
 
+        const options = {
+            interactivityEnabled: false,
+			animationEnabled: true,
+            animationDuration: 1000,
+            theme: "light1",
+			title: {
+				text: "Customer Satisfaction"
+			},
+			subtitles: [{
+				text: "71% Positive",
+				verticalAlign: "center",
+				fontSize: 24,
+				dockInsidePlotArea: true
+			}],
+			data: [{
+				type: "doughnut",
+				showInLegend: true,
+				indexLabel: "{name}: {y}",
+				yValueFormatString: "#,###'%'",
+				dataPoints: [
+					{ name: "Unsatisfied", y: 5 },
+					{ name: "Very Unsatisfied", y: 31 },
+					{ name: "Very Satisfied", y: 40 },
+					{ name: "Satisfied", y: 17 },
+					{ name: "Neutral", y: 7 }
+				]
+			}]
+		}
+
         return (
             <div>
                 <h1>SWAG</h1>
@@ -135,24 +167,11 @@ class Report extends Component {
                         <li>Number of wheel chairs: {numberOfWheelChair}</li>
                     </ul>
                 </div>
-                {/* <Grid item sm={4}>
-                    <Paper Grid container direction="column" justify="center"
-                    alignItems="center">
-                    <Grid item><h2>Users List</h2>
-                    <div className="listGroup">
-                        {allClients &&
-                        allClients.map((user, index) => (
-                            <ListItem
-                            divider
-                            button
-                            key={index}>
-                            {user.firstName + " " + user.lastName}
-                            </ListItem>
-                        ))}
-                    </div>
-                    </Grid>
-                    </Paper>
-                </Grid> */}
+                <div>
+                    <CanvasJSChart options = {options} 
+                        onRef = {ref => this.chart = ref}
+                    />
+                </div>
             </div>
         )
     }

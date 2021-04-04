@@ -78,7 +78,7 @@ class Report extends Component {
         var numberOfDCRFUVisits = 0;
         var numberOfWheelChair = 0;
 
-        var totalHealthRisk = riskData;
+        var totalHealthRisk = riskData.reduce((a, b) => a + b);
 
         generalVisitData.forEach(element => {
             if (element.isCBRChecked) {

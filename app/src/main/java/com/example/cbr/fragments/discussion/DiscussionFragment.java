@@ -59,6 +59,8 @@ public class DiscussionFragment extends Fragment {
     private int iconCounter = 0;
     private int iconIdx = 0;
 
+    private final int SIZE_OF_ICON = 6;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -205,7 +207,8 @@ public class DiscussionFragment extends Fragment {
 
         this.newRefreshMessage = message;
 
-        int newIdx = iconCountMap.get(user.getId()) <= 5 ? iconCountMap.get(user.getId()) : 5;
+        int newIdx = iconCountMap.get(user.getId()) <= SIZE_OF_ICON-1 ?
+                        iconCountMap.get(user.getId()) : SIZE_OF_ICON-1;
 
         newRefreshMessage.setImg(imgDrawableId.get(newIdx));
 

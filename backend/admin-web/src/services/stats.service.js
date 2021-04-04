@@ -1,7 +1,7 @@
 import http from "../http-common";
 const jsonAggregate = require('json-aggregate')
 
-class statsDataService {
+class StatsDataService {
 
   async test() {
       const visits = await http.get(`/visits`)
@@ -56,4 +56,4 @@ class statsDataService {
 
 }
 
-export default new statsDataService();
+export default new StatsDataService();

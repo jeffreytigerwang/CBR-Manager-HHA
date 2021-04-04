@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 import UserDataService from "../services/user.service"
-import ClientDataService from "../services/client.service"
 import VisitDataService from "../services/visit.service"
+import StatsDataService from "../services/stats.service"
 
 import { TextField, Button, withStyles, Grid, Paper, ListItem } from "@material-ui/core"
 import { styles } from "../css-common"
@@ -17,15 +17,12 @@ class Report extends Component {
     constructor(props) {
         super(props);
 
-        this.getAllClients = this.getAllClients.bind(this);
-        this.getAllVisitsFromId = this.getAllVisitsFromId.bind(this);
         this.getAllGeneralVisitData = this.getAllGeneralVisitData.bind(this);
         this.getAllHealthVisitData = this.getAllHealthVisitData.bind(this);
 
         this.state = {
             isLoading: false,
             currentUser: new Array(),
-            allClients: new Array(),
             generalVisitData: new Array(),
             healthVisitData: new Array()
         };
@@ -33,39 +30,8 @@ class Report extends Component {
 
     componentDidMount() {
         // this.getUser(this.props.match.params.id);
-        // this.getAllClients();
         this.getAllGeneralVisitData();
         this.getAllHealthVisitData();
-    }
-
-    getAllClients() {
-        this.setState({isLoading: true})
-        ClientDataService.getAll()
-            .then(response => {
-                console.log(response.data);
-                this.setState({
-                    isLoading: false,
-                    allClients: response.data
-                });
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    }
-
-    getAllVisitsFromId(id) {
-        this.setState({isLoading: true})
-        ClientDataService.getAllVisitsFromId(id)
-            .then(response => {
-                console.log(response.data);
-                this.setState({
-                    isLoading: false,
-                });
-            })
-            .catch(e => {
-                console.log(e);
-            });
-
     }
 
     getAllGeneralVisitData() {
@@ -103,12 +69,16 @@ class Report extends Component {
         const { classes } = this.props;
         const {generalVisitData} = this.state;
         const {healthVisitData} = this.state;
+        const riskData = StatsDataService.getRisks();
+        console.log(riskData);
 
         var numberOfVisits = generalVisitData.length;
         var numberOfCBRVisits = 0;
         var numberOfDCRVisits = 0;
         var numberOfDCRFUVisits = 0;
         var numberOfWheelChair = 0;
+
+        var totalHealthRisk = riskData;
 
         generalVisitData.forEach(element => {
             if (element.isCBRChecked) {

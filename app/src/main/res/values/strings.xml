@@ -230,5 +230,10 @@
 
     <string name="google_map_api_key">AIzaSyB_JlRLqJ_ASLFjJW_qIBNK_Eev0jUCF0k</string>
     <string name="marker_in_Uganda">Marker in Uganda</string>
+    <string name="cbrWorkerIntent_userId">userId</string>
+    <string name="cbrWorkerIntent_iconIdx">iconIdx</string>
+    <string name="cbrWorkerIntent_message">message</string>
+    <string name="cbrWorkerIntent_postDate">postDate</string>
+    <string name="cbrWorkerIntent_noData">There is no data</string>
 
 </resources>

@@ -1,5 +1,7 @@
 package com.example.cbr.models;
 
+import java.sql.Date;
+
 public class Users {
     private static Users instance;
 
@@ -78,6 +80,5 @@ public class Users {
     public void setUserType(String userType) {
         this.userType = userType;
     }
-
 
 }

@@ -173,6 +173,7 @@ public class DiscussionFragment extends Fragment {
 
             Messages newMessage = new Messages();
 
+            newMessage.setUserId(messagesList.get(i).getUserId());
             newMessage.setImg(imgDrawableId.get(iconIdx));
             newMessage.setFirstName(messagesList.get(i).getFirstName());
             newMessage.setLastName(messagesList.get(i).getLastName());

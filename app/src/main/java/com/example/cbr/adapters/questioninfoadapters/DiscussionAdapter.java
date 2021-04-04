@@ -21,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import static android.provider.Settings.System.getString;
+
 public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.ViewHolder> {
 
     Context context;
@@ -34,6 +36,11 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Vi
         this.messagesArrayList = messagesArrayList;
     }
 
+    private final String USERID_TAG = "userId";
+    private final String ICONIDX_TAG = "iconIdx";
+    private final String MESSAGE_TAG = "message";
+    private final String POSTDATE_TAG = "postDate";
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,7 +51,7 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        final SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         String formattedDate = df.format(messagesArrayList.get(position).getPostDate());
         holder.date.setText(formattedDate);
 
@@ -57,8 +64,11 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Vi
             @Override
             public void onClick(View v) {
                 Intent cbrWorkerIntent = new Intent(context, CBRWorkerActivity.class);
-                cbrWorkerIntent.putExtra("userId", messagesArrayList.get(position).getUserId());
-                cbrWorkerIntent.putExtra("iconIdx", messagesArrayList.get(position).getImg());
+                cbrWorkerIntent.putExtra(USERID_TAG, messagesArrayList.get(position).getUserId());
+                cbrWorkerIntent.putExtra(ICONIDX_TAG, messagesArrayList.get(position).getImg());
+                cbrWorkerIntent.putExtra(MESSAGE_TAG, messagesArrayList.get(position).getMessage());
+                cbrWorkerIntent.putExtra(POSTDATE_TAG,
+                        df.format(messagesArrayList.get(position).getPostDate()));
                 context.startActivity(cbrWorkerIntent);
             }
         });

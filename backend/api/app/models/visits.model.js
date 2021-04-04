@@ -1,14 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
     const Visits = sequelize.define("Visit", {
-        isCBRChecked: {
-            type: Sequelize.BOOLEAN
-        },
-        isDCRChecked: {
-            type: Sequelize.BOOLEAN
-        },
-        isDCRFUChecked: {
-            type: Sequelize.BOOLEAN
-        },
         isHealthChecked: {
             type: Sequelize.BOOLEAN
         },

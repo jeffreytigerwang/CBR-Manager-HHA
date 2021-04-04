@@ -451,6 +451,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
 
                     if (isAllFilled) {
                         recordAndFinish();
+                        Toast.makeText(getContext(), R.string.client_record_success, Toast.LENGTH_SHORT).show();
                         // getActivity().getSupportFragmentManager().popBackStack();
                     }
                 }
@@ -471,6 +472,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
 
     private void recordAndFinish() {
         clientId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
+        clientInfo.setClientId(clientId);
 
         ClientDisability clientDisability = new ClientDisability(
             clientId,
@@ -508,23 +510,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                 clientInfo.getSetGoalForSocialStatus()
         );
 
-        createClientBasicInfo(
-            clientId,
-            clientInfo.getFirstName(),
-            clientInfo.getLastName(),
-            clientInfo.getAge(),
-            clientInfo.getGender(),
-            clientInfo.getContactNumber(),
-            clientInfo.getGpsLocation(),
-            clientInfo.getZoneLocation(),
-            clientInfo.getVillageNumber(),
-            clientInfo.getCaregiverPresentForInterview(),
-            clientInfo.getCaregiverFirstName(),
-            clientInfo.getCaregiverLastName(),
-            clientInfo.getCaregiverContactNumber()
-        );
-
-//        presenter.createClientInfo(clientInfo); // Need to refactor the createClientInfo function
+        presenter.createClientInfo(clientInfo);
         presenter.createClientDisability(clientDisability);
         presenter.createClientHealthAspect(clientHealthAspect);
         presenter.createClientEducationAspect(clientEducationAspect);
@@ -641,56 +627,6 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         } else {
             binding.newClientPagePositiveButton.setText(R.string.next);
         }
-    }
-
-    private void createClientBasicInfo(
-            Integer clientId,
-            String firstName,
-            String lastName,
-            Integer age,
-            String gender,
-            String contactNumber,
-            String gpsLocation,
-            String location,
-            Integer villageNumber,
-            boolean caregiverPresentForInterview,
-            String caregiverFirstName,
-            String caregiverLastName,
-            String caregiverContactNumber
-    ) {
-
-        Call<ClientInfo> call = jsonPlaceHolderApi.createClient(
-                clientId,
-                firstName,
-                lastName,
-                age,
-                gender,
-                contactNumber,
-                gpsLocation,
-                location,
-                villageNumber,
-                caregiverPresentForInterview,
-                caregiverFirstName,
-                caregiverLastName,
-                caregiverContactNumber);
-
-        call.enqueue(new Callback<ClientInfo>() {
-            @Override
-            public void onResponse(Call<ClientInfo> call, Response<ClientInfo> response) {
-                if (!response.isSuccessful()) {
-                    showErrorDialog(getString(R.string.client_record_fail), null);
-                    return;
-                }
-
-                ClientInfo clientInfoResponse = response.body();
-                showOkDialog("", clientInfoResponse.getFullName() + "\n" + getString(R.string.record_successful), null);
-            }
-
-            @Override
-            public void onFailure(Call<ClientInfo> call, Throwable t) {
-
-            }
-        });
     }
 
     @Override

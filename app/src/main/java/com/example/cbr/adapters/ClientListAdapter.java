@@ -113,7 +113,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Vi
 
         public void bind(final ClientInfo clientInfo) {
             nameText.setText(clientInfo.getFullName());
-            idText.setText(clientInfo.getId());
+            // idText.setText(clientInfo.getClientId().toString()); // This line of code crashes the user after logging in
             locationText.setText(clientInfo.getZoneLocation());
 
             itemView.setOnClickListener(new View.OnClickListener() {

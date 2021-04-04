@@ -4,12 +4,12 @@ import com.example.cbr.util.Constants;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class ClientInfo implements Serializable, Comparable<ClientInfo>{
-    private String id;
     private Integer clientId;
     private boolean consentToInterview;
     private String firstName;
@@ -406,14 +406,6 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         this.setGoalForSocialStatus = setGoalForSocialStatus;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getGender() {
         return gender;
     }
@@ -485,14 +477,14 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     public static final Comparator<ClientInfo> BY_ID_ASCENDING = new Comparator<ClientInfo>() {
         @Override
         public int compare(ClientInfo clientInfo, ClientInfo t1) {
-            return clientInfo.getId().compareTo(t1.getId());
+            return clientInfo.getClientId().compareTo(t1.getClientId());
         }
     };
 
     public static final Comparator<ClientInfo> BY_ID_DESCENDING = new Comparator<ClientInfo>() {
         @Override
         public int compare(ClientInfo clientInfo, ClientInfo t1) {
-            return t1.getId().compareTo(clientInfo.getId());
+            return t1.getClientId().compareTo(clientInfo.getClientId());
         }
     };
 

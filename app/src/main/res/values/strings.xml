@@ -251,8 +251,7 @@
     <string name="education_aspect_record_successful">Education Aspect Record Successful</string>
     <string name="social_aspect_record_fail">Social Aspect Record Fail</string>
     <string name="social_aspect_record_successful">Social Aspect Record Successful</string>
-    <string name="client_record_fail">Client record Fail</string>
-    <string name="record_successful">Record Successful</string>
-
+    <string name="client_record_fail">Client Record Fail</string>
+    <string name="client_record_success">Client Record Successful</string>
 
 </resources>

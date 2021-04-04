@@ -32,6 +32,23 @@ public class NewClientPresenter implements NewClientContract.Presenter {
     }
 
     public void createClientInfo(@NonNull ClientInfo clientInfo) {
+        Call<ClientInfo> call = jsonPlaceHolderApi.createClient(clientInfo);
+
+        call.enqueue(new Callback<ClientInfo>() {
+            @Override
+            public void onResponse(Call<ClientInfo> call, Response<ClientInfo> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context, R.string.client_record_fail, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ClientInfo> call,
+                                  @NonNull Throwable t) {
+            }
+        });
+
     }
 
     public void createClientDisability(@NonNull ClientDisability clientDisability) {

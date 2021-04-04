@@ -104,7 +104,7 @@ public class NewVisitActivity extends AppCompatActivity implements NewVisitContr
         clientInfo = (ClientInfo) intent.getSerializableExtra(CLIENT_INFO);
 
         try {
-            clientId = Integer.parseInt(clientInfo.getId());
+            clientId = clientInfo.getClientId();
         } catch (NullPointerException e) {
             Toast.makeText(this, getResources().getString(R.string.failed_to_get_client_id),
                     Toast.LENGTH_SHORT).show();

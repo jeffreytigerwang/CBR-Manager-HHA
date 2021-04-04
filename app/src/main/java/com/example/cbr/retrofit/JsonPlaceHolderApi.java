@@ -5,6 +5,7 @@ import com.example.cbr.models.ClientEducationAspect;
 import com.example.cbr.models.ClientHealthAspect;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ClientSocialAspect;
+import com.example.cbr.models.Messages;
 import com.example.cbr.models.ReferralInfo;
 import com.example.cbr.models.Users;
 import com.example.cbr.models.VisitEducationQuestionSetData;
@@ -89,4 +90,31 @@ public interface JsonPlaceHolderApi {
 
     @GET("api/referrals")
     Call<List<ReferralInfo>> getReferralInfo();
+
+    // Messages
+
+    @POST("api/messages")
+    Call<Messages> createMessages(@Body Messages messages);
+
+    @GET("api/messages")
+    Call<List<Messages>> getMessages();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

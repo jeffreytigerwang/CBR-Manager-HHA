@@ -6,7 +6,7 @@
     android:id="@+id/fragmentHomePage"
     android:orientation="vertical"
     android:weightSum="5"
-    android:background="@drawable/background_homepage">
+    android:background="@drawable/gradient_background">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -62,7 +62,8 @@
                     android:layout_height="65dp"
                     android:src="@drawable/add_user"
                     android:layout_marginStart="15dp"
-                    android:layout_marginTop="15dp"/>
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -73,7 +74,8 @@
                     android:text="@string/new_client"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginLeft="19dp" />
 
             </RelativeLayout>
 
@@ -101,7 +103,8 @@
                     android:layout_height="65dp"
                     android:src="@drawable/dashboard"
                     android:layout_marginStart="15dp"
-                    android:layout_marginTop="15dp"/>
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -112,7 +115,8 @@
                     android:text="@string/dashboard"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginLeft="19dp" />
 
             </RelativeLayout>
 
@@ -137,7 +141,8 @@
                     android:layout_height="65dp"
                     android:src="@drawable/all_clients"
                     android:layout_marginStart="15dp"
-                    android:layout_marginTop="15dp"/>
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -148,7 +153,8 @@
                     android:text="@string/all_clients"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginLeft="19dp" />
 
             </RelativeLayout>
 
@@ -172,7 +178,8 @@
                     android:layout_height="65dp"
                     android:src="@drawable/sync"
                     android:layout_marginStart="15dp"
-                    android:layout_marginTop="15dp"/>
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -183,7 +190,8 @@
                     android:text="@string/sync"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginLeft="19dp" />
 
             </RelativeLayout>
 

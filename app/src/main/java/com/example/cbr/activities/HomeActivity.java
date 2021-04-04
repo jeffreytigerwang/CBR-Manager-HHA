@@ -73,13 +73,15 @@ public class HomeActivity extends BaseActivity implements
                     case HomeFragmentPagerAdapter.LIST_POSITION:
                         bottomNavigationView.getMenu().findItem(R.id.bottomMenuClientList).setChecked(true);
                         break;
+                    case HomeFragmentPagerAdapter.MAP_POSITION:
+                        bottomNavigationView.getMenu().findItem(R.id.bottomMenuMap).setChecked(true);
+                        break;
                     case HomeFragmentPagerAdapter.DISCUSSION_POSITION:
                         bottomNavigationView.getMenu().findItem(R.id.bottomMenuDiscussion).setChecked(true);
                         break;
-                    case HomeFragmentPagerAdapter.NOTIFICATION_POSITION:
-                        bottomNavigationView.getMenu().findItem(R.id.bottomMenuNotification).setChecked(true);
-                        break;
                 }
+
+                viewPager.setUserInputEnabled(position != HomeFragmentPagerAdapter.MAP_POSITION);
             }
         });
 
@@ -99,12 +101,12 @@ public class HomeActivity extends BaseActivity implements
                                 currentTabPosition = HomeFragmentPagerAdapter.LIST_POSITION;
                                 break;
 
-                            case R.id.bottomMenuDiscussion:
-                                currentTabPosition = HomeFragmentPagerAdapter.DISCUSSION_POSITION;
+                            case R.id.bottomMenuMap:
+                                currentTabPosition = HomeFragmentPagerAdapter.MAP_POSITION;
                                 break;
 
-                            case R.id.bottomMenuNotification:
-                                currentTabPosition = HomeFragmentPagerAdapter.NOTIFICATION_POSITION;
+                            case R.id.bottomMenuDiscussion:
+                                currentTabPosition = HomeFragmentPagerAdapter.DISCUSSION_POSITION;
                                 break;
                         }
 

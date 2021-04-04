@@ -21,12 +21,16 @@ public class PriorityListAdapter extends RecyclerView.Adapter<PriorityListAdapte
     private Context context;
     private List<ClientInfo> priorityList;
     private DashboardFragmentInterface dashboardFragmentInterface;
+    private List<String> dateOfLastVisits;
 
-    public PriorityListAdapter(Context context, List<ClientInfo> priorityList, DashboardFragmentInterface dashboardFragmentInterface){
+    public PriorityListAdapter(Context context, List<ClientInfo> priorityList,
+                               DashboardFragmentInterface dashboardFragmentInterface,
+                               List<String> datesOfLastVisits){
         this.context = context;
         this.priorityList = priorityList;
         this.dashboardFragmentInterface = dashboardFragmentInterface;
         this.inflater = LayoutInflater.from(context);
+        this.dateOfLastVisits = datesOfLastVisits;
     }
 
     @NonNull
@@ -38,7 +42,7 @@ public class PriorityListAdapter extends RecyclerView.Adapter<PriorityListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull PriorityListAdapter.ViewHolder holder, int position) {
-        holder.bind(priorityList.get(position));
+        holder.bind(priorityList.get(position), dateOfLastVisits.get(position));
     }
 
     @Override
@@ -60,16 +64,15 @@ public class PriorityListAdapter extends RecyclerView.Adapter<PriorityListAdapte
             dateText = itemView.findViewById(R.id.dashboard_priorityListDate);
         }
 
-        //TODO: find way to show most critical risk level and last visit date
-        public void bind(final ClientInfo clientInfo){
+        public void bind(final ClientInfo clientInfo, String dateOfLastVisit){
             nameText.setText(clientInfo.getFullName());
 
-            String risk = clientInfo.getRateEducation() + ", " + clientInfo.getRateHealth() + ", "
-                    + clientInfo.getRateSocialStatus();
+            String risk = context.getString(R.string.risk_levels_message, clientInfo.getRateEducation(),
+                    clientInfo.getRateHealth(), clientInfo.getRateSocialStatus());
 
             riskText.setText(risk);
             locationText.setText(clientInfo.getZoneLocation());
-            dateText.setText(R.string.dummy_data_last_vist2);
+            dateText.setText(context.getString(R.string.last_visit_message,dateOfLastVisit));
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

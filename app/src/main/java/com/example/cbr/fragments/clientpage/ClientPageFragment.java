@@ -49,6 +49,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         } catch (ClassCastException e) {
             Log.e(getFragmentTag(), "Activity should implement ClientPageFragmentInterface");
         }
+
     }
 
     @Override

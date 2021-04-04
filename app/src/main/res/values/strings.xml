@@ -193,6 +193,12 @@
     </string-array>
     <string name="risk_level">Risk Level</string>
 
+    <!-- Dashboard -->
+    <string name="risk_levels_message">\Education %1$s, Health %2$s, Social Status %3$s\</string>
+    <string name="last_visit_message">\Last Visit: %1$s\</string>
+
+
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="priority_list">Priority List</string>
     <string name="outstanding_referrals">Outstanding Referrals</string>
@@ -253,5 +259,10 @@
     <string name="social_aspect_record_successful">Social Aspect Record Successful</string>
     <string name="client_record_fail">Client Record Fail</string>
     <string name="client_record_success">Client Record Successful</string>
+    <string name="map">Map</string>
+    <string name="title_activity_maps">Map</string>
+
+    <string name="google_map_api_key">AIzaSyB_JlRLqJ_ASLFjJW_qIBNK_Eev0jUCF0k</string>
+    <string name="marker_in_Uganda">Marker in Uganda</string>
 
 </resources>

@@ -2,7 +2,6 @@ import http from "../http-common";
 const jsonAggregate = require('json-aggregate')
 
 class statsDataService {
-
   async test() {
       const visits = await http.get(`/visits`)
       .catch(err => { console.log(err); });
@@ -14,33 +13,52 @@ class statsDataService {
   }
 
   async getRisks() {
-      const res = await http.get(`/healthAspect`)
+
+      function calcPercentage(obj) {
+        // get sum
+        var sum = 0;
+        var i, j;
+        for (i in obj) {
+          for (j in obj[i]) {
+            sum += obj[i][j].count;
+          }
+        }
+        // calc percentage
+        for (i in obj) {
+          for (j in obj[i]) {
+            obj[i][j].percentage = obj[i][j].count / sum;
+          }
+        }
+        return sum;
+      }
+
+     const res = await http.get(`/healthAspect`)
                             .catch(err => { console.log(err); });
       const healthData = jsonAggregate.create(JSON.stringify(res.data));
 
       var statsArray = [];
 
       // Filter by Risk & Sum
-      const healthCriticalCount = healthData
+      var healthCriticalCount = healthData
                                   .match({ rateHealth: 'critical risk' })
                                   .group({ id: 'rateHealth',
                                            count: { $sum: 1 } })
                                   .exec();
 
-      const healthHighCount = healthData
+      var healthHighCount = healthData
                                   .match({ rateHealth: 'high risk' })
                                   .group({ id: 'rateHealth',
                                            count: { $sum: 1 } })
                                   .exec();
 
-      const healthMediumCount = healthData
+      var healthMediumCount = healthData
                                   .match({ rateHealth: 'medium risk' })
                                   .group({ id: 'rateHealth',
                                            count: { $sum: 1 } })
                                   .exec();
 
 
-      const healthLowCount = healthData
+      var healthLowCount = healthData
                                   .match({ rateHealth: 'low risk' })
                                   .group({ id: 'rateHealth',
                                            count: { $sum: 1 } })
@@ -50,6 +68,9 @@ class statsDataService {
                         healthHighCount, healthLowCount];
       console.log('aggregated to: ');
       console.log(healthRiskStats);
+      console.log('data test: ');
+      console.log(calcPercentage(healthRiskStats));
+
 
       return healthRiskStats;
   }

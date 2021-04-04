@@ -14,9 +14,6 @@ exports.create = (req, res) => {
 
   // Create Item
   const socialProgress = {
-    isGoalCancelled: req.body.isGoalCancelled,
-    isGoalOngoing: req.body.isGoalOngoing,
-    isGoalConcluded: req.body.isGoalConcluded,
     isSocialAdviceChecked: req.body.isSocialAdviceChecked,
     isSocialAdvocacyChecked: req.body.isSocialAdvocacyChecked,
     isSocialRefChecked: req.body.isSocialRefChecked,
@@ -52,7 +49,7 @@ exports.findAll = (req, res) => {
   console.log('clientId: ' + clientId);
   console.log('condition: ' + condition);
 
-  SocialProgress.findAll({ where: condition })
+  SOcialProgress.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })

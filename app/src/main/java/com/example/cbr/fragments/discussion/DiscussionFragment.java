@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -54,6 +55,10 @@ public class DiscussionFragment extends Fragment {
 
     private DiscussionAdapter adapter;
 
+    private HashMap<Integer, Integer> iconCountMap;
+    private int iconCounter = 0;
+    private int iconIdx = 0;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -75,6 +80,8 @@ public class DiscussionFragment extends Fragment {
 
         messagesArrayList = new ArrayList<>();
         imgDrawableId = new ArrayList<>();
+        iconCountMap = new HashMap<>();
+
         setImgDrawableId();
 
         try {
@@ -146,11 +153,27 @@ public class DiscussionFragment extends Fragment {
 
         Date currentDate = Calendar.getInstance().getTime();
 
-        int imgIndex = 0;
-        for (int i = 0; i < messagesList.size(); i++, imgIndex++) {
-            if (imgIndex == imgDrawableId.size()) imgIndex = imgDrawableId.size() - 1;
+        for (int i = 0; i < messagesList.size(); i++) {
+
+            int picId = messagesList.get(i).getUserId();
+
+            if (iconCountMap.containsKey(picId)) {
+                iconIdx = iconCountMap.get(picId);
+            }
+            else {
+                if (iconCounter <= 5) {
+                    iconCountMap.put(picId, iconCounter);
+                    iconIdx = iconCounter;
+                    iconCounter++;
+                }
+                else {
+                    iconIdx = 5;
+                }
+            }
+
             Messages newMessage = new Messages();
-            newMessage.setImg(imgDrawableId.get(imgIndex));
+
+            newMessage.setImg(imgDrawableId.get(iconIdx));
             newMessage.setFirstName(messagesList.get(i).getFirstName());
             newMessage.setLastName(messagesList.get(i).getLastName());
             newMessage.setMessage(messagesList.get(i).getMessage());
@@ -180,7 +203,10 @@ public class DiscussionFragment extends Fragment {
         message.setPostDate(currentDate);
 
         this.newRefreshMessage = message;
-        newRefreshMessage.setImg(R.drawable.discussion_sample_avatar_6);
+
+        int newIdx = iconCountMap.get(user.getId()) <= 5 ? iconCountMap.get(user.getId()) : 5;
+
+        newRefreshMessage.setImg(imgDrawableId.get(newIdx));
 
         Call<Messages> call = jsonPlaceHolderApi.createMessages(message);
 

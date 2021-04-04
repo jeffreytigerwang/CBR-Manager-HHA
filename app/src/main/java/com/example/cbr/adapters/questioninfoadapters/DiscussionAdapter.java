@@ -1,6 +1,7 @@
 package com.example.cbr.adapters.questioninfoadapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
+import com.example.cbr.activities.CBRWorkerActivity;
+import com.example.cbr.fragments.discussion.CbrWorkerFragment;
 import com.example.cbr.models.Messages;
 
 import java.text.SimpleDateFormat;
@@ -40,7 +43,7 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         String formattedDate = df.format(messagesArrayList.get(position).getPostDate());
         holder.date.setText(formattedDate);
@@ -49,6 +52,16 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Vi
         holder.firstName.setText(messagesArrayList.get(position).getFirstName());
         holder.lastName.setText(messagesArrayList.get(position).getLastName());
         holder.message.setText(messagesArrayList.get(position).getMessage());
+
+        holder.cbrWorkerLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cbrWorkerIntent = new Intent(context, CBRWorkerActivity.class);
+                cbrWorkerIntent.putExtra("userId", messagesArrayList.get(position).getUserId());
+                cbrWorkerIntent.putExtra("iconIdx", messagesArrayList.get(position).getImg());
+                context.startActivity(cbrWorkerIntent);
+            }
+        });
     }
 
     @Override
@@ -60,6 +73,7 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Vi
 
         ImageView picImageView;
         TextView firstName, lastName, message, date;
+        ConstraintLayout cbrWorkerLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +83,8 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Vi
             lastName = itemView.findViewById(R.id.discussion_lastName);
             message = itemView.findViewById(R.id.discussion_message);
             date = itemView.findViewById(R.id.discussion_date);
+
+            cbrWorkerLayout = (ConstraintLayout) itemView.findViewById(R.id.outerConstrainLayout);
         }
     }
 }

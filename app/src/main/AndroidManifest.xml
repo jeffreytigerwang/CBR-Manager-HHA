@@ -37,6 +37,7 @@
 
 
         <activity android:name=".activities.NewVisitActivity" />
+        <activity android:name=".activities.CBRWorkerActivity" />
         <activity
             android:name=".activities.HomeActivity"
             android:windowSoftInputMode="adjustPan" />

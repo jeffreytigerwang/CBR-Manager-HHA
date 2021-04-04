@@ -22,6 +22,8 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Vi
 
     Context context;
 
+    private ConstraintLayout cbrWorkerLayout;
+
     private ArrayList<Messages> messagesArrayList;
 
     public DiscussionAdapter(Context ct, ArrayList<Messages> messagesArrayList) {

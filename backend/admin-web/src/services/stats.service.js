@@ -29,7 +29,16 @@ class statsDataService {
             obj[i][j].percentage = obj[i][j].count / sum;
           }
         }
-        return sum;
+        return obj;
+      }
+
+      function removeDoubleNestArry(obj) {
+        var i, j;
+        var newArray = [];
+        for (i in obj) {
+          newArray.push(obj[i][0]);
+        }
+        return newArray;
       }
 
      const res = await http.get(`/healthAspect`)
@@ -64,15 +73,17 @@ class statsDataService {
                                            count: { $sum: 1 } })
                                   .exec();
 
+      // Format Data
       var healthRiskStats = [healthCriticalCount, healthMediumCount,
                         healthHighCount, healthLowCount];
+      var stats_percentage = calcPercentage(healthRiskStats);
+      var statsData = removeDoubleNestArry(stats_percentage);
       console.log('aggregated to: ');
-      console.log(healthRiskStats);
-      console.log('data test: ');
-      console.log(calcPercentage(healthRiskStats));
+      console.log(statsData);
+      //console.log('data test: ');
 
 
-      return healthRiskStats;
+      return statsData;
   }
 
 }

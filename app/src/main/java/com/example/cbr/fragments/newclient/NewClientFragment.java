@@ -455,7 +455,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                     if (isAllFilled) {
                         recordAndFinish();
                         Toast.makeText(getContext(), R.string.client_record_success, Toast.LENGTH_SHORT).show();
-                        // getActivity().getSupportFragmentManager().popBackStack();
+                         getActivity().getSupportFragmentManager().popBackStack();
                     }
                 }
                 binding.newClientPageViewPager.setCurrentItem(binding.newClientPageViewPager.getCurrentItem() + 1);

@@ -8,10 +8,9 @@ import { TextField, Button, withStyles, Grid, Paper, ListItem } from "@material-
 import { styles } from "../css-common"
 
 import CanvasJSReact from './canvasjs.react';
+import { LOADING, LOADING_CHART_OPTIONS } from "../Util/Constants";
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
-const LOADING = "Loading...";
 
 class Report extends Component {
     constructor(props) {
@@ -78,7 +77,47 @@ class Report extends Component {
                 })
             });
     }
-
+    
+    /**
+     * @param {[]} healthRiskStats Array of properties
+     * @returns option property for CanvasJS or LOADING_CHART_OPTIONS
+     */
+    setupHealthChartOptions(healthRiskStats) {
+        return healthRiskStats.length ? {
+            interactivityEnabled: false,
+            animationEnabled: true,
+            animationDuration: 1000,
+            theme: "light1",
+            title: {
+                text: "Health Risk Levels Of All Visits",
+                wrap: true
+            },
+            subtitles: [{
+                text: "71% Positive",
+                verticalAlign: "center",
+                fontSize: 24,
+                dockInsidePlotArea: true
+            }, {
+                //  TODO: get the very first and last date of visit info for this chart.
+                // text: "${initialDate} ${lastDate}",
+                fontSize: 18,
+                fontWeight: "normal"
+            }],
+            data: [{
+                type: "doughnut",
+                showInLegend: true,
+                indexLabel: "{name}: {y}",
+                yValueFormatString: "###.##%",
+                dataPoints: [
+                    { name: "Critical Risk", y: healthRiskStats[0].percentage },
+                    { name: "High Risk", y: healthRiskStats[1].percentage },
+                    { name: "Medium Risk", y: healthRiskStats[2].percentage },
+                    { name: "Low Risk", y: healthRiskStats[3].percentage },
+                ]
+            }]
+        } : LOADING_CHART_OPTIONS;
+    }
+    
     render() {
         const currentUser = this.state.isLoading ? LOADING : this.state.currentUser;
         const { classes } = this.props;
@@ -107,66 +146,14 @@ class Report extends Component {
                 numberOfDCRFUVisits++;
             }
         });
-
+        
         healthVisitData.forEach(element => {
             if (element.isWheelChairChecked) {
                 numberOfWheelChair++;
             }
         });
 
-        const dummyOptions = {
-            animationEnabled: true,
-			title: {
-				text: "Dummy Graph"
-			},
-			subtitles: [{
-				text: "Actual Graph has not loaded yet",
-				verticalAlign: "center",
-				fontSize: 24,
-				dockInsidePlotArea: true
-			}],
-			data: [{
-				type: "doughnut",
-				showInLegend: true,
-				indexLabel: "{name}: {y}",
-				yValueFormatString: "#,###'%'",
-				dataPoints: [
-					{ name: "Unsatisfied", y: 5 },
-					{ name: "Very Unsatisfied", y: 31 },
-					{ name: "Very Satisfied", y: 40 },
-					{ name: "Satisfied", y: 17 },
-					{ name: "Neutral", y: 7 }
-				]
-			}]
-        }
-
-        const options = healthRiskStats.length ? {
-            interactivityEnabled: false,
-			animationEnabled: true,
-            animationDuration: 1000,
-            theme: "light1",
-			title: {
-				text: "Health Risk Levels"
-			},
-			subtitles: [{
-				text: "71% Positive",
-				verticalAlign: "center",
-				fontSize: 24,
-				dockInsidePlotArea: true
-			}],
-			data: [{
-				type: "doughnut",
-				showInLegend: true,
-				indexLabel: "{name}: {y}",
-				yValueFormatString: "###.##%",
-				dataPoints: [
-					{ name: "Critical Risk", y: healthRiskStats[0].percentage },
-					{ name: "High Risk", y: healthRiskStats[1].percentage },
-					{ name: "Medium Risk", y: healthRiskStats[2].percentage },
-					{ name: "Low Risk", y: healthRiskStats[3].percentage },
-				]
-			}]
-		} : dummyOptions;
+        const healthChartOptions = this.setupHealthChartOptions(healthRiskStats);
 
         return (
             <div>
@@ -183,7 +170,7 @@ class Report extends Component {
                 <div>
                     {
                         this.state.isLoading ? LOADING :
-                        <CanvasJSChart options = {options} 
+                        <CanvasJSChart options = {healthChartOptions} 
                             onRef = {ref => this.chart = ref}
                         />
                     }
@@ -192,6 +179,7 @@ class Report extends Component {
             </div>
         )
     }
+
 }
 
 export default withStyles(styles)(Report)

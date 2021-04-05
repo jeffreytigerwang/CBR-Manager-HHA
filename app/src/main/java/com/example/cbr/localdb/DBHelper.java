@@ -11,6 +11,7 @@ import com.example.cbr.models.ClientEducationAspect;
 import com.example.cbr.models.ClientHealthAspect;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ClientSocialAspect;
+import com.example.cbr.models.ReferralInfo;
 import com.example.cbr.models.Users;
 import com.example.cbr.models.VisitEducationQuestionSetData;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
@@ -24,7 +25,6 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-//    public static final String USER_TABLE = "USER_TABLE";
     public static final String CLIENT_TABLE = "CLIENT_TABLE";
     public static final String DISABILITY_TABLE = "DISABILITY_TABLE";
     public static final String VISIT_TABLE = "VISIT_TABLE";
@@ -34,6 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String EDUCATION_PROGRESS_TABLE = "EDUCATION_PROGRESS_TABLE";
     public static final String HEALTH_PROGRESS_TABLE = "HEALTH_PROGRESS_TABLE";
     public static final String SOCIAL_PROGRESS_TABLE = "SOCIAL_PROGRESS_TABLE";
+    public static final String REFERRAL_TABLE = "REFERRAL_TABLE";
     public static final String SELECT_ALL_FROM = "SELECT * FROM ";
 
 
@@ -42,9 +43,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String ID = "ID";
     public static final String FIRST_NAME = "FIRST_NAME";
     public static final String LAST_NAME = "LAST_NAME";
-/*    public static final String USER_PHONE_NUMBER = "PHONE_NUMBER";
-    public static final String USER_PASSWORD = "PASSWORD";
-    public static final String USER_TYPE = "USER_TYPE";*/
     public static final String ZONE = "ZONE";
 
 
@@ -54,12 +52,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-/*
-        String createUsers = "CREATE TABLE " + USER_TABLE + " (" + ID + " INT PRIMARY KEY, "
-                + FIRST_NAME + " TEXT, " + LAST_NAME + " TEXT, " +  USER_PHONE_NUMBER + " INT, " + USER_PASSWORD
-                + " TEXT, " + USER_TYPE + " TEXT, " + ZONE + " TEXT)";
-        sqLiteDatabase.execSQL(createUsers);
-*/
+
 
         String createClients = "CREATE TABLE CLIENT_TABLE (ID INT PRIMARY KEY, " + FIRST_NAME +
                 " TEXT, " + LAST_NAME + " TEXT, " + "GENDER TEXT, AGE INTEGER, CONTACT_NUMBER TEXT, " +
@@ -114,6 +107,15 @@ public class DBHelper extends SQLiteOpenHelper {
                 "SOCIAL_OUTCOME_DESC TEXT, SOCIAL_GOAL_STATUS_DESC TEXT)";
         sqLiteDatabase.execSQL(createSocialProgress);
 
+        String createReferral = "CREATE TABLE REFERRAL_TABLE (CLIENT_ID INT, REFERRAL_ID INT, " +
+                "REQUIRE_PHYSIOTHERAPY BOOL, REQUIRE_PROSTHETIC BOOL, REQUIRE_ORTHOTIC BOOL, " +
+                "REQUIRE_WHEEL_CHAIR BOOL, REQUIRE_OTHER BOOL, OTHER_DESC STRING, " +
+                "AMPUTEE BOOL, POLIO BOOL, SPINAL_CORD_INJURY BOOL, CEREBRAL_PALSY BOOL, " +
+                "SPINA_BIFIDA BOOL, HYDROCEPHALUS BOOL, VISUAL_IMPAIRMENT BOOL, " +
+                "HEARING_IMPAIRMENT BOOL, OTHER BOOL, INJURY_ABOVE_KNEE BOOL, INJURY_BELOW_KNEE BOOL, " +
+                "INTERMEDIATE_WHEEL_CHAIR_USER BOOL, HIP_WIDTH INTEGER, HAS_EXISTING_WHEEL_CHAIR BOOL, " +
+                "CAN_REPAIR_WHEEL_CHAIR BOOL, OUTCOME TEXT)";
+        sqLiteDatabase.execSQL(createReferral);
 
     }
 
@@ -121,22 +123,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
-
-   /* public boolean addUser(Users user){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-
-        cv.put(FIRST_NAME, user.getFirstName());
-        cv.put(LAST_NAME, user.getLastName());
-        cv.put(USER_PHONE_NUMBER, user.getPhoneNumber());
-        cv.put(USER_PASSWORD, user.getPassword());
-        cv.put(USER_TYPE, user.getUserType());
-        cv.put(ZONE, user.getZones());
-
-        long success = db.insert(USER_TABLE, null, cv);
-
-        return success != -1;
-    }*/
 
     public boolean addClient(ClientInfo client) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -311,6 +297,40 @@ public class DBHelper extends SQLiteOpenHelper {
         long success = db.insert(SOCIAL_PROGRESS_TABLE, null, cv);
         return success != -1;
     }
+
+    //Referral model is being updated, adjustments need to be made after the changes
+//    public boolean addReferral(ReferralInfo referral) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues cv = new ContentValues();
+//
+//        cv.put("CLIENT_ID", referral.getClientId());
+//        cv.put("REFERRAL_ID", referral.getReferralId());
+//        cv.put("REQUIRE_PHYSIOTHERAPY", referral.isRequirePhysiotherapy());
+//        cv.put("REQUIRE_PROSTHETIC", referral.isRequireProsthetic());
+//        cv.put("REQUIRE_ORTHOTIC", referral.isRequireOrthotic());
+//        cv.put("REQUIRE_WHEEL_CHAIR", referral.isRequireWheelchair());
+//        cv.put("REQUIRE_OTHER", referral.isRequireOther());
+//        cv.put("OTHER_DESC", referral.getOtherDescription());
+//        cv.put("AMPUTEE", referral.isAmputeeDisability());
+//        cv.put("POLIO", referral.isPolioDisability());
+//        cv.put("SPINAL_CORD_INJURY", referral.isSpinalCordInjuryDisability());
+//        cv.put("CEREBRAL_PALSY", referral.isCerebralPalsyDisability());
+//        cv.put("SPINA_BIFIDA", referral.isSpinaBifidaDisability());
+//        cv.put("HYDROCEPHALUS", referral.isHydrocephalusDisability());
+//        cv.put("VISUAL_IMPAIRMENT", referral.isVisualImpairmentDisability());
+//        cv.put("HEARING_IMPAIRMENT", referral.isHearingImpairmentDisability());
+//        cv.put("OTHER", referral.isOtherDisability());
+//        cv.put("INJURY_ABOVE_KNEE", referral.isInjuryAboveKnee());
+//        cv.put("INJURY_BELOW_KNEE", referral.isInjuryBelowKnee());
+//        cv.put("INTERMEDIATE_WHEEL_CHAIR_USER", referral.isIntermediateWheelchairUser());
+//        cv.put("HIP_WIDTH", referral.getHipWidth());
+//        cv.put("HAS_EXISTING_WHEEL_CHAIR", referral.isHasExistingWheelchair());
+//        cv.put("CAN_REPAIR_WHEEL_CHAIR", referral.isCanRepairWheelchair());
+//        cv.put("OUTCOME", referral.getOutcome());
+//
+//        long success = db.insert(REFERRAL_TABLE, null, cv);
+//        return success != -1;
+//    }
 
     public List<ClientInfo> getAllClients() {
         List<ClientInfo> clientInfoList = new ArrayList<>();
@@ -663,6 +683,43 @@ public class DBHelper extends SQLiteOpenHelper {
         return clientDisabilities;
     }
 
+    //CHANGES NEED TO BE MADE AS REFFERALINFO MODEL IS BEING UPDATED
+//    public List<ReferralInfo> getAllReferrals() {
+//        List<ReferralInfo> referralInfos = new ArrayList<>();
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        String query = SELECT_ALL_FROM + REFERRAL_TABLE;
+//        Cursor cursor = db.rawQuery(query, null);
+//
+//        if(cursor.moveToFirst()) {
+//            do {
+//                int clientId = cursor.getInt(0);
+//                int referralId = cursor.getInt(1);
+//                boolean requirePhysiotherapy = cursor.getInt(2) == 1;
+//                boolean requireProsthetic = cursor.getInt(3) == 1;
+//                boolean requireOrthotic = cursor.getInt(4) == 1;
+//                boolean requireWheelchair = cursor.getInt(5) == 1;
+//                boolean requireOther = cursor.getInt(6) == 1;
+//                boolean otherDesc = cursor.getInt(7) == 1;
+//
+//
+//
+//                boolean amputeeDisability = cursor.getInt(8) == 1;
+//                boolean polioDisability = cursor.getInt(9) == 1;
+//                boolean spinalCordInjuryDisability = cursor.getInt(10) == 1;
+//                boolean cerebralPalsyDisability = cursor.getInt(11) == 1;
+//                boolean spinaBifidaDisability = cursor.getInt(12) == 1;
+//                boolean hydrocephalusDisability = cursor.getInt(13) == 1;
+//                boolean visualImpairmentDisability = cursor.getInt(14) == 1;
+//                boolean hearingImpairmentDisability = cursor.getInt(15) == 1;
+//                boolean otherDisability = cursor.getInt(16) == 1;
+//
+//
+//            } while(cursor.moveToNext());
+//        }
+//
+//        return referralInfos;
+//    }
 
 
 }

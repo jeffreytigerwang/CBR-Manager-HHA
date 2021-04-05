@@ -1,5 +1,6 @@
 package com.example.cbr.fragments.discussion;
 
+import android.net.http.SslCertificate;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -207,8 +208,20 @@ public class DiscussionFragment extends Fragment {
 
         this.newRefreshMessage = message;
 
-        int newIdx = iconCountMap.get(user.getId()) <= SIZE_OF_ICON-1 ?
-                        iconCountMap.get(user.getId()) : SIZE_OF_ICON-1;
+        int newIdx = 0;
+        if (iconCountMap.size() == 0) {
+            newIdx = 0;
+        }
+        else {
+            if (iconCountMap.containsKey(user.getId())) {
+                newIdx = iconCountMap.get(user.getId()) <= SIZE_OF_ICON-1 ?
+                    iconCountMap.get(user.getId()) : SIZE_OF_ICON-1;
+            } else {
+                newIdx = Math.min(iconCountMap.size(), SIZE_OF_ICON - 1);
+            }
+        }
+
+
 
         newRefreshMessage.setImg(imgDrawableId.get(newIdx));
 

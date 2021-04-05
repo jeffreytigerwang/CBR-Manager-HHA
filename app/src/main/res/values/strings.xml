@@ -220,6 +220,7 @@
     <string name="gps_not_enabled">User has not enabled GPS.</string>
     <string name="lat_long_location">Lat: %f Long: %f</string>
     <string name="location_not_found">Location could not be found.</string>
+    <string name="use_camera">Use Camera</string>
 
 
 </resources>

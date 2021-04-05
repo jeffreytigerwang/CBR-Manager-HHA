@@ -1,5 +1,6 @@
 package com.example.cbr.fragments.newreferral;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cbr.R;
@@ -17,6 +19,7 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Edit
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.HeaderViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.RadioGroupViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.RecordPhotoViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SingleTextViewContainer;
 import com.example.cbr.databinding.FragmentQuestionspageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
@@ -33,6 +36,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static android.app.Activity.RESULT_OK;
+import static com.example.cbr.util.Constants.CAMERA_REQUEST_CODE;
 
 public class NewReferralFragment extends BaseFragment implements NewReferralContract.View {
 
@@ -77,8 +83,6 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
 
         return binding.getRoot();
     }
-
-
 
     private void setupViewPager() {
         generateViewPagerList();
@@ -160,6 +164,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.wheelchair)));
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.other)));
         mainPageList.add(new EditTextViewContainer(getString(R.string.other_option), getString(R.string.other), InputType.TYPE_CLASS_TEXT));
+        mainPageList.add(new RecordPhotoViewContainer("hello"));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override

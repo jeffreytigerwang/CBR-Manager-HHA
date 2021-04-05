@@ -1,5 +1,7 @@
 package com.example.cbr.adapters.questioninfoadapters;
 
+import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;

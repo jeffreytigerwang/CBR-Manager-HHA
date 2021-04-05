@@ -2,6 +2,7 @@ package com.example.cbr.fragments.clientpage;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +30,9 @@ import com.example.cbr.util.StringsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
+import static com.example.cbr.util.Constants.CAMERA_REQUEST_CODE;
 
 public class ClientPageFragment extends BaseFragment implements ClientPageContract.View {
 
@@ -68,6 +73,13 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         setupRecyclerView();
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+            clientInfoAdapter.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override

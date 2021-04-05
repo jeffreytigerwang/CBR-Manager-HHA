@@ -1,6 +1,10 @@
 package com.example.cbr.adapters.questioninfoadapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -8,15 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
@@ -27,20 +34,24 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Edit
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.HeaderViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.RadioGroupViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.RecordPhotoViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SingleTextViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SpinnerViewContainer;
 
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CHECK_BOX_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CLICKABLE_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.DIVIDER_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.DOUBLE_TEXT_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.EDIT_TEXT_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.HEADER_VIEW_TYPE;
+import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.PHOTO_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.RADIO_GROUP_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.SINGLE_TEXT_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.SPINNER_VIEW_TYPE;
+import static com.example.cbr.util.Constants.CAMERA_REQUEST_CODE;
 
 /**
  * Base class for adapters that display information, currently supports headers, dividers, and two text fields
@@ -51,6 +62,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
     Context context;
     LayoutInflater layoutInflater;
     private final List<QuestionDataContainer> questionDataContainerList;
+    private RecordPhotoViewHolder activeCameraViewHolder = null;
 
     BaseInfoAdapter(Context context, List<QuestionDataContainer> questionDataContainerList) {
         this.context = context;
@@ -62,6 +74,11 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public List<QuestionDataContainer> getQuestionDataContainerList() {
         return questionDataContainerList;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+        activeCameraViewHolder.storePhoto(imageBitmap);
     }
 
     @NonNull
@@ -86,6 +103,8 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 return new SpinnerViewHolder(layoutInflater.inflate(R.layout.recyclerview_spinner, parent, false));
             case CHECK_BOX_VIEW_TYPE:
                 return new CheckBoxViewHolder(layoutInflater.inflate(R.layout.recyclerview_checkbox, parent, false));
+            case PHOTO_VIEW_TYPE:
+                return new RecordPhotoViewHolder(layoutInflater.inflate(R.layout.recyclerview_photo, parent, false));
         }
         return new SingleTextViewHolder(layoutInflater.inflate(R.layout.recyclerview_doubletext, parent, false));
     }
@@ -118,6 +137,8 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
             case CHECK_BOX_VIEW_TYPE:
                 ((CheckBoxViewHolder) holder).bind((CheckBoxViewContainer) questionDataContainerList.get(position));
                 break;
+            case PHOTO_VIEW_TYPE:
+                ((RecordPhotoViewHolder) holder).bind(((RecordPhotoViewContainer) questionDataContainerList.get(position)));
         }
     }
 
@@ -328,6 +349,36 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                     onDataChanged(getLayoutPosition(), checkBoxViewContainer);
                 }
             });
+        }
+    }
+
+    private class RecordPhotoViewHolder extends RecyclerView.ViewHolder {
+        private final Button recordButton;
+        private final ImageView photo;
+        private RecordPhotoViewContainer recordPhotoViewContainer;
+
+        public RecordPhotoViewHolder(@NonNull View itemView) {
+            super(itemView);
+            recordButton = itemView.findViewById(R.id.recyclerview_cameraButton);
+            photo = itemView.findViewById(R.id.recyclerview_photo);
+        }
+
+        public void bind(final RecordPhotoViewContainer recordPhotoViewContainer) {
+            this.recordPhotoViewContainer = recordPhotoViewContainer;
+            recordButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    activeCameraViewHolder = RecordPhotoViewHolder.this;
+                    Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    ((Activity) itemView.getContext()).startActivityForResult(camera, CAMERA_REQUEST_CODE);
+                }
+            });
+        }
+
+        public void storePhoto(Bitmap bitmap) {
+            recordPhotoViewContainer.setImage(bitmap);
+            photo.setImageBitmap(bitmap);
+            activeCameraViewHolder = null;
         }
     }
 }

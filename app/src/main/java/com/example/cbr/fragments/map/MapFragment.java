@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,17 +43,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapFragment extends BaseFragment implements MapContract.View {
-    private static final String TAG = "MapFragment";
     private MapContract.Presenter mapContractPresenter;
     private FragmentMapBinding binding;
     private GoogleMap mMap;
-    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
-    private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private Boolean locationPermissionsGranted = false;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+
+    // widgets
+    private EditText searchText;
+    private ImageView gps;
+
+    // const
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
-    private FusedLocationProviderClient fusedLocationProviderClient;
-    private EditText searchText;
+    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    private static final String TAG = "MapFragment";
 
 
     @Nullable
@@ -60,11 +66,14 @@ public class MapFragment extends BaseFragment implements MapContract.View {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setPresenter(new MapPresenter(this));
         binding = FragmentMapBinding.inflate(inflater, container, false);
-
+        searchText = binding.inputSearch;
+        gps = binding.icGps;
 
         getLocationPermission();
 
         View view = binding.getRoot();
+
+
         return view;
     }
 
@@ -115,7 +124,7 @@ public class MapFragment extends BaseFragment implements MapContract.View {
                             Log.d(TAG, "onComplete: found location!");
                             Location currentLocation = (Location) task.getResult();
                             moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                    DEFAULT_ZOOM);
+                                    DEFAULT_ZOOM, "My Location");
                         }
                         else{
                             Log.d(TAG, "conComplete: current location is null.");
@@ -132,9 +141,17 @@ public class MapFragment extends BaseFragment implements MapContract.View {
 
     }
 
-    private void moveCamera(LatLng latLng, float zoom){
+    private void moveCamera(LatLng latLng, float zoom, String title){
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+
+        if(!title.equals("My Location")){
+            MarkerOptions options = new MarkerOptions()
+                    .position(latLng)
+                    .title(title);
+            mMap.addMarker(options);
+        }
+
     }
 
 
@@ -163,7 +180,6 @@ public class MapFragment extends BaseFragment implements MapContract.View {
 
     private void init(){
         Log.d(TAG, "init: initializing");
-        searchText = binding.inputSearch;
 
         searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -177,6 +193,15 @@ public class MapFragment extends BaseFragment implements MapContract.View {
                 return false;
             }
         });
+
+        gps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: clicked gps icon");
+                getDeviceLocation();
+            }
+        });
+
     }
 
     private void geoLocate(){
@@ -200,8 +225,11 @@ public class MapFragment extends BaseFragment implements MapContract.View {
             Log.d(TAG, "geoLocate: found a location: " + address.toString());
             //Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
 
+            moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_ZOOM,
+                    address.getAddressLine(0));
         }
     }
+
 
     public static MapFragment newInstance() {
         return new MapFragment();

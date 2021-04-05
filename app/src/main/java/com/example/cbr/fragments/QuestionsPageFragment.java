@@ -13,8 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.adapters.questioninfoadapters.QuestionsAdapter;
 import com.example.cbr.adapters.questioninfoadapters.QuestionsFragmentPagerAdapter;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
 import com.example.cbr.databinding.RecyclerviewTemplateBinding;
 import com.example.cbr.fragments.base.BaseFragment;
+
+import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.cbr.util.Constants.CAMERA_REQUEST_CODE;
@@ -24,21 +27,22 @@ public class QuestionsPageFragment extends BaseFragment {
     private RecyclerviewTemplateBinding binding;
 
     private QuestionsAdapter questionsAdapter;
-    private QuestionsFragmentPagerAdapter.ViewPagerContainer viewPagerContainer;
 
     private static final String QUESTION_PAGE_DATA_CONTAINERS = "questionPageDataContainers";
+    private static final String QUESTION_PAGE_DATA_POSITION = "questionPageDataPosition";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = RecyclerviewTemplateBinding.inflate(inflater, container, false);
 
-        viewPagerContainer = (QuestionsFragmentPagerAdapter.ViewPagerContainer) getArguments().getSerializable(QUESTION_PAGE_DATA_CONTAINERS);
+        ArrayList<QuestionDataContainer> questionDataContainerList = getArguments().getParcelableArrayList(QUESTION_PAGE_DATA_CONTAINERS);
+        int position = getArguments().getInt(QUESTION_PAGE_DATA_POSITION);
 
         RecyclerView recyclerView = binding.recyclerviewLayout;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        questionsAdapter = new QuestionsAdapter(getActivity(), viewPagerContainer);
+        questionsAdapter = new QuestionsAdapter(getActivity(), questionDataContainerList);
         recyclerView.setAdapter(questionsAdapter);
 
         return binding.getRoot();
@@ -57,11 +61,12 @@ public class QuestionsPageFragment extends BaseFragment {
         }
     }
 
-    public static QuestionsPageFragment newInstance(QuestionsFragmentPagerAdapter.ViewPagerContainer viewPagerContainer) {
+    public static QuestionsPageFragment newInstance(ArrayList<QuestionDataContainer> questionDataContainerList, int position) {
         Bundle bundle = new Bundle();
 
         QuestionsPageFragment questionsPageFragment = new QuestionsPageFragment();
-        bundle.putSerializable(QUESTION_PAGE_DATA_CONTAINERS, viewPagerContainer);
+        bundle.putParcelableArrayList(QUESTION_PAGE_DATA_CONTAINERS, questionDataContainerList);
+        bundle.putInt(QUESTION_PAGE_DATA_POSITION, position);
         questionsPageFragment.setArguments(bundle);
 
         return questionsPageFragment;

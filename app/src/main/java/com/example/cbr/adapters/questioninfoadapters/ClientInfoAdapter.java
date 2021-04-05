@@ -11,9 +11,4 @@ public class ClientInfoAdapter extends BaseInfoAdapter {
     public ClientInfoAdapter(Context context, List<QuestionDataContainer> questionDataContainerList) {
         super(context, questionDataContainerList);
     }
-
-    @Override
-    public void onDataChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
-        // no items that require input from user
-    }
 }

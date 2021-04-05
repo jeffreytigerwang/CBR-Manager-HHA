@@ -4,17 +4,14 @@ import android.content.Context;
 
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
 
+import java.util.ArrayList;
+
 public class QuestionsAdapter extends BaseInfoAdapter {
 
-    private final QuestionsFragmentPagerAdapter.ViewPagerContainer viewPagerContainer;
+    private final ArrayList<QuestionDataContainer> questionDataContainerList;
 
-    public QuestionsAdapter(Context context, QuestionsFragmentPagerAdapter.ViewPagerContainer viewPagerContainer) {
-        super(context, viewPagerContainer.getViewHolderDataList());
-        this.viewPagerContainer = viewPagerContainer;
-    }
-
-    @Override
-    void onDataChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
-        viewPagerContainer.getOnViewPagerChangedListener().onChanged(positionChanged, questionDataContainer);
+    public QuestionsAdapter(Context context, ArrayList<QuestionDataContainer> questionDataContainerList) {
+        super(context, questionDataContainerList);
+        this.questionDataContainerList = questionDataContainerList;
     }
 }

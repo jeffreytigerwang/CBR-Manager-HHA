@@ -12,9 +12,4 @@ public class VisitInfoAdapter extends BaseInfoAdapter {
         super(context, questionDataContainerList);
 
     }
-
-    @Override
-    void onDataChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
-        // no items that require input from user
-    }
 }

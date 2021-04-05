@@ -38,6 +38,8 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Reco
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SingleTextViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SpinnerViewContainer;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
@@ -69,8 +71,6 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
         this.layoutInflater = LayoutInflater.from(context);
         this.questionDataContainerList = questionDataContainerList;
     }
-
-    abstract void onDataChanged(int positionChanged, QuestionDataContainer questionDataContainer);
 
     public List<QuestionDataContainer> getQuestionDataContainerList() {
         return questionDataContainerList;
@@ -150,6 +150,11 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public int getItemCount() {
         return questionDataContainerList.size();
+    }
+
+    private void onDataChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+        EventBus eventBus = EventBus.getDefault();
+        eventBus.post(new DataChangedEvent(positionChanged, questionDataContainer));
     }
 
     private class SingleTextViewHolder extends RecyclerView.ViewHolder {
@@ -379,6 +384,32 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
             recordPhotoViewContainer.setImage(bitmap);
             photo.setImageBitmap(bitmap);
             activeCameraViewHolder = null;
+        }
+    }
+
+    public class DataChangedEvent {
+        int positionChanged;
+        QuestionDataContainer questionDataContainer;
+
+        public DataChangedEvent(int positionChanged, QuestionDataContainer questionDataContainer) {
+            this.positionChanged = positionChanged;
+            this.questionDataContainer = questionDataContainer;
+        }
+
+        public int getPositionChanged() {
+            return positionChanged;
+        }
+
+        public void setPositionChanged(int positionChanged) {
+            this.positionChanged = positionChanged;
+        }
+
+        public QuestionDataContainer getQuestionDataContainer() {
+            return questionDataContainer;
+        }
+
+        public void setQuestionDataContainer(QuestionDataContainer questionDataContainer) {
+            this.questionDataContainer = questionDataContainer;
         }
     }
 }

@@ -76,6 +76,9 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         setupViewPager();
         setupButtons();
 
+        clientId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
+        clientInfo.setClientId(clientId);
+
         retrofit = RetrofitInit.getInstance();
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
@@ -471,9 +474,6 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
     }
 
     private void recordAndFinish() {
-        clientId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
-        clientInfo.setClientId(clientId);
-
         ClientDisability clientDisability = new ClientDisability(
             clientId,
             clientInfo.getAmputeeDisability(),

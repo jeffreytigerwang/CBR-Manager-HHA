@@ -261,8 +261,12 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public void bind(final EditTextViewContainer editTextViewHolderData) {
             textView.setText(editTextViewHolderData.getQuestionText());
-            editText.setHint(editTextViewHolderData.getHintText());
             editText.setInputType(editTextViewHolderData.getInputType());
+
+            if (editText.getText().toString().isEmpty()) {
+                editText.setHint(editTextViewHolderData.getHintText());
+                editText.setText(editTextViewHolderData.getInitialText());
+            }
 
             editText.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -305,26 +309,28 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 orientationType = RadioGroup.HORIZONTAL;
             }
 
-            radioGroup.setOrientation(orientationType);
-            for (RadioGroupViewContainer.RadioGroupListItem radioGroupListItem : radioGroupViewHolderData.getDescriptionList()) {
-                RadioButton radioButton = new RadioButton(context);
-                radioButton.setText(radioGroupListItem.getDescription());
-                radioButton.setId(radioGroupListItem.getId());
-                radioGroup.addView(radioButton);
-            }
-
-            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    for (int i = 0; i < radioGroupViewHolderData.getDescriptionList().size(); i++) {
-                        RadioGroupViewContainer.RadioGroupListItem radioGroupListItem = radioGroupViewHolderData.getDescriptionList().get(i);
-                        if (radioGroupListItem.getId() == checkedId) {
-                            radioGroupViewHolderData.setCheckedIndex(i);
-                        }
-                    }
-                    onDataChanged(getLayoutPosition(), radioGroupViewHolderData);
+            if (radioGroup.getChildCount() == 0) {
+                radioGroup.setOrientation(orientationType);
+                for (RadioGroupViewContainer.RadioGroupListItem radioGroupListItem : radioGroupViewHolderData.getDescriptionList()) {
+                    RadioButton radioButton = new RadioButton(context);
+                    radioButton.setText(radioGroupListItem.getDescription());
+                    radioButton.setId(radioGroupListItem.getId());
+                    radioGroup.addView(radioButton);
                 }
-            });
+
+                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        for (int i = 0; i < radioGroupViewHolderData.getDescriptionList().size(); i++) {
+                            RadioGroupViewContainer.RadioGroupListItem radioGroupListItem = radioGroupViewHolderData.getDescriptionList().get(i);
+                            if (radioGroupListItem.getId() == checkedId) {
+                                radioGroupViewHolderData.setCheckedIndex(i);
+                            }
+                        }
+                        onDataChanged(getLayoutPosition(), radioGroupViewHolderData);
+                    }
+                });
+            }
         }
     }
 
@@ -343,6 +349,12 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, spinnerViewHolderData.getOptionsList());
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
+
+            for (int i = 0; i < spinnerViewHolderData.getOptionsList().size(); i++) {
+                if (spinnerViewHolderData.getOptionsList().get(i).equals(spinnerViewHolderData.getSelectedItem())) {
+                    spinner.setSelection(i);
+                }
+            }
 
             spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -364,6 +376,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public void bind(final CheckBoxViewContainer checkBoxViewContainer) {
             checkBox.setText(checkBoxViewContainer.getQuestionText());
+            checkBox.setChecked(checkBoxViewContainer.isChecked());
 
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -389,6 +402,11 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public void bind(final RecordPhotoViewContainer recordPhotoViewContainer) {
             this.recordPhotoViewContainer = recordPhotoViewContainer;
+
+            if (recordPhotoViewContainer.getImage() != null) {
+                photo.setImageBitmap(recordPhotoViewContainer.getImage());
+            }
+
             recordButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -163,7 +163,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.orthotic)));
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.wheelchair)));
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.other)));
-        mainPageList.add(new EditTextViewContainer(getString(R.string.other_option), getString(R.string.other), InputType.TYPE_CLASS_TEXT));
+        mainPageList.add(new EditTextViewContainer(getString(R.string.other_option), "", getString(R.string.other), InputType.TYPE_CLASS_TEXT));
         mainPageList.add(new RecordPhotoViewContainer("hello"));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
@@ -218,7 +218,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.visual_impairment)));
         physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.hearing_impairment)));
         physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.other)));
-        physioTherapyList.add(new EditTextViewContainer(getString(R.string.other_option), getString(R.string.other), InputType.TYPE_CLASS_TEXT));
+        physioTherapyList.add(new EditTextViewContainer(getString(R.string.other_option), "", getString(R.string.other), InputType.TYPE_CLASS_TEXT));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override

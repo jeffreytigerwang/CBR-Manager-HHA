@@ -1,9 +1,13 @@
 package com.example.cbr.adapters.questioninfoadapters;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,6 +28,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
@@ -37,10 +42,14 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Radi
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.RecordPhotoViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SingleTextViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SpinnerViewContainer;
+import com.example.cbr.util.StringsUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CHECK_BOX_VIEW_TYPE;
@@ -59,26 +68,35 @@ import static com.example.cbr.util.Constants.CAMERA_REQUEST_CODE;
  * Base class for adapters that display information, currently supports headers, dividers, and two text fields
  * Subclasses should implement generateList() by calling addTextViewHolder(), addDivider(), etc in order of appearance in generateList()
  */
-public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Context context;
+    Fragment fragment;
     LayoutInflater layoutInflater;
     private final List<QuestionDataContainer> questionDataContainerList;
     private RecordPhotoViewHolder activeCameraViewHolder = null;
 
-    BaseInfoAdapter(Context context, List<QuestionDataContainer> questionDataContainerList) {
-        this.context = context;
+    public InfoAdapter(Fragment fragment, List<QuestionDataContainer> questionDataContainerList) {
+        this.context = fragment.getContext();
+        this.fragment = fragment;
         this.layoutInflater = LayoutInflater.from(context);
         this.questionDataContainerList = questionDataContainerList;
     }
 
-    public List<QuestionDataContainer> getQuestionDataContainerList() {
-        return questionDataContainerList;
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Bitmap bitmap = null;
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(fragment.getActivity().getContentResolver(), activeCameraViewHolder.getUri());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        activeCameraViewHolder.storePhoto(bitmap);
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
-        activeCameraViewHolder.storePhoto(imageBitmap);
+    public static Bitmap rotateImage(Bitmap bitmap, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
     @NonNull
@@ -361,6 +379,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
         private final Button recordButton;
         private final ImageView photo;
         private RecordPhotoViewContainer recordPhotoViewContainer;
+        private Uri uri;
 
         public RecordPhotoViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -374,10 +393,19 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 @Override
                 public void onClick(View v) {
                     activeCameraViewHolder = RecordPhotoViewHolder.this;
-                    Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    ((Activity) itemView.getContext()).startActivityForResult(camera, CAMERA_REQUEST_CODE);
+
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(MediaStore.Images.Media.TITLE, "CBR_picture_" + StringsUtil.dateToUKFormat(new Date()));
+                    uri = fragment.getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                    fragment.startActivityForResult(intent, CAMERA_REQUEST_CODE);
                 }
             });
+        }
+
+        public Uri getUri() {
+            return uri;
         }
 
         public void storePhoto(Bitmap bitmap) {

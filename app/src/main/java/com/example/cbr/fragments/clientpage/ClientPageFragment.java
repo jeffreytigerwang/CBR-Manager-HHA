@@ -2,7 +2,6 @@ package com.example.cbr.fragments.clientpage;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
 import com.example.cbr.activities.NewVisitActivity;
-import com.example.cbr.adapters.questioninfoadapters.ClientInfoAdapter;
+import com.example.cbr.adapters.questioninfoadapters.InfoAdapter;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.ClickableViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DividerViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DoubleTextViewContainer;
@@ -42,7 +41,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
 
     private ClientInfo clientInfo;
     private List<VisitGeneralQuestionSetData> visitsList;
-    private ClientInfoAdapter clientInfoAdapter;
+    private InfoAdapter clientInfoAdapter;
 
     private static final String CLIENT_PAGE_BUNDLE = "clientPageBundle";
 
@@ -117,7 +116,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        clientInfoAdapter = new ClientInfoAdapter(getActivity(), generateDataContainerList());
+        clientInfoAdapter = new InfoAdapter(this, generateDataContainerList());
         recyclerView.setAdapter(clientInfoAdapter);
     }
 

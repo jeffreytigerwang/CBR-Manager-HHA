@@ -1,7 +1,5 @@
 package com.example.cbr.adapters.questioninfoadapters;
 
-import android.content.Intent;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -85,7 +83,7 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
     }
 
     @Subscribe
-    public void onDataChanged(@NonNull BaseInfoAdapter.DataChangedEvent dataChangedEvent) {
+    public void onDataChanged(@NonNull InfoAdapter.DataChangedEvent dataChangedEvent) {
         int position = dataChangedEvent.getPositionChanged();
         QuestionDataContainer changedContainer = dataChangedEvent.getQuestionDataContainer();
         for (ViewPagerContainer viewPagerContainer : activeFragmentsList) {

@@ -11,8 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cbr.adapters.questioninfoadapters.QuestionsAdapter;
-import com.example.cbr.adapters.questioninfoadapters.QuestionsFragmentPagerAdapter;
+import com.example.cbr.adapters.questioninfoadapters.InfoAdapter;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
 import com.example.cbr.databinding.RecyclerviewTemplateBinding;
 import com.example.cbr.fragments.base.BaseFragment;
@@ -26,23 +25,21 @@ public class QuestionsPageFragment extends BaseFragment {
 
     private RecyclerviewTemplateBinding binding;
 
-    private QuestionsAdapter questionsAdapter;
+    private InfoAdapter questionsAdapter;
 
     private static final String QUESTION_PAGE_DATA_CONTAINERS = "questionPageDataContainers";
-    private static final String QUESTION_PAGE_DATA_POSITION = "questionPageDataPosition";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = RecyclerviewTemplateBinding.inflate(inflater, container, false);
 
         ArrayList<QuestionDataContainer> questionDataContainerList = getArguments().getParcelableArrayList(QUESTION_PAGE_DATA_CONTAINERS);
-        int position = getArguments().getInt(QUESTION_PAGE_DATA_POSITION);
 
         RecyclerView recyclerView = binding.recyclerviewLayout;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        questionsAdapter = new QuestionsAdapter(getActivity(), questionDataContainerList);
+        questionsAdapter = new InfoAdapter(this, questionDataContainerList);
         recyclerView.setAdapter(questionsAdapter);
 
         return binding.getRoot();
@@ -66,7 +63,6 @@ public class QuestionsPageFragment extends BaseFragment {
 
         QuestionsPageFragment questionsPageFragment = new QuestionsPageFragment();
         bundle.putParcelableArrayList(QUESTION_PAGE_DATA_CONTAINERS, questionDataContainerList);
-        bundle.putInt(QUESTION_PAGE_DATA_POSITION, position);
         questionsPageFragment.setArguments(bundle);
 
         return questionsPageFragment;

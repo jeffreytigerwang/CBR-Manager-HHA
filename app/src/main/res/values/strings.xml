@@ -219,13 +219,13 @@
     <string name="name">Name</string>
     <string name="risk">Risk</string>
     <string name="referral">Referral</string>
-    <string name="location_permission_not_granted">ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION not granted. User did not give permission to access location.</string>
+    <string name="location_permission_not_granted">Location services not permitted. Thus, GPS location is not automatically filled.</string>
     <string name="location_alert_title">Location settings</string>
     <string name="gps_alert_message">GPS is not enabled or your location is turned off. Do you want to go to settings menu?</string>
     <string name="alert_settings_positive_button">Settings</string>
     <string name="gps_not_enabled">User has not enabled GPS.</string>
     <string name="lat_long_location">Lat: %f Long: %f</string>
-    <string name="location_not_found">Location could not be found.</string>
+    <string name="location_not_found">Your current location cannot be found right now. Manual entry of location is required.</string>
     <string name="general_questions">General Questions</string>
     <string name="unable_to_retrieve_client_info">Unable to retrieve client info.</string>
     <string name="placeholder_text">Placeholder Text</string>
@@ -239,5 +239,10 @@
 
     <string name="google_map_api_key">AIzaSyB_JlRLqJ_ASLFjJW_qIBNK_Eev0jUCF0k</string>
     <string name="marker_in_Uganda">Marker in Uganda</string>
+    <string name="location_service">Location Service</string>
+    <string name="location_settings_message">If location was turned on, then location service should automatically fill in the GPS location field on the next launch of this page.</string>
+    <string name="permission_change">Permission change</string>
+    <string name="permission_change_message">Permission for location was changed to not granted. Automatic fill for GPS location field will not be available.</string>
+    <string name="automatic_fill_location">"Locations fields will now automatically be filled."</string>
 
 </resources>

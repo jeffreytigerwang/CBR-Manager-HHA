@@ -1,8 +1,5 @@
 package com.example.cbr.fragments.newvisit;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.InputType;
@@ -17,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cbr.R;
@@ -36,6 +32,7 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Unch
 import com.example.cbr.databinding.FragmentQuestionspageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.Users;
 import com.example.cbr.models.VisitEducationQuestionSetData;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.models.VisitHealthQuestionSetData;
@@ -65,10 +62,12 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     private final ArrayList<QuestionsFragmentPagerAdapter.ViewPagerContainer> viewPagerContainerList = new ArrayList<>();
     private String latLongLocation;
 
+    private final Users users = Users.getInstance();
     private final VisitGeneralQuestionSetData generalQuestionSetData = new VisitGeneralQuestionSetData();
     private final VisitHealthQuestionSetData healthQuestionSetData = new VisitHealthQuestionSetData();
     private final VisitEducationQuestionSetData educationQuestionSetData = new VisitEducationQuestionSetData();
     private final VisitSocialQuestionSetData socialQuestionSetData = new VisitSocialQuestionSetData();
+    private LocationUtil locationUtil;
 
 
     private enum PAGES {
@@ -82,52 +81,6 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
     private static final String NEW_VISIT_PAGE_BUNDLE = "newVisitPageBundle";
     private static final String LOG_TAG = "NewVisitFragment";
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        requestLocationPermissions();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == Constants.LOCATION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                setLatLongLocation();
-            } else {
-                Toast.makeText(getContext(), R.string.location_permission_not_granted,
-                        Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    private void requestLocationPermissions() {
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED
-                &&
-                ActivityCompat.checkSelfPermission(getContext(),
-                        Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION}, Constants.LOCATION_REQUEST_CODE);
-        } else {
-            setLatLongLocation();
-        }
-    }
-
-    private void setLatLongLocation() {
-        try {
-            LocationUtil locationUtil = new LocationUtil(getContext());
-            latLongLocation = getString(R.string.lat_long_location,
-                    locationUtil.getLatitude(), locationUtil.getLongitude());
-            generalQuestionSetData.setVisitGpsLocation(latLongLocation);
-            locationUtil.stopUpdateService();
-        } catch (CustomExceptions.GPSNotEnabled | CustomExceptions.LocationNotFound gpsNotEnabled) {
-            Log.i(LOG_TAG, "setLatLongLocation: " + gpsNotEnabled.getMessage());
-        }
-    }
 
     @Override
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -293,6 +246,29 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         textViewQuestionNumbers.setText(questionNumbers.toString());
     }
 
+    private void setLatLongLocation() {
+        try {
+            locationUtil = new LocationUtil(getContext());
+            latLongLocation = getString(R.string.lat_long_location,
+                    locationUtil.getLatitude(), locationUtil.getLongitude());
+            generalQuestionSetData.setVisitGpsLocation(latLongLocation);
+            locationUtil.stopUpdateService();
+        } catch (CustomExceptions.PermissionNotGranted permissionNotGranted) {
+            showOkDialog(getString(R.string.permission_change),
+                    getString(R.string.permission_change_message),
+                    null);
+        } catch (CustomExceptions.GPSNotEnabled gpsNotEnabled) {
+            showOkDialog(getString(R.string.location_service),
+                    getString(R.string.location_settings_message),
+                    null);
+        } catch (CustomExceptions.LocationNotFound locationNotFound) {
+            locationUtil.stopUpdateService();
+            Toast.makeText(getContext(),
+                    getString(R.string.location_not_found),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void setVisitClientId() {
         int visitId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
 
@@ -407,12 +383,16 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                 Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,
                 StringsUtil.dateToUKFormat(generalQuestionSetData.getDateOfVisit())));
 
-        generalPageViews.add(new EditTextViewContainer(getString(R.string.name_of_cbr_worker),
-                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, getString(R.string.first_and_last_name),
-                InputType.TYPE_TEXT_VARIATION_PERSON_NAME));
+        final String userName = users.getFirstName() + " " + users.getLastName();
+        generalQuestionSetData.setWorkerName(userName);
+        generalPageViews.add(new UnchangeableEditTextViewContainer(
+                getString(R.string.name_of_cbr_worker), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,
+                userName));
 
+        setLatLongLocation();
         generalPageViews.add(new EditTextViewContainer(getString(R.string.location_of_visit),
-                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, getString(R.string.gps_location), InputType.TYPE_CLASS_TEXT));
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, latLongLocation,
+                getString(R.string.gps_location), InputType.TYPE_CLASS_TEXT));
 
         List<String> siteLocations = new ArrayList<>(
                 Arrays.asList(getResources().getStringArray(R.array.zone_locations_array)));
@@ -421,7 +401,8 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                 Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, siteLocations));
 
         generalPageViews.add(new EditTextViewContainer(getString(R.string.village_no),
-                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, getString(R.string.e_g_5), InputType.TYPE_CLASS_NUMBER));
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, "", getString(R.string.e_g_5),
+                InputType.TYPE_CLASS_NUMBER));
 
         viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(
                 generalPageViews,
@@ -536,7 +517,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
         healthPageViews.add(new EditTextViewContainer(
                 getString(R.string.if_concluded_what_was_the_outcome_10),
-                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, "",
                 getString(R.string.description_max_100_characters_optional),
                 InputType.TYPE_CLASS_TEXT));
 
@@ -641,7 +622,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
         educationPageViews.add(new EditTextViewContainer(
                 getString(R.string.if_concluded_what_was_the_outcome_13),
-                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, "",
                 getString(R.string.description_max_100_characters_optional),
                 InputType.TYPE_CLASS_TEXT));
 
@@ -732,7 +713,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
         socialPageViews.add(new EditTextViewContainer(
                 getString(R.string.if_concluded_what_was_the_outcome_16),
-                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,
+                Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, "",
                 getString(R.string.description_max_100_characters_optional),
                 InputType.TYPE_CLASS_TEXT));
 

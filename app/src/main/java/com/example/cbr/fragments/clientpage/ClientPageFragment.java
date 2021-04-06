@@ -1,6 +1,7 @@
 package com.example.cbr.fragments.clientpage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +29,9 @@ import com.example.cbr.util.StringsUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+import static com.example.cbr.util.Constants.CAMERA_REQUEST_CODE;
+
 public class ClientPageFragment extends BaseFragment implements ClientPageContract.View {
 
     private FragmentClientpageBinding binding;
@@ -35,7 +40,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
 
     private ClientInfo clientInfo;
     private List<VisitGeneralQuestionSetData> visitsList;
-    private ClientInfoAdapter clientInfoAdapter;
+    private InfoAdapter clientInfoAdapter;
 
     private static final String CLIENT_PAGE_BUNDLE = "clientPageBundle";
 
@@ -47,7 +52,6 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         } catch (ClassCastException e) {
             Log.e(getFragmentTag(), "Activity should implement ClientPageFragmentInterface");
         }
-
     }
 
     @Override
@@ -67,6 +71,13 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         setupRecyclerView();
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+            clientInfoAdapter.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
@@ -102,7 +113,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        clientInfoAdapter = new ClientInfoAdapter(getActivity(), generateDataContainerList());
+        clientInfoAdapter = new InfoAdapter(this, generateDataContainerList());
         recyclerView.setAdapter(clientInfoAdapter);
     }
 

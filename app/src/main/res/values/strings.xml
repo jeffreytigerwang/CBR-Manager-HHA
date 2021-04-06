@@ -235,6 +235,7 @@
     <string name="record_error">There are <b>empty</b> required <b>fields</b>. Please fill them in before recording.</string>
     <string name="map">Map</string>
     <string name="title_activity_maps">Map</string>
+    <string name="use_camera">Use Camera</string>
 
     <string name="google_map_api_key">AIzaSyB_JlRLqJ_ASLFjJW_qIBNK_Eev0jUCF0k</string>
     <string name="marker_in_Uganda">Marker in Uganda</string>

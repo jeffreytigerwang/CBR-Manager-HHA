@@ -164,13 +164,13 @@ public class DiscussionFragment extends Fragment {
                 iconIdx = iconCountMap.get(picId);
             }
             else {
-                if (iconCounter <= 5) {
+                if (iconCounter <= SIZE_OF_ICON-1) {
                     iconCountMap.put(picId, iconCounter);
                     iconIdx = iconCounter;
                     iconCounter++;
                 }
                 else {
-                    iconIdx = 5;
+                    iconIdx = SIZE_OF_ICON-1;
                 }
             }
 

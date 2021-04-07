@@ -460,14 +460,18 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     public static final Comparator<ClientInfo> BY_ID_ASCENDING = new Comparator<ClientInfo>() {
         @Override
         public int compare(ClientInfo clientInfo, ClientInfo t1) {
-            return clientInfo.getId().compareTo(t1.getId());
+            Integer clientInfoInt = Integer.parseInt(clientInfo.getId());
+            Integer t1Int = Integer.parseInt(t1.getId());
+            return clientInfoInt.compareTo(t1Int);
         }
     };
 
     public static final Comparator<ClientInfo> BY_ID_DESCENDING = new Comparator<ClientInfo>() {
         @Override
         public int compare(ClientInfo clientInfo, ClientInfo t1) {
-            return t1.getId().compareTo(clientInfo.getId());
+            Integer clientInfoInt = Integer.parseInt(clientInfo.getId());
+            Integer t1Int = Integer.parseInt(t1.getId());
+            return t1Int.compareTo(clientInfoInt);
         }
     };
 

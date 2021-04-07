@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cbr.R;
@@ -52,6 +52,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Fragment for the CBR worker to fill out information on a client for a new visit.
+ * <p>The App will crash when the user revokes permission
  * */
 
 public class NewVisitFragment extends BaseFragment implements NewVisitContract.View {
@@ -63,6 +64,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     private Integer clientId;
     private QuestionsFragmentPagerAdapter questionsFragmentPagerAdapter;
     private final ArrayList<QuestionsFragmentPagerAdapter.ViewPagerContainer> viewPagerContainerList = new ArrayList<>();
+    private LocationUtil locationUtil;
     private String latLongLocation;
 
     private final Users users = Users.getInstance();
@@ -70,7 +72,6 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     private final VisitHealthQuestionSetData healthQuestionSetData = new VisitHealthQuestionSetData();
     private final VisitEducationQuestionSetData educationQuestionSetData = new VisitEducationQuestionSetData();
     private final VisitSocialQuestionSetData socialQuestionSetData = new VisitSocialQuestionSetData();
-    private LocationUtil locationUtil;
 
 
     private enum PAGES {
@@ -121,10 +122,10 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     }
 
     private void requestLocationPermissions() {
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED
                 &&
-                ActivityCompat.checkSelfPermission(getContext(),
+                ContextCompat.checkSelfPermission(getContext(),
                         Manifest.permission.ACCESS_COARSE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION,
@@ -134,7 +135,6 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == Constants.LOCATION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED) {

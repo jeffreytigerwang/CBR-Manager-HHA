@@ -45,15 +45,6 @@ public class HomeActivity extends BaseActivity implements
         setupBottomNav();
     }
 
-    @Override
-    public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
-            bottomNavigationView.setVisibility(View.VISIBLE);
-            viewPager.setVisibility(View.VISIBLE);
-        }
-        super.onBackPressed();
-    }
-
     private void setupBottomNav() {
         viewPager = findViewById(R.id.homeViewPager);
         homeFragmentPagerAdapter = new HomeFragmentPagerAdapter(this);
@@ -151,23 +142,6 @@ public class HomeActivity extends BaseActivity implements
     public void swapToDashboard() {
         currentTabPosition = HomeFragmentPagerAdapter.DASHBOARD_POSITION;
         viewPager.setCurrentItem(HomeFragmentPagerAdapter.DASHBOARD_POSITION);
-    }
-
-
-    @Override
-    protected void addFragment(int containerViewId, Fragment fragment, String fragmentTag) {
-        super.addFragment(containerViewId, fragment, fragmentTag);
-
-        viewPager.setVisibility(View.GONE);
-        bottomNavigationView.setVisibility(View.GONE);
-    }
-
-    @Override
-    protected void replaceFragment(int containerViewId, Fragment fragment, String fragmentTag) {
-        super.replaceFragment(containerViewId, fragment, fragmentTag);
-
-        viewPager.setVisibility(View.GONE);
-        bottomNavigationView.setVisibility(View.GONE);
     }
 
     public static Intent makeIntent(Context context){

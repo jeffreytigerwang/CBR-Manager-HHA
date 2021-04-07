@@ -44,10 +44,6 @@ import retrofit2.Retrofit;
 
 public class ClientListFragment extends BaseFragment implements ClientListContract.View {
 
-    // Init API
-    private Retrofit retrofit;
-    private JsonPlaceHolderApi jsonPlaceHolderApi;
-
     private ArrayList<ClientInfo> clientInfoArrayList;
     private ClientInfoManager clientInfoManager;
 
@@ -89,10 +85,6 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
 
         //Attempt to make the fragment remember the sort settings
         pref = this.getActivity().getSharedPreferences("MY_DATA", Context.MODE_PRIVATE);
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                .permitAll().build();
-        StrictMode.setThreadPolicy(policy);
 
         binding = FragmentClientlistBinding.inflate(inflater, container, false);
 

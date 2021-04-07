@@ -1,5 +1,7 @@
 package com.example.cbr.models;
 
+import android.os.StrictMode;
+
 import androidx.annotation.NonNull;
 
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
@@ -90,6 +92,11 @@ public class ClientInfoManager implements Iterable<ClientInfo>{
     private static ClientInfoManager instance;
 
     private ClientInfoManager(){
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         // prevent anyone else from instantiating object
         retrofit = RetrofitInit.getInstance();
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
@@ -104,7 +111,6 @@ public class ClientInfoManager implements Iterable<ClientInfo>{
         }
 
     }
-
 
     public static ClientInfoManager getInstance(){
         if(instance == null){

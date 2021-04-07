@@ -11,6 +11,7 @@ import com.example.cbr.fragments.QuestionsPageFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -82,14 +83,21 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
         EventBus.getDefault().unregister(this);
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDataChanged(@NonNull InfoAdapter.DataChangedEvent dataChangedEvent) {
         int position = dataChangedEvent.getPositionChanged();
         QuestionDataContainer changedContainer = dataChangedEvent.getQuestionDataContainer();
+
+        OnViewPagerChangedListener onViewPagerChangedListener = null;
         for (ViewPagerContainer viewPagerContainer : activeFragmentsList) {
-            if (viewPagerContainer.getViewHolderDataList().get(position) == changedContainer) {
-                viewPagerContainer.getOnViewPagerChangedListener().onChanged(position, changedContainer);
+            ArrayList<QuestionDataContainer> currentList = viewPagerContainer.getViewHolderDataList();
+            if (position < currentList.size() && currentList.get(position) == changedContainer) {
+                onViewPagerChangedListener = viewPagerContainer.onViewPagerChangedListener;
             }
+        }
+
+        if (onViewPagerChangedListener != null) {
+            onViewPagerChangedListener.onChanged(position, changedContainer);
         }
     }
 

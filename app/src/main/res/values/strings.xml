@@ -261,6 +261,7 @@
     <string name="client_record_success">Client Record Successful</string>
     <string name="map">Map</string>
     <string name="title_activity_maps">Map</string>
+    <string name="use_camera">Use Camera</string>
 
     <string name="google_map_api_key">AIzaSyB_JlRLqJ_ASLFjJW_qIBNK_Eev0jUCF0k</string>
     <string name="marker_in_Uganda">Marker in Uganda</string>

@@ -1,6 +1,16 @@
 package com.example.cbr.adapters.questioninfoadapters;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -8,15 +18,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
@@ -27,41 +43,65 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Edit
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.HeaderViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.RadioGroupViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.RecordPhotoViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SingleTextViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SpinnerViewContainer;
+import com.example.cbr.util.StringsUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
+import static android.app.Activity.RESULT_OK;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CHECK_BOX_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CLICKABLE_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.DIVIDER_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.DOUBLE_TEXT_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.EDIT_TEXT_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.HEADER_VIEW_TYPE;
+import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.PHOTO_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.RADIO_GROUP_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.SINGLE_TEXT_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.SPINNER_VIEW_TYPE;
+import static com.example.cbr.util.Constants.CAMERA_PERMISSION_CODE;
+import static com.example.cbr.util.Constants.CAMERA_REQUEST_CODE;
 
 /**
  * Base class for adapters that display information, currently supports headers, dividers, and two text fields
  * Subclasses should implement generateList() by calling addTextViewHolder(), addDivider(), etc in order of appearance in generateList()
  */
-public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Context context;
+    Fragment fragment;
     LayoutInflater layoutInflater;
     private final List<QuestionDataContainer> questionDataContainerList;
+    private RecordPhotoViewHolder activeCameraViewHolder = null;
 
-    BaseInfoAdapter(Context context, List<QuestionDataContainer> questionDataContainerList) {
-        this.context = context;
+    public InfoAdapter(Fragment fragment, List<QuestionDataContainer> questionDataContainerList) {
+        this.context = fragment.getContext();
+        this.fragment = fragment;
         this.layoutInflater = LayoutInflater.from(context);
         this.questionDataContainerList = questionDataContainerList;
     }
 
-    abstract void onDataChanged(int positionChanged, QuestionDataContainer questionDataContainer);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Bitmap bitmap = null;
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(fragment.getActivity().getContentResolver(), activeCameraViewHolder.getUri());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        activeCameraViewHolder.storePhoto(bitmap);
+    }
 
-    public List<QuestionDataContainer> getQuestionDataContainerList() {
-        return questionDataContainerList;
+    public static Bitmap rotateImage(Bitmap bitmap, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
     @NonNull
@@ -86,6 +126,8 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 return new SpinnerViewHolder(layoutInflater.inflate(R.layout.recyclerview_spinner, parent, false));
             case CHECK_BOX_VIEW_TYPE:
                 return new CheckBoxViewHolder(layoutInflater.inflate(R.layout.recyclerview_checkbox, parent, false));
+            case PHOTO_VIEW_TYPE:
+                return new RecordPhotoViewHolder(layoutInflater.inflate(R.layout.recyclerview_photo, parent, false));
         }
         return new SingleTextViewHolder(layoutInflater.inflate(R.layout.recyclerview_doubletext, parent, false));
     }
@@ -118,6 +160,8 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
             case CHECK_BOX_VIEW_TYPE:
                 ((CheckBoxViewHolder) holder).bind((CheckBoxViewContainer) questionDataContainerList.get(position));
                 break;
+            case PHOTO_VIEW_TYPE:
+                ((RecordPhotoViewHolder) holder).bind(((RecordPhotoViewContainer) questionDataContainerList.get(position)));
         }
     }
 
@@ -129,6 +173,11 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public int getItemCount() {
         return questionDataContainerList.size();
+    }
+
+    private void onDataChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+        EventBus eventBus = EventBus.getDefault();
+        eventBus.post(new DataChangedEvent(positionChanged, questionDataContainer));
     }
 
     private class SingleTextViewHolder extends RecyclerView.ViewHolder {
@@ -217,8 +266,12 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
 
         public void bind(final EditTextViewContainer editTextViewHolderData) {
             textView.setText(editTextViewHolderData.getQuestionText());
-            editText.setHint(editTextViewHolderData.getHintText());
             editText.setInputType(editTextViewHolderData.getInputType());
+
+            if (editText.getText().toString().isEmpty()) {
+                editText.setHint(editTextViewHolderData.getHintText());
+                editText.setText(editTextViewHolderData.getInitialText());
+            }
 
             editText.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -261,26 +314,28 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                 orientationType = RadioGroup.HORIZONTAL;
             }
 
-            radioGroup.setOrientation(orientationType);
-            for (RadioGroupViewContainer.RadioGroupListItem radioGroupListItem : radioGroupViewHolderData.getDescriptionList()) {
-                RadioButton radioButton = new RadioButton(context);
-                radioButton.setText(radioGroupListItem.getDescription());
-                radioButton.setId(radioGroupListItem.getId());
-                radioGroup.addView(radioButton);
-            }
-
-            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    for (int i = 0; i < radioGroupViewHolderData.getDescriptionList().size(); i++) {
-                        RadioGroupViewContainer.RadioGroupListItem radioGroupListItem = radioGroupViewHolderData.getDescriptionList().get(i);
-                        if (radioGroupListItem.getId() == checkedId) {
-                            radioGroupViewHolderData.setCheckedIndex(i);
-                        }
-                    }
-                    onDataChanged(getLayoutPosition(), radioGroupViewHolderData);
+            if (radioGroup.getChildCount() == 0) {
+                radioGroup.setOrientation(orientationType);
+                for (RadioGroupViewContainer.RadioGroupListItem radioGroupListItem : radioGroupViewHolderData.getDescriptionList()) {
+                    RadioButton radioButton = new RadioButton(context);
+                    radioButton.setText(radioGroupListItem.getDescription());
+                    radioButton.setId(radioGroupListItem.getId());
+                    radioGroup.addView(radioButton);
                 }
-            });
+
+                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        for (int i = 0; i < radioGroupViewHolderData.getDescriptionList().size(); i++) {
+                            RadioGroupViewContainer.RadioGroupListItem radioGroupListItem = radioGroupViewHolderData.getDescriptionList().get(i);
+                            if (radioGroupListItem.getId() == checkedId) {
+                                radioGroupViewHolderData.setCheckedIndex(i);
+                            }
+                        }
+                        onDataChanged(getLayoutPosition(), radioGroupViewHolderData);
+                    }
+                });
+            }
         }
     }
 
@@ -300,16 +355,17 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
 
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            for (int i = 0; i < spinnerViewHolderData.getOptionsList().size(); i++) {
+                if (spinnerViewHolderData.getOptionsList().get(i).equals(spinnerViewHolderData.getSelectedItem())) {
+                    spinner.setSelection(i);
+                }
+            }
+
+            spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     spinnerViewHolderData.setSelectedItem(spinner.getSelectedItem().toString());
                     onDataChanged(getLayoutPosition(), spinnerViewHolderData);
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
                 }
             });
         }
@@ -325,6 +381,7 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
 
         public void bind(final CheckBoxViewContainer checkBoxViewContainer) {
             checkBox.setText(checkBoxViewContainer.getQuestionText());
+            checkBox.setChecked(checkBoxViewContainer.isChecked());
 
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -333,6 +390,80 @@ public abstract class BaseInfoAdapter extends RecyclerView.Adapter<RecyclerView.
                     onDataChanged(getLayoutPosition(), checkBoxViewContainer);
                 }
             });
+        }
+    }
+
+    private class RecordPhotoViewHolder extends RecyclerView.ViewHolder {
+        private final Button recordButton;
+        private final ImageView photo;
+        private RecordPhotoViewContainer recordPhotoViewContainer;
+        private Uri uri;
+
+        public RecordPhotoViewHolder(@NonNull View itemView) {
+            super(itemView);
+            recordButton = itemView.findViewById(R.id.recyclerview_cameraButton);
+            photo = itemView.findViewById(R.id.recyclerview_photo);
+        }
+
+        public void bind(final RecordPhotoViewContainer recordPhotoViewContainer) {
+            this.recordPhotoViewContainer = recordPhotoViewContainer;
+
+            if (recordPhotoViewContainer.getImage() != null) {
+                photo.setImageBitmap(recordPhotoViewContainer.getImage());
+            }
+
+            recordButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions((Activity) context, new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+                    } else {
+                        activeCameraViewHolder = RecordPhotoViewHolder.this;
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(MediaStore.Images.Media.TITLE, "CBR_picture_" + StringsUtil.dateToUKFormat(new Date()));
+                        uri = fragment.getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                        fragment.startActivityForResult(intent, CAMERA_REQUEST_CODE);
+                    }
+                }
+            });
+        }
+
+        public Uri getUri() {
+            return uri;
+        }
+
+        public void storePhoto(Bitmap bitmap) {
+            recordPhotoViewContainer.setImage(bitmap);
+            photo.setImageBitmap(bitmap);
+            activeCameraViewHolder = null;
+        }
+    }
+
+    public class DataChangedEvent {
+        int positionChanged;
+        QuestionDataContainer questionDataContainer;
+
+        public DataChangedEvent(int positionChanged, QuestionDataContainer questionDataContainer) {
+            this.positionChanged = positionChanged;
+            this.questionDataContainer = questionDataContainer;
+        }
+
+        public int getPositionChanged() {
+            return positionChanged;
+        }
+
+        public void setPositionChanged(int positionChanged) {
+            this.positionChanged = positionChanged;
+        }
+
+        public QuestionDataContainer getQuestionDataContainer() {
+            return questionDataContainer;
+        }
+
+        public void setQuestionDataContainer(QuestionDataContainer questionDataContainer) {
+            this.questionDataContainer = questionDataContainer;
         }
     }
 }

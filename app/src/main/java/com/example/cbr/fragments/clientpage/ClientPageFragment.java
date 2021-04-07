@@ -150,7 +150,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.please_describe_what_they_require), clientInfo.getDescribeSocialStatus()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.individual_goal), clientInfo.getSetGoalForSocialStatus()));
 
-        if (visitsList.isEmpty()) {
+        if (visitsList == null || visitsList.isEmpty()) {
             return questionDataContainerList;
         }
 

@@ -1,10 +1,14 @@
 package com.example.cbr.adapters.questioninfoadapters;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -25,6 +29,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,7 +55,9 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
+import static android.app.Activity.RESULT_OK;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CHECK_BOX_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CHECK_BOX_WITH_DESCRIPTION_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CLICKABLE_VIEW_TYPE;
@@ -61,6 +70,7 @@ import static com.example.cbr.adapters.questioninfoadapters.questiondatacontaine
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.SINGLE_TEXT_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.SPINNER_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.UNCHANGEABLE_EDIT_TEXT_VIEW_TYPE;
+import static com.example.cbr.util.Constants.CAMERA_PERMISSION_CODE;
 import static com.example.cbr.util.Constants.CAMERA_REQUEST_CODE;
 
 /**
@@ -492,14 +502,17 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             recordButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    activeCameraViewHolder = RecordPhotoViewHolder.this;
-
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put(MediaStore.Images.Media.TITLE, "CBR_picture_" + StringsUtil.dateToUKFormat(new Date()));
-                    uri = fragment.getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                    fragment.startActivityForResult(intent, CAMERA_REQUEST_CODE);
+                    if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions((Activity) context, new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+                    } else {
+                        activeCameraViewHolder = RecordPhotoViewHolder.this;
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(MediaStore.Images.Media.TITLE, "CBR_picture_" + StringsUtil.dateToUKFormat(new Date()));
+                        uri = fragment.getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                        fragment.startActivityForResult(intent, CAMERA_REQUEST_CODE);
+                    }
                 }
             });
         }

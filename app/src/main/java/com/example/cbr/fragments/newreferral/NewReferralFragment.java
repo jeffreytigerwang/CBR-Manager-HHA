@@ -87,7 +87,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
     private void setupViewPager() {
         generateViewPagerList();
         final ViewPager2 viewPager2 = binding.questionsPageViewPager;
-        questionsFragmentPagerAdapter = new QuestionsFragmentPagerAdapter(getActivity(), viewPagerContainerList);
+        questionsFragmentPagerAdapter = new QuestionsFragmentPagerAdapter(this, viewPagerContainerList);
         viewPager2.setAdapter(questionsFragmentPagerAdapter);
         viewPager2.setOffscreenPageLimit(10);
 

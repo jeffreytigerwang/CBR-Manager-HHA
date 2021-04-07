@@ -21,8 +21,8 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
     private final ArrayList<ViewPagerContainer> totalFragmentsList;
     private final List<ViewPagerContainer> activeFragmentsList;
 
-    public QuestionsFragmentPagerAdapter(@NonNull FragmentActivity fragmentActivity, ArrayList<ViewPagerContainer> totalFragmentsList) {
-        super(fragmentActivity);
+    public QuestionsFragmentPagerAdapter(@NonNull Fragment fragment, ArrayList<ViewPagerContainer> totalFragmentsList) {
+        super(fragment);
         this.totalFragmentsList = totalFragmentsList;
         activeFragmentsList = new ArrayList<>();
         updatePages();

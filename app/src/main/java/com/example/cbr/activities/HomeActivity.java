@@ -52,15 +52,6 @@ public class HomeActivity extends BaseActivity implements
         setupBottomNav();
     }
 
-    @Override
-    public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
-            bottomNavigationView.setVisibility(View.VISIBLE);
-            viewPager.setVisibility(View.VISIBLE);
-        }
-        super.onBackPressed();
-    }
-
     private void setupBottomNav() {
         viewPager = findViewById(R.id.homeViewPager);
         homeFragmentPagerAdapter = new HomeFragmentPagerAdapter(this);
@@ -85,6 +76,9 @@ public class HomeActivity extends BaseActivity implements
                         break;
                     case HomeFragmentPagerAdapter.DISCUSSION_POSITION:
                         bottomNavigationView.getMenu().findItem(R.id.bottomMenuDiscussion).setChecked(true);
+                        break;
+                    case HomeFragmentPagerAdapter.NOTIFICATION_POSITION:
+                        bottomNavigationView.getMenu().findItem(R.id.bottomMenuNotification).setChecked(true);
                         break;
                 }
 
@@ -114,6 +108,10 @@ public class HomeActivity extends BaseActivity implements
 
                             case R.id.bottomMenuDiscussion:
                                 currentTabPosition = HomeFragmentPagerAdapter.DISCUSSION_POSITION;
+                                break;
+
+                            case R.id.bottomMenuNotification:
+                                currentTabPosition = HomeFragmentPagerAdapter.NOTIFICATION_POSITION;
                                 break;
                         }
 

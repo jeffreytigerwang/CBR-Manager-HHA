@@ -264,5 +264,12 @@
 
     <string name="google_map_api_key">AIzaSyB_JlRLqJ_ASLFjJW_qIBNK_Eev0jUCF0k</string>
     <string name="marker_in_Uganda">Marker in Uganda</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude_cannot_be_empty">Latitude cannot be empty</string>
+    <string name="longitude_cannot_be_empty">Longitude cannot be empty</string>
+    <string name="invalid_gps_coordinate">Invalid GPS coordinate</string>
+    <string name="latitude_not_entered_properly">Latitude not entered properly</string>
+    <string name="longitude_not_entered_properly">Longitude not entered properly</string>
 
 </resources>

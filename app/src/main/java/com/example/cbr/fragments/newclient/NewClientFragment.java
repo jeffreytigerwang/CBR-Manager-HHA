@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -75,9 +77,6 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
 
         setupViewPager();
         setupButtons();
-
-        clientId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
-        clientInfo.setClientId(clientId);
 
         retrofit = RetrofitInit.getInstance();
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
@@ -197,7 +196,9 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
     private void generateLocationInfo() {
         final ArrayList<QuestionDataContainer> locationInfoList = new ArrayList<>();
         locationInfoList.add(new HeaderViewContainer(getString(R.string.location_info)));
-        locationInfoList.add(new EditTextViewContainer(getString(R.string.gps_location), getString(R.string.gps_location), InputType.TYPE_CLASS_TEXT));
+        locationInfoList.add(new SingleTextViewContainer(getString(R.string.gps_location), 20));
+        locationInfoList.add(new EditTextViewContainer(getString(R.string.latitude), getString(R.string.latitude), InputType.TYPE_CLASS_TEXT));
+        locationInfoList.add(new EditTextViewContainer(getString(R.string.longitude), getString(R.string.longitude), InputType.TYPE_CLASS_TEXT));
         List<String> zoneOptions = new ArrayList<>(
                 Arrays.asList(getResources().getStringArray(R.array.zone_locations_array)));
         locationInfoList.add(new SpinnerViewContainer(getString(R.string.zone_location), zoneOptions));
@@ -210,9 +211,11 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                     String questionText = ((EditTextViewContainer) locationInfoList.get(positionChanged)).getQuestionText();
                     String userInput = ((EditTextViewContainer) locationInfoList.get(positionChanged)).getUserInput();
 
-                    if (questionText.equals(getString(R.string.gps_location))) {
-                        clientInfo.setGpsLocation(userInput);
-                    } else if (questionText.equals(getString(R.string.village_number))) {
+                    if (questionText.equals(getString(R.string.latitude))) {
+                        clientInfo.setGpsLatitude(userInput);
+                    } else if (questionText.equals(getString(R.string.longitude))) {
+                        clientInfo.setGpsLongitude((userInput));
+                    } else {
                         if (userInput != null) {
                             if (userInput.equals("")) {
                                 clientInfo.setVillageNumber(-1);
@@ -221,6 +224,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                             }
                         }
                     }
+
                 }
 
                 if (questionDataContainer instanceof SpinnerViewContainer) {
@@ -455,7 +459,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                     if (isAllFilled) {
                         recordAndFinish();
                         Toast.makeText(getContext(), R.string.client_record_success, Toast.LENGTH_SHORT).show();
-                         getActivity().getSupportFragmentManager().popBackStack();
+//                         getActivity().getSupportFragmentManager().popBackStack();
                     }
                 }
                 binding.newClientPageViewPager.setCurrentItem(binding.newClientPageViewPager.getCurrentItem() + 1);
@@ -474,6 +478,9 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
     }
 
     private void recordAndFinish() {
+        clientId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
+        clientInfo.setClientId(clientId);
+
         ClientDisability clientDisability = new ClientDisability(
             clientId,
             clientInfo.getAmputeeDisability(),
@@ -523,6 +530,8 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         final String lastName = clientInfo.getLastName();
         final Integer age = clientInfo.getAge();
         final String gender = clientInfo.getGender();
+        final String gpsLatitude = clientInfo.getGpsLatitude();
+        final String gpsLongitude = clientInfo.getGpsLongitude();
         final Integer villageNumber = clientInfo.getVillageNumber();
         final boolean isCaregiverPresent = clientInfo.getCaregiverPresentForInterview();
         final String caregiverFirstName = clientInfo.getCaregiverFirstName();
@@ -559,6 +568,20 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         }
 
         // Error checking for the Location Info page
+        if (gpsLatitude != null || gpsLongitude != null) {
+            if (isStringFieldNull(gpsLatitude, getString(R.string.latitude_cannot_be_empty)) ||
+                isStringFieldNull(gpsLongitude, getString(R.string.longitude_cannot_be_empty)) ||
+                isInvalidGpsCoordinate(gpsLatitude, getString(R.string.latitude_not_entered_properly)) ||
+                isInvalidGpsCoordinate(gpsLongitude, getString(R.string.longitude_not_entered_properly)))
+            {
+                return false;
+            }
+
+            clientInfo.setGpsLocation(gpsLatitude + "," + gpsLongitude);
+            System.out.println(clientInfo.getGpsLocation());
+            return true;
+        }
+
         if (villageNumber == null) {
             showOkDialog(getString(R.string.missing_fields), getString(R.string.village_number_cannot_be_empty), null);
             return false;
@@ -567,7 +590,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         // Error checking for the Caregiver Info page
         if (isCaregiverPresent) {
             if (isStringFieldNull(caregiverFirstName, getString(R.string.caregiver_first_name_cannot_be_empty)) ||
-                    isStringFieldNull(caregiverLastName, getString(R.string.caregiver_last_name_cannot_be_empty)))
+                isStringFieldNull(caregiverLastName, getString(R.string.caregiver_last_name_cannot_be_empty)))
             {
                 return false;
             }
@@ -610,6 +633,21 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
             return true;
         }
         return false;
+    }
+
+    // Use Regex to see if the Gps coordinates entered by the user are valid
+    // Example of valid Gps coordinates: 80.0123, 40, -34.034
+    private boolean isInvalidGpsCoordinate(String coordinate, String message) {
+        String gpsPattern = "^-?[0-9]{1,3}(?:\\.[0-9]{1,10})?$";
+        Pattern p = Pattern.compile(gpsPattern);
+        Matcher m = p.matcher(coordinate);
+
+        if (m.find()) {
+            return false;
+        } else {
+            showOkDialog(getString(R.string.invalid_gps_coordinate), message, null);
+            return true;
+        }
     }
 
     private void updateDisplayInfo(int currentPage) {

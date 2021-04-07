@@ -257,10 +257,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
             showOkDialog(getString(R.string.permission_change),
                     getString(R.string.permission_change_message),
                     null);
-        } catch (CustomExceptions.GPSNotEnabled gpsNotEnabled) {
-            showOkDialog(getString(R.string.location_service),
-                    getString(R.string.location_settings_message),
-                    null);
+        } catch (CustomExceptions.GPSNotEnabled ignored) {
         } catch (CustomExceptions.LocationNotFound locationNotFound) {
             locationUtil.stopUpdateService();
             Toast.makeText(getContext(),

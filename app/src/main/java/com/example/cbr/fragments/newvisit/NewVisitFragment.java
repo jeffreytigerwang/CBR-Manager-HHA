@@ -52,7 +52,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Fragment for the CBR worker to fill out information on a client for a new visit.
- * <p>The App will crash when the user revokes permission
  * */
 
 public class NewVisitFragment extends BaseFragment implements NewVisitContract.View {

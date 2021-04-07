@@ -1,5 +1,7 @@
 package com.example.cbr.fragments.newvisit;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.InputType;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cbr.R;
@@ -91,6 +94,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         binding = FragmentQuestionspageBinding.inflate(inflater, container, false);
         getActivity().setTitle(getString(R.string.new_visit_title));
         setHasOptionsMenu(true);
+        requestLocationPermissions();
 
         if (getArguments() != null) {
             clientInfo = (ClientInfo) getArguments().getSerializable(NEW_VISIT_PAGE_BUNDLE);
@@ -114,6 +118,33 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         setupButtons();
 
         return binding.getRoot();
+    }
+
+    private void requestLocationPermissions() {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED
+                &&
+                ActivityCompat.checkSelfPermission(getContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION}, Constants.LOCATION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == Constants.LOCATION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getContext(), getString(R.string.automatic_fill_location),
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getContext(), R.string.location_permission_not_granted,
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override

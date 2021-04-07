@@ -1,16 +1,12 @@
 package com.example.cbr.activities;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -27,7 +23,6 @@ import com.example.cbr.fragments.newvisit.NewVisitFragment;
 import com.example.cbr.fragments.visitpage.VisitPageFragment;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
-import com.example.cbr.util.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -55,7 +50,6 @@ public class HomeActivity extends BaseActivity implements
         setContentView(R.layout.activity_home);
 
         setupBottomNav();
-        requestLocationPermissions();
     }
 
     @Override
@@ -65,33 +59,6 @@ public class HomeActivity extends BaseActivity implements
             viewPager.setVisibility(View.VISIBLE);
         }
         super.onBackPressed();
-    }
-
-    private void requestLocationPermissions() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED
-                &&
-                ActivityCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION}, Constants.LOCATION_REQUEST_CODE);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == Constants.LOCATION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, getString(R.string.automatic_fill_location),
-                        Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, R.string.location_permission_not_granted,
-                        Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
     private void setupBottomNav() {

@@ -108,6 +108,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
         recyclerView = binding.recyclerViewClientlist;
         linearLayoutManager = new LinearLayoutManager(getActivity());
         showData();
+
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 linearLayoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);

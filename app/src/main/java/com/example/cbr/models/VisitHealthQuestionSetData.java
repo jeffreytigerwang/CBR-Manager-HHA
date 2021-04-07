@@ -88,6 +88,30 @@ public class VisitHealthQuestionSetData {
         return questionNumbers;
     }
 
+    public void resetData() {
+        isWheelChairChecked = false;
+        isProstheticChecked = false;
+        isOrthoticChecked = false;
+        isWheelChairRepairChecked = false;
+        isReferralToHCChecked = false;
+        isHealthAdviceChecked = false;
+        isHealthAdvocacyChecked = false;
+        isHealthEncouragementChecked = false;
+        isGoalCancelled = false;
+        isGoalOngoing = false;
+        isGoalConcluded = false;
+        wheelChairDesc = "";
+        prostheticDesc = "";
+        orthoticDesc = "";
+        wheelChairRepairDesc = "";
+        referralToHCDesc = "";
+        healthAdviceDesc = "";
+        healthAdvocacyDesc = "";
+        healthEncouragementDesc = "";
+        healthOutcomeDesc = "";
+        healthGoalStatus = "";
+    }
+
     public Integer getClientId() {
         return clientId;
     }

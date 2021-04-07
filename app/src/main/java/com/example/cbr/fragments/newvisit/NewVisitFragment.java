@@ -435,12 +435,21 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                     boolean isChecked = ((CheckBoxViewContainer) questionDataContainer).isChecked();
                     if (aspectSelected.equals(getString(R.string.health))) {
                         generalQuestionSetData.setHealthChecked(isChecked);
+                        if (!isChecked) {
+                            healthQuestionSetData.resetData();
+                        }
                         setPageActive(PAGES.HEALTH.ordinal(), isChecked);
                     } else if (aspectSelected.equals(getString(R.string.education))) {
                         generalQuestionSetData.setEducationChecked(isChecked);
+                        if (!isChecked) {
+                            educationQuestionSetData.resetData();
+                        }
                         setPageActive(PAGES.EDUCATION.ordinal(), isChecked);
                     } else if (aspectSelected.equals(getString(R.string.social))) {
                         generalQuestionSetData.setSocialChecked(isChecked);
+                        if (!isChecked) {
+                            socialQuestionSetData.resetData();
+                        }
                         setPageActive(PAGES.SOCIAL.ordinal(), isChecked);
                     }
                 }

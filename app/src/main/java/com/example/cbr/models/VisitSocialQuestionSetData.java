@@ -64,6 +64,22 @@ public class VisitSocialQuestionSetData {
         return questionNumbers;
     }
 
+    public void resetData() {
+        isSocialAdviceChecked = false;
+        isSocialAdvocacyChecked = false;
+        isSocialReferralChecked = false;
+        isSocialEncouragementChecked = false;
+        isGoalCancelled = false;
+        isGoalOngoing = false;
+        isGoalConcluded = false;
+        socialAdviceDesc = "";
+        socialAdvocacyDesc = "";
+        socialReferralDesc = "";
+        socialEncouragementDesc = "";
+        socialOutcomeDesc = "";
+        socialGoalStatus = "";
+    }
+
     public Integer getClientId() {
         return clientId;
     }

@@ -64,6 +64,22 @@ public class VisitEducationQuestionSetData {
         return questionNumbers;
     }
 
+    public void resetData() {
+        isEducationAdviceChecked = false;
+        isEducationAdvocacyChecked = false;
+        isEducationReferralChecked = false;
+        isEducationEncouragementChecked = false;
+        isGoalCancelled = false;
+        isGoalOngoing = false;
+        isGoalConcluded = false;
+        educationAdviceDesc = "";
+        educationAdvocacyDesc = "";
+        educationReferralDesc = "";
+        educationEncouragementDesc = "";
+        educationOutcomeDesc = "";
+        educationGoalStatus = "";
+    }
+
     public Integer getClientId() {
         return clientId;
     }

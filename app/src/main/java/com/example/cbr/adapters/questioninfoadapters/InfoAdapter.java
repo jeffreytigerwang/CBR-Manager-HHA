@@ -163,9 +163,10 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 break;
             case UNCHANGEABLE_EDIT_TEXT_VIEW_TYPE:
                 ((UnchangeableEditTextViewHolder) holder).bind((UnchangeableEditTextViewContainer) questionDataContainerList.get(position));
-            break;
+                break;
             case PHOTO_VIEW_TYPE:
                 ((RecordPhotoViewHolder) holder).bind(((RecordPhotoViewContainer) questionDataContainerList.get(position)));
+                break;
         }
     }
 

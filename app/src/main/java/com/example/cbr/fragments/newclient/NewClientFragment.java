@@ -87,7 +87,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
     private void setupViewPager() {
         generateViewPagerList();
         final ViewPager2 viewPager2 = binding.newClientPageViewPager;
-        newClientFragmentAdapter = new QuestionsFragmentPagerAdapter(getActivity(), viewPagerContainerList);
+        newClientFragmentAdapter = new QuestionsFragmentPagerAdapter(this, viewPagerContainerList);
         viewPager2.setAdapter(newClientFragmentAdapter);
         viewPager2.setOffscreenPageLimit(10);
 
@@ -147,7 +147,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
     private void generateBasicInfo() {
         final ArrayList<QuestionDataContainer> basicInfoList = new ArrayList<>();
         basicInfoList.add(new HeaderViewContainer(getString(R.string.basic_info)));
-        basicInfoList.add(new EditTextViewContainer(getString(R.string.first_name), getString(R.string.first_name), InputType.TYPE_CLASS_TEXT));
+        basicInfoList.add(new EditTextViewContainer(getString(R.string.first_name), null, getString(R.string.first_name), InputType.TYPE_CLASS_TEXT));
         basicInfoList.add(new EditTextViewContainer(getString(R.string.last_name), getString(R.string.last_name), InputType.TYPE_CLASS_TEXT));
         basicInfoList.add(new EditTextViewContainer(getString(R.string.age), getString(R.string.age), InputType.TYPE_CLASS_NUMBER));
         List<RadioGroupViewContainer.RadioGroupListItem> genderOptions = new ArrayList<>();

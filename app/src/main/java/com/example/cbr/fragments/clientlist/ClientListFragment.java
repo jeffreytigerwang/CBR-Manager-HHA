@@ -28,6 +28,7 @@ import com.example.cbr.models.ClientDisability;
 import com.example.cbr.models.ClientEducationAspect;
 import com.example.cbr.models.ClientHealthAspect;
 import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.ClientInfoManager;
 import com.example.cbr.models.ClientSocialAspect;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
@@ -48,6 +49,7 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
     private JsonPlaceHolderApi jsonPlaceHolderApi;
 
     private ArrayList<ClientInfo> clientInfoArrayList;
+    private ClientInfoManager clientInfoManager;
 
     private FragmentClientlistBinding binding;
     private ClientListFragmentInterface clientListFragmentInterface;
@@ -82,6 +84,9 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
 
         setPresenter(new ClientListPresenter(this));
 
+        clientInfoManager = ClientInfoManager.getInstance();
+        clientInfoArrayList = clientInfoManager.getClientInfoArrayList();
+
         //Attempt to make the fragment remember the sort settings
         pref = this.getActivity().getSharedPreferences("MY_DATA", Context.MODE_PRIVATE);
 
@@ -89,21 +94,21 @@ public class ClientListFragment extends BaseFragment implements ClientListContra
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        // Init Retrofit & NodeJs stuff
-        retrofit = RetrofitInit.getInstance();
-        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-
-        clientInfoArrayList = new ArrayList<>();
-
+//        // Init Retrofit & NodeJs stuff
+//        retrofit = RetrofitInit.getInstance();
+//        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+//
+//        clientInfoArrayList = new ArrayList<>();
+//
         // View binding so that findViewById() doesn't have to be used
         binding = FragmentClientlistBinding.inflate(inflater, container, false);
-
-        try {
-            getClientsInfo();
-            getClientGeneralAspect();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//
+//        try {
+//            getClientsInfo();
+//            getClientGeneralAspect();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         recyclerView = binding.recyclerViewClientlist;
         linearLayoutManager = new LinearLayoutManager(getActivity());

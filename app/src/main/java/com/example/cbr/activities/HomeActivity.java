@@ -4,10 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cbr.R;
@@ -44,15 +42,6 @@ public class HomeActivity extends BaseActivity implements
     protected void onStart() {
         super.onStart();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
-            bottomNavigationView.setVisibility(View.VISIBLE);
-            viewPager.setVisibility(View.VISIBLE);
-        }
-        super.onBackPressed();
     }
 
     @Override
@@ -197,32 +186,6 @@ public class HomeActivity extends BaseActivity implements
     public void swapToDashboard() {
         currentTabPosition = HomeFragmentPagerAdapter.DASHBOARD_POSITION;
         viewPager.setCurrentItem(HomeFragmentPagerAdapter.DASHBOARD_POSITION);
-    }
-
-
-    @Override
-    protected void addFragment(int containerViewId, Fragment fragment, String fragmentTag) {
-        super.addFragment(containerViewId, fragment, fragmentTag);
-
-        viewPager.setVisibility(View.GONE);
-        bottomNavigationView.setVisibility(View.GONE);
-    }
-
-    @Override
-    protected void addFragmentWithAnimation(int containerViewId, Fragment fragment,
-                                            String fragmentTag) {
-        super.addFragmentWithAnimation(containerViewId, fragment, fragmentTag);
-
-        viewPager.setVisibility(View.GONE);
-        bottomNavigationView.setVisibility(View.GONE);
-    }
-
-    @Override
-    protected void replaceFragment(int containerViewId, Fragment fragment, String fragmentTag) {
-        super.replaceFragment(containerViewId, fragment, fragmentTag);
-
-        viewPager.setVisibility(View.GONE);
-        bottomNavigationView.setVisibility(View.GONE);
     }
 
     public static Intent makeIntent(Context context){

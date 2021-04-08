@@ -40,7 +40,10 @@
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"/>
-        <activity android:name=".activities.MainActivity">
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

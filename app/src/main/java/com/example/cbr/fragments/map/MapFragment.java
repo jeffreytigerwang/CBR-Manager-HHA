@@ -26,6 +26,8 @@ import androidx.core.content.ContextCompat;
 import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentMapBinding;
 import com.example.cbr.fragments.base.BaseFragment;
+import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.ClientInfoManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -40,6 +42,7 @@ import com.google.android.gms.tasks.Task;
 import java.io.IOException;
 import java.security.Security;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MapFragment extends BaseFragment implements MapContract.View {
@@ -48,6 +51,10 @@ public class MapFragment extends BaseFragment implements MapContract.View {
     private GoogleMap mMap;
     private Boolean locationPermissionsGranted = false;
     private FusedLocationProviderClient fusedLocationProviderClient;
+    private ArrayList<ClientInfo> clientInfoArrayList;
+    private ClientInfoManager clientInfoManager;
+    private LatLng tempMarker;
+
 
     // widgets
     private EditText searchText;
@@ -65,6 +72,10 @@ public class MapFragment extends BaseFragment implements MapContract.View {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setPresenter(new MapPresenter(this));
+
+        clientInfoManager = ClientInfoManager.getInstance();
+        clientInfoArrayList = clientInfoManager.getClientInfoArrayList();
+
         binding = FragmentMapBinding.inflate(inflater, container, false);
         searchText = binding.inputSearch;
         gps = binding.icGps;
@@ -86,7 +97,6 @@ public class MapFragment extends BaseFragment implements MapContract.View {
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                //Toast.makeText(getContext(), "test123", Toast.LENGTH_SHORT).show();
                 mMap = googleMap;
 
                 if (locationPermissionsGranted){
@@ -95,6 +105,11 @@ public class MapFragment extends BaseFragment implements MapContract.View {
                     // Add a marker in Uganda and move the camera
                     LatLng uganda = new LatLng(1.3733, 32.2903);
                     mMap.addMarker(new MarkerOptions().position(uganda).title(getString(R.string.marker_in_Uganda)));
+
+                    for (ClientInfo clientInfo : nullGuard(clientInfoManager.getClientInfoArrayList())){
+                        tempMarker = new LatLng(clientInfo.getLatitude(), clientInfo.getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(tempMarker));
+                    }
 
                     if (ActivityCompat.checkSelfPermission(getContext(),
                             Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -107,6 +122,10 @@ public class MapFragment extends BaseFragment implements MapContract.View {
                 }
             }
         });
+    }
+
+    private static ArrayList<ClientInfo> nullGuard( ArrayList<ClientInfo> other ) {
+        return other == null ? (ArrayList<ClientInfo>) Collections.EMPTY_LIST : other;
     }
 
     private void getDeviceLocation(){
@@ -238,6 +257,8 @@ public class MapFragment extends BaseFragment implements MapContract.View {
     public static String getFragmentTag() {
         return MapFragment.class.getSimpleName();
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

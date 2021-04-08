@@ -3,7 +3,9 @@ package com.example.cbr.models;
 import com.example.cbr.util.Constants;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -12,6 +14,9 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
 
     private Integer clientId;
     private String gpsLocation;
+    private double latitude;
+    private double longitude;
+
     private String zoneLocation;
     private String villageNumber;
     private String dateJoined;
@@ -116,7 +121,20 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         this.rateSocialStatus = rateSocialStatus;
         this.describeSocialStatus = describeSocialStatus;
         this.setGoalForSocialStatus = setGoalForSocialStatus;
+
+        this.latitude = getLatitude();
+        this.longitude = getLongitude();
         overallRisk = 0;
+    }
+
+    public double getLatitude() {
+        String[] coordinates = getGpsLocation().split("[\\s,]+");
+        return Double.parseDouble(coordinates[0]);
+    }
+
+    public double getLongitude() {
+        String[] coordinates = getGpsLocation().split("[\\s,]+");
+        return Double.parseDouble(coordinates[1]);
     }
 
     public Integer getClientId() {

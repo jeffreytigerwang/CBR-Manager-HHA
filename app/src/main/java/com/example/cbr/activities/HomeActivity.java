@@ -47,6 +47,15 @@ public class HomeActivity extends BaseActivity implements
     }
 
     @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            viewPager.setVisibility(View.VISIBLE);
+        }
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);

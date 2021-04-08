@@ -55,33 +55,8 @@ public class DashboardPageFragment extends Fragment implements DashboardPageCont
         populatePriorityList();
         populateOutstandingList();
 
-        setupNewClientButton();
-        setupSyncButton();
-
-
         return binding.getRoot();
     }
-
-    private void setupSyncButton() {
-        Button button = binding.dashboardSyncButton;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Syncing...", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void setupNewClientButton() {
-        Button button = binding.dashboardNewClientButton;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dashboardFragmentInterface.swapToNewClient();
-            }
-        });
-    }
-
 
     private void populatePriorityList() {
         priorityList = new ArrayList<>();

@@ -40,7 +40,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
-import java.security.Security;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -62,7 +61,7 @@ public class MapFragment extends BaseFragment implements MapContract.View {
 
     // const
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
-    private static final float DEFAULT_ZOOM = 15f;
+    private static final float DEFAULT_ZOOM = 10f;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final String TAG = "MapFragment";
@@ -108,7 +107,7 @@ public class MapFragment extends BaseFragment implements MapContract.View {
 
                     for (ClientInfo clientInfo : nullGuard(clientInfoManager.getClientInfoArrayList())){
                         tempMarker = new LatLng(clientInfo.getLatitude(), clientInfo.getLongitude());
-                        mMap.addMarker(new MarkerOptions().position(tempMarker));
+                        mMap.addMarker(new MarkerOptions().position(tempMarker).title(clientInfo.getFullName()));
                     }
 
                     if (ActivityCompat.checkSelfPermission(getContext(),

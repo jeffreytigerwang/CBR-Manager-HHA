@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,23 +23,12 @@ import com.example.cbr.R;
 import com.example.cbr.adapters.ClientListAdapter;
 import com.example.cbr.databinding.FragmentClientlistBinding;
 import com.example.cbr.fragments.base.BaseFragment;
-import com.example.cbr.models.ClientDisability;
-import com.example.cbr.models.ClientEducationAspect;
-import com.example.cbr.models.ClientHealthAspect;
+
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ClientInfoManager;
-import com.example.cbr.models.ClientSocialAspect;
-import com.example.cbr.retrofit.JsonPlaceHolderApi;
-import com.example.cbr.retrofit.RetrofitInit;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class ClientListFragment extends BaseFragment implements ClientListContract.View {
 

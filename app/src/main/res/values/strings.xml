@@ -233,5 +233,8 @@
     <string name="marker_in_Uganda">Marker in Uganda</string>
     <string name="enter_address_city_or_zip_code">Enter Address, City or Zip Code</string>
     <string name="sort">Sort</string>
+    <string name="chat">Chat</string>
+    <string name="send_you_discussion_today">send you discussion today....</string>
+    <string name="send">Send</string>
 
 </resources>

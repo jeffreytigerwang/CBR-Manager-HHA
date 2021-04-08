@@ -284,6 +284,9 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+                // Check if Photo is not null
+//                clientInfo.setPhoto(((RecordPhotoViewContainer) questionDataContainer).getImage());
+                // Convert bitmap to blob
             }
         };
 
@@ -463,7 +466,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                     if (isAllFilled) {
                         recordAndFinish();
                         Toast.makeText(getContext(), R.string.client_record_success, Toast.LENGTH_SHORT).show();
-                         getActivity().getSupportFragmentManager().popBackStack();
+                        getActivity().getSupportFragmentManager().popBackStack();
                     }
                 }
                 binding.newClientPageViewPager.setCurrentItem(binding.newClientPageViewPager.getCurrentItem() + 1);
@@ -581,7 +584,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                 return false;
             }
 
-            clientInfo.setGpsLocation(gpsLatitude + "," + gpsLongitude);
+            clientInfo.setGpsLocation(gpsLatitude + ", " + gpsLongitude);
             System.out.println(clientInfo.getGpsLocation());
             return true;
         }

@@ -361,11 +361,16 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             }
 
-            spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     spinnerViewHolderData.setSelectedItem(spinner.getSelectedItem().toString());
                     onDataChanged(getLayoutPosition(), spinnerViewHolderData);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
                 }
             });
         }
@@ -394,6 +399,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private class RecordPhotoViewHolder extends RecyclerView.ViewHolder {
+        private final TextView textView;
         private final Button recordButton;
         private final ImageView photo;
         private RecordPhotoViewContainer recordPhotoViewContainer;
@@ -401,12 +407,15 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public RecordPhotoViewHolder(@NonNull View itemView) {
             super(itemView);
+            textView = itemView.findViewById(R.id.recyclerview_text);
             recordButton = itemView.findViewById(R.id.recyclerview_cameraButton);
             photo = itemView.findViewById(R.id.recyclerview_photo);
         }
 
         public void bind(final RecordPhotoViewContainer recordPhotoViewContainer) {
             this.recordPhotoViewContainer = recordPhotoViewContainer;
+
+            textView.setText(recordPhotoViewContainer.getQuestionText());
 
             if (recordPhotoViewContainer.getImage() != null) {
                 photo.setImageBitmap(recordPhotoViewContainer.getImage());

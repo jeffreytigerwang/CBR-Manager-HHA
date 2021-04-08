@@ -24,6 +24,7 @@ import com.example.cbr.fragments.visitpage.VisitPageFragment;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.Users;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
+import com.example.cbr.util.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -50,8 +51,20 @@ public class HomeActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        restoreUsersInstance(savedInstanceState);
+        setupBottomNav();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable(Constants.USERS_PARCEL_KEY, Users.getInstance());
+    }
+
+    private void restoreUsersInstance(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            Users savedUsersInstance = savedInstanceState.getParcelable("users_parcel");
+            Users savedUsersInstance = savedInstanceState.getParcelable(Constants.USERS_PARCEL_KEY);
             Users users = Users.getInstance();
 
             users.setFirstName(savedUsersInstance.getFirstName());
@@ -62,14 +75,6 @@ public class HomeActivity extends BaseActivity implements
             users.setId(savedUsersInstance.getId());
             users.setZones(savedUsersInstance.getZones());
         }
-        setupBottomNav();
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putParcelable("users_parcel", Users.getInstance());
     }
 
     private void setupBottomNav() {

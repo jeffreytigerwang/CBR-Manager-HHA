@@ -37,6 +37,8 @@ public class Constants {
     public static final int PRIMARY_TEXT_SIZE_SP = 16;
     public static final int PRIMARY_QUESTION_TEXT_SIZE_SP = 20;
 
+    public static final String USERS_PARCEL_KEY = "users_parcel";
+
     // Disabilities
     public static String AMPUTEE_DISABILITY = "Amputee";
     public static String POLIO_DISABILITY = "Polio";

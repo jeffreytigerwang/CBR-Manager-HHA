@@ -14,14 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
 import com.example.cbr.activities.CBRWorkerActivity;
-import com.example.cbr.fragments.discussion.CbrWorkerFragment;
 import com.example.cbr.models.Messages;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
-
-import static android.provider.Settings.System.getString;
 
 public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.ViewHolder> {
 

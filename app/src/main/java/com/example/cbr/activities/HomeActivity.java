@@ -22,6 +22,7 @@ import com.example.cbr.fragments.newreferral.NewReferralFragment;
 import com.example.cbr.fragments.newvisit.NewVisitFragment;
 import com.example.cbr.fragments.visitpage.VisitPageFragment;
 import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.Users;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -49,7 +50,26 @@ public class HomeActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        if (savedInstanceState != null) {
+            Users savedUsersInstance = savedInstanceState.getParcelable("users_parcel");
+            Users users = Users.getInstance();
+
+            users.setFirstName(savedUsersInstance.getFirstName());
+            users.setLastName(savedUsersInstance.getLastName());
+            users.setPassword(savedUsersInstance.getPassword());
+            users.setPhoneNumber(savedUsersInstance.getPhoneNumber());
+            users.setUserType(savedUsersInstance.getUserType());
+            users.setId(savedUsersInstance.getId());
+            users.setZones(savedUsersInstance.getZones());
+        }
         setupBottomNav();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable("users_parcel", Users.getInstance());
     }
 
     private void setupBottomNav() {

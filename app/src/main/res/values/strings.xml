@@ -243,6 +243,6 @@
     <string name="location_settings_message">If location was turned on, then location service should automatically fill in the GPS location field on the next launch of this page.</string>
     <string name="permission_change">Permission change</string>
     <string name="permission_change_message">Permission for location was changed to not granted. Automatic fill for GPS location field will not be available.</string>
-    <string name="automatic_fill_location">"Locations fields will now automatically be filled."</string>
+    <string name="automatic_fill_location">"Locations fields will be automatically filled on the next launch."</string>
 
 </resources>

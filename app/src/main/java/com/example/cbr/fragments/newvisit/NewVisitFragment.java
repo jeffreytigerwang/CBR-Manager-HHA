@@ -1,7 +1,6 @@
 package com.example.cbr.fragments.newvisit;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.InputType;
@@ -15,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cbr.R;
@@ -48,6 +47,7 @@ import com.example.cbr.util.StringsUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -121,28 +121,28 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     }
 
     private void requestLocationPermissions() {
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED
-                &&
-                ContextCompat.checkSelfPermission(getContext(),
-                        Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION}, Constants.LOCATION_REQUEST_CODE);
-        }
-    }
+        if (!isPermissionGranted(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                && !isPermissionGranted(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)) {
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == Constants.LOCATION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getContext(), getString(R.string.automatic_fill_location),
-                        Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(getContext(), R.string.location_permission_not_granted,
-                        Toast.LENGTH_SHORT).show();
-            }
+            launchRequestPermissions(
+                    new String[] {
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION},
+                    new ActivityResultCallback<Map<String, Boolean>>() {
+                @Override
+                public void onActivityResult(Map<String, Boolean> result) {
+                    if (result.get(Manifest.permission.ACCESS_FINE_LOCATION)
+                            && result.get(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                        Toast.makeText(getContext(), getString(R.string.automatic_fill_location),
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getContext(), R.string.location_permission_not_granted,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } else {
+            setLatLongLocation();
         }
     }
 
@@ -416,7 +416,6 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                 getString(R.string.name_of_cbr_worker), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,
                 userName));
 
-        setLatLongLocation();
         generalPageViews.add(new EditTextViewContainer(getString(R.string.location_of_visit),
                 Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, latLongLocation,
                 getString(R.string.gps_location), InputType.TYPE_CLASS_TEXT));

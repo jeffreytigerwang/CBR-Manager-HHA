@@ -1,7 +1,5 @@
 package com.example.cbr.models;
 
-import java.sql.Date;
-
 public class Users {
     private static Users instance;
 

@@ -30,14 +30,23 @@ module.exports = (sequelize, Sequelize) => {
         contactNumber: {
             type: Sequelize.STRING
         },
+        careGiverFirstName: {
+            type: Sequelize.STRING
+        },
+        careGiverLastName: {
+            type: Sequelize.STRING
+        },
         caregiverPresentForInterview: {
             type: Sequelize.BOOLEAN
         },
         caregiverContactNumber: {
-            type: Sequelize.INTEGER
+            type: Sequelize.STRING
         },
         photo: {
-            type: Sequelize.BLOB('long')
+            type: Sequelize.BLOB()
+        },
+        describeOtherDisability {
+            type: Sequelize.STRING
         }
 
 

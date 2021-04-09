@@ -43,7 +43,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         photo: {
-            type: Sequelize.BLOB()
+            type: Sequelize.BLOB('long')
         }
 
 

@@ -447,6 +447,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             recordPhotoViewContainer.setImage(bitmap);
             photo.setImageBitmap(bitmap);
             activeCameraViewHolder = null;
+            onDataChanged(getLayoutPosition(), recordPhotoViewContainer);
         }
     }
 

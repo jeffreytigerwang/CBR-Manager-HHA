@@ -41,48 +41,58 @@ class statsDataService {
         return newArray;
       }
 
-     const res = await http.get(`/healthAspect`)
-                            .catch(err => { console.log(err); });
-      const healthData = jsonAggregate.create(JSON.stringify(res.data));
+      async function getAspectRiskStats(aspect) {
+          const rateAspect = 'rate' + aspect.charAt(0).toUpperCase() + aspect.slice(1);
 
-      var statsArray = [];
+          const res = await http.get(`/${aspect}Aspect`)
+                                .catch(err => { console.log(err); });
+          const data = jsonAggregate.create(JSON.stringify(res.data));
 
-      // Filter by Risk & Sum
-      var healthCriticalCount = healthData
-                                  .match({ rateHealth: 'critical risk' })
-                                  .group({ id: 'rateHealth',
-                                           count: { $sum: 1 } })
-                                  .exec();
+          // create match objects
+          const jsonTest = '{ "' + rateAspect + '": "critical risk" }'
+          console.log(jsonTest);
+          const criticalJson = JSON.parse();
 
-      var healthHighCount = healthData
-                                  .match({ rateHealth: 'high risk' })
-                                  .group({ id: 'rateHealth',
-                                           count: { $sum: 1 } })
-                                  .exec();
+          // Filter by Risk & Sum
+          var criticalCount = data
+                                      .match(jsonTest)
+                                      .group({ id: rateAspect,
+                                               count: { $sum: 1 } })
+                                      .exec();
 
-      var healthMediumCount = healthData
-                                  .match({ rateHealth: 'medium risk' })
-                                  .group({ id: 'rateHealth',
-                                           count: { $sum: 1 } })
-                                  .exec();
+          var highCount = data
+                                      .match({ rateHealth: 'high risk' })
+                                      .group({ id: rateAspect,
+                                               count: { $sum: 1 } })
+                                      .exec();
 
-
-      var healthLowCount = healthData
-                                  .match({ rateHealth: 'low risk' })
-                                  .group({ id: 'rateHealth',
-                                           count: { $sum: 1 } })
-                                  .exec();
-
-      // Format Data
-      var healthRiskStats = [healthCriticalCount, healthMediumCount,
-                        healthHighCount, healthLowCount];
-      var stats_percentage = calcPercentage(healthRiskStats);
-      var statsData = removeDoubleNestArry(stats_percentage);
-      console.log('aggregated to: ');
-      console.log(statsData);
-      //console.log('data test: ');
+          var mediumCount = data
+                                      .match({ rateHealth: 'medium risk' })
+                                      .group({ id: rateAspect,
+                                               count: { $sum: 1 } })
+                                      .exec();
 
 
+          var lowCount = data
+                                      .match({ rateHealth: 'low risk' })
+                                      .group({ id: rateAspect,
+                                               count: { $sum: 1 } })
+                                      .exec();
+
+          // Format Data
+          var riskStats = [criticalCount, mediumCount,
+                            highCount, lowCount];
+          var stats_percentage = calcPercentage(riskStats);
+          var statsData = removeDoubleNestArry(stats_percentage);
+          console.log('aggregated to: ');
+          console.log(statsData);
+          //console.log('data test: ');
+
+
+          return statsData;
+      }
+
+      const statsData = getAspectRiskStats('health');
       return statsData;
   }
 

@@ -25,7 +25,7 @@ exports.create = (req, res) => {
     hearingImpairmentDisability: req.body.hearingImpairmentDisability,
     doNotKnowDisability: req.body.doNotKnowDisability,
     otherDisability: req.body.otherDisability,
-    specifyDisability: req.body.specifyDisability
+    describeOtherDisability: req.body.describeOtherDisability
   };
 
   // Save item in database

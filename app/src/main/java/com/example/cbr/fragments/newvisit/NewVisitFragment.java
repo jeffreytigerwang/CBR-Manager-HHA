@@ -111,23 +111,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         setHasOptionsMenu(true);
         requestLocationPermissions();
 
-        if (getArguments() != null) {
-            clientInfo = (ClientInfo) getArguments().getSerializable(NEW_VISIT_PAGE_BUNDLE);
-            binding.questionsPageTitle.setText(clientInfo.getFullName());
-            try {
-                clientId = Integer.parseInt(clientInfo.getId());
-            } catch (NullPointerException e) {
-                Log.i(LOG_TAG, "onCreateView: clientId=" + clientInfo.getId());
-                Toast.makeText(context, getResources().getString(R.string.failed_to_get_client_id),
-                        Toast.LENGTH_SHORT).show();
-                finish();
-            }
-            setClientId();
-        } else {
-            Toast.makeText(context, getString(R.string.unable_to_retrieve_client_info),
-                    Toast.LENGTH_SHORT).show();
-            finish();
-        }
+        unpackArgument();
 
         setupViewPager();
         setupButtons();
@@ -166,6 +150,26 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
             });
         } else {
             setLatLongLocation();
+        }
+    }
+
+    private void unpackArgument() {
+        if (getArguments() != null) {
+            clientInfo = (ClientInfo) getArguments().getSerializable(NEW_VISIT_PAGE_BUNDLE);
+            binding.questionsPageTitle.setText(clientInfo.getFullName());
+            try {
+                clientId = Integer.parseInt(clientInfo.getId());
+            } catch (NullPointerException e) {
+                Log.i(LOG_TAG, "onCreateView: clientId=" + clientInfo.getId());
+                Toast.makeText(context, getResources().getString(R.string.failed_to_get_client_id),
+                        Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            setClientId();
+        } else {
+            Toast.makeText(context, getString(R.string.unable_to_retrieve_client_info),
+                    Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 

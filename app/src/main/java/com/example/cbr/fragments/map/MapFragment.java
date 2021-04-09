@@ -65,6 +65,7 @@ public class MapFragment extends BaseFragment implements MapContract.View {
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final String TAG = "MapFragment";
+    private static final double nullCoordinateHandler = 300;
 
 
     @Nullable
@@ -81,10 +82,7 @@ public class MapFragment extends BaseFragment implements MapContract.View {
 
         getLocationPermission();
 
-        View view = binding.getRoot();
-
-
-        return view;
+        return binding.getRoot();
     }
 
 
@@ -105,7 +103,13 @@ public class MapFragment extends BaseFragment implements MapContract.View {
                     LatLng uganda = new LatLng(1.3733, 32.2903);
                     mMap.addMarker(new MarkerOptions().position(uganda).title(getString(R.string.marker_in_Uganda)));
 
-                    for (ClientInfo clientInfo : nullGuard(clientInfoManager.getClientInfoArrayList())){
+                    for (ClientInfo clientInfo : arrayListNullGuard(clientInfoManager.getClientInfoArrayList())){
+
+                        // Handle null
+                        if (clientInfo.getLatitude() == nullCoordinateHandler || clientInfo.getLongitude() == nullCoordinateHandler){
+                            continue;
+                        }
+
                         tempMarker = new LatLng(clientInfo.getLatitude(), clientInfo.getLongitude());
                         mMap.addMarker(new MarkerOptions().position(tempMarker).title(clientInfo.getFullName()));
                     }
@@ -123,7 +127,7 @@ public class MapFragment extends BaseFragment implements MapContract.View {
         });
     }
 
-    private static ArrayList<ClientInfo> nullGuard( ArrayList<ClientInfo> other ) {
+    private static ArrayList<ClientInfo> arrayListNullGuard(ArrayList<ClientInfo> other ) {
         return other == null ? (ArrayList<ClientInfo>) Collections.EMPTY_LIST : other;
     }
 
@@ -134,8 +138,8 @@ public class MapFragment extends BaseFragment implements MapContract.View {
 
         try{
             if(locationPermissionsGranted){
-                Task location = fusedLocationProviderClient.getLastLocation();
-                location.addOnCompleteListener(new OnCompleteListener() {
+                Task<Location> location = fusedLocationProviderClient.getLastLocation();
+                location.addOnCompleteListener(new OnCompleteListener<Location>() {
                     @Override
                     public void onComplete(@NonNull Task task) {
                         if (task.isSuccessful()){
@@ -241,7 +245,6 @@ public class MapFragment extends BaseFragment implements MapContract.View {
             Address address = list.get(0);
 
             Log.d(TAG, "geoLocate: found a location: " + address.toString());
-            //Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
 
             moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_ZOOM,
                     address.getAddressLine(0));
@@ -267,8 +270,8 @@ public class MapFragment extends BaseFragment implements MapContract.View {
         switch (requestCode){
             case LOCATION_PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0){
-                    for (int i = 0; i < grantResults.length; i++){
-                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED){
+                    for (int grantResult : grantResults) {
+                        if (grantResult != PackageManager.PERMISSION_GRANTED) {
                             locationPermissionsGranted = false;
                             Log.d(TAG, "onRequestPermissionResult: permission failed.");
                             return;

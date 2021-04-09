@@ -3,13 +3,13 @@ package com.example.cbr.models;
 import com.example.cbr.util.Constants;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
 public class ClientInfo implements Serializable, Comparable<ClientInfo>{
+    private double nullCoordinateHandler = 300;
+
     private Boolean consentToInterview;
 
     private Integer clientId;
@@ -128,13 +128,21 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     }
 
     public double getLatitude() {
-        String[] coordinates = getGpsLocation().split("[\\s,]+");
-        return Double.parseDouble(coordinates[0]);
+        if (getGpsLocation()!= null && !getGpsLocation().trim().isEmpty()){
+            String[] coordinates = getGpsLocation().split("[\\s,]+");
+            return Double.parseDouble(coordinates[0]);
+        }
+
+        return nullCoordinateHandler;
     }
 
     public double getLongitude() {
-        String[] coordinates = getGpsLocation().split("[\\s,]+");
-        return Double.parseDouble(coordinates[1]);
+        if (getGpsLocation()!= null && !getGpsLocation().trim().isEmpty()){
+            String[] coordinates = getGpsLocation().split("[\\s,]+");
+            return Double.parseDouble(coordinates[1]);
+        }
+
+        return nullCoordinateHandler;
     }
 
     public Integer getClientId() {

@@ -79,21 +79,22 @@ class Report extends Component {
     }
     
     /**
-     * @param {[]} healthRiskStats Array of properties
+     * @param {[]} riskStats Array of properties
+     * @param {String} aspect Health, education, or social
      * @returns option property for CanvasJS or LOADING_CHART_OPTIONS
      */
-    setupHealthRiskChartOptions(healthRiskStats) {
-        return healthRiskStats.length ? {
+    setupRiskChartOptions = (riskStats, aspect) => {
+        return riskStats.length ? {
             interactivityEnabled: false,
             animationEnabled: true,
             animationDuration: 1000,
             theme: "light1",
             title: {
-                text: "Health Risk Levels Of All Clients",
+                text: aspect + " Risk Levels Of All Clients",
                 wrap: true
             },
             subtitles: [{
-                text: "" + (healthRiskStats[0].percentage + healthRiskStats[1].percentage)*100 + "% High " + (healthRiskStats[2].percentage + healthRiskStats[3].percentage)*100 + "% Low",
+                text: "" + (riskStats[0].percentage + riskStats[1].percentage)*100 + "% High " + (riskStats[2].percentage + riskStats[3].percentage)*100 + "% Low",
                 verticalAlign: "center",
                 fontSize: 24,
                 dockInsidePlotArea: true,
@@ -109,10 +110,10 @@ class Report extends Component {
                 indexLabel: "{name}: {y}",
                 yValueFormatString: "###.##%",
                 dataPoints: [
-                    { name: "Critical Risk", y: healthRiskStats[0].percentage, color: "red" },
-                    { name: "High Risk", y: healthRiskStats[1].percentage, color: "orange" },
-                    { name: "Medium Risk", y: healthRiskStats[2].percentage, color: "yellow" },
-                    { name: "Low Risk", y: healthRiskStats[3].percentage, color: "yellowgreen" },
+                    { name: "Critical Risk", y: riskStats[0].percentage, color: "red" },
+                    { name: "High Risk", y: riskStats[1].percentage, color: "orange" },
+                    { name: "Medium Risk", y: riskStats[2].percentage, color: "yellow" },
+                    { name: "Low Risk", y: riskStats[3].percentage, color: "yellowgreen" },
                 ]
             }]
         } : LOADING_CHART_OPTIONS;
@@ -121,9 +122,12 @@ class Report extends Component {
     render() {
         const currentUser = this.state.isLoading ? LOADING : this.state.currentUser;
         const { classes } = this.props;
-        const {generalVisitData} = this.state;
-        const {healthVisitData} = this.state;
-        const {healthRiskStats} = this.state;
+        const { generalVisitData } = this.state;
+        const { healthVisitData } = this.state;
+        const { allAspectRiskStats } = this.state;
+        const { healthRiskStats } = this.state;
+        const { educationRiskStats } = this.state;
+        const { socialRiskStats } = this.state;
         // Bug: when trying to access arrays or any data that
         // requires API calls here, you get TypeError.
         // React Lesson: You need to add condition because 
@@ -153,7 +157,11 @@ class Report extends Component {
             }
         });
 
-        const healthChartOptions = this.setupHealthRiskChartOptions(healthRiskStats);
+
+        // const allAspectChartOptions = this.setupRiskChartOptions(allAspectRiskStats, "All Aspect");
+        const healthChartOptions = this.setupRiskChartOptions(healthRiskStats, "Health");
+        // const educationChartOptions = this.setupRiskChartOptions(educationRiskStats, "Education");
+        // const socialChartOptions = this.setupRiskChartOptions(socialRiskStats, "Social");
 
         return (
             <div>
@@ -167,15 +175,52 @@ class Report extends Component {
                         <li>Number of wheel chairs: {numberOfWheelChair}</li>
                     </ul>
                 </div>
-                <div>
-                    {
-                        this.state.isLoading ? LOADING :
-                        <CanvasJSChart options = {healthChartOptions} 
-                            onRef = {ref => this.chart = ref}
-                        />
-                    }
-                    
-                </div>
+                <Grid container spacing={2}>
+                    <Grid item sm={12}>
+                        <div>
+                            {
+                                this.state.isLoading ? LOADING :
+                                <CanvasJSChart options = {LOADING_CHART_OPTIONS} 
+                                    onRef = {ref => this.chart = ref}
+                                />
+                            }
+                            
+                        </div>
+                    </Grid>
+                    <Grid item sm>
+                        <div>
+                            {
+                                this.state.isLoading ? LOADING :
+                                <CanvasJSChart options = {healthChartOptions} 
+                                    onRef = {ref => this.chart = ref}
+                                />
+                            }
+                            
+                        </div>
+                    </Grid>
+                    <Grid item sm>
+                        <div>
+                            {
+                                this.state.isLoading ? LOADING :
+                                <CanvasJSChart options = {LOADING_CHART_OPTIONS} 
+                                    onRef = {ref => this.chart = ref}
+                                />
+                            }
+                            
+                        </div>
+                    </Grid>
+                    <Grid item sm>
+                        <div>
+                            {
+                                this.state.isLoading ? LOADING :
+                                <CanvasJSChart options = {LOADING_CHART_OPTIONS} 
+                                    onRef = {ref => this.chart = ref}
+                                />
+                            }
+                            
+                        </div>
+                    </Grid>
+                </Grid>
             </div>
         )
     }

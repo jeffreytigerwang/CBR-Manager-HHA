@@ -27,8 +27,8 @@ exports.create = (req, res) => {
     caregiverContactNumber: req.body.caregiverContactNumber,
     caregiverPresentForInterview: req.body.caregiverPresentForInterview,
     describeOtherDisability: req.body.describeOtherDisability,
-    careGiverFirstName: req.body.careGiverFirstName,
-    careGiverLastName: req.body.careGiverLastName,
+    caregiverFirstName: req.body.caregiverFirstName,
+    caregiverLastName: req.body.caregiverLastName,
     photo: req.body.photo
   };
 

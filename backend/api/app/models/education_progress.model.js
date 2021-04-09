@@ -43,7 +43,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER
         },
         visitId: {
-            type: Sequelize.STRING
+            type: Sequelize.INTEGER
         }
 
     });

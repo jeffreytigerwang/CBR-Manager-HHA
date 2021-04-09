@@ -25,6 +25,8 @@ exports.create = (req, res) => {
     educationAdvocacyDesc: req.body.educationAdvocacyDesc,
     educationReferralDesc: req.body.educationReferralDesc,
     educationEncouragementDesc: req.body.educationEncouragementDesc,
+    educationOutcomeDesc: req.body.educationOutcomeDesc,
+    educationGoalStatus: req.body.educationGoalStatus,
     clientId: req.body.clientId,
     visitId: req.body.visitId
   };

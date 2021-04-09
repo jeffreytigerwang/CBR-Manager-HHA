@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Fragment for the CBR worker to fill out information on a client for a new visit.
@@ -324,10 +325,15 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     }
 
     private void setClientId() {
+        int visitId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
         generalQuestionSetData.setClientId(clientId);
+        generalQuestionSetData.setVisitId(visitId);
         healthQuestionSetData.setClientId(clientId);
+        healthQuestionSetData.setVisitId(visitId);
         educationQuestionSetData.setClientId(clientId);
+        educationQuestionSetData.setVisitId(visitId);
         socialQuestionSetData.setClientId(clientId);
+        socialQuestionSetData.setVisitId(visitId);
     }
 
     private void setupViewPager() {

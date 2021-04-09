@@ -3,12 +3,13 @@ import React, { Component } from "react";
 import UserDataService from "../services/user.service"
 import VisitDataService from "../services/visit.service"
 import StatsDataService from "../services/stats.service"
+import { LOADING, LOADING_CHART_OPTIONS } from "../Util/Constants";
+import "../styles/lineHeader.css"
 
 import { TextField, Button, withStyles, Grid, Paper, ListItem } from "@material-ui/core"
 import { styles } from "../css-common"
-
 import CanvasJSReact from './canvasjs.react';
-import { LOADING, LOADING_CHART_OPTIONS } from "../Util/Constants";
+
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -165,7 +166,7 @@ class Report extends Component {
 
         return (
             <div>
-                <h1>SWAG</h1>
+                <h1 class="decorated"><span>SWAG</span></h1>
                 <div>
                     <ul>
                         <li>Number of visits: {numberOfVisits}</li>

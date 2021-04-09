@@ -12,17 +12,24 @@ import com.example.cbr.models.VisitSocialQuestionSetData;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 
+import java.lang.ref.WeakReference;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static com.example.cbr.R.string.education_question_record_cancelled;
 import static com.example.cbr.R.string.education_question_record_fail;
 import static com.example.cbr.R.string.education_question_record_successful;
+import static com.example.cbr.R.string.general_question_record_cancelled;
 import static com.example.cbr.R.string.general_question_record_fail;
 import static com.example.cbr.R.string.general_question_record_successful;
+import static com.example.cbr.R.string.health_question_record_cancelled;
 import static com.example.cbr.R.string.health_question_record_fail;
 import static com.example.cbr.R.string.health_question_record_successful;
+import static com.example.cbr.R.string.retrofit_call_fail;
+import static com.example.cbr.R.string.social_question_record_cancelled;
 import static com.example.cbr.R.string.social_question_record_fail;
 import static com.example.cbr.R.string.social_question_record_successful;
 
@@ -32,11 +39,11 @@ public class NewVisitPresenter implements NewVisitContract.Presenter {
 
     private final JsonPlaceHolderApi jsonPlaceHolderApi;
 
-    private final Context context;
+    private final WeakReference<Context> context;
 
     public NewVisitPresenter(NewVisitContract.View view, Context context) {
         this.view = view;
-        this.context = context;
+        this.context = new WeakReference<>(context);
         Retrofit retrofit = RetrofitInit.getInstance();
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
     }
@@ -53,19 +60,25 @@ public class NewVisitPresenter implements NewVisitContract.Presenter {
                                    @NonNull Response<VisitGeneralQuestionSetData> response) {
 
                 if (!response.isSuccessful()) {
-                    Toast.makeText(context,
+                    Toast.makeText(context.get(),
                             general_question_record_fail, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Toast.makeText(context,
+                Toast.makeText(context.get(),
                         general_question_record_successful, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(@NonNull Call<VisitGeneralQuestionSetData> call,
                                   @NonNull Throwable t) {
-
+                if (call.isCanceled()) {
+                    Toast.makeText(context.get(),
+                            general_question_record_cancelled, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context.get(),
+                            retrofit_call_fail, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -83,19 +96,25 @@ public class NewVisitPresenter implements NewVisitContract.Presenter {
                                    @NonNull Response<VisitHealthQuestionSetData> response) {
 
                 if (!response.isSuccessful()) {
-                    Toast.makeText(context,
+                    Toast.makeText(context.get(),
                              health_question_record_fail, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Toast.makeText(context,
+                Toast.makeText(context.get(),
                         health_question_record_successful, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(@NonNull Call<VisitHealthQuestionSetData> call,
                                   @NonNull Throwable t) {
-
+                if (call.isCanceled()) {
+                    Toast.makeText(context.get(),
+                            health_question_record_cancelled, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context.get(),
+                            retrofit_call_fail, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -112,19 +131,25 @@ public class NewVisitPresenter implements NewVisitContract.Presenter {
                                    @NonNull Response<VisitEducationQuestionSetData> response) {
 
                 if (!response.isSuccessful()) {
-                    Toast.makeText(context,
+                    Toast.makeText(context.get(),
                             education_question_record_fail, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Toast.makeText(context,
+                Toast.makeText(context.get(),
                         education_question_record_successful, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(@NonNull Call<VisitEducationQuestionSetData> call,
                                   @NonNull Throwable t) {
-
+                if (call.isCanceled()) {
+                    Toast.makeText(context.get(),
+                            education_question_record_cancelled, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context.get(),
+                            retrofit_call_fail, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -140,19 +165,25 @@ public class NewVisitPresenter implements NewVisitContract.Presenter {
                                    @NonNull Response<VisitSocialQuestionSetData> response) {
 
                 if (!response.isSuccessful()) {
-                    Toast.makeText(context,
+                    Toast.makeText(context.get(),
                             social_question_record_fail, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Toast.makeText(context,
+                Toast.makeText(context.get(),
                         social_question_record_successful, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(@NonNull Call<VisitSocialQuestionSetData> call,
                                   @NonNull Throwable t) {
-
+                if (call.isCanceled()) {
+                    Toast.makeText(context.get(),
+                            social_question_record_cancelled, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context.get(),
+                            retrofit_call_fail, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

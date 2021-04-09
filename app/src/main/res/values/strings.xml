@@ -244,5 +244,10 @@
     <string name="permission_change">Permission change</string>
     <string name="permission_change_message">Permission for location was changed to not granted. Automatic fill for GPS location field will not be available.</string>
     <string name="automatic_fill_location">"Locations fields will be automatically filled on the next launch."</string>
+    <string name="general_question_record_cancelled">General Question Cancelled. No network connection or may be too slow</string>
+    <string name="health_question_record_cancelled">Health Question Cancelled. No network connection or may be too slow</string>
+    <string name="education_question_record_cancelled">Education Question Cancelled. No network connection or may be too slow</string>
+    <string name="social_question_record_cancelled">Social Question Cancelled. No network connection or may be too slow</string>
+    <string name="retrofit_call_fail">Record fail! No network connection or may be too slow</string>
 
 </resources>

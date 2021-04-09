@@ -1,6 +1,7 @@
 package com.example.cbr.fragments.newvisit;
 
 import android.Manifest;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.InputType;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cbr.R;
@@ -58,6 +60,8 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
     private FragmentQuestionspageBinding binding;
     private NewVisitContract.Presenter presenter;
+    private Context context;
+    private FragmentActivity hostActivity;
 
     private ClientInfo clientInfo;
     private Integer clientId;
@@ -85,6 +89,18 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     private static final String NEW_VISIT_PAGE_BUNDLE = "newVisitPageBundle";
     private static final String LOG_TAG = "NewVisitFragment";
 
+    /**
+     * Initialize context and activity here instead of using
+     * getContext() and getActivity() everywhere as
+     * these may produce memory leak.
+     * */
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+        hostActivity = getActivity();
+    }
+
     @Override
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -92,7 +108,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         StrictMode.setThreadPolicy(policy);
         setPresenter(new NewVisitPresenter(this, getContext()));
         binding = FragmentQuestionspageBinding.inflate(inflater, container, false);
-        getActivity().setTitle(getString(R.string.new_visit_title));
+        hostActivity.setTitle(getString(R.string.new_visit_title));
         setHasOptionsMenu(true);
         requestLocationPermissions();
 
@@ -121,24 +137,32 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     }
 
     private void requestLocationPermissions() {
-        if (!isPermissionGranted(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                && !isPermissionGranted(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)) {
+        if (!isPermissionGranted(context, Manifest.permission.ACCESS_FINE_LOCATION)
+                || !isPermissionGranted(context, Manifest.permission.ACCESS_COARSE_LOCATION)) {
 
             launchRequestPermissions(
                     new String[] {
                             Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION},
                     new ActivityResultCallback<Map<String, Boolean>>() {
-                @Override
-                public void onActivityResult(Map<String, Boolean> result) {
-                    if (result.get(Manifest.permission.ACCESS_FINE_LOCATION)
-                            && result.get(Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                        Toast.makeText(getContext(), getString(R.string.automatic_fill_location),
-                                Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(getContext(), R.string.location_permission_not_granted,
-                                Toast.LENGTH_SHORT).show();
-                    }
+                            @Override
+                            public void onActivityResult(Map<String, Boolean> result) {
+                                Boolean isFineLocationGranted =
+                                        result.get(Manifest.permission.ACCESS_FINE_LOCATION);
+                                Boolean isCoarseLocationGranted =
+                                        result.get(Manifest.permission.ACCESS_COARSE_LOCATION);
+                                if (isFineLocationGranted != null
+                                        && isCoarseLocationGranted != null) {
+                                    if (isFineLocationGranted
+                                            && isCoarseLocationGranted) {
+                                        Toast.makeText(getContext(),
+                                                getString(R.string.automatic_fill_location),
+                                                Toast.LENGTH_LONG).show();
+                                        return;
+                                    }
+                                }
+                                Toast.makeText(getContext(), R.string.location_permission_not_granted,
+                                        Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -150,7 +174,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     public void onDestroy() {
         super.onDestroy();
 
-        getActivity().setTitle(getString(R.string.app_name));
+        hostActivity.setTitle(getString(R.string.app_name));
         menu.clear();
         setHasOptionsMenu(false);
     }
@@ -200,7 +224,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
     }
 
     private void finish() {
-        getActivity().getSupportFragmentManager().popBackStack();
+        hostActivity.getSupportFragmentManager().popBackStack();
     }
 
     private void handleRecord() {
@@ -278,7 +302,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
 
     private void setLatLongLocation() {
         try {
-            locationUtil = new LocationUtil(getContext());
+            locationUtil = new LocationUtil(context);
             latLongLocation = getString(R.string.lat_long_location,
                     locationUtil.getLatitude(), locationUtil.getLongitude());
             generalQuestionSetData.setVisitGpsLocation(latLongLocation);

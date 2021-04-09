@@ -82,21 +82,22 @@ class Report extends Component {
      * @param {[]} healthRiskStats Array of properties
      * @returns option property for CanvasJS or LOADING_CHART_OPTIONS
      */
-    setupHealthChartOptions(healthRiskStats) {
+    setupHealthRiskChartOptions(healthRiskStats) {
         return healthRiskStats.length ? {
             interactivityEnabled: false,
             animationEnabled: true,
             animationDuration: 1000,
             theme: "light1",
             title: {
-                text: "Health Risk Levels Of All Visits",
+                text: "Health Risk Levels Of All Clients",
                 wrap: true
             },
             subtitles: [{
-                text: "71% Positive",
+                text: "" + (healthRiskStats[0].percentage + healthRiskStats[1].percentage)*100 + "% High " + (healthRiskStats[2].percentage + healthRiskStats[3].percentage)*100 + "% Low",
                 verticalAlign: "center",
                 fontSize: 24,
-                dockInsidePlotArea: true
+                dockInsidePlotArea: true,
+                maxWidth: 166
             }, {
                 //  TODO: get the very first and last date of visit info for this chart.
                 // text: "${initialDate} ${lastDate}",
@@ -105,14 +106,13 @@ class Report extends Component {
             }],
             data: [{
                 type: "doughnut",
-                showInLegend: true,
                 indexLabel: "{name}: {y}",
                 yValueFormatString: "###.##%",
                 dataPoints: [
-                    { name: "Critical Risk", y: healthRiskStats[0].percentage },
-                    { name: "High Risk", y: healthRiskStats[1].percentage },
-                    { name: "Medium Risk", y: healthRiskStats[2].percentage },
-                    { name: "Low Risk", y: healthRiskStats[3].percentage },
+                    { name: "Critical Risk", y: healthRiskStats[0].percentage, color: "red" },
+                    { name: "High Risk", y: healthRiskStats[1].percentage, color: "orange" },
+                    { name: "Medium Risk", y: healthRiskStats[2].percentage, color: "yellow" },
+                    { name: "Low Risk", y: healthRiskStats[3].percentage, color: "yellowgreen" },
                 ]
             }]
         } : LOADING_CHART_OPTIONS;
@@ -153,7 +153,7 @@ class Report extends Component {
             }
         });
 
-        const healthChartOptions = this.setupHealthChartOptions(healthRiskStats);
+        const healthChartOptions = this.setupHealthRiskChartOptions(healthRiskStats);
 
         return (
             <div>

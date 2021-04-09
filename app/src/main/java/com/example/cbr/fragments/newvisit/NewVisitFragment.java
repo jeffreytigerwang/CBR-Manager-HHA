@@ -50,7 +50,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Fragment for the CBR worker to fill out information on a client for a new visit.
@@ -106,7 +105,7 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        setPresenter(new NewVisitPresenter(this, getContext()));
+        setPresenter(new NewVisitPresenter(this, context));
         binding = FragmentQuestionspageBinding.inflate(inflater, container, false);
         hostActivity.setTitle(getString(R.string.new_visit_title));
         setHasOptionsMenu(true);
@@ -119,13 +118,13 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                 clientId = Integer.parseInt(clientInfo.getId());
             } catch (NullPointerException e) {
                 Log.i(LOG_TAG, "onCreateView: clientId=" + clientInfo.getId());
-                Toast.makeText(getContext(), getResources().getString(R.string.failed_to_get_client_id),
+                Toast.makeText(context, getResources().getString(R.string.failed_to_get_client_id),
                         Toast.LENGTH_SHORT).show();
                 finish();
             }
-            setVisitClientId();
+            setClientId();
         } else {
-            Toast.makeText(getContext(), getString(R.string.unable_to_retrieve_client_info),
+            Toast.makeText(context, getString(R.string.unable_to_retrieve_client_info),
                     Toast.LENGTH_SHORT).show();
             finish();
         }
@@ -155,13 +154,13 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                                         && isCoarseLocationGranted != null) {
                                     if (isFineLocationGranted
                                             && isCoarseLocationGranted) {
-                                        Toast.makeText(getContext(),
+                                        Toast.makeText(context,
                                                 getString(R.string.automatic_fill_location),
                                                 Toast.LENGTH_LONG).show();
                                         return;
                                     }
                                 }
-                                Toast.makeText(getContext(), R.string.location_permission_not_granted,
+                                Toast.makeText(context, R.string.location_permission_not_granted,
                                         Toast.LENGTH_SHORT).show();
                 }
             });
@@ -314,26 +313,17 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         } catch (CustomExceptions.GPSNotEnabled ignored) {
         } catch (CustomExceptions.LocationNotFound locationNotFound) {
             locationUtil.stopUpdateService();
-            Toast.makeText(getContext(),
+            Toast.makeText(context,
                     getString(R.string.location_not_found),
                     Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void setVisitClientId() {
-        int visitId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
-
+    private void setClientId() {
         generalQuestionSetData.setClientId(clientId);
-        generalQuestionSetData.setVisitId(visitId);
-
         healthQuestionSetData.setClientId(clientId);
-        healthQuestionSetData.setVisitId(visitId);
-
         educationQuestionSetData.setClientId(clientId);
-        educationQuestionSetData.setVisitId(visitId);
-
         socialQuestionSetData.setClientId(clientId);
-        socialQuestionSetData.setVisitId(visitId);
     }
 
     private void setupViewPager() {

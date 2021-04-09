@@ -27,7 +27,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     private String caregiverFirstName;
     private String caregiverLastName;
     private String caregiverContactNumber;
-    private Blob photo;
+    private byte[] photo;
     private boolean amputeeDisability;
     private boolean polioDisability;
     private boolean spinalCordInjuryDisability;
@@ -69,7 +69,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
                       String caregiverFirstName,
                       String caregiverLastName,
                       String caregiverContactNumber,
-                      Blob photo,
+                      byte[] photo,
                       boolean amputeeDisability,
                       boolean polioDisability,
                       boolean spinalCordInjuryDisability,
@@ -448,11 +448,11 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         return caregiverLastName;
     }
 
-    public Blob getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Blob photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 

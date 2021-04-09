@@ -1,5 +1,6 @@
 package com.example.cbr.fragments.newclient;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ import com.example.cbr.retrofit.RetrofitInit;
 import com.example.cbr.util.StringsUtil;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -157,7 +159,9 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         genderOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.female), false, View.generateViewId()));
         basicInfoList.add(new RadioGroupViewContainer(getString(R.string.gender), true, genderOptions));
         basicInfoList.add(new EditTextViewContainer(getString(R.string.contact_number), null, getString(R.string.contact_number), InputType.TYPE_CLASS_NUMBER));
-        basicInfoList.add(new EditTextViewContainer(getString(R.string.date), StringsUtil.dateToUKFormat(new Date()), getString(R.string.date), InputType.TYPE_CLASS_DATETIME));
+        String dateJoined = StringsUtil.dateToUKFormat(new Date());
+        basicInfoList.add(new EditTextViewContainer(getString(R.string.date), dateJoined, getString(R.string.date), InputType.TYPE_CLASS_DATETIME));
+        clientInfo.setDateJoined(dateJoined);
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
@@ -181,6 +185,8 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                         }
                     } else if (questionText.equals(getString(R.string.contact_number))) {
                         clientInfo.setContactNumber(userInput);
+                    } else if (questionText.equals(getString(R.string.date))) {
+                        clientInfo.setDateJoined(userInput);
                     }
                 }
 
@@ -284,9 +290,15 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
-                // Check if Photo is not null
-//                clientInfo.setPhoto(((RecordPhotoViewContainer) questionDataContainer).getImage());
-                // Convert bitmap to blob
+                if (questionDataContainer instanceof RecordPhotoViewContainer) {
+                    Bitmap bitmap = ((RecordPhotoViewContainer) questionDataContainer).getImage();
+                    if (bitmap != null) {
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                        clientInfo.setPhoto(stream.toByteArray());
+                        byte[] client = clientInfo.getPhoto();
+                    }
+                }
             }
         };
 
@@ -358,7 +370,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         List<String> ratingOptions = new ArrayList<>(
                 Arrays.asList(getResources().getStringArray(R.array.client_ratings_array)));
         healthList.add(new SpinnerViewContainer(getString(R.string.please_rate_how_you_consider_the_client_s_health_to_be), ratingOptions));
-        healthList.add(new EditTextViewContainer(getString(R.string.please_describe_what_they_require), null, getString(R.string.please_describe_what_they_require), InputType.TYPE_CLASS_TEXT));
+        healthList.add(new EditTextViewContainer(getString(R.string.please_describe_what_they_require), null, "Describe what they require", InputType.TYPE_CLASS_TEXT));
         healthList.add(new EditTextViewContainer(getString(R.string.set_individual_goal), null, getString(R.string.set_individual_goal), InputType.TYPE_CLASS_TEXT));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {

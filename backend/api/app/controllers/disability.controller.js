@@ -19,7 +19,7 @@ exports.create = (req, res) => {
     polioDisability: req.body.polioDisability,
     spinalCordInjuryDisability: req.body.spinalCordInjuryDisability,
     cerebralPalsyDisability: req.body.cerebralPalsyDisability,
-    spinalBifidaDisability: req.body.spinalBifidaDisability,
+    spinaBifidaDisability: req.body.spinaBifidaDisability,
     hydrocephalusDisability: req.body.hydrocephalusDisability,
     visualImpairmentDisability: req.body.visualImpairmentDisability,
     hearingImpairmentDisability: req.body.hearingImpairmentDisability,

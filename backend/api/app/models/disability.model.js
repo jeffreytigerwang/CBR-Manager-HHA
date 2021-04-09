@@ -36,7 +36,7 @@ module.exports = (sequelize, Sequelize) => {
         specifyDisability: {
             type: Sequelize.STRING
         }
-        
+
     });
 
     return Disability;

@@ -16,6 +16,9 @@ public class VisitEducationQuestionSetData {
     private boolean isEducationAdvocacyChecked;
     private boolean isEducationReferralChecked;
     private boolean isEducationEncouragementChecked;
+    private boolean isGoalCancelled;
+    private boolean isGoalOngoing;
+    private boolean isGoalConcluded;
     private String educationAdviceDesc;
     private String educationAdvocacyDesc;
     private String educationReferralDesc;
@@ -29,7 +32,6 @@ public class VisitEducationQuestionSetData {
         this.educationReferralDesc = "";
         this.educationEncouragementDesc = "";
         this.educationOutcomeDesc = "";
-        this.educationGoalStatus = "";
     }
 
     public List<String> getEmptyQuestions() {
@@ -39,7 +41,7 @@ public class VisitEducationQuestionSetData {
                 || isEducationAdvocacyChecked
                 || isEducationReferralChecked
                 || isEducationEncouragementChecked;
-        boolean isQuestionTwelveEmpty = educationGoalStatus.isEmpty();
+        boolean isQuestionTwelveChecked = isGoalCancelled || isGoalConcluded || isGoalOngoing;
 
         boolean isEducationAdviceEmpty = educationAdviceDesc.isEmpty();
         boolean isEducationAdvocacyDescEmpty = educationAdvocacyDesc.isEmpty();
@@ -56,10 +58,26 @@ public class VisitEducationQuestionSetData {
         } else if (missingDesc) {
             questionNumbers.add("11.");
         }
-        if (isQuestionTwelveEmpty) {
+        if (!isQuestionTwelveChecked) {
             questionNumbers.add("12.");
         }
         return questionNumbers;
+    }
+
+    public void resetData() {
+        isEducationAdviceChecked = false;
+        isEducationAdvocacyChecked = false;
+        isEducationReferralChecked = false;
+        isEducationEncouragementChecked = false;
+        isGoalCancelled = false;
+        isGoalOngoing = false;
+        isGoalConcluded = false;
+        educationAdviceDesc = "";
+        educationAdvocacyDesc = "";
+        educationReferralDesc = "";
+        educationEncouragementDesc = "";
+        educationOutcomeDesc = "";
+        educationGoalStatus = "";
     }
 
     public Integer getClientId() {
@@ -148,6 +166,30 @@ public class VisitEducationQuestionSetData {
 
     public void setEducationOutcomeDesc(String educationOutcomeDesc) {
         this.educationOutcomeDesc = educationOutcomeDesc;
+    }
+
+    public boolean isGoalCancelled() {
+        return isGoalCancelled;
+    }
+
+    public void setGoalCancelled(boolean goalCancelled) {
+        isGoalCancelled = goalCancelled;
+    }
+
+    public boolean isGoalOngoing() {
+        return isGoalOngoing;
+    }
+
+    public void setGoalOngoing(boolean goalOngoing) {
+        isGoalOngoing = goalOngoing;
+    }
+
+    public boolean isGoalConcluded() {
+        return isGoalConcluded;
+    }
+
+    public void setGoalConcluded(boolean goalConcluded) {
+        isGoalConcluded = goalConcluded;
     }
 
     public String getEducationGoalStatus() {

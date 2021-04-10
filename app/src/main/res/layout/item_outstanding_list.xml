@@ -37,7 +37,7 @@
             android:id="@+id/dashboard_outstandingListLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/location"
+            android:text="@string/site_location"
             android:textSize="12sp" />
 
         <TextView

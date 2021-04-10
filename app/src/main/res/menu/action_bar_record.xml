@@ -4,6 +4,7 @@
 
     <item
         android:id="@+id/newVisit_recordButton"
+        app:actionLayout="@layout/menu_item_record"
         android:title="@string/record"
         app:showAsAction="always"
         android:orderInCategory="0"/>

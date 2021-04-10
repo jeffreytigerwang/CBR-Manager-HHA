@@ -1,7 +1,9 @@
 
 var db = require('../app/models/index.js');
 
-const gpsLocations = ["3.53, 31.36", "3.26, 31.36", "3.07, 31.10",
+// lat between 2.18 and 3.56
+// lon between 30.08 and 33.34
+const gpsLocations = ["3.53, 31.36", "3.26, 32.36", "3.07, 31.10",
                       "3.28, 31.28", "3.22, 31.73", "3.25, 31.87",
                       "2.67, 31.83"];
 

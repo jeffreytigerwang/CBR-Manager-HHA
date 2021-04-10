@@ -17,28 +17,25 @@ class Report extends Component {
     constructor(props) {
         super(props);
 
-        this.getAllGeneralVisitData = this.getAllGeneralVisitData.bind(this);
-        this.getAllHealthVisitData = this.getAllHealthVisitData.bind(this);
-        this.getHealthRiskStats = this.getHealthRiskStats.bind(this);
-
         this.state = {
             isLoading: false,
             currentUser: new Array(),
             generalVisitData: new Array(),
             healthVisitData: new Array(),
-            healthRiskStats: []
+            healthRiskStats: [],
+            visitsPerCBRWorker: []
         };
     }
 
     componentDidMount() {
-        // this.getUser(this.props.match.params.id);
         this.getAllGeneralVisitData();
         this.getAllHealthVisitData();
-        this.getHealthRiskStats();
+        // this.getHealthRiskStats();
+        this.getNumberOfVisitsPerCBRWorker();
     }
 
     getAllGeneralVisitData = () => {
-        this.setState({isLoading: true})
+        this.setState({isLoading: true});
         VisitDataService.getAllGeneralData()
             .then(response => {
                 console.log(response.data);
@@ -53,7 +50,7 @@ class Report extends Component {
     }
     
     getAllHealthVisitData = () => {
-        this.setState({isLoading: true})
+        this.setState({isLoading: true});
         VisitDataService.getAllHealthData()
             .then(response => {
                 console.log(response.data);
@@ -68,16 +65,29 @@ class Report extends Component {
     } 
     
     getHealthRiskStats = () => {
-        this.setState({isLoading: true})
+        this.setState({isLoading: true});
         StatsDataService.getRisks()
             .then(result => {
-                console.log(result.data);
+                console.log(result);
                 this.setState({
                     isLoading: false,
                     healthRiskStats: result
                 })
             });
     }
+
+    getNumberOfVisitsPerCBRWorker = () => {
+        this.setState({isLoading: true});
+        StatsDataService.getNumberOfVisitsPerCBRWorker()
+            .then(result => {
+                console.log(result);
+                this.setState({
+                    isLoading: false,
+                    visitsPerCBRWorker: result
+                })
+            })
+    }
+    
     
     /**
      * @param {[]} riskStats Array of properties
@@ -129,6 +139,7 @@ class Report extends Component {
         const { healthRiskStats } = this.state;
         const { educationRiskStats } = this.state;
         const { socialRiskStats } = this.state;
+        const { visitsPerCBRWorker } = this.state;
         // Bug: when trying to access arrays or any data that
         // requires API calls here, you get TypeError.
         // React Lesson: You need to add condition because 
@@ -160,21 +171,37 @@ class Report extends Component {
 
 
         // const allAspectChartOptions = this.setupRiskChartOptions(allAspectRiskStats, "All Aspect");
-        const healthChartOptions = this.setupRiskChartOptions(healthRiskStats, "Health");
+        // const healthChartOptions = this.setupRiskChartOptions(healthRiskStats, "Health");
         // const educationChartOptions = this.setupRiskChartOptions(educationRiskStats, "Education");
         // const socialChartOptions = this.setupRiskChartOptions(socialRiskStats, "Social");
 
         return (
             <div>
-                <h1 class="decorated"><span>Stats Per CBR Worker</span></h1>
                 <div>
-                    <ul>
-                        <li>Number of visits: {numberOfVisits}</li>
-                        <li>Number of CBR visits: {numberOfCBRVisits}</li>
-                        <li>Number of Disability Centre referral visits: {numberOfDCRVisits}</li>
-                        <li>Number of Disability Centre referral follow up visits: {numberOfDCRFUVisits}</li>
-                        <li>Number of wheel chairs: {numberOfWheelChair}</li>
-                    </ul>
+                    <h1 class="decorated"><span>Stats Per CBR Worker</span></h1>
+                    <div>    
+                        <ul>
+                            <li>Number of visits: {numberOfVisits}</li>
+                            <li>Number of CBR visits: {numberOfCBRVisits}</li>
+                            <li>Number of Disability Centre referral visits: {numberOfDCRVisits}</li>
+                            <li>Number of Disability Centre referral follow up visits: {numberOfDCRFUVisits}</li>
+                            <li>Number of wheel chairs: {numberOfWheelChair}</li>
+                        </ul>
+                    </div>
+                    <div>    
+                        <h3>Number of visits per CBR worker:</h3>
+                        <ul>
+                            {
+                                // visitsPerCBRWorker.forEach(element => {
+                                //     <li>Worker name: {element.id}, visits completed: {element.count}</li>
+                                // })
+                                visitsPerCBRWorker.map((item) => {
+                                    console.log("id=" + item.id + "count=" + item.count);
+                                    return <li key={item.id}>Worker name: {item.id}, visits completed: {item.count}</li>
+                                })
+                            }
+                        </ul>
+                    </div>
                 </div>
                 <div>
                 <h1 class="decorated"><span>Stats Per Zone</span></h1>
@@ -197,7 +224,7 @@ class Report extends Component {
                         <div>
                             {
                                 this.state.isLoading ? LOADING :
-                                <CanvasJSChart options = {healthChartOptions} 
+                                <CanvasJSChart options = {LOADING_CHART_OPTIONS} 
                                     onRef = {ref => this.chart = ref}
                                 />
                             }

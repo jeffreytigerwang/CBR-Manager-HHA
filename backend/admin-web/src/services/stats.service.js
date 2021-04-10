@@ -14,13 +14,35 @@ class StatsDataService {
   }
 
   async getNumberOfVisitsPerCBRWorker() {
-    const request = await http.get(`/visits`).catch(err => {
+    const requestVisits = await http.get(`/visits`).catch(err => {
+      console.log(err);
+    })
+    const requestUsers = await http.get(`/users`).catch(err => {
       console.log(err);
     })
     
-    const data = jsonAggregate.create(JSON.stringify(request.data));
-    var sum = 0;
+    const usersData = jsonAggregate.create(JSON.stringify(requestUsers.data));
+    const visitsData = jsonAggregate.create(JSON.stringify(requestVisits.data));
+    
+    var visitsPerCBRWorker = visitsData.group({
+      id: "workerName",
+      count: { $sum: 1 }
+    }).exec();
 
+    usersData.data.forEach(users => {
+      var isUserInVisits = false;
+      var usersWorkerName = users.firstName + " " + users.lastName;
+      visitsPerCBRWorker.forEach(visits => {
+        if (usersWorkerName === visits.id) {
+          isUserInVisits = true;
+        }
+      });
+      if (!isUserInVisits) {
+        visitsPerCBRWorker.push({id: usersWorkerName, count: 0});
+      }
+    });
+    
+    return visitsPerCBRWorker;
   }
 
   async getRisks() {

@@ -12,7 +12,6 @@ import com.example.cbr.models.ClientHealthAspect;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ClientSocialAspect;
 import com.example.cbr.models.ReferralInfo;
-import com.example.cbr.models.Users;
 import com.example.cbr.models.VisitEducationQuestionSetData;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.models.VisitHealthQuestionSetData;
@@ -63,7 +62,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String createDisability = "CREATE TABLE DISABILITY_TABLE (CLIENT_ID INT, AMPUTEE BOOL, " +
                 "POLIO BOOL, SPINAL_CORD_INJURY BOOL, CEREBRAL_PALSY BOOL, SPINAL_BIFIDA BOOL, " +
                 "HYDROCEPHALUS BOOL, VISUAL_IMPAIRMENT BOOL, HEARING_IMPAIRMENT BOOL, " +
-                "DO_KNOW_KNOW BOOL, OTHER BOOL)";
+                "DO_KNOW_KNOW BOOL, OTHER BOOL, OTHER_DESC TEXT)";
         sqLiteDatabase.execSQL(createDisability);
 
         String createVisits = "CREATE TABLE VISITS_TABLE (CLIENT_ID INT, VISIT_ID INTEGER, " +
@@ -146,21 +145,23 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addDisability(ClientInfo client) {
+    public boolean addDisability(ClientDisability clientDisability) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put("CLIENT_ID", client.getId());
-        cv.put("AMPUTEE", client.isAmputeeDisability());
-        cv.put("POLIO", client.isPolioDisability());
-        cv.put("SPINAL_CORD_INJURY", client.isSpinalCordInjuryDisability());
-        cv.put("CEREBRAL_PALSY", client.isCerebralPalsyDisability());
-        cv.put("SPINAL_BIFIDA", client.isSpinaBifidaDisability());
-        cv.put("HYDROCEPHALUS", client.isHydrocephalusDisability());
-        cv.put("VISUAL_IMPAIRMENT", client.isVisualImpairmentDisability());
-        cv.put("HEARING_IMPAIRMENT", client.isHearingImpairmentDisability());
-        cv.put("DO_NOT_KNOW", client.isDoNotKnowDisability());
-        cv.put("OTHER", client.isOtherDisability());
+        cv.put("CLIENT_ID", clientDisability.getId());
+        cv.put("AMPUTEE", clientDisability.isAmputeeDisability());
+        cv.put("POLIO", clientDisability.isPolioDisability());
+        cv.put("SPINAL_CORD_INJURY", clientDisability.isSpinalCordInjuryDisability());
+        cv.put("CEREBRAL_PALSY", clientDisability.isCerebralPalsyDisability());
+        cv.put("SPINAL_BIFIDA", clientDisability.isSpinaBifidaDisability());
+        cv.put("HYDROCEPHALUS", clientDisability.isHydrocephalusDisability());
+        cv.put("VISUAL_IMPAIRMENT", clientDisability.isVisualImpairmentDisability());
+        cv.put("HEARING_IMPAIRMENT", clientDisability.isHearingImpairmentDisability());
+        cv.put("DO_NOT_KNOW", clientDisability.isDoNotKnowDisability());
+        cv.put("OTHER", clientDisability.isOtherDisability());
+        cv.put("OTHER_DESC", clientDisability.getDescribeOtherDisability());
+
 
         long success = db.insert(DISABILITY_TABLE, null, cv);
         return success != -1;

@@ -13,6 +13,7 @@ public class ClientDisability {
     private boolean hearingImpairmentDisability;
     private boolean doNotKnowDisability;
     private boolean otherDisability;
+    private String describeOtherDisability;
 
 
     public ClientDisability(int id, boolean amputeeDisability, boolean polioDisability, boolean spinalCordInjuryDisability, boolean cerebralPalsyDisability, boolean spinaBifidaDisability,
@@ -117,5 +118,13 @@ public class ClientDisability {
 
     public void setOtherDisability(boolean otherDisability) {
         this.otherDisability = otherDisability;
+    }
+
+    public String getDescribeOtherDisability() {
+        return describeOtherDisability;
+    }
+
+    public void setDescribeOtherDisability(String describeOtherDisability) {
+        this.describeOtherDisability = describeOtherDisability;
     }
 }

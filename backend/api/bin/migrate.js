@@ -722,7 +722,7 @@ async function seedData() {
             gpsLocation: '49.23, -120.00',
             zoneLocation: 'Bidibidi Zone 5',
             villageNumber: 2,
-            dateJoined: '2021-01-15',
+            dateJoined: '08-Apr-2021',
             gender: 'male',
             age: 45,
             contactNumber: '1111111111',

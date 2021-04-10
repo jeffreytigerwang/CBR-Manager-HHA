@@ -166,7 +166,7 @@ class Report extends Component {
 
         return (
             <div>
-                <h1 class="decorated"><span>SWAG</span></h1>
+                <h1 class="decorated"><span>Stats Per CBR Worker</span></h1>
                 <div>
                     <ul>
                         <li>Number of visits: {numberOfVisits}</li>
@@ -175,6 +175,11 @@ class Report extends Component {
                         <li>Number of Disability Centre referral follow up visits: {numberOfDCRFUVisits}</li>
                         <li>Number of wheel chairs: {numberOfWheelChair}</li>
                     </ul>
+                </div>
+                <div>
+                <h1 class="decorated"><span>Stats Per Zone</span></h1>
+                <h1 class="decorated"><span>Stats for settlement as a whole</span></h1>
+                <h1 class="decorated"><span>Risk Level Charts</span></h1>
                 </div>
                 <Grid container spacing={2}>
                     <Grid item sm={12}>

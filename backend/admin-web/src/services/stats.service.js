@@ -13,6 +13,16 @@ class StatsDataService {
       return aggregate;
   }
 
+  async getNumberOfVisitsPerCBRWorker() {
+    const request = await http.get(`/visits`).catch(err => {
+      console.log(err);
+    })
+    
+    const data = jsonAggregate.create(JSON.stringify(request.data));
+    var sum = 0;
+
+  }
+
   async getRisks() {
 
       function calcPercentage(obj) {

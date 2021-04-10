@@ -3,6 +3,8 @@ package com.example.cbr.models;
 import java.util.Date;
 
 public class Messages {
+
+    private int id;
     private int userId;
     private String firstName;
     private String lastName;
@@ -10,15 +12,25 @@ public class Messages {
     private Date postDate;
     private Integer img;
 
-    public Messages(int userId, String firstName, String lastName, String message, Date postDate) {
+    public Messages(int id, int userId, String firstName, String lastName, String message, Date postDate, Integer img) {
+        this.id = id;
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.message = message;
         this.postDate = postDate;
+        this.img = img;
     }
 
     public Messages() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getUserId() {

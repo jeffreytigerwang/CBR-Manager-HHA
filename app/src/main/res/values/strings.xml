@@ -190,7 +190,6 @@
     <string name="last_visit_message">\Last Visit: %1$s\</string>
 
 
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="priority_list">Priority List</string>
     <string name="outstanding_referrals">Outstanding Referrals</string>
@@ -244,6 +243,11 @@
     <string name="chat">Chat</string>
     <string name="send_you_discussion_today">send you discussion today....</string>
     <string name="send">Send</string>
+    <string name="cbrWorkerIntent_userId">userId</string>
+    <string name="cbrWorkerIntent_iconIdx">iconIdx</string>
+    <string name="cbrWorkerIntent_message">message</string>
+    <string name="cbrWorkerIntent_postDate">postDate</string>
+    <string name="cbrWorkerIntent_noData">There is no data</string>
     <string name="location_service">Location Service</string>
     <string name="location_settings_message">If location was turned on, then location service should automatically fill in the GPS location field on the next launch of this page.</string>
     <string name="permission_change">Permission change</string>

@@ -28,9 +28,10 @@ public class MapInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
     private void renderWindow(Marker marker, View view) throws IOException {
         String markerTitle = marker.getTitle();
         System.out.println(markerTitle);
-        ClientInfo clientInfo = clientInfoManager.findClientByName(markerTitle);
 
-        if (clientInfo != null){
+        if (clientInfoManager.findClientByName(markerTitle) != null){
+            ClientInfo clientInfo = clientInfoManager.findClientByName(markerTitle);
+
             TextView name = view.findViewById(R.id.info_textView_clientName);
             name.setText(clientInfo.getFullName());
 
@@ -40,7 +41,6 @@ public class MapInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
             TextView lastVisit = view.findViewById(R.id.info_textView_clientLastVisit);
             lastVisit.setText(clientInfoManager.getDateOfLastVisit(clientInfo));
         }
-
     }
 
     @Override
@@ -50,11 +50,17 @@ public class MapInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
 
     @Override
     public View getInfoContents(Marker marker) {
-        try {
-            renderWindow(marker, window);
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        if (clientInfoManager.findClientByName(marker.getTitle()) != null){
+            try {
+                renderWindow(marker, window);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return window;
         }
-        return window;
+        else{
+            return null;
+        }
     }
 }

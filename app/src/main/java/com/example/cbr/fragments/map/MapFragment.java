@@ -143,14 +143,14 @@ public class MapFragment extends BaseFragment implements MapContract.View {
                 location.addOnCompleteListener(new OnCompleteListener<Location>() {
                     @Override
                     public void onComplete(@NonNull Task task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful() && task.getResult() != null){
                             Log.d(TAG, "onComplete: found location!");
                             Location currentLocation = (Location) task.getResult();
                             moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                     DEFAULT_ZOOM, "My Location");
                         }
                         else{
-                            Log.d(TAG, "conComplete: current location is null.");
+                            Log.d(TAG, "onComplete: current location is null.");
                             Toast.makeText(getContext(), "Unable to get current location",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -168,12 +168,12 @@ public class MapFragment extends BaseFragment implements MapContract.View {
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
-//        if(!title.equals("My Location")){
-//            MarkerOptions options = new MarkerOptions()
-//                    .position(latLng)
-//                    .title(title);
-//            mMap.addMarker(options);
-//        }
+        if(!title.equals("My Location")){
+            MarkerOptions options = new MarkerOptions()
+                    .position(latLng)
+                    .title(title);
+            mMap.addMarker(options);
+        }
 
     }
 

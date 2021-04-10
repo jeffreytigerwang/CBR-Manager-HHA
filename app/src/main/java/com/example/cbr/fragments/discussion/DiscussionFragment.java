@@ -1,5 +1,6 @@
 package com.example.cbr.fragments.discussion;
 
+import android.net.http.SslCertificate;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -54,6 +56,12 @@ public class DiscussionFragment extends Fragment {
 
     private DiscussionAdapter adapter;
 
+    private HashMap<Integer, Integer> iconCountMap;
+    private int iconCounter = 0;
+    private int iconIdx = 0;
+
+    private final int SIZE_OF_ICON = 6;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -75,6 +83,8 @@ public class DiscussionFragment extends Fragment {
 
         messagesArrayList = new ArrayList<>();
         imgDrawableId = new ArrayList<>();
+        iconCountMap = new HashMap<>();
+
         setImgDrawableId();
 
         try {
@@ -146,11 +156,28 @@ public class DiscussionFragment extends Fragment {
 
         Date currentDate = Calendar.getInstance().getTime();
 
-        int imgIndex = 0;
-        for (int i = 0; i < messagesList.size(); i++, imgIndex++) {
-            if (imgIndex == imgDrawableId.size()) imgIndex = imgDrawableId.size() - 1;
+        for (int i = 0; i < messagesList.size(); i++) {
+
+            int picId = messagesList.get(i).getUserId();
+
+            if (iconCountMap.containsKey(picId)) {
+                iconIdx = iconCountMap.get(picId);
+            }
+            else {
+                if (iconCounter <= SIZE_OF_ICON-1) {
+                    iconCountMap.put(picId, iconCounter);
+                    iconIdx = iconCounter;
+                    iconCounter++;
+                }
+                else {
+                    iconIdx = SIZE_OF_ICON-1;
+                }
+            }
+
             Messages newMessage = new Messages();
-            newMessage.setImg(imgDrawableId.get(imgIndex));
+
+            newMessage.setUserId(messagesList.get(i).getUserId());
+            newMessage.setImg(imgDrawableId.get(iconIdx));
             newMessage.setFirstName(messagesList.get(i).getFirstName());
             newMessage.setLastName(messagesList.get(i).getLastName());
             newMessage.setMessage(messagesList.get(i).getMessage());
@@ -180,7 +207,23 @@ public class DiscussionFragment extends Fragment {
         message.setPostDate(currentDate);
 
         this.newRefreshMessage = message;
-        newRefreshMessage.setImg(R.drawable.discussion_sample_avatar_6);
+
+        int newIdx = 0;
+        if (iconCountMap.size() == 0) {
+            newIdx = 0;
+        }
+        else {
+            if (iconCountMap.containsKey(user.getId())) {
+                newIdx = iconCountMap.get(user.getId()) <= SIZE_OF_ICON-1 ?
+                    iconCountMap.get(user.getId()) : SIZE_OF_ICON-1;
+            } else {
+                newIdx = Math.min(iconCountMap.size(), SIZE_OF_ICON - 1);
+            }
+        }
+
+
+
+        newRefreshMessage.setImg(imgDrawableId.get(newIdx));
 
         Call<Messages> call = jsonPlaceHolderApi.createMessages(message);
 

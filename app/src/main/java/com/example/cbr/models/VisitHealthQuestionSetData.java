@@ -20,6 +20,9 @@ public class VisitHealthQuestionSetData {
     private boolean isHealthAdviceChecked;
     private boolean isHealthAdvocacyChecked;
     private boolean isHealthEncouragementChecked;
+    private boolean isGoalCancelled;
+    private boolean isGoalOngoing;
+    private boolean isGoalConcluded;
     private String wheelChairDesc;
     private String prostheticDesc;
     private String orthoticDesc;
@@ -41,7 +44,6 @@ public class VisitHealthQuestionSetData {
         this.healthAdvocacyDesc = "";
         this.healthEncouragementDesc = "";
         this.healthOutcomeDesc = "";
-        this.healthGoalStatus = "";
     }
 
     public List<String> getEmptyQuestions() {
@@ -55,7 +57,7 @@ public class VisitHealthQuestionSetData {
                 || isHealthAdviceChecked
                 || isHealthAdvocacyChecked
                 || isHealthEncouragementChecked;
-        boolean isQuestionNineEmpty = healthGoalStatus.isEmpty();
+        boolean isQuestionNineChecked = isGoalCancelled || isGoalConcluded || isGoalOngoing;
 
         boolean isWheelChairDescEmpty = wheelChairDesc.isEmpty();
         boolean isProstheticDescEmpty = prostheticDesc.isEmpty();
@@ -80,10 +82,34 @@ public class VisitHealthQuestionSetData {
         } else if (missingDesc) {
             questionNumbers.add("8.");
         }
-        if (isQuestionNineEmpty) {
+        if (!isQuestionNineChecked) {
             questionNumbers.add("9.");
         }
         return questionNumbers;
+    }
+
+    public void resetData() {
+        isWheelChairChecked = false;
+        isProstheticChecked = false;
+        isOrthoticChecked = false;
+        isWheelChairRepairChecked = false;
+        isReferralToHCChecked = false;
+        isHealthAdviceChecked = false;
+        isHealthAdvocacyChecked = false;
+        isHealthEncouragementChecked = false;
+        isGoalCancelled = false;
+        isGoalOngoing = false;
+        isGoalConcluded = false;
+        wheelChairDesc = "";
+        prostheticDesc = "";
+        orthoticDesc = "";
+        wheelChairRepairDesc = "";
+        referralToHCDesc = "";
+        healthAdviceDesc = "";
+        healthAdvocacyDesc = "";
+        healthEncouragementDesc = "";
+        healthOutcomeDesc = "";
+        healthGoalStatus = "";
     }
 
     public Integer getClientId() {
@@ -236,6 +262,30 @@ public class VisitHealthQuestionSetData {
 
     public void setHealthOutcomeDesc(String healthOutcomeDesc) {
         this.healthOutcomeDesc = healthOutcomeDesc;
+    }
+
+    public boolean isGoalCancelled() {
+        return isGoalCancelled;
+    }
+
+    public void setGoalCancelled(boolean goalCancelled) {
+        isGoalCancelled = goalCancelled;
+    }
+
+    public boolean isGoalOngoing() {
+        return isGoalOngoing;
+    }
+
+    public void setGoalOngoing(boolean goalOngoing) {
+        isGoalOngoing = goalOngoing;
+    }
+
+    public boolean isGoalConcluded() {
+        return isGoalConcluded;
+    }
+
+    public void setGoalConcluded(boolean goalConcluded) {
+        isGoalConcluded = goalConcluded;
     }
 
     public String getHealthGoalStatus() {

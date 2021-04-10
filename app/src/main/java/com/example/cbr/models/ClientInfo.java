@@ -10,14 +10,17 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ClientInfo implements Serializable, Comparable<ClientInfo>{
+    private double nullCoordinateHandler = 300;
     private Integer clientId;
+    private double latitude;
+    private double longitude;
+    private String dateJoined;
     private boolean consentToInterview;
     private String firstName;
     private String lastName;
     private Integer age;
     private String gender;
     private String contactNumber;
-    private String dateJoined;
     private String gpsLocation;
     private String gpsLatitude;
     private String gpsLongitude;
@@ -126,7 +129,28 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         this.rateSocialStatus = rateSocialStatus;
         this.describeSocialStatus = describeSocialStatus;
         this.setGoalForSocialStatus = setGoalForSocialStatus;
+
+        this.latitude = getLatitude();
+        this.longitude = getLongitude();
         overallRisk = 0;
+    }
+
+    public double getLatitude() {
+        if (getGpsLocation()!= null && !getGpsLocation().trim().isEmpty()){
+            String[] coordinates = getGpsLocation().split("[\\s,]+");
+            return Double.parseDouble(coordinates[0]);
+        }
+
+        return nullCoordinateHandler;
+    }
+
+    public double getLongitude() {
+        if (getGpsLocation()!= null && !getGpsLocation().trim().isEmpty()){
+            String[] coordinates = getGpsLocation().split("[\\s,]+");
+            return Double.parseDouble(coordinates[1]);
+        }
+
+        return nullCoordinateHandler;
     }
 
     public Integer getClientId() {
@@ -495,6 +519,9 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         @Override
         public int compare(ClientInfo clientInfo, ClientInfo t1) {
             return clientInfo.getClientId().compareTo(t1.getClientId());
+            Integer clientInfoInt = Integer.parseInt(clientInfo.getId());
+            Integer t1Int = Integer.parseInt(t1.getId());
+            return clientInfoInt.compareTo(t1Int);
         }
     };
 
@@ -502,6 +529,9 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         @Override
         public int compare(ClientInfo clientInfo, ClientInfo t1) {
             return t1.getClientId().compareTo(clientInfo.getClientId());
+            Integer clientInfoInt = Integer.parseInt(clientInfo.getId());
+            Integer t1Int = Integer.parseInt(t1.getId());
+            return t1Int.compareTo(clientInfoInt);
         }
     };
 

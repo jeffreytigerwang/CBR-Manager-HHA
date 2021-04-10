@@ -37,6 +37,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.CheckBoxViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.CheckBoxWithDescriptionViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.ClickableViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DoubleTextViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.EditTextViewContainer;
@@ -46,6 +47,7 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Radi
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.RecordPhotoViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SingleTextViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SpinnerViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.UnchangeableEditTextViewContainer;
 import com.example.cbr.util.StringsUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -57,6 +59,7 @@ import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CHECK_BOX_VIEW_TYPE;
+import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CHECK_BOX_WITH_DESCRIPTION_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CLICKABLE_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.DIVIDER_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.DOUBLE_TEXT_VIEW_TYPE;
@@ -66,6 +69,7 @@ import static com.example.cbr.adapters.questioninfoadapters.questiondatacontaine
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.RADIO_GROUP_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.SINGLE_TEXT_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.SPINNER_VIEW_TYPE;
+import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.UNCHANGEABLE_EDIT_TEXT_VIEW_TYPE;
 import static com.example.cbr.util.Constants.CAMERA_PERMISSION_CODE;
 import static com.example.cbr.util.Constants.CAMERA_REQUEST_CODE;
 
@@ -126,6 +130,10 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 return new SpinnerViewHolder(layoutInflater.inflate(R.layout.recyclerview_spinner, parent, false));
             case CHECK_BOX_VIEW_TYPE:
                 return new CheckBoxViewHolder(layoutInflater.inflate(R.layout.recyclerview_checkbox, parent, false));
+            case CHECK_BOX_WITH_DESCRIPTION_VIEW_TYPE:
+                return new CheckBoxWithDescriptionViewHolder(layoutInflater.inflate(R.layout.recyclerview_checkbox_with_description, parent, false));
+            case UNCHANGEABLE_EDIT_TEXT_VIEW_TYPE:
+                return new UnchangeableEditTextViewHolder(layoutInflater.inflate(R.layout.recyclerview_unchangeable_edit_text, parent, false));
             case PHOTO_VIEW_TYPE:
                 return new RecordPhotoViewHolder(layoutInflater.inflate(R.layout.recyclerview_photo, parent, false));
         }
@@ -160,8 +168,15 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case CHECK_BOX_VIEW_TYPE:
                 ((CheckBoxViewHolder) holder).bind((CheckBoxViewContainer) questionDataContainerList.get(position));
                 break;
+            case CHECK_BOX_WITH_DESCRIPTION_VIEW_TYPE:
+                ((CheckBoxWithDescriptionViewHolder) holder).bind((CheckBoxWithDescriptionViewContainer) questionDataContainerList.get(position));
+                break;
+            case UNCHANGEABLE_EDIT_TEXT_VIEW_TYPE:
+                ((UnchangeableEditTextViewHolder) holder).bind((UnchangeableEditTextViewContainer) questionDataContainerList.get(position));
+                break;
             case PHOTO_VIEW_TYPE:
                 ((RecordPhotoViewHolder) holder).bind(((RecordPhotoViewContainer) questionDataContainerList.get(position)));
+                break;
         }
     }
 
@@ -266,6 +281,8 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public void bind(final EditTextViewContainer editTextViewHolderData) {
             textView.setText(editTextViewHolderData.getQuestionText());
+            textView.setTextSize(editTextViewHolderData.getQuestionTextSizeSp());
+            editText.setHint(editTextViewHolderData.getHintText());
             editText.setInputType(editTextViewHolderData.getInputType());
 
             if (editText.getText().toString().isEmpty()) {
@@ -351,6 +368,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public void bind(final SpinnerViewContainer spinnerViewHolderData) {
             textView.setText(spinnerViewHolderData.getQuestionText());
+            textView.setTextSize(spinnerViewHolderData.getQuestionTextSizeSp());
             ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, spinnerViewHolderData.getOptionsList());
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
@@ -395,6 +413,70 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     onDataChanged(getLayoutPosition(), checkBoxViewContainer);
                 }
             });
+        }
+    }
+
+    private class CheckBoxWithDescriptionViewHolder extends RecyclerView.ViewHolder {
+        private final CheckBox checkBox;
+        private final EditText editText;
+
+        public CheckBoxWithDescriptionViewHolder(@NonNull View itemView) {
+            super(itemView);
+            checkBox = itemView.findViewById(R.id.recyclerview_checkBox_with_description);
+            editText = itemView.findViewById(R.id.recyclerview_editText);
+        }
+
+        public void bind(final CheckBoxWithDescriptionViewContainer viewContainer) {
+            checkBox.setText(viewContainer.getCheckBoxText());
+            editText.setHint(viewContainer.getEditTextHint());
+            editText.setInputType(viewContainer.getInputType());
+
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    viewContainer.setChecked(isChecked);
+                    if (isChecked) {
+                        editText.setVisibility(View.VISIBLE);
+                    } else {
+                        editText.setVisibility(View.GONE);
+                    }
+                    onDataChanged(getLayoutPosition(), viewContainer);
+                }
+            });
+            editText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    viewContainer.setUserInput(s.toString());
+                    onDataChanged(getLayoutPosition(), viewContainer);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+        }
+    }
+
+    private class UnchangeableEditTextViewHolder extends RecyclerView.ViewHolder {
+        private final TextView textView;
+        private final EditText editText;
+
+        public UnchangeableEditTextViewHolder(@NonNull View itemView) {
+            super(itemView);
+            textView = itemView.findViewById(R.id.recyclerview_dateQuestionTextView);
+            editText = itemView.findViewById(R.id.recyclerview_dateEditText);
+        }
+
+        public void bind(final UnchangeableEditTextViewContainer viewContainer) {
+            textView.setText(viewContainer.getQuestionText());
+            textView.setTextSize(viewContainer.getQuestionTextSizeSp());
+            editText.setText(viewContainer.getTextEditText());
         }
     }
 

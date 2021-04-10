@@ -31,6 +31,7 @@ import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ClientSocialAspect;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
+import com.example.cbr.util.Constants;
 import com.example.cbr.util.StringsUtil;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -151,16 +152,16 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
     private void generateBasicInfo() {
         final ArrayList<QuestionDataContainer> basicInfoList = new ArrayList<>();
         basicInfoList.add(new HeaderViewContainer(getString(R.string.basic_info)));
-        basicInfoList.add(new EditTextViewContainer(getString(R.string.first_name), null, getString(R.string.first_name), InputType.TYPE_CLASS_TEXT));
-        basicInfoList.add(new EditTextViewContainer(getString(R.string.last_name), null, getString(R.string.last_name), InputType.TYPE_CLASS_TEXT));
-        basicInfoList.add(new EditTextViewContainer(getString(R.string.age), null, getString(R.string.age), InputType.TYPE_CLASS_NUMBER));
+        basicInfoList.add(new EditTextViewContainer(getString(R.string.first_name), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.first_name), InputType.TYPE_CLASS_TEXT));
+        basicInfoList.add(new EditTextViewContainer(getString(R.string.last_name), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.last_name), InputType.TYPE_CLASS_TEXT));
+        basicInfoList.add(new EditTextViewContainer(getString(R.string.age), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.age), InputType.TYPE_CLASS_NUMBER));
         List<RadioGroupViewContainer.RadioGroupListItem> genderOptions = new ArrayList<>();
         genderOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.male), false, View.generateViewId()));
         genderOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.female), false, View.generateViewId()));
         basicInfoList.add(new RadioGroupViewContainer(getString(R.string.gender), true, genderOptions));
-        basicInfoList.add(new EditTextViewContainer(getString(R.string.contact_number), null, getString(R.string.contact_number), InputType.TYPE_CLASS_NUMBER));
+        basicInfoList.add(new EditTextViewContainer(getString(R.string.contact_number), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,null, getString(R.string.contact_number), InputType.TYPE_CLASS_NUMBER));
         String dateJoined = StringsUtil.dateToUKFormat(new Date());
-        basicInfoList.add(new EditTextViewContainer(getString(R.string.date), dateJoined, getString(R.string.date), InputType.TYPE_CLASS_DATETIME));
+        basicInfoList.add(new EditTextViewContainer(getString(R.string.date), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, dateJoined, getString(R.string.date), InputType.TYPE_CLASS_DATETIME));
         clientInfo.setDateJoined(dateJoined);
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
@@ -205,12 +206,12 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         final ArrayList<QuestionDataContainer> locationInfoList = new ArrayList<>();
         locationInfoList.add(new HeaderViewContainer(getString(R.string.location_info)));
         locationInfoList.add(new SingleTextViewContainer(getString(R.string.gps_location), 20));
-        locationInfoList.add(new EditTextViewContainer(getString(R.string.latitude), null, getString(R.string.latitude), InputType.TYPE_CLASS_TEXT));
-        locationInfoList.add(new EditTextViewContainer(getString(R.string.longitude), null, getString(R.string.longitude), InputType.TYPE_CLASS_TEXT));
+        locationInfoList.add(new EditTextViewContainer(getString(R.string.latitude), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.latitude), InputType.TYPE_CLASS_TEXT));
+        locationInfoList.add(new EditTextViewContainer(getString(R.string.longitude), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.longitude), InputType.TYPE_CLASS_TEXT));
         List<String> zoneOptions = new ArrayList<>(
                 Arrays.asList(getResources().getStringArray(R.array.zone_locations_array)));
-        locationInfoList.add(new SpinnerViewContainer(getString(R.string.zone_location), zoneOptions));
-        locationInfoList.add(new EditTextViewContainer(getString(R.string.village_number), null, getString(R.string.village_number), InputType.TYPE_CLASS_NUMBER));
+        locationInfoList.add(new SpinnerViewContainer(getString(R.string.zone_location), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, zoneOptions));
+        locationInfoList.add(new EditTextViewContainer(getString(R.string.village_number), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.village_number), InputType.TYPE_CLASS_NUMBER));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
@@ -250,9 +251,9 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         final ArrayList<QuestionDataContainer> caregiverInfoList = new ArrayList<>();
         caregiverInfoList.add(new HeaderViewContainer(getString(R.string.caregiver_info)));
         caregiverInfoList.add(new CheckBoxViewContainer(getString(R.string.caregiver_present_for_interview)));
-        caregiverInfoList.add(new EditTextViewContainer(getString(R.string.caregiver_first_name), null, getString(R.string.caregiver_first_name), InputType.TYPE_CLASS_TEXT));
-        caregiverInfoList.add(new EditTextViewContainer(getString(R.string.caregiver_last_name), null, getString(R.string.caregiver_last_name), InputType.TYPE_CLASS_TEXT));
-        caregiverInfoList.add(new EditTextViewContainer(getString(R.string.caregiver_contact_number), null, getString(R.string.caregiver_contact_number), InputType.TYPE_CLASS_NUMBER));
+        caregiverInfoList.add(new EditTextViewContainer(getString(R.string.caregiver_first_name), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,null, getString(R.string.caregiver_first_name), InputType.TYPE_CLASS_TEXT));
+        caregiverInfoList.add(new EditTextViewContainer(getString(R.string.caregiver_last_name), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,null, getString(R.string.caregiver_last_name), InputType.TYPE_CLASS_TEXT));
+        caregiverInfoList.add(new EditTextViewContainer(getString(R.string.caregiver_contact_number), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,null, getString(R.string.caregiver_contact_number), InputType.TYPE_CLASS_NUMBER));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
@@ -317,7 +318,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         disablityTypeList.add(new CheckBoxViewContainer(getString(R.string.hearing_impairment)));
         disablityTypeList.add(new CheckBoxViewContainer(getString(R.string.don_t_know)));
         disablityTypeList.add(new CheckBoxViewContainer(getString(R.string.other)));
-        disablityTypeList.add(new EditTextViewContainer(getString(R.string.other_option), null, getString(R.string.other), InputType.TYPE_CLASS_TEXT));
+        disablityTypeList.add(new EditTextViewContainer(getString(R.string.other_option), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,null, getString(R.string.other), InputType.TYPE_CLASS_TEXT));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
@@ -368,9 +369,9 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         healthList.add(new HeaderViewContainer(getString(R.string.health)));
         List<String> ratingOptions = new ArrayList<>(
                 Arrays.asList(getResources().getStringArray(R.array.client_ratings_array)));
-        healthList.add(new SpinnerViewContainer(getString(R.string.please_rate_how_you_consider_the_client_s_health_to_be), ratingOptions));
-        healthList.add(new EditTextViewContainer(getString(R.string.please_describe_what_they_require), null, "Describe what they require", InputType.TYPE_CLASS_TEXT));
-        healthList.add(new EditTextViewContainer(getString(R.string.set_individual_goal), null, getString(R.string.set_individual_goal), InputType.TYPE_CLASS_TEXT));
+        healthList.add(new SpinnerViewContainer(getString(R.string.please_rate_how_you_consider_the_client_s_health_to_be), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, ratingOptions));
+        healthList.add(new EditTextViewContainer(getString(R.string.please_describe_what_they_require), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,null, "Describe what they require", InputType.TYPE_CLASS_TEXT));
+        healthList.add(new EditTextViewContainer(getString(R.string.set_individual_goal), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.set_individual_goal), InputType.TYPE_CLASS_TEXT));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
@@ -401,9 +402,9 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         educationList.add(new HeaderViewContainer(getString(R.string.education)));
         List<String> clientRatings = new ArrayList<>(
                 Arrays.asList(getResources().getStringArray(R.array.client_ratings_array)));
-        educationList.add(new SpinnerViewContainer(getString(R.string.please_rate_how_you_consider_the_client_s_education_status_to_be), clientRatings));
-        educationList.add(new EditTextViewContainer(getString(R.string.please_describe_what_they_require), null, getString(R.string.please_describe_what_they_require), InputType.TYPE_CLASS_TEXT));
-        educationList.add(new EditTextViewContainer(getString(R.string.set_individual_goal), null, getString(R.string.set_individual_goal), InputType.TYPE_CLASS_TEXT));
+        educationList.add(new SpinnerViewContainer(getString(R.string.please_rate_how_you_consider_the_client_s_education_status_to_be), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, clientRatings));
+        educationList.add(new EditTextViewContainer(getString(R.string.please_describe_what_they_require), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.please_describe_what_they_require), InputType.TYPE_CLASS_TEXT));
+        educationList.add(new EditTextViewContainer(getString(R.string.set_individual_goal), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,null, getString(R.string.set_individual_goal), InputType.TYPE_CLASS_TEXT));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
@@ -434,9 +435,9 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         socialStatusList.add(new HeaderViewContainer(getString(R.string.social_status)));
         List<String> clientRatings = new ArrayList<>(
                 Arrays.asList(getResources().getStringArray(R.array.client_ratings_array)));
-        socialStatusList.add(new SpinnerViewContainer(getString(R.string.please_rate_how_you_consider_the_client_s_social_status_to_be), clientRatings));
-        socialStatusList.add(new EditTextViewContainer(getString(R.string.please_describe_what_they_require),null, getString(R.string.please_describe_what_they_require), InputType.TYPE_CLASS_TEXT));
-        socialStatusList.add(new EditTextViewContainer(getString(R.string.set_individual_goal),null, getString(R.string.set_individual_goal), InputType.TYPE_CLASS_TEXT));
+        socialStatusList.add(new SpinnerViewContainer(getString(R.string.please_rate_how_you_consider_the_client_s_social_status_to_be), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, clientRatings));
+        socialStatusList.add(new EditTextViewContainer(getString(R.string.please_describe_what_they_require), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,null, getString(R.string.please_describe_what_they_require), InputType.TYPE_CLASS_TEXT));
+        socialStatusList.add(new EditTextViewContainer(getString(R.string.set_individual_goal), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP,null, getString(R.string.set_individual_goal), InputType.TYPE_CLASS_TEXT));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override

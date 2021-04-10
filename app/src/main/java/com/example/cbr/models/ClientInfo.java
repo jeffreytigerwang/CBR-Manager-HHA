@@ -519,9 +519,6 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         @Override
         public int compare(ClientInfo clientInfo, ClientInfo t1) {
             return clientInfo.getClientId().compareTo(t1.getClientId());
-            Integer clientInfoInt = Integer.parseInt(clientInfo.getId());
-            Integer t1Int = Integer.parseInt(t1.getId());
-            return clientInfoInt.compareTo(t1Int);
         }
     };
 
@@ -529,9 +526,6 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         @Override
         public int compare(ClientInfo clientInfo, ClientInfo t1) {
             return t1.getClientId().compareTo(clientInfo.getClientId());
-            Integer clientInfoInt = Integer.parseInt(clientInfo.getId());
-            Integer t1Int = Integer.parseInt(t1.getId());
-            return t1Int.compareTo(clientInfoInt);
         }
     };
 

@@ -107,11 +107,11 @@ public class MapFragment extends BaseFragment implements MapContract.View {
                     for (ClientInfo clientInfo : arrayListNullGuard(clientInfoManager.getClientInfoArrayList())){
 
                         // Handle null
-                        if (clientInfo.getLatitude() == nullCoordinateHandler || clientInfo.getLongitude() == nullCoordinateHandler){
+                        if (clientInfo.getClientLatitude() == nullCoordinateHandler || clientInfo.getClientLongitude() == nullCoordinateHandler){
                             continue;
                         }
 
-                        tempMarker = new LatLng(clientInfo.getLatitude(), clientInfo.getLongitude());
+                        tempMarker = new LatLng(clientInfo.getClientLatitude(), clientInfo.getClientLongitude());
                         mMap.addMarker(new MarkerOptions().position(tempMarker).title(clientInfo.getFullName()));
                     }
 

@@ -259,5 +259,7 @@
     <string name="social_question_record_cancelled">Social Question Cancelled. No network connection or may be too slow</string>
     <string name="retrofit_call_fail">Record fail! No network connection or may be too slow</string>
     <string name="baseline_survey">Baseline Survey</string>
+    <string name="are_you_over_sixteen">Are you over 16?</string>
+    <string name="are_you_under_eighteen">Are you under 18?</string>
 
 </resources>

@@ -6,10 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.cbr.R;
 import com.example.cbr.adapters.questioninfoadapters.QuestionsFragmentPagerAdapter;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.CheckBoxViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
 import com.example.cbr.databinding.FragmentBaselinesurveyBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
@@ -85,7 +87,27 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
     }
 
     private void generateMainPage() {
+        final ArrayList<QuestionDataContainer> mainPageList = new ArrayList<>();
+        mainPageList.add(new CheckBoxViewContainer(getString(R.string.are_you_over_sixteen)));
+        mainPageList.add(new CheckBoxViewContainer(getString(R.string.are_you_under_eighteen)));
 
+        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+            @Override
+            public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+                if (questionDataContainer instanceof CheckBoxViewContainer) {
+                    String questionText = ((CheckBoxViewContainer) questionDataContainer).getQuestionText();
+                    boolean isChecked = ((CheckBoxViewContainer) questionDataContainer).isChecked();
+
+                    if (questionText.equals(getString(R.string.are_you_over_sixteen))) {
+                        setPageActive(PAGES.LIVELIHOOD.ordinal(), isChecked);
+                    } else if (questionText.equals(getString(R.string.are_you_under_eighteen))) {
+                        setPageActive(PAGES.EDUCATION.ordinal(), isChecked);
+                    }
+                }
+            }
+        };
+
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(mainPageList, true, onViewPagerChangedListener));
     }
 
     private void generateEducation() {
@@ -113,10 +135,49 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
     }
 
     private void setupButtons() {
+        binding.baselineSurveyPositiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (binding.baselineSurveyPageViewPager.getCurrentItem() == baselineSurveyFragmentAdapter.getItemCount() - 1) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                    // Database API call
+                }
+                binding.baselineSurveyPageViewPager.setCurrentItem(binding.baselineSurveyPageViewPager.getCurrentItem() + 1);
+            }
+        });
+
+        binding.baselineSurveyPageNegativeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (binding.baselineSurveyPageViewPager.getCurrentItem() == PAGES.MAIN.ordinal()) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                }
+                binding.baselineSurveyPageViewPager.setCurrentItem(binding.baselineSurveyPageViewPager.getCurrentItem() - 1);
+            }
+        });
+
     }
 
     private void updateDisplayInfo(int currentPage) {
+        int numTotalPage = baselineSurveyFragmentAdapter.getItemCount();
+        binding.baselineSurveyPagePageNumberText.setText(getString(R.string.viewpager_page_number, currentPage + 1, numTotalPage));
 
+        if (currentPage == PAGES.MAIN.ordinal()) {
+            binding.baselineSurveyPageNegativeButton.setText(R.string.cancel);
+        } else {
+            binding.baselineSurveyPageNegativeButton.setText(R.string.back);
+        }
+
+        if (currentPage == numTotalPage - 1) {
+            binding.baselineSurveyPositiveButton.setText(R.string.record);
+        } else {
+            binding.baselineSurveyPositiveButton.setText(R.string.next);
+        }
+    }
+
+    private void setPageActive(int page, boolean isActive) {
+        baselineSurveyFragmentAdapter.setPageActive(page, isActive);
+        updateDisplayInfo(binding.baselineSurveyPageViewPager.getCurrentItem());
     }
 
     @Override

@@ -188,19 +188,19 @@ async function seedData() {
             specifyDisability: ''
     });
     seed = await db.health_aspect.create({
-            rateHealth: 'critical risk',
+            rateHealth: 'Critical risk',
             describeHealth: 'Najwa has trouble walking',
             setGoalForHealth: 'Najwa needs a cane or wheelchair',
             clientId: 1234
     });
     seed = await db.education_aspect.create({
-            rateEducation: 'low risk',
+            rateEducation: 'Low risk',
             describeEducation: 'Najwa is well educated',
             setGoalForEducation: 'Read a few more books',
             clientId: 1234
     });
     seed = await db.social_aspect.create({
-            rateSocialStatus: 'low risk',
+            rateSocialStatus: 'Low risk',
             describeSocialStatus: 'Najwa is social',
             setGoalForSocialStatus: 'continue healthy social life',
             clientId: 1234
@@ -346,19 +346,19 @@ async function seedData() {
             specifyDisability: ''
     });
     seed = await db.health_aspect.create({
-            rateHealth: 'high risk',
+            rateHealth: 'High risk',
             describeHealth: 'Cant hear well out of both ears',
             setGoalForHealth: 'Going to help Vashon and his family learn sign language',
             clientId: 1270
     });
     seed = await db.education_aspect.create({
-            rateEducation: 'low risk',
+            rateEducation: 'Low risk',
             describeEducation: 'Vashon is very smart but uninterested in continuing education in his elderly years',
             setGoalForEducation: 'Find game to help him keep his mind healthy',
             clientId: 1270
     });
     seed = await db.social_aspect.create({
-            rateSocialStatus: 'medium risk',
+            rateSocialStatus: 'Medium risk',
             describeSocialStatus: 'Vashon spends a lot of time with his family, but doesnt see other people much \
             as he is hard of hearing',
             setGoalForSocialStatus: 'Help Vashon find other elderly friends',
@@ -504,19 +504,19 @@ async function seedData() {
             specifyDisability: ''
     });
     seed = await db.health_aspect.create({
-            rateHealth: 'medium risk',
+            rateHealth: 'Medium risk',
             describeHealth: 'has been living with complications with awhile, but not much pain',
             setGoalForHealth: 'get her to see a doctor at clinic more often',
             clientId: 1230
     });
     seed = await db.education_aspect.create({
-            rateEducation: 'critical risk',
+            rateEducation: 'Critical risk',
             describeEducation: 'cant read, and needs assistance',
             setGoalForEducation: 'find volunteer to read newspaper once a week',
             clientId: 1230
     });
     seed = await db.social_aspect.create({
-            rateSocialStatus: 'high risk',
+            rateSocialStatus: 'High risk',
             describeSocialStatus: 'Is not close with family, so needs to spend more time in community',
             setGoalForSocialStatus: 'need to find a good club for her to join',
             clientId: 1230
@@ -552,19 +552,19 @@ async function seedData() {
             specifyDisability: ''
     });
     seed = await db.health_aspect.create({
-            rateHealth: 'medium risk',
+            rateHealth: 'Medium risk',
             describeHealth: 'cant see at all, but family helps him',
             setGoalForHealth: 'help find new tools to help him become more independent',
             clientId: 1220
     });
     seed = await db.education_aspect.create({
-            rateEducation: 'low risk',
+            rateEducation: 'Low risk',
             describeEducation: 'used to be a school teacher',
             setGoalForEducation: 'make sure family reads things to him more often',
             clientId: 1220
     });
     seed = await db.social_aspect.create({
-            rateSocialStatus: 'medium risk',
+            rateSocialStatus: 'Medium risk',
             describeSocialStatus: 'socializes with family, but periods pass when he isnt spoken to',
             setGoalForSocialStatus: 'need to speak with family and ensure his needs are met every day',
             clientId: 1220
@@ -600,19 +600,19 @@ async function seedData() {
             specifyDisability: ''
     });
     seed = await db.health_aspect.create({
-            rateHealth: 'low risk',
+            rateHealth: 'Low risk',
             describeHealth: 'healthy for their age',
             setGoalForHealth: 'more vegetables for well rounded diet',
             clientId: 2220
     });
     seed = await db.education_aspect.create({
-            rateEducation: 'low risk',
+            rateEducation: 'Low risk',
             describeEducation: 'very smart',
             setGoalForEducation: 'make sure they read more',
             clientId: 2220
     });
     seed = await db.social_aspect.create({
-            rateSocialStatus: 'medium risk',
+            rateSocialStatus: 'Medium risk',
             describeSocialStatus: 'doesnt have many people to talke to, and has periods of depression',
             setGoalForSocialStatus: 'join our self help groups and socializing events each week',
             clientId: 2220
@@ -647,19 +647,19 @@ async function seedData() {
             specifyDisability: ''
     });
     seed = await db.health_aspect.create({
-            rateHealth: 'low risk',
+            rateHealth: 'Low risk',
             describeHealth: 'healthy for their age',
             setGoalForHealth: 'more vegetables for well rounded diet',
             clientId: 3220
     });
     seed = await db.education_aspect.create({
-            rateEducation: 'low risk',
+            rateEducation: 'Low risk',
             describeEducation: 'very smart',
             setGoalForEducation: 'make sure they read more',
             clientId: 3220
     });
     seed = await db.social_aspect.create({
-            rateSocialStatus: 'medium risk',
+            rateSocialStatus: 'Medium risk',
             describeSocialStatus: 'doesnt have many people to talke to, and has periods of depression',
             setGoalForSocialStatus: 'join our self help groups and socializing events each week',
             clientId: 3220
@@ -696,19 +696,19 @@ async function seedData() {
             specifyDisability: ''
     });
     seed = await db.health_aspect.create({
-            rateHealth: 'low risk',
+            rateHealth: 'Low risk',
             describeHealth: 'healthy for their age',
             setGoalForHealth: 'more vegetables for well rounded diet',
             clientId: 4220
     });
     seed = await db.education_aspect.create({
-            rateEducation: 'low risk',
+            rateEducation: 'Low risk',
             describeEducation: 'very smart',
             setGoalForEducation: 'make sure they read more',
             clientId: 4220
     });
     seed = await db.social_aspect.create({
-            rateSocialStatus: 'medium risk',
+            rateSocialStatus: 'Medium risk',
             describeSocialStatus: 'doesnt have many people to talke to, and has periods of depression',
             setGoalForSocialStatus: 'join our self help groups and socializing events each week',
             clientId: 4220
@@ -744,19 +744,19 @@ async function seedData() {
             specifyDisability: ''
     });
     seed = await db.health_aspect.create({
-            rateHealth: 'low risk',
+            rateHealth: 'Low risk',
             describeHealth: 'healthy for their age',
             setGoalForHealth: 'more vegetables for well rounded diet',
             clientId: 5220
     });
     seed = await db.education_aspect.create({
-            rateEducation: 'low risk',
+            rateEducation: 'Low risk',
             describeEducation: 'very smart',
             setGoalForEducation: 'make sure they read more',
             clientId: 5220
     });
     seed = await db.social_aspect.create({
-            rateSocialStatus: 'medium risk',
+            rateSocialStatus: 'Medium risk',
             describeSocialStatus: 'doesnt have many people to talke to, and has periods of depression',
             setGoalForSocialStatus: 'join our self help groups and socializing events each week',
             clientId: 5220

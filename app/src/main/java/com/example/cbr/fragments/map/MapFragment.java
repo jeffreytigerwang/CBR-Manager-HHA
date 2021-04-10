@@ -60,8 +60,6 @@ public class MapFragment extends BaseFragment implements MapContract.View {
     private MapInfoWindowAdapter mapInfoWindowAdapter;
     private ClientListFragment.ClientListFragmentInterface clientListFragmentInterface;
 
-
-
     // widgets
     private EditText searchText;
     private ImageView gps;
@@ -85,7 +83,6 @@ public class MapFragment extends BaseFragment implements MapContract.View {
         }
     }
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -102,7 +99,6 @@ public class MapFragment extends BaseFragment implements MapContract.View {
 
         return binding.getRoot();
     }
-
 
     private void initMap() {
         Log.d(TAG, "Map is ready.");
@@ -192,7 +188,6 @@ public class MapFragment extends BaseFragment implements MapContract.View {
                     .title(title);
             mMap.addMarker(options);
         }
-
     }
 
     private void getLocationPermission(){
@@ -281,7 +276,6 @@ public class MapFragment extends BaseFragment implements MapContract.View {
             }
         });
     }
-
 
     public static MapFragment newInstance() {
         return new MapFragment();

@@ -1,5 +1,14 @@
 module.exports = (sequelize, Sequelize) => {
     const EducationProgress = sequelize.define("EducationProgress", {
+        isGoalCancelled: {
+            type: Sequelize.BOOLEAN
+        },
+        isGoalOngoing: {
+            type: Sequelize.BOOLEAN
+        },
+        isGoalConcluded: {
+            type: Sequelize.BOOLEAN
+        },
         isEducationAdviceChecked: {
             type: Sequelize.BOOLEAN
         },
@@ -34,7 +43,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER
         },
         visitId: {
-            type: Sequelize.STRING
+            type: Sequelize.INTEGER
         }
 
     });

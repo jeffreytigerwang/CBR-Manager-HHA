@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -33,7 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/id_number" />
+                android:text="@string/id_number"
+                android:layout_marginLeft="4dp" />
 
             <EditText
                 android:id="@+id/newClient_gpsLocationEditText"
@@ -48,7 +50,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="4dp"
-                android:text="@string/location" />
+                android:text="@string/site_location"
+                android:layout_marginLeft="4dp" />
 
             <Spinner
                 android:id="@+id/newClient_locationSpinner"
@@ -92,7 +95,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="4dp"
-                android:text="@string/gender" />
+                android:text="@string/gender"
+                android:layout_marginLeft="4dp" />
 
             <RadioGroup
                 android:id="@+id/newClient_genderRadioGroup"
@@ -156,7 +160,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="4dp"
-                android:text="@string/type_of_disability" />
+                android:text="@string/type_of_disability"
+                android:layout_marginLeft="4dp" />
 
             <CheckBox
                 android:id="@+id/newClient_amputeeDisabilityCheckBox"
@@ -234,7 +239,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="4dp"
-                android:text="@string/please_rate_how_you_consider_the_client_s_health_to_be" />
+                android:text="@string/please_rate_how_you_consider_the_client_s_health_to_be"
+                android:layout_marginLeft="4dp" />
 
             <Spinner
                 android:id="@+id/newClient_rateClientHealthSpinner"
@@ -262,7 +268,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="4dp"
-                android:text="@string/please_rate_how_you_consider_the_client_s_education_status_to_be" />
+                android:text="@string/please_rate_how_you_consider_the_client_s_education_status_to_be"
+                android:layout_marginLeft="4dp" />
 
             <Spinner
                 android:id="@+id/newClient_rateClientEducationSpinner"
@@ -290,7 +297,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="4dp"
-                android:text="@string/please_rate_how_you_consider_the_client_s_social_status_to_be" />
+                android:text="@string/please_rate_how_you_consider_the_client_s_social_status_to_be"
+                android:layout_marginLeft="4dp" />
 
             <Spinner
                 android:id="@+id/newClient_rateClientSocialStatusSpinner"

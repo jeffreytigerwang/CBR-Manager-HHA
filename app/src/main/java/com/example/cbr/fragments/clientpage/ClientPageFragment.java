@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
-import com.example.cbr.activities.NewVisitActivity;
 import com.example.cbr.adapters.questioninfoadapters.InfoAdapter;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.ClickableViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DividerViewContainer;
@@ -97,9 +96,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         binding.clientPageNewVisitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = NewVisitActivity.makeLaunchIntent(getActivity(),
-                        clientInfo);
-                startActivity(intent);
+                clientPageFragmentInterface.swapToNewVisitPage(clientInfo);
             }
         });
 
@@ -127,7 +124,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.consent_to_interview), StringsUtil.boolToText(clientInfo.isConsentToInterview())));
 
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.gps_location), clientInfo.getGpsLocation()));
-        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.location), clientInfo.getZoneLocation()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.site_location), clientInfo.getZoneLocation()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.village_number), clientInfo.getVillageNumber()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.date), clientInfo.getDateJoined()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.first_name), clientInfo.getFirstName()));
@@ -195,6 +192,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
     }
 
     public interface ClientPageFragmentInterface {
+        void swapToNewVisitPage(ClientInfo clientInfo);
         void swapToVisitPage(VisitGeneralQuestionSetData visitGeneralQuestionSetData);
         void swapToReferralPage(ClientInfo clientInfo);
     }

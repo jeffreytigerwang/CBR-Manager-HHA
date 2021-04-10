@@ -1,8 +1,12 @@
 package com.example.cbr.models;
 
-public class Users {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Users implements Parcelable {
     private static Users instance;
 
+    private int id;
     private String firstName;
     private String lastName;
     private String phoneNumber;
@@ -13,6 +17,28 @@ public class Users {
     private Users() {
     }
 
+    protected Users(Parcel in) {
+        id = in.readInt();
+        firstName = in.readString();
+        lastName = in.readString();
+        phoneNumber = in.readString();
+        zones = in.readString();
+        userType = in.readString();
+        password = in.readString();
+    }
+
+    public static final Creator<Users> CREATOR = new Creator<Users>() {
+        @Override
+        public Users createFromParcel(Parcel in) {
+            return new Users(in);
+        }
+
+        @Override
+        public Users[] newArray(int size) {
+            return new Users[size];
+        }
+    };
+
     // Resort to using singleton because it would be hard to
     // trace through the object getting passed around all over the place.
     public static Users getInstance() {
@@ -20,6 +46,14 @@ public class Users {
             instance = new Users();
         }
         return instance;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -71,4 +105,19 @@ public class Users {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(firstName);
+        dest.writeString(lastName);
+        dest.writeString(phoneNumber);
+        dest.writeString(zones);
+        dest.writeString(userType);
+        dest.writeString(password);
+    }
 }

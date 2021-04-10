@@ -26,18 +26,20 @@ import java.lang.ref.WeakReference;
 /**
  * Location service API to handle any location jobs.
  * User must grant permission for the App to use location services before using this API.
- * Client of this API should call {@link LocationUtil#stopUpdateService()} when this service
+ * <p>This service automatically starts the update service upon construction to retrieve
+ * the current location. Thus, clients of this API should call
+ * {@link LocationUtil#stopUpdateService()} when this service
  * is no longer needed to prevent battery drainage.
- * From: https://stackoverflow.com/a/40653111
+ *
+ * <p>From: https://stackoverflow.com/a/40653111
  * */
 
 public class LocationUtil extends Service implements LocationListener {
 
     private final WeakReference<Context> context;
 
-    private static final int MIN_TIME_BETWEEN_UPDATES_MS = 5000;
-    private static final int MIN_DISTANCE_CHANGE_FOR_UPDATES_M = 10;
-
+    private static final int MIN_TIME_BETWEEN_UPDATES_MS = 0;
+    private static final int MIN_DISTANCE_CHANGE_FOR_UPDATES_M = 0;
 
     private boolean isGPSEnabled;
     private boolean isNetworkEnabled;
@@ -82,7 +84,7 @@ public class LocationUtil extends Service implements LocationListener {
             throws CustomExceptions.PermissionNotGranted {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED
-                &&
+                ||
                 ActivityCompat.checkSelfPermission(context,
                 Manifest.permission.ACCESS_COARSE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
@@ -163,6 +165,7 @@ public class LocationUtil extends Service implements LocationListener {
 
     }
 
+    @Deprecated
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
 

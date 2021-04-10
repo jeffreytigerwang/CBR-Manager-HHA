@@ -4,10 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cbr.R;
@@ -19,9 +17,12 @@ import com.example.cbr.fragments.clientpage.ClientPageFragment;
 import com.example.cbr.fragments.home.HomePageFragment;
 import com.example.cbr.fragments.newclient.NewClientFragment;
 import com.example.cbr.fragments.newreferral.NewReferralFragment;
+import com.example.cbr.fragments.newvisit.NewVisitFragment;
 import com.example.cbr.fragments.visitpage.VisitPageFragment;
 import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.Users;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
+import com.example.cbr.util.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -38,11 +39,40 @@ public class HomeActivity extends BaseActivity implements
     private int currentTabPosition;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        restoreUsersInstance(savedInstanceState);
         setupBottomNav();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable(Constants.USERS_PARCEL_KEY, Users.getInstance());
+    }
+
+    private void restoreUsersInstance(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            Users savedUsersInstance = savedInstanceState.getParcelable(Constants.USERS_PARCEL_KEY);
+            Users users = Users.getInstance();
+
+            users.setFirstName(savedUsersInstance.getFirstName());
+            users.setLastName(savedUsersInstance.getLastName());
+            users.setPassword(savedUsersInstance.getPassword());
+            users.setPhoneNumber(savedUsersInstance.getPhoneNumber());
+            users.setUserType(savedUsersInstance.getUserType());
+            users.setId(savedUsersInstance.getId());
+            users.setZones(savedUsersInstance.getZones());
+        }
     }
 
     private void setupBottomNav() {
@@ -64,13 +94,15 @@ public class HomeActivity extends BaseActivity implements
                     case HomeFragmentPagerAdapter.LIST_POSITION:
                         bottomNavigationView.getMenu().findItem(R.id.bottomMenuClientList).setChecked(true);
                         break;
-                    case HomeFragmentPagerAdapter.DISCUSSION_POSITION:
-                        bottomNavigationView.getMenu().findItem(R.id.bottomMenuDiscussion).setChecked(true);
+                    case HomeFragmentPagerAdapter.MAP_POSITION:
+                        bottomNavigationView.getMenu().findItem(R.id.bottomMenuMap).setChecked(true);
                         break;
-                    case HomeFragmentPagerAdapter.NOTIFICATION_POSITION:
-                        bottomNavigationView.getMenu().findItem(R.id.bottomMenuNotification).setChecked(true);
+                    case HomeFragmentPagerAdapter.DISCUSSION_POSITION:
+                        bottomNavigationView.getMenu().findItem(R.id.bottomMenuChat).setChecked(true);
                         break;
                 }
+
+                viewPager.setUserInputEnabled(position != HomeFragmentPagerAdapter.MAP_POSITION);
             }
         });
 
@@ -90,12 +122,12 @@ public class HomeActivity extends BaseActivity implements
                                 currentTabPosition = HomeFragmentPagerAdapter.LIST_POSITION;
                                 break;
 
-                            case R.id.bottomMenuDiscussion:
-                                currentTabPosition = HomeFragmentPagerAdapter.DISCUSSION_POSITION;
+                            case R.id.bottomMenuMap:
+                                currentTabPosition = HomeFragmentPagerAdapter.MAP_POSITION;
                                 break;
 
-                            case R.id.bottomMenuNotification:
-                                currentTabPosition = HomeFragmentPagerAdapter.NOTIFICATION_POSITION;
+                            case R.id.bottomMenuChat:
+                                currentTabPosition = HomeFragmentPagerAdapter.DISCUSSION_POSITION;
                                 break;
                         }
 
@@ -111,25 +143,37 @@ public class HomeActivity extends BaseActivity implements
     @Override
     public void swapToClientPage(ClientInfo clientInfo) {
         ClientPageFragment clientPageFragment = ClientPageFragment.newInstance(clientInfo);
-        addFragment(R.id.homeFragmentContainer, clientPageFragment, ClientPageFragment.getFragmentTag());
+        addFragmentWithAnimation(R.id.homeFragmentContainer, clientPageFragment,
+                ClientPageFragment.getFragmentTag());
+    }
+
+    @Override
+    public void swapToNewVisitPage(ClientInfo clientInfo) {
+        NewVisitFragment newVisitFragment = NewVisitFragment.newInstance(clientInfo);
+        addFragmentWithAnimation(R.id.homeFragmentContainer, newVisitFragment,
+                NewVisitFragment.getFragmentTag()
+        );
     }
 
     @Override
     public void swapToVisitPage(VisitGeneralQuestionSetData visitGeneralQuestionSetData) {
         VisitPageFragment visitPageFragment = VisitPageFragment.newInstance(visitGeneralQuestionSetData);
-        addFragment(R.id.homeFragmentContainer, visitPageFragment, VisitPageFragment.getFragmentTag());
+        addFragmentWithAnimation(R.id.homeFragmentContainer, visitPageFragment,
+                VisitPageFragment.getFragmentTag());
     }
 
     @Override
     public void swapToReferralPage(ClientInfo clientInfo) {
         NewReferralFragment newReferralFragment = NewReferralFragment.newInstance(clientInfo);
-        addFragment(R.id.homeFragmentContainer, newReferralFragment, NewReferralFragment.getFragmentTag());
+        addFragmentWithAnimation(R.id.homeFragmentContainer, newReferralFragment,
+                NewReferralFragment.getFragmentTag());
     }
 
     @Override
     public void swapToNewClient() {
         NewClientFragment newClientFragment = NewClientFragment.newInstance();
-        addFragment(R.id.homeFragmentContainer, newClientFragment, NewClientFragment.getFragmentTag());
+        addFragmentWithAnimation(R.id.homeFragmentContainer, newClientFragment,
+                NewClientFragment.getFragmentTag());
     }
 
     @Override

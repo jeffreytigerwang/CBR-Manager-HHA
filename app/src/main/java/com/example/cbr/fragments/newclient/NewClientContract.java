@@ -12,7 +12,5 @@ public interface NewClientContract {
     }
 
     interface View extends BaseView<Presenter> {
-
-
     }
 }

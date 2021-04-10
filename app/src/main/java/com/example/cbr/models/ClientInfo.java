@@ -8,10 +8,15 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ClientInfo implements Serializable, Comparable<ClientInfo>{
+    private double nullCoordinateHandler = 300;
+
     private Boolean consentToInterview;
 
     private Integer clientId;
     private String gpsLocation;
+    private double latitude;
+    private double longitude;
+
     private String zoneLocation;
     private String villageNumber;
     private String dateJoined;
@@ -116,7 +121,28 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         this.rateSocialStatus = rateSocialStatus;
         this.describeSocialStatus = describeSocialStatus;
         this.setGoalForSocialStatus = setGoalForSocialStatus;
+
+        this.latitude = getLatitude();
+        this.longitude = getLongitude();
         overallRisk = 0;
+    }
+
+    public double getLatitude() {
+        if (getGpsLocation()!= null && !getGpsLocation().trim().isEmpty()){
+            String[] coordinates = getGpsLocation().split("[\\s,]+");
+            return Double.parseDouble(coordinates[0]);
+        }
+
+        return nullCoordinateHandler;
+    }
+
+    public double getLongitude() {
+        if (getGpsLocation()!= null && !getGpsLocation().trim().isEmpty()){
+            String[] coordinates = getGpsLocation().split("[\\s,]+");
+            return Double.parseDouble(coordinates[1]);
+        }
+
+        return nullCoordinateHandler;
     }
 
     public Integer getClientId() {
@@ -460,14 +486,18 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     public static final Comparator<ClientInfo> BY_ID_ASCENDING = new Comparator<ClientInfo>() {
         @Override
         public int compare(ClientInfo clientInfo, ClientInfo t1) {
-            return clientInfo.getId().compareTo(t1.getId());
+            Integer clientInfoInt = Integer.parseInt(clientInfo.getId());
+            Integer t1Int = Integer.parseInt(t1.getId());
+            return clientInfoInt.compareTo(t1Int);
         }
     };
 
     public static final Comparator<ClientInfo> BY_ID_DESCENDING = new Comparator<ClientInfo>() {
         @Override
         public int compare(ClientInfo clientInfo, ClientInfo t1) {
-            return t1.getId().compareTo(clientInfo.getId());
+            Integer clientInfoInt = Integer.parseInt(clientInfo.getId());
+            Integer t1Int = Integer.parseInt(t1.getId());
+            return t1Int.compareTo(clientInfoInt);
         }
     };
 

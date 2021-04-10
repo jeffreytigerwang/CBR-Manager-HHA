@@ -12,6 +12,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
+import java.io.IOException;
+
 public class MapInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
     private Context context;
     private final View window;
@@ -23,8 +25,9 @@ public class MapInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
         clientInfoManager = ClientInfoManager.getInstance();
     }
 
-    private void renderWindow(Marker marker, View view){
+    private void renderWindow(Marker marker, View view) throws IOException {
         String markerTitle = marker.getTitle();
+        System.out.println(markerTitle);
         ClientInfo clientInfo = clientInfoManager.findClientByName(markerTitle);
 
         if (clientInfo != null){
@@ -35,19 +38,23 @@ public class MapInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
             id.setText(clientInfo.getId());
 
             TextView lastVisit = view.findViewById(R.id.info_textView_clientLastVisit);
-            lastVisit.setText(R.string.dummy_data_last_vist2);
+            lastVisit.setText(clientInfoManager.getDateOfLastVisit(clientInfo));
         }
+
     }
 
     @Override
     public View getInfoWindow(Marker marker) {
-        renderWindow(marker, window);
-        return window;
+        return null;
     }
 
     @Override
     public View getInfoContents(Marker marker) {
-        renderWindow(marker, window);
+        try {
+            renderWindow(marker, window);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return window;
     }
 }

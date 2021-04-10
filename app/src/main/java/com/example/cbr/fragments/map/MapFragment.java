@@ -104,10 +104,6 @@ public class MapFragment extends BaseFragment implements MapContract.View {
                     mapInfoWindowAdapter = new MapInfoWindowAdapter(getContext());
                     mMap.setInfoWindowAdapter(mapInfoWindowAdapter);
 
-                    // Add a marker in Uganda and move the camera
-                    LatLng uganda = new LatLng(1.3733, 32.2903);
-                    mMap.addMarker(new MarkerOptions().position(uganda).title(getString(R.string.marker_in_Uganda)));
-
                     for (ClientInfo clientInfo : arrayListNullGuard(clientInfoManager.getClientInfoArrayList())){
 
                         // Handle null
@@ -172,12 +168,12 @@ public class MapFragment extends BaseFragment implements MapContract.View {
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
-        if(!title.equals("My Location")){
-            MarkerOptions options = new MarkerOptions()
-                    .position(latLng)
-                    .title(title);
-            mMap.addMarker(options);
-        }
+//        if(!title.equals("My Location")){
+//            MarkerOptions options = new MarkerOptions()
+//                    .position(latLng)
+//                    .title(title);
+//            mMap.addMarker(options);
+//        }
 
     }
 

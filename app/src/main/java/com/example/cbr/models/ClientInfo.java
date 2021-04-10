@@ -8,7 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ClientInfo implements Serializable, Comparable<ClientInfo>{
-    private double nullCoordinateHandler = 300;
+    private static final double nullCoordinateHandler = 300;
 
     private Boolean consentToInterview;
 
@@ -122,12 +122,12 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         this.describeSocialStatus = describeSocialStatus;
         this.setGoalForSocialStatus = setGoalForSocialStatus;
 
-        this.latitude = getLatitude();
-        this.longitude = getLongitude();
+        this.latitude = getClientLatitude();
+        this.longitude = getClientLongitude();
         overallRisk = 0;
     }
 
-    public double getLatitude() {
+    public double getClientLatitude() {
         if (getGpsLocation()!= null && !getGpsLocation().trim().isEmpty()){
             String[] coordinates = getGpsLocation().split("[\\s,]+");
             return Double.parseDouble(coordinates[0]);
@@ -136,7 +136,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         return nullCoordinateHandler;
     }
 
-    public double getLongitude() {
+    public double getClientLongitude() {
         if (getGpsLocation()!= null && !getGpsLocation().trim().isEmpty()){
             String[] coordinates = getGpsLocation().split("[\\s,]+");
             return Double.parseDouble(coordinates[1]);

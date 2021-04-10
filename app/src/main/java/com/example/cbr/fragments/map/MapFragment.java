@@ -1,6 +1,7 @@
 package com.example.cbr.fragments.map;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -24,8 +25,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.cbr.R;
+import com.example.cbr.adapters.MapInfoWindowAdapter;
 import com.example.cbr.databinding.FragmentMapBinding;
 import com.example.cbr.fragments.base.BaseFragment;
+import com.example.cbr.fragments.clientlist.ClientListFragment;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ClientInfoManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -35,6 +38,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -53,7 +57,8 @@ public class MapFragment extends BaseFragment implements MapContract.View {
     private ArrayList<ClientInfo> clientInfoArrayList;
     private ClientInfoManager clientInfoManager;
     private LatLng tempMarker;
-
+    private MapInfoWindowAdapter mapInfoWindowAdapter;
+    private ClientListFragment.ClientListFragmentInterface clientListFragmentInterface;
 
     // widgets
     private EditText searchText;
@@ -67,6 +72,16 @@ public class MapFragment extends BaseFragment implements MapContract.View {
     private static final String TAG = "MapFragment";
     private static final double nullCoordinateHandler = 300;
 
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            clientListFragmentInterface = (ClientListFragment.ClientListFragmentInterface) context;
+        } catch (ClassCastException e) {
+            Log.e(getFragmentTag(), "Activity should implement ClientListFragmentInterface");
+        }
+    }
 
     @Nullable
     @Override
@@ -85,7 +100,6 @@ public class MapFragment extends BaseFragment implements MapContract.View {
         return binding.getRoot();
     }
 
-
     private void initMap() {
         Log.d(TAG, "Map is ready.");
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
@@ -99,18 +113,19 @@ public class MapFragment extends BaseFragment implements MapContract.View {
                 if (locationPermissionsGranted){
                     getDeviceLocation();
 
-                    // Add a marker in Uganda and move the camera
-                    LatLng uganda = new LatLng(1.3733, 32.2903);
-                    mMap.addMarker(new MarkerOptions().position(uganda).title(getString(R.string.marker_in_Uganda)));
+                    mapInfoWindowAdapter = new MapInfoWindowAdapter(getContext());
+                    mMap.setInfoWindowAdapter(mapInfoWindowAdapter);
+
+                    registerClickCallback();
 
                     for (ClientInfo clientInfo : arrayListNullGuard(clientInfoManager.getClientInfoArrayList())){
 
                         // Handle null
-                        if (clientInfo.getLatitude() == nullCoordinateHandler || clientInfo.getLongitude() == nullCoordinateHandler){
+                        if (clientInfo.getClientLatitude() == nullCoordinateHandler || clientInfo.getClientLongitude() == nullCoordinateHandler){
                             continue;
                         }
 
-                        tempMarker = new LatLng(clientInfo.getLatitude(), clientInfo.getLongitude());
+                        tempMarker = new LatLng(clientInfo.getClientLatitude(), clientInfo.getClientLongitude());
                         mMap.addMarker(new MarkerOptions().position(tempMarker).title(clientInfo.getFullName()));
                     }
 
@@ -142,14 +157,14 @@ public class MapFragment extends BaseFragment implements MapContract.View {
                 location.addOnCompleteListener(new OnCompleteListener<Location>() {
                     @Override
                     public void onComplete(@NonNull Task task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful() && task.getResult() != null){
                             Log.d(TAG, "onComplete: found location!");
                             Location currentLocation = (Location) task.getResult();
                             moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                     DEFAULT_ZOOM, "My Location");
                         }
                         else{
-                            Log.d(TAG, "conComplete: current location is null.");
+                            Log.d(TAG, "onComplete: current location is null.");
                             Toast.makeText(getContext(), "Unable to get current location",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -173,9 +188,7 @@ public class MapFragment extends BaseFragment implements MapContract.View {
                     .title(title);
             mMap.addMarker(options);
         }
-
     }
-
 
     private void getLocationPermission(){
         Log.d(TAG, "getLocationPermission: getting location permissions.");
@@ -251,6 +264,18 @@ public class MapFragment extends BaseFragment implements MapContract.View {
         }
     }
 
+    private void registerClickCallback(){
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                String clientName = marker.getTitle();
+                if (clientInfoManager.findClientByName(clientName) != null){
+                    ClientInfo clientInfo = clientInfoManager.findClientByName(clientName);
+                    clientListFragmentInterface.swapToClientPage(clientInfo);
+                }
+            }
+        });
+    }
 
     public static MapFragment newInstance() {
         return new MapFragment();
@@ -259,8 +284,6 @@ public class MapFragment extends BaseFragment implements MapContract.View {
     public static String getFragmentTag() {
         return MapFragment.class.getSimpleName();
     }
-
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

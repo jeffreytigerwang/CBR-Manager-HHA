@@ -205,9 +205,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
     private void generateLocationInfo() {
         final ArrayList<QuestionDataContainer> locationInfoList = new ArrayList<>();
         locationInfoList.add(new HeaderViewContainer(getString(R.string.location_info)));
-        locationInfoList.add(new SingleTextViewContainer(getString(R.string.gps_location), 20));
-        locationInfoList.add(new EditTextViewContainer(getString(R.string.latitude), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.latitude), InputType.TYPE_CLASS_TEXT));
-        locationInfoList.add(new EditTextViewContainer(getString(R.string.longitude), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.longitude), InputType.TYPE_CLASS_TEXT));
+        locationInfoList.add(new EditTextViewContainer(getString(R.string.gps_location), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.gps_location), InputType.TYPE_CLASS_TEXT));
         List<String> zoneOptions = new ArrayList<>(
                 Arrays.asList(getResources().getStringArray(R.array.zone_locations_array)));
         locationInfoList.add(new SpinnerViewContainer(getString(R.string.zone_location), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, zoneOptions));
@@ -220,11 +218,9 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                     String questionText = ((EditTextViewContainer) locationInfoList.get(positionChanged)).getQuestionText();
                     String userInput = ((EditTextViewContainer) locationInfoList.get(positionChanged)).getUserInput();
 
-                    if (questionText.equals(getString(R.string.latitude))) {
-                        clientInfo.setGpsLatitude(userInput);
-                    } else if (questionText.equals(getString(R.string.longitude))) {
-                        clientInfo.setGpsLongitude((userInput));
-                    } else {
+                    if (questionText.equals(getString(R.string.gps_location))) {
+                        clientInfo.setGpsLocation(userInput);
+                    } else if (questionText.equals(getString(R.string.village_number))) {
                         // If the user enters a number then deletes it, the app will crash
                         if (userInput != null) {
                             if (userInput.equals("")) {
@@ -549,8 +545,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         final String lastName = clientInfo.getLastName();
         final Integer age = clientInfo.getAge();
         final String gender = clientInfo.getGender();
-        final String gpsLatitude = clientInfo.getGpsLatitude();
-        final String gpsLongitude = clientInfo.getGpsLongitude();
+        final String gpsLocation = clientInfo.getGpsLocation();
         final Integer villageNumber = clientInfo.getVillageNumber();
         final boolean isCaregiverPresent = clientInfo.getCaregiverPresentForInterview();
         final String caregiverFirstName = clientInfo.getCaregiverFirstName();
@@ -587,18 +582,14 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         }
 
         // Error checking for the Location Info page
-        if (gpsLatitude != null || gpsLongitude != null) {
-            if (isStringFieldNull(gpsLatitude, getString(R.string.latitude_cannot_be_empty)) ||
-                isStringFieldNull(gpsLongitude, getString(R.string.longitude_cannot_be_empty)) ||
-                isInvalidGpsCoordinate(gpsLatitude, getString(R.string.latitude_not_entered_properly)) ||
-                isInvalidGpsCoordinate(gpsLongitude, getString(R.string.longitude_not_entered_properly)))
-            {
+        if (gpsLocation != null) {
+            String[] coordinates = gpsLocation.split("[\\s,]+");
+            if (coordinates.length != 2 ||
+                isInvalidGpsCoordinate(coordinates[0]) ||
+                isInvalidGpsCoordinate(coordinates[1])) {
+                showOkDialog(getString(R.string.missing_fields), getString(R.string.invalid_gps_coordinate), null);
                 return false;
             }
-
-            clientInfo.setGpsLocation(gpsLatitude + ", " + gpsLongitude);
-            System.out.println(clientInfo.getGpsLocation());
-            return true;
         }
 
         if (villageNumber == null) {
@@ -654,19 +645,17 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         return false;
     }
 
-    // Use Regex to see if the Gps coordinates entered by the user are valid
-    // Example of valid Gps coordinates: 80.0123, 40, -34.034
-    private boolean isInvalidGpsCoordinate(String coordinate, String message) {
+    // Use Regex to see if the Gps location entered by the user is valid
+    // Example of valid Gps coordinate: "80.0123, -34.034"
+    private boolean isInvalidGpsCoordinate(String coordinate) {
         String gpsPattern = "^-?[0-9]{1,3}(?:\\.[0-9]{1,10})?$";
         Pattern p = Pattern.compile(gpsPattern);
         Matcher m = p.matcher(coordinate);
 
         if (m.find()) {
             return false;
-        } else {
-            showOkDialog(getString(R.string.invalid_gps_coordinate), message, null);
-            return true;
         }
+        return true;
     }
 
     private void updateDisplayInfo(int currentPage) {

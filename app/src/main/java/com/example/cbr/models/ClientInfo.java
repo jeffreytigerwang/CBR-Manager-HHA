@@ -22,8 +22,6 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     private String gender;
     private String contactNumber;
     private String gpsLocation;
-    private String gpsLatitude;
-    private String gpsLongitude;
     private String zoneLocation;
     private Integer villageNumber;
     private boolean caregiverPresentForInterview;
@@ -478,22 +476,6 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
 
     public void setPhoto(byte[] photo) {
         this.photo = photo;
-    }
-
-    public String getGpsLatitude() {
-        return gpsLatitude;
-    }
-
-    public void setGpsLatitude(String gpsLatitude) {
-        this.gpsLatitude = gpsLatitude;
-    }
-
-    public String getGpsLongitude() {
-        return gpsLongitude;
-    }
-
-    public void setGpsLongitude(String gpsLongitude) {
-        this.gpsLongitude = gpsLongitude;
     }
 
     @Override

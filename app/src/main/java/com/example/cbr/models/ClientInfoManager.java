@@ -26,7 +26,6 @@ public class ClientInfoManager implements Iterable<ClientInfo>{
     private ArrayList<ClientInfo> clientInfoArrayList;
 
 
-
     private void getClientsInfo() throws IOException {
         Call<List<ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
 
@@ -84,6 +83,15 @@ public class ClientInfoManager implements Iterable<ClientInfo>{
             clientInfoArrayList.set(i, clientInfo);
         }
 
+    }
+
+    public ClientInfo findClientByName(String name){
+        for (ClientInfo clientInfo : clientInfoArrayList){
+            if (clientInfo.getFullName().equals(name)){
+                return clientInfo;
+            }
+        }
+        return null;
     }
 
     /*

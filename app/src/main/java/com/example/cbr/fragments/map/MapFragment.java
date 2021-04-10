@@ -24,6 +24,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.cbr.R;
+import com.example.cbr.adapters.MapInfoWindowAdapter;
 import com.example.cbr.databinding.FragmentMapBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.models.ClientInfo;
@@ -53,6 +54,7 @@ public class MapFragment extends BaseFragment implements MapContract.View {
     private ArrayList<ClientInfo> clientInfoArrayList;
     private ClientInfoManager clientInfoManager;
     private LatLng tempMarker;
+    private MapInfoWindowAdapter mapInfoWindowAdapter;
 
 
     // widgets
@@ -98,6 +100,9 @@ public class MapFragment extends BaseFragment implements MapContract.View {
 
                 if (locationPermissionsGranted){
                     getDeviceLocation();
+
+                    mapInfoWindowAdapter = new MapInfoWindowAdapter(getContext());
+                    mMap.setInfoWindowAdapter(mapInfoWindowAdapter);
 
                     // Add a marker in Uganda and move the camera
                     LatLng uganda = new LatLng(1.3733, 32.2903);

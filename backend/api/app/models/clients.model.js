@@ -19,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER
         },
         dateJoined: {
-            type: Sequelize.DATE
+            type: Sequelize.STRING
         },
         gender: {
             type: Sequelize.STRING
@@ -30,11 +30,17 @@ module.exports = (sequelize, Sequelize) => {
         contactNumber: {
             type: Sequelize.STRING
         },
+        caregiverFirstName: {
+            type: Sequelize.STRING
+        },
+        caregiverLastName: {
+            type: Sequelize.STRING
+        },
         caregiverPresentForInterview: {
             type: Sequelize.BOOLEAN
         },
         caregiverContactNumber: {
-            type: Sequelize.INTEGER
+            type: Sequelize.STRING
         },
         photo: {
             type: Sequelize.BLOB('long')

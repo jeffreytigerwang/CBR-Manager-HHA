@@ -8,29 +8,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/recyclerview_text"
+        android:id="@+id/recyclerview_dateQuestionTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/recyclerview_edittext"
-        tools:text="question text" />
+        app:layout_constraintBottom_toTopOf="@id/recyclerview_dateEditText"
+        tools:text="@string/placeholder_text" />
 
     <EditText
-        android:id="@+id/recyclerview_edittext"
+        android:id="@+id/recyclerview_dateEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:textSize="24sp"
-        android:imeOptions="actionDone"
+        android:layout_marginTop="8dp"
+        android:textSize="20sp"
+        android:enabled="false"
+        android:clickable="false"
+        android:background="@color/lightGrey"
+        android:inputType="date"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recyclerview_text"
+        app:layout_constraintTop_toBottomOf="@id/recyclerview_dateQuestionTextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:text="question input" />
+        android:hint="@string/dd_mm_yyyy" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

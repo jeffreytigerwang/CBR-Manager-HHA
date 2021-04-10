@@ -296,7 +296,6 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                         clientInfo.setPhoto(stream.toByteArray());
-                        byte[] client = clientInfo.getPhoto();
                     }
                 }
             }

@@ -13,6 +13,49 @@ class StatsDataService {
       return aggregate;
   }
 
+  async getDisabilityStats() {
+      const data = await http.get(`/disability`)
+      .catch(err => { console.log(err); });
+      const json = JSON.stringify(data.data);
+      const aggregate = jsonAggregate.create(json);
+      console.log('data: ');
+      console.log(aggregate);
+
+      var amputeeDisabilityCount = aggregate.match({ amputeeDisability: true }).exec().length;
+      var polioDisabilityCount = aggregate.match({ polioDisability: true }).exec().length;
+      var spinalCordInjuryDisabilityCount = aggregate.match({ spinalCordInjuryDisability: true }).exec().length;
+      var cerebralPalsyDisabilityCount = aggregate.match({ cerebralPalsyDisability: true }).exec().length;
+      var spinaBifidaDisabilityCount = aggregate.match({ spinaBifidaDisability: true }).exec().length;
+      var hydrocephalusDisabilityCount = aggregate.match({ hydrocephalusDisability: true }).exec().length;
+      var visualImpairmentDisabilityCount = aggregate.match({ visualImpairmentDisability: true }).exec().length;
+      var hearingImpairmentDisabilityCount = aggregate.match({ hearingImpairmentDisability: true }).exec().length;
+      var doNotKnowDisabilityCount = aggregate.match({ doNotKnowDisability: true }).exec().length;
+      var otherDisabilityCount = aggregate.match({ otherDisability: true }).exec().length;
+
+      const allDisabilityCounts = {
+      amputeeDisability: amputeeDisabilityCount,
+      polioDisability: polioDisabilityCount,
+      spinalCordInjuryDisability: spinalCordInjuryDisabilityCount,
+      cerebralPalsyDisability: cerebralPalsyDisabilityCount,
+      spinaBifidaDisability: spinaBifidaDisabilityCount,
+      hydrocephalusDisability: hydrocephalusDisabilityCount,
+      visualImpairmentDisability: visualImpairmentDisabilityCount,
+      hearingImpairmentDisability: hearingImpairmentDisabilityCount,
+      doNotKnowDisability: doNotKnowDisabilityCount,
+      otherDisability: otherDisabilityCount
+      };
+
+      const zoneDisabilityCounts = {};
+      const statsData = {allDisabilityCounts: allDisabilityCounts,
+                         zoneDisabilityCounts: zoneDisabilityCounts};
+
+      console.log('aggregated to: ');
+      console.log(statsData);
+
+      return statsData;
+
+  }
+
   async getNumberOfVisitsPerCBRWorker() {
     const requestVisits = await http.get(`/visits`).catch(err => {
       console.log(err);
@@ -20,10 +63,10 @@ class StatsDataService {
     const requestUsers = await http.get(`/users`).catch(err => {
       console.log(err);
     })
-    
+
     const usersData = jsonAggregate.create(JSON.stringify(requestUsers.data));
     const visitsData = jsonAggregate.create(JSON.stringify(requestVisits.data));
-    
+
     var visitsPerCBRWorker = visitsData.group({
       id: "workerName",
       count: { $sum: 1 }
@@ -41,7 +84,7 @@ class StatsDataService {
         visitsPerCBRWorker.push({id: usersWorkerName, count: 0});
       }
     });
-    
+
     return visitsPerCBRWorker;
   }
 
@@ -259,8 +302,8 @@ class StatsDataService {
       const allRiskData = getAllAspectRiskStats(allRiskDataRaw);
       statsObj.allRisk = allRiskData;
 
-      console.log('aggregated to: ');
-      console.log(statsObj);
+      //console.log('aggregated to: ');
+      //console.log(statsObj);
 
 
       return statsObj;

@@ -8,18 +8,19 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="408dp"
-        android:layout_height="421dp"
+        android:layout_width="412dp"
+        android:layout_height="667dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cbrWorker_cardView"
-            android:layout_width="416dp"
-            android:layout_height="wrap_content"
+            android:layout_width="413dp"
+            android:layout_height="663dp"
             app:cardBackgroundColor="@color/cbrLightGreen"
             app:cardElevation="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,32 +35,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="sans-serif"
                     android:text="Post Date: "
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/cbrWorker_message"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cbrWorker_phoneNumer" />
+                    app:layout_constraintTop_toBottomOf="@+id/cbrWorker_userType" />
 
                 <TextView
                     android:id="@+id/cbrWorker_message"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
-                    android:layout_marginTop="52dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="159dp"
                     android:fontFamily="sans-serif"
                     android:text="Message: "
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cbrWorker_phoneNumer" />
+                    app:layout_constraintTop_toBottomOf="@+id/cbrWorker_postDate" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/cbrWorker_icon"
@@ -123,6 +127,7 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/cbrWorker_userType"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -133,12 +138,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="sans-serif"
                     android:text="User Type: "
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/cbrWorker_postDate"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"

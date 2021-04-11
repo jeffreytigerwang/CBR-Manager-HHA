@@ -50,10 +50,10 @@ export default function DataTable(data) {
                 {
                   data.headers.map((header, index) => {
                     return (index === 0 ?
-                      <TableCell className={classes.tableHeader}>
+                      <TableCell key={header} className={classes.tableHeader}>
                         {header}
                       </TableCell> : 
-                      <TableCell className={classes.tableHeader} align="right">
+                      <TableCell key={header} className={classes.tableHeader} align="right">
                         {header}
                       </TableCell>)
                   })

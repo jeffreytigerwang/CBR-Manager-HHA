@@ -29,7 +29,8 @@ class Statistics extends Component {
             socialRiskStats: [],
             visitsPerCBRWorker: [],
             allDisabilityCounts: [],
-            zoneDisabilityCounts: [],
+            bidibidiDisabilityCounts: [],
+            palorinyaDisabilityCounts: [],
         };
     }
 
@@ -49,7 +50,8 @@ class Statistics extends Component {
                 this.setState({
                     isLoading: false,
                     allDisabilityCounts: response.allDisabilityCounts,
-                    zoneDisabilityCounts: response.zoneDisabilityCounts,
+                    bidibidiDisabilityCounts: response.bidibidiDisabilityCounts,
+                    palorinyaDisabilityCounts: response.palorinyaDisabilityCounts,
                 });
             })
             .catch(e => {
@@ -171,7 +173,8 @@ class Statistics extends Component {
         const { visitsPerCBRWorker } = this.state;
 
         const { allDisabilityCounts } = this.state;
-        const { zoneDisabilityCounts } = this.state;
+        const { bidibidiDisabilityCounts } = this.state;
+        const { palorinyaDisabilityCounts } = this.state;
         // Bug: when trying to access arrays or any data that
         // requires API calls here, you get TypeError.
         // React Lesson: You need to add condition because
@@ -231,10 +234,12 @@ class Statistics extends Component {
             <div>
                 <div>
                     <h1 className="decorated"><span>General Statistics</span></h1>
+                    <div>
                         {
                             !generalVisitData.length ? LOADING :
-                            <DataTable data={counts} headers={["Visits check list", "Count"]}></DataTable>
+                            <DataTable data={counts} headers={["Visits check list", "#Of times checked"]}></DataTable>
                         }
+                    </div>
                     <h1 className="decorated"><span>Stats Per CBR Worker</span></h1>
                     <div>
                         {
@@ -244,9 +249,38 @@ class Statistics extends Component {
                     </div>
                 </div>
                 <div>
-                <h1 className="decorated"><span>Stats Per Zone</span></h1>
-                <h1 className="decorated"><span>Stats for settlement as a whole</span></h1>
-                <h1 className="decorated"><span>Risk Level Charts</span></h1>
+                <div>
+                    <h1 className="decorated"><span>Stats Per Zone</span></h1>
+                </div>
+                <div>
+                    <h1 className="decorated"><span>Stats for settlement as a whole</span></h1>
+                    <span>
+                        <Grid container spacing={2}>
+                            <Grid item sm>
+                                {
+                                    !allDisabilityCounts.length ? LOADING :
+                                    <DataTable data={allDisabilityCounts} headers={["Disabilities", "#Of times checked"]}></DataTable>
+                                }
+                            </Grid>
+                            <Grid item sm>
+                                {
+                                    !bidibidiDisabilityCounts.length ? LOADING :
+                                    <DataTable data={bidibidiDisabilityCounts} headers={["Disabilities", "#Of times checked"]}></DataTable>
+                                }
+                            </Grid>
+                            <Grid item sm>
+                                {
+                                    !palorinyaDisabilityCounts.length ? LOADING :
+                                    <DataTable data={palorinyaDisabilityCounts} headers={["Disabilities", "#Of times checked"]}></DataTable>
+                                }
+                            </Grid>
+                        </Grid>
+                    </span>
+                </div>
+                <div>
+                    <h1 className="decorated"><span>Risk Level Charts</span></h1>
+
+                </div>
                 </div>
                 <Grid container spacing={2}>
                     <Grid item sm={12}>

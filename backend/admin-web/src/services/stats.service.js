@@ -182,18 +182,18 @@ class StatsDataService {
           var doNotKnowDisabilityCount = aggregate.match({ zone: 'Bidibidi', doNotKnowDisability: true }).exec().length;
           var otherDisabilityCount = aggregate.match({ zone: 'Bidibidi', otherDisability: true }).exec().length;
 
-          const disabilityCounts = {
-          0: { id: 'amputeeDisability', count: amputeeDisabilityCount },
-          1: { id: 'polioDisability', count: polioDisabilityCount },
-          2: { id: 'spinalCordInjuryDisability', count: spinalCordInjuryDisabilityCount },
-          3: { id: 'cerebralPalsyDisability', count: cerebralPalsyDisabilityCount },
-          4: { id: 'spinaBifidaDisability', count: spinaBifidaDisabilityCount },
-          5: { id: 'hydrocephalusDisability', count: hydrocephalusDisabilityCount },
-          6: { id: 'visualImpairmentDisability', count: visualImpairmentDisabilityCount },
-          7: { id: 'hearingImpairmentDisability', count: hearingImpairmentDisabilityCount },
-          9: { id: 'doNotKnowDisability', count: doNotKnowDisabilityCount },
-          0: { id: 'otherDisability', count: otherDisabilityCount }
-          };
+          const disabilityCounts = [
+          { id: 'amputeeDisability', count: amputeeDisabilityCount },
+          { id: 'polioDisability', count: polioDisabilityCount },
+          { id: 'spinalCordInjuryDisability', count: spinalCordInjuryDisabilityCount },
+          { id: 'cerebralPalsyDisability', count: cerebralPalsyDisabilityCount },
+          { id: 'spinaBifidaDisability', count: spinaBifidaDisabilityCount },
+          { id: 'hydrocephalusDisability', count: hydrocephalusDisabilityCount },
+          { id: 'visualImpairmentDisability', count: visualImpairmentDisabilityCount },
+          { id: 'hearingImpairmentDisability', count: hearingImpairmentDisabilityCount },
+          { id: 'doNotKnowDisability', count: doNotKnowDisabilityCount },
+          { id: 'otherDisability', count: otherDisabilityCount }
+          ];
 
           return disabilityCounts;
       }
@@ -210,18 +210,18 @@ class StatsDataService {
           var doNotKnowDisabilityCount = aggregate.match({ zone: 'Palorinya', doNotKnowDisability: true }).exec().length;
           var otherDisabilityCount = aggregate.match({ zone: 'Palorinya', otherDisability: true }).exec().length;
 
-          const disabilityCounts = {
-          0: { id: 'amputeeDisability', count: amputeeDisabilityCount },
-          1: { id: 'polioDisability', count: polioDisabilityCount },
-          2: { id: 'spinalCordInjuryDisability', count: spinalCordInjuryDisabilityCount },
-          3: { id: 'cerebralPalsyDisability', count: cerebralPalsyDisabilityCount },
-          4: { id: 'spinaBifidaDisability', count: spinaBifidaDisabilityCount },
-          5: { id: 'hydrocephalusDisability', count: hydrocephalusDisabilityCount },
-          6: { id: 'visualImpairmentDisability', count: visualImpairmentDisabilityCount },
-          7: { id: 'hearingImpairmentDisability', count: hearingImpairmentDisabilityCount },
-          9: { id: 'doNotKnowDisability', count: doNotKnowDisabilityCount },
-          0: { id: 'otherDisability', count: otherDisabilityCount }
-          };
+          const disabilityCounts = [
+          { id: 'amputeeDisability', count: amputeeDisabilityCount },
+          { id: 'polioDisability', count: polioDisabilityCount },
+          { id: 'spinalCordInjuryDisability', count: spinalCordInjuryDisabilityCount },
+          { id: 'cerebralPalsyDisability', count: cerebralPalsyDisabilityCount },
+          { id: 'spinaBifidaDisability', count: spinaBifidaDisabilityCount },
+          { id: 'hydrocephalusDisability', count: hydrocephalusDisabilityCount },
+          { id: 'visualImpairmentDisability', count: visualImpairmentDisabilityCount },
+          { id: 'hearingImpairmentDisability', count: hearingImpairmentDisabilityCount },
+          { id: 'doNotKnowDisability', count: doNotKnowDisabilityCount },
+          { id: 'otherDisability', count: otherDisabilityCount }
+          ];
 
           return disabilityCounts;
       }
@@ -241,18 +241,18 @@ class StatsDataService {
           var doNotKnowDisabilityCount = aggregate.match({ doNotKnowDisability: true }).exec().length;
           var otherDisabilityCount = aggregate.match({ otherDisability: true }).exec().length;
 
-          const disabilityCounts = {
-          0: { id: 'amputeeDisability', count: amputeeDisabilityCount },
-          1: { id: 'polioDisability', count: polioDisabilityCount },
-          2: { id: 'spinalCordInjuryDisability', count: spinalCordInjuryDisabilityCount },
-          3: { id: 'cerebralPalsyDisability', count: cerebralPalsyDisabilityCount },
-          4: { id: 'spinaBifidaDisability', count: spinaBifidaDisabilityCount },
-          5: { id: 'hydrocephalusDisability', count: hydrocephalusDisabilityCount },
-          6: { id: 'visualImpairmentDisability', count: visualImpairmentDisabilityCount },
-          7: { id: 'hearingImpairmentDisability', count: hearingImpairmentDisabilityCount },
-          9: { id: 'doNotKnowDisability', count: doNotKnowDisabilityCount },
-          0: { id: 'otherDisability', count: otherDisabilityCount }
-          };
+          const disabilityCounts = [
+          { id: 'amputeeDisability', count: amputeeDisabilityCount },
+          { id: 'polioDisability', count: polioDisabilityCount },
+          { id: 'spinalCordInjuryDisability', count: spinalCordInjuryDisabilityCount },
+          { id: 'cerebralPalsyDisability', count: cerebralPalsyDisabilityCount },
+          { id: 'spinaBifidaDisability', count: spinaBifidaDisabilityCount },
+          { id: 'hydrocephalusDisability', count: hydrocephalusDisabilityCount },
+          { id: 'visualImpairmentDisability', count: visualImpairmentDisabilityCount },
+          { id: 'hearingImpairmentDisability', count: hearingImpairmentDisabilityCount },
+          { id: 'doNotKnowDisability', count: doNotKnowDisabilityCount },
+          { id: 'otherDisability', count: otherDisabilityCount }
+          ];
 
           return disabilityCounts;
       }

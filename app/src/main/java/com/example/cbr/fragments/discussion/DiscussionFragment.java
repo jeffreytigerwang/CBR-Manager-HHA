@@ -12,6 +12,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -93,8 +94,13 @@ public class DiscussionFragment extends Fragment {
         adapter = new DiscussionAdapter(getActivity(), messagesArrayList);
         discussionRecyclerView.setAdapter(adapter);
 
+
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setStackFromEnd(true);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(discussionRecyclerView.getContext(), linearLayoutManager.getOrientation());
+        discussionRecyclerView.addItemDecoration(dividerItemDecoration);
         discussionRecyclerView.setLayoutManager(linearLayoutManager);
 
         return view;

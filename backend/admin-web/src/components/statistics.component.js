@@ -158,11 +158,6 @@ class Statistics extends Component {
                 fontSize: 24,
                 dockInsidePlotArea: true,
                 maxWidth: 130
-            }, {
-                //  TODO: get the very first and last date of visit info for this chart.
-                // text: "${initialDate} ${lastDate}",
-                fontSize: 18,
-                fontWeight: "normal"
             }],
             data: [{
                 type: "doughnut",

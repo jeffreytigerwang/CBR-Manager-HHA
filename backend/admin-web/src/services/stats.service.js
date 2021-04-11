@@ -3,16 +3,6 @@ const jsonAggregate = require('json-aggregate')
 
 class StatsDataService {
 
-  async test() {
-      const visits = await http.get(`/visits`)
-      .catch(err => { console.log(err); });
-      const json = JSON.stringify(visits.data);
-      const aggregate = jsonAggregate.create(json).match({ clientId: 1234 }).exec();
-      console.log('aggregated to: ');
-      console.log(aggregate);
-      return aggregate;
-  }
-
   async getReferralsStats() {
       var visitsData = await http.get(`/visits`)
       .catch(err => { console.log(err); });
@@ -33,9 +23,6 @@ class StatsDataService {
           item.zone = zoneMap[item.clientId];
       });
 
-      console.log('zoneMap:');
-      console.log(zoneMap);
-
       var json = JSON.stringify(visitsData.data);
       var aggregate = jsonAggregate.create(json);
 
@@ -47,9 +34,6 @@ class StatsDataService {
 
       var json = JSON.stringify(referralsData.data);
       var aggregate = jsonAggregate.create(json);
-
-      console.log('Referrals Data');
-      console.log(aggregate);
 
       function getReferralsForAll() {
           var requirePhysiotherapyCount = aggregate.match({ requirePhysiotherapy: true }).exec().length;
@@ -199,11 +183,6 @@ class StatsDataService {
                          allReferralsByType: allReferralsByType,
                          bidibidiReferralsByType: bidibidiReferralsByType,
                          palorinyaReferralsByType: palorinyaReferralsByType};
-
-
-      console.log('Aggregated to:');
-      console.log(statsData);
-
 
       return statsData;
 
@@ -582,10 +561,6 @@ class StatsDataService {
       const allRiskDataRaw = healthRiskData.concat(educationRiskData).concat(socialRiskData);
       const allRiskData = getAllAspectRiskStats(allRiskDataRaw);
       statsObj.allRisk = allRiskData;
-
-      //console.log('aggregated to: ');
-      //console.log(statsObj);
-
 
       return statsObj;
   }

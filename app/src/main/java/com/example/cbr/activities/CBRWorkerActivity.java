@@ -1,29 +1,23 @@
 package com.example.cbr.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.cbr.R;
-import com.example.cbr.models.ClientInfo;
-import com.example.cbr.models.Messages;
 import com.example.cbr.models.Users;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-
-import static com.example.cbr.R.string.cbrWorkerIntent_userId;
 
 public class CBRWorkerActivity extends AppCompatActivity {
 

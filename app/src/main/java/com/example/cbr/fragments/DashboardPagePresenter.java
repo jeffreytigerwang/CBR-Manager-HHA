@@ -6,7 +6,6 @@ import com.example.cbr.models.ClientHealthAspect;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ClientSocialAspect;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
-import com.example.cbr.models.VisitSocialQuestionSetData;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 

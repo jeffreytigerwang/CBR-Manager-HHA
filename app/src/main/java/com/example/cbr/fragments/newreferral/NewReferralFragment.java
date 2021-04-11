@@ -1,6 +1,5 @@
 package com.example.cbr.fragments.newreferral;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -23,18 +22,10 @@ import com.example.cbr.databinding.FragmentQuestionspageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ReferralInfo;
-import com.example.cbr.retrofit.JsonPlaceHolderApi;
-import com.example.cbr.retrofit.RetrofitInit;
 import com.example.cbr.util.Constants;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class NewReferralFragment extends BaseFragment implements NewReferralContract.View {
 

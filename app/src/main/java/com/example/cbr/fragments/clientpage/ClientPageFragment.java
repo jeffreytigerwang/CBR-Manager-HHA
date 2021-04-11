@@ -179,7 +179,6 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
                 ClickableViewContainer.ClickableViewHolderBehavior clickableViewHolderBehavior = new ClickableViewContainer.ClickableViewHolderBehavior() {
                     @Override
                     public void onClick() {
-//                        clientPageFragmentInterface.swapToVisitPage(visitGeneralQuestionSetData);
                         //TODO add clickable behaviour here
                     }
                 };

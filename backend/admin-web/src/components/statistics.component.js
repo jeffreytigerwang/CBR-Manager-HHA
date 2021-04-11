@@ -6,14 +6,15 @@ import StatsDataService from "../services/stats.service"
 import { LOADING, LOADING_CHART_OPTIONS } from "../Util/Constants";
 import "../styles/lineHeader.css"
 
-import { TextField, Button, withStyles, Grid, Paper, ListItem } from "@material-ui/core"
+import { TextField, Button, withStyles, Grid, Paper, ListItem, Table as statsTable } from "@material-ui/core"
 import { styles } from "../css-common"
 import CanvasJSReact from './canvasjs.react';
+import DataTable from './dataTable.component';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-class Report extends Component {
+class Statistics extends Component {
     constructor(props) {
         super(props);
 
@@ -178,10 +179,9 @@ class Report extends Component {
         return (
             <div>
                 <div>
-                    <h1 class="decorated"><span>Stats Per CBR Worker</span></h1>
+                    <h1 className="decorated"><span>Stats Per CBR Worker</span></h1>
                     <div>    
                         <ul>
-                            <li>Number of visits: {numberOfVisits}</li>
                             <li>Number of CBR visits: {numberOfCBRVisits}</li>
                             <li>Number of Disability Centre referral visits: {numberOfDCRVisits}</li>
                             <li>Number of Disability Centre referral follow up visits: {numberOfDCRFUVisits}</li>
@@ -189,18 +189,11 @@ class Report extends Component {
                         </ul>
                     </div>
                     <div>    
-                        <h3>Number of visits per CBR worker:</h3>
-                        <ul>
-                            {
-                                // visitsPerCBRWorker.forEach(element => {
-                                //     <li>Worker name: {element.id}, visits completed: {element.count}</li>
-                                // })
-                                visitsPerCBRWorker.map((item) => {
-                                    console.log("id=" + item.id + "count=" + item.count);
-                                    return <li key={item.id}>Worker name: {item.id}, visits completed: {item.count}</li>
-                                })
-                            }
-                        </ul>
+                        <h2>Number of visits per CBR worker:</h2>
+                        {
+                            !visitsPerCBRWorker.length ? LOADING :  
+                            <DataTable data={visitsPerCBRWorker} descHeader="Worker name" valueHeader="Visits completed"></DataTable>
+                        }
                     </div>
                 </div>
                 <div>
@@ -260,4 +253,4 @@ class Report extends Component {
 
 }
 
-export default withStyles(styles)(Report)
+export default withStyles(styles)(Statistics)

@@ -20,31 +20,25 @@ class StatsDataService {
       var referralsData = await http.get(`/referrals`)
       .catch(err => { console.log(err); });
 
+      var clientsData = await http.get(`/clients`)
+      .catch(err => { console.log(err); });
+
       // get clientIds with zones
-      /*
       var zoneMap = {};
-      visitsData.data.forEach(function(item, index) {
+      clientsData.data.forEach(function(item, index) {
           zoneMap[item.clientId] = item.zoneLocation.split(" ")[0];
       });
 
-      // get disability counts
-      const disabilityData = await http.get(`/disability`)
-      .catch(err => { console.log(err); });
-
-      disabilityData.data.forEach(function(item, index) {
+      referralsData.data.forEach(function(item, index) {
           item.zone = zoneMap[item.clientId];
       });
 
+      console.log('zoneMap:');
+      console.log(zoneMap);
 
-      const disabilityJson = JSON.stringify(disabilityData.data);
-      const aggregate = jsonAggregate.create(disabilityJson);
-
-      */
       var json = JSON.stringify(visitsData.data);
       var aggregate = jsonAggregate.create(json);
 
-      console.log('Referrals Data');
-      console.log(aggregate);
 
       var referralsCount = aggregate.match({ isDCRChecked: true }).exec().length;
       const referralsCounts = [
@@ -53,6 +47,9 @@ class StatsDataService {
 
       var json = JSON.stringify(referralsData.data);
       var aggregate = jsonAggregate.create(json);
+
+      console.log('Referrals Data');
+      console.log(aggregate);
 
       function getReferralsForAll() {
           var requirePhysiotherapyCount = aggregate.match({ requirePhysiotherapy: true }).exec().length;
@@ -100,53 +97,108 @@ class StatsDataService {
           return referralCountsByType;
       }
 
+      function getReferralsForBidiBidi() {
+          var requirePhysiotherapyCount = aggregate.match({ zone: 'Bidibidi',  requirePhysiotherapy: true }).exec().length;
+          var requireProstheticCount = aggregate.match({ zone: 'Bidibidi',  requireProsthetic: true }).exec().length;
+          var requireOrthotic = aggregate.match({ zone: 'Bidibidi',  requireOrthotic: true }).exec().length;
+          var requireWheelchair = aggregate.match({ zone: 'Bidibidi',  requireWheelchair: true }).exec().length;
+          var requireOther = aggregate.match({ zone: 'Bidibidi',  requireOther: true }).exec().length;
+          var amputeeDisability = aggregate.match({ zone: 'Bidibidi',  amputeeDisability: true }).exec().length;
+          var polioDisability = aggregate.match({ zone: 'Bidibidi',  polioDisability: true }).exec().length;
+          var spinalCordInjuryDisability = aggregate.match({ zone: 'Bidibidi',  spinalCordInjuryDisability: true }).exec().length;
+          var cerebralPalsyDisability = aggregate.match({ zone: 'Bidibidi',  cerebralPalsyDisability: true }).exec().length;
+          var spinaBifidaDisability = aggregate.match({ zone: 'Bidibidi',  spinaBifidaDisability: true }).exec().length;
+          var hydrocephalusDisability = aggregate.match({ zone: 'Bidibidi',  hydrocephalusDisability: true }).exec().length;
+          var visualImpairmentDisability = aggregate.match({ zone: 'Bidibidi',  visualImpairmentDisability: true }).exec().length;
+          var otherDisability = aggregate.match({ zone: 'Bidibidi',  otherDisability: true }).exec().length;
+          var isInjuryAboveKnee = aggregate.match({ zone: 'Bidibidi',  isInjuryAboveKnee: true }).exec().length;
+          var isInjuryBelowKnee = aggregate.match({ zone: 'Bidibidi',  isInjuryBelowKnee: true }).exec().length;
+          var isIntermediateWheelchairUser = aggregate.match({ zone: 'Bidibidi',  isIntermediateWheelchairUser: true }).exec().length;
+          var hipWidth = aggregate.match({ zone: 'Bidibidi',  hipWidth: true }).exec().length;
+          var hasExistingWheelchair = aggregate.match({ zone: 'Bidibidi',  hasExistingWheelchair: true }).exec().length;
+          var canRepairWheelchair = aggregate.match({ zone: 'Bidibidi',  canRepairWheelchair: true }).exec().length;
 
-
-
-      /*
-
-      // get counts for each zones
-      function getDisabilityForBidibidi() {
-          var amputeeDisabilityCount = aggregate.match({ zone: 'Bidibidi', amputeeDisability: true }).exec().length;
-          var polioDisabilityCount = aggregate.match({ zone: 'Bidibidi', polioDisability: true }).exec().length;
-          var spinalCordInjuryDisabilityCount = aggregate.match({ zone: 'Bidibidi', spinalCordInjuryDisability: true }).exec().length;
-          var cerebralPalsyDisabilityCount = aggregate.match({ zone: 'Bidibidi', cerebralPalsyDisability: true }).exec().length;
-          var spinaBifidaDisabilityCount = aggregate.match({ zone: 'Bidibidi', spinaBifidaDisability: true }).exec().length;
-          var hydrocephalusDisabilityCount = aggregate.match({ zone: 'Bidibidi', hydrocephalusDisability: true }).exec().length;
-          var visualImpairmentDisabilityCount = aggregate.match({ zone: 'Bidibidi', visualImpairmentDisability: true }).exec().length;
-          var hearingImpairmentDisabilityCount = aggregate.match({ zone: 'Bidibidi', hearingImpairmentDisability: true }).exec().length;
-          var doNotKnowDisabilityCount = aggregate.match({ zone: 'Bidibidi', doNotKnowDisability: true }).exec().length;
-          var otherDisabilityCount = aggregate.match({ zone: 'Bidibidi', otherDisability: true }).exec().length;
-
-          const disabilityCounts = {
-          amputeeDisability: amputeeDisabilityCount,
-          polioDisability: polioDisabilityCount,
-          spinalCordInjuryDisability: spinalCordInjuryDisabilityCount,
-          cerebralPalsyDisability: cerebralPalsyDisabilityCount,
-          spinaBifidaDisability: spinaBifidaDisabilityCount,
-          hydrocephalusDisability: hydrocephalusDisabilityCount,
-          visualImpairmentDisability: visualImpairmentDisabilityCount,
-          hearingImpairmentDisability: hearingImpairmentDisabilityCount,
-          doNotKnowDisability: doNotKnowDisabilityCount,
-          otherDisability: otherDisabilityCount
+          const referralCountsByType = {
+          0: { id: 'Requires Physiotherapy', count: requirePhysiotherapyCount },
+          1: { id: 'Requires Prosthetic', count: requireProstheticCount },
+          2: { id: 'Requires Orthotic', count: requireOrthotic },
+          3: { id: 'Require Wheelchair', count: requireWheelchair },
+          4: { id: 'Requires Other', count: requireOther },
+          5: { id: 'Amputee Disability', count: amputeeDisability },
+          6: { id: 'Polio Disability', count: polioDisability },
+          7: { id: 'Spinal Cord Injury Disability', count: spinalCordInjuryDisability },
+          8: { id: 'cerebral Palsy Disability', count: cerebralPalsyDisability },
+          9: { id: 'spinaBifida Disability', count: spinaBifidaDisability },
+          10: { id: 'hydrocephalus Disability', count: hydrocephalusDisability },
+          11: { id: 'Visual Impairment Disability', count: visualImpairmentDisability },
+          12: { id: 'Other Disability', count: otherDisability },
+          13: { id: 'Has Injury Above Knee', count: isInjuryAboveKnee },
+          14: { id: 'Has Injury Below Knee', count: isInjuryBelowKnee },
+          15: { id: 'Has Intermediate Wheelchair experience', count: isIntermediateWheelchairUser },
+          16: { id: 'Hip Width', count: hipWidth },
+          17: { id: 'has Existing Wheelchair', count: hasExistingWheelchair },
+          18: { id: 'Can Repair Wheelchair', count: canRepairWheelchair },
           };
 
-          return disabilityCounts;
+          return referralCountsByType;
       }
-      var allDisabilityCounts = getDisabilityForAll();
-      var bidibidiDisabilityCounts = getDisabilityForBidibidi();
-      var palorinyaDisabilityCounts = getDisabilityForPalorinya();
-      */
+
+      function getReferralsForPalorinya() {
+          var requirePhysiotherapyCount = aggregate.match({ zone: 'Palorinya',  requirePhysiotherapy: true }).exec().length;
+          var requireProstheticCount = aggregate.match({ zone: 'Palorinya',  requireProsthetic: true }).exec().length;
+          var requireOrthotic = aggregate.match({ zone: 'Palorinya',  requireOrthotic: true }).exec().length;
+          var requireWheelchair = aggregate.match({ zone: 'Palorinya',  requireWheelchair: true }).exec().length;
+          var requireOther = aggregate.match({ zone: 'Palorinya',  requireOther: true }).exec().length;
+          var amputeeDisability = aggregate.match({ zone: 'Palorinya',  amputeeDisability: true }).exec().length;
+          var polioDisability = aggregate.match({ zone: 'Palorinya',  polioDisability: true }).exec().length;
+          var spinalCordInjuryDisability = aggregate.match({ zone: 'Palorinya',  spinalCordInjuryDisability: true }).exec().length;
+          var cerebralPalsyDisability = aggregate.match({ zone: 'Palorinya',  cerebralPalsyDisability: true }).exec().length;
+          var spinaBifidaDisability = aggregate.match({ zone: 'Palorinya',  spinaBifidaDisability: true }).exec().length;
+          var hydrocephalusDisability = aggregate.match({ zone: 'Palorinya',  hydrocephalusDisability: true }).exec().length;
+          var visualImpairmentDisability = aggregate.match({ zone: 'Palorinya',  visualImpairmentDisability: true }).exec().length;
+          var otherDisability = aggregate.match({ zone: 'Palorinya',  otherDisability: true }).exec().length;
+          var isInjuryAboveKnee = aggregate.match({ zone: 'Palorinya',  isInjuryAboveKnee: true }).exec().length;
+          var isInjuryBelowKnee = aggregate.match({ zone: 'Palorinya',  isInjuryBelowKnee: true }).exec().length;
+          var isIntermediateWheelchairUser = aggregate.match({ zone: 'Palorinya',  isIntermediateWheelchairUser: true }).exec().length;
+          var hipWidth = aggregate.match({ zone: 'Palorinya',  hipWidth: true }).exec().length;
+          var hasExistingWheelchair = aggregate.match({ zone: 'Palorinya',  hasExistingWheelchair: true }).exec().length;
+          var canRepairWheelchair = aggregate.match({ zone: 'Palorinya',  canRepairWheelchair: true }).exec().length;
+
+          const referralCountsByType = {
+          0: { id: 'Requires Physiotherapy', count: requirePhysiotherapyCount },
+          1: { id: 'Requires Prosthetic', count: requireProstheticCount },
+          2: { id: 'Requires Orthotic', count: requireOrthotic },
+          3: { id: 'Require Wheelchair', count: requireWheelchair },
+          4: { id: 'Requires Other', count: requireOther },
+          5: { id: 'Amputee Disability', count: amputeeDisability },
+          6: { id: 'Polio Disability', count: polioDisability },
+          7: { id: 'Spinal Cord Injury Disability', count: spinalCordInjuryDisability },
+          8: { id: 'cerebral Palsy Disability', count: cerebralPalsyDisability },
+          9: { id: 'spinaBifida Disability', count: spinaBifidaDisability },
+          10: { id: 'hydrocephalus Disability', count: hydrocephalusDisability },
+          11: { id: 'Visual Impairment Disability', count: visualImpairmentDisability },
+          12: { id: 'Other Disability', count: otherDisability },
+          13: { id: 'Has Injury Above Knee', count: isInjuryAboveKnee },
+          14: { id: 'Has Injury Below Knee', count: isInjuryBelowKnee },
+          15: { id: 'Has Intermediate Wheelchair experience', count: isIntermediateWheelchairUser },
+          16: { id: 'Hip Width', count: hipWidth },
+          17: { id: 'has Existing Wheelchair', count: hasExistingWheelchair },
+          18: { id: 'Can Repair Wheelchair', count: canRepairWheelchair },
+          };
+
+          return referralCountsByType;
+      }
+
+
+      var bidibidiReferralsByType = getReferralsForBidiBidi();
+      var palorinyaReferralsByType = getReferralsForPalorinya();
       var allReferralsByType = getReferralsForAll();
       var allReferralsSum = referralsCounts;
 
-      /*
-      const statsData = {allDisabilityCounts: allDisabilityCounts,
-                         bidibidiDisabilityCounts: bidibidiDisabilityCounts,
-                         palorinyaDisabilityCounts: palorinyaDisabilityCounts};
-      */
       const statsData = {allReferralsSum: allReferralsSum,
-                         allReferralsByType: allReferralsByType};
+                         allReferralsByType: allReferralsByType,
+                         bidibidiReferralsByType: bidibidiReferralsByType,
+                         palorinyaReferralsByType: palorinyaReferralsByType};
 
 
       console.log('Aggregated to:');

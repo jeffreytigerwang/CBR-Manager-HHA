@@ -25,7 +25,8 @@ class Statistics extends Component {
             healthVisitData: new Array(),
             healthRiskStats: [],
             visitsPerCBRWorker: [],
-            disabilityData: new Object()
+            disabilityData: new Object(),
+            referralsData: new Object()
         };
     }
 
@@ -35,7 +36,24 @@ class Statistics extends Component {
         // this.getHealthRiskStats();
         this.getNumberOfVisitsPerCBRWorker();
         this.getDisabilityData();
+        this.getReferralsData();
     }
+
+    getReferralsData = () => {
+        this.setState({isLoading: true});
+        StatsDataService.getReferralsStats()
+            .then(response => {
+                //console.log(response);
+                this.setState({
+                    isLoading: false,
+                    disabilityData: response
+                });
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    }
+
 
     getDisabilityData = () => {
         this.setState({isLoading: true});

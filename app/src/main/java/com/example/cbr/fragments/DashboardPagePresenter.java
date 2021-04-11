@@ -77,6 +77,8 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
         return response.body();
     }
 
+
+
     @Override
     public void setGeneralAspect(List<ClientInfo> clientInfoList) throws IOException {
 
@@ -151,18 +153,21 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
                 }
             }
 
+            // If there is no information to match the HealthAspect table, set all information to "not recorded"
             if (!isHealthSet) {
                 clientInfo.setRateHealth(NO_RECORDED);
                 clientInfo.setDescribeHealth(NO_RECORDED);
                 clientInfo.setSetGoalForHealth(NO_RECORDED);
             }
 
+            // If there is no information to match the EducationAspect table, set all information to "not recorded"
             if (!isEducationSet) {
                 clientInfo.setRateEducation(NO_RECORDED);
                 clientInfo.setDescribeEducation(NO_RECORDED);
                 clientInfo.setSetGoalForEducation(NO_RECORDED);
             }
 
+            // If there is no information to match the SocialAspect table, set all information to "not recorded"
             if (!isSocialSet) {
                 clientInfo.setRateSocialStatus(NO_RECORDED);
                 clientInfo.setDescribeSocialStatus(NO_RECORDED);
@@ -172,6 +177,7 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
         }
 
     }
+
 
     @Override
     public List<String> getDatesOfLastVisits(List<ClientInfo> clientInfoList) throws IOException {

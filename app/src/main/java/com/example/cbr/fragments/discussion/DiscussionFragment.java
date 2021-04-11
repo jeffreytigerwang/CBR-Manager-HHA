@@ -123,11 +123,13 @@ public class DiscussionFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                // Add new input message into messageList
                 createMessages();
                 discussion_sendText.getText().clear();
 
                 messagesArrayList.add(newRefreshMessage);
 
+                // Refresh the discussion adapter to display the new message
                 adapter = new DiscussionAdapter(getActivity(), messagesArrayList);
                 discussionRecyclerView.setAdapter(adapter);
             }

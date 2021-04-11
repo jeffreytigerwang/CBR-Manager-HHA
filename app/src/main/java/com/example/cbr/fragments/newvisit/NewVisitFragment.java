@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -157,11 +158,21 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
         if (getArguments() != null) {
             clientInfo = (ClientInfo) getArguments().getSerializable(NEW_VISIT_PAGE_BUNDLE);
             binding.questionsPageTitle.setText(clientInfo.getFullName());
+            try {
+                clientId = clientInfo.getClientId();
+            } catch (NullPointerException e) {
+                Log.i(LOG_TAG, "onCreateView: clientId=" + clientInfo.getClientId());
+                Toast.makeText(context, getResources().getString(R.string.failed_to_get_client_id),
+                        Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            setClientId();
         } else {
             Toast.makeText(context, getString(R.string.unable_to_retrieve_client_info),
                     Toast.LENGTH_SHORT).show();
             finish();
         }
+
     }
 
     @Override

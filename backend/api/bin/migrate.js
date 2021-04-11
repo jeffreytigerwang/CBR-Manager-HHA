@@ -1308,10 +1308,93 @@ async function seedData() {
             userId:	1,
             firstName: "Team",
             lastName: "Mars",
-            message: "Hello Everyone! The messages services is now active. Please make a test message \
-            from the app!",
+            message: "Hello Everyone! The messages services is now active. Please make a test message" +
+            "from the app!",
             postDate: "2021-01-11T06:44:08.000Z"
     });
+    seed = await db.message.create({
+            userId:	2,
+            firstName: "Bisi",
+            lastName: "Garba",
+            message: "Hello Everyone! Testing testing!",
+            postDate: "2021-01-11T06:47:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	3,
+            firstName: "Kikelomo",
+            lastName: "Ali",
+            message: "Hello Bisi, happy to hear from you",
+            postDate: "2021-01-11T06:48:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	2,
+            firstName: "Bisi",
+            lastName: "Garba",
+            message: "Hello Kikelomo, how is your family?",
+            postDate: "2021-01-11T07:39:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	2,
+            firstName: "Bisi",
+            lastName: "Garba",
+            message: "Hello Kikelomo? Did you get my messages?",
+            postDate: "2021-01-11T08:44:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	3,
+            firstName: "Kikelomo",
+            lastName: "Ali",
+            message: "Yes Bisi. But I am trying to get my work done",
+            postDate: "2021-01-11T08:48:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	4,
+            firstName: "Damola",
+            lastName: "Usman",
+            message: "Did someone eat my sandwhich from the refrigerator?",
+            postDate: "2021-02-10T10:43:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	5,
+            firstName: "Amadi",
+            lastName: "Yusuf",
+            message: "I am sorry Damola, I might have eaten your sandwhich",
+            postDate: "2021-02-10T10:48:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	5,
+            firstName: "Amadi",
+            lastName: "Yusuf",
+            message: "I will make it up for you by visiting your last two clients",
+            postDate: "2021-02-10T10:49:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	7,
+            firstName: "Olaoluwa",
+            lastName: "Abubakar",
+            message: "The service around Bibdibidi Zone 3 is not great. Please remember to " +
+            "sync your data before entering that location",
+            postDate: "2021-02-10T10:48:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	6,
+            firstName: "Gbenga",
+            lastName: "Muhammad",
+            message: "If anyone is heading out to the Palorinya settlement, there" +
+            " is an accident on the bridge. Try to take another route",
+            postDate: "2021-03-01T12:48:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	8,
+            firstName: "Najwa",
+            lastName: "Owuli",
+            message: "Hello admin center? My son is ill and I cannot make the rest" +
+            " of my visits. Is that okay?",
+            postDate: "2021-04-10T10:48:08.000Z"
+    });
+
+
+
 
 
 

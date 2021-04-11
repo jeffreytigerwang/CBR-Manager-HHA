@@ -45,22 +45,8 @@ public interface JsonPlaceHolderApi {
     @POST("api/socialAspect")
     Call<ClientSocialAspect> createClientSocialAspect(@Body ClientSocialAspect clientSocialAspect);
 
-    @FormUrlEncoded
     @POST("api/clients")
-    Call<ClientInfo> createClient(
-            @Field("clientId") Integer clientId,
-            @Field("firstName") String firstName,
-            @Field("lastName") String lastName,
-            @Field("gpsLocation") String gpsLocation,
-            @Field("zoneLocation") String zoneLocation,
-            @Field("villageNumber") Integer villageNumber,
-            @Field("gender") String gender,
-            @Field("age") Integer age,
-            @Field("contactNumber") String contactNumber,
-            @Field("caregiverPresentForInterview") boolean caregiverPresentForInterview,
-            @Field("caregiverContactNumber") Integer caregiverContactNumber
-    );
-
+    Call<ClientInfo> createClient(@Body ClientInfo clientInfo);
 
     @POST("api/visits")
     Call<VisitGeneralQuestionSetData> createVisitGeneralQuestionSetData(@Body VisitGeneralQuestionSetData visitGeneralQuestionSetData);

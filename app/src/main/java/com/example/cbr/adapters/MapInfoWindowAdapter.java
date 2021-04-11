@@ -36,7 +36,7 @@ public class MapInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
             name.setText(clientInfo.getFullName());
 
             TextView id = view.findViewById(R.id.info_textView_clientID);
-            id.setText(clientInfo.getId());
+            id.setText(clientInfo.getClientId());
 
             TextView lastVisit = view.findViewById(R.id.info_textView_clientLastVisit);
             lastVisit.setText(clientInfoManager.getDateOfLastVisit(clientInfo));

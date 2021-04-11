@@ -86,7 +86,7 @@
     <string name="please_describe_what_they_require">Please describe what they require</string>
     <string name="set_individual_goal">Set individual goal</string>
     <string name="individual_goal">Individual goal</string>
-    <string name="location">Location</string>
+    <string name="site_location">Site location</string>
     <string name="type_of_disability">Type of disability</string>
     <string name="please_rate_how_you_consider_the_client_s_health_to_be">Please rate how you consider the client\'s health to be</string>
     <string name="please_rate_how_you_consider_the_client_s_social_status_to_be">Please rate how you consider the client\'s social status to be</string>
@@ -190,7 +190,6 @@
     <string name="last_visit_message">\Last Visit: %1$s\</string>
 
 
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="priority_list">Priority List</string>
     <string name="outstanding_referrals">Outstanding Referrals</string>
@@ -219,17 +218,45 @@
     <string name="name">Name</string>
     <string name="risk">Risk</string>
     <string name="referral">Referral</string>
-    <string name="location_permission_not_granted">ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION not granted. User did not give permission to access location.</string>
+    <string name="location_permission_not_granted">Location services not permitted. Thus, GPS location is not automatically filled.</string>
     <string name="location_alert_title">Location settings</string>
-    <string name="gps_alert_message">GPS is not enabled or your location is turned off. Do you want to go to settings menu?</string>
+    <string name="gps_alert_message">GPS is not enabled or your location is turned off. Do you want to go to settings menu?\nAutomatic location fill will be available on the next launch of this page if the setting is turned on.</string>
     <string name="alert_settings_positive_button">Settings</string>
     <string name="gps_not_enabled">User has not enabled GPS.</string>
     <string name="lat_long_location">Lat: %f Long: %f</string>
-    <string name="location_not_found">Location could not be found.</string>
+    <string name="location_not_found">Your current location cannot be found right now. Manual entry of location is required.</string>
+    <string name="general_questions">General Questions</string>
+    <string name="unable_to_retrieve_client_info">Unable to retrieve client info.</string>
+    <string name="placeholder_text">Placeholder Text</string>
+    <string name="missed_required_questions">Missed required questions</string>
+    <string name="pick_a_date">Pick a date</string>
+    <string name="dd_mm_yyyy">dd-MMM-yyyy</string>
+    <string name="record_error">There are <b>empty</b> required <b>fields</b>. Please fill them in before recording.</string>
     <string name="map">Map</string>
     <string name="title_activity_maps">Map</string>
+    <string name="use_camera">Use Camera</string>
 
     <string name="google_map_api_key">AIzaSyB_JlRLqJ_ASLFjJW_qIBNK_Eev0jUCF0k</string>
     <string name="marker_in_Uganda">Marker in Uganda</string>
+    <string name="enter_address_city_or_zip_code">Enter Address, City or Zip Code</string>
+    <string name="sort">Sort</string>
+    <string name="chat">Chat</string>
+    <string name="send_you_discussion_today">send you discussion today....</string>
+    <string name="send">Send</string>
+    <string name="cbrWorkerIntent_userId">userId</string>
+    <string name="cbrWorkerIntent_iconIdx">iconIdx</string>
+    <string name="cbrWorkerIntent_message">message</string>
+    <string name="cbrWorkerIntent_postDate">postDate</string>
+    <string name="cbrWorkerIntent_noData">There is no data</string>
+    <string name="location_service">Location Service</string>
+    <string name="location_settings_message">If location was turned on, then location service should automatically fill in the GPS location field on the next launch of this page.</string>
+    <string name="permission_change">Permission change</string>
+    <string name="permission_change_message">Permission for location was changed to not granted. Automatic fill for GPS location field will not be available.</string>
+    <string name="automatic_fill_location">"Locations fields will be automatically filled on the next launch."</string>
+    <string name="general_question_record_cancelled">General Question Cancelled. No network connection or may be too slow</string>
+    <string name="health_question_record_cancelled">Health Question Cancelled. No network connection or may be too slow</string>
+    <string name="education_question_record_cancelled">Education Question Cancelled. No network connection or may be too slow</string>
+    <string name="social_question_record_cancelled">Social Question Cancelled. No network connection or may be too slow</string>
+    <string name="retrofit_call_fail">Record fail! No network connection or may be too slow</string>
 
 </resources>

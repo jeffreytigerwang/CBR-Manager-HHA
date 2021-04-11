@@ -16,6 +16,9 @@ public class VisitSocialQuestionSetData {
     private boolean isSocialAdvocacyChecked;
     private boolean isSocialReferralChecked;
     private boolean isSocialEncouragementChecked;
+    private boolean isGoalCancelled;
+    private boolean isGoalOngoing;
+    private boolean isGoalConcluded;
     private String socialAdviceDesc;
     private String socialAdvocacyDesc;
     private String socialReferralDesc;
@@ -29,7 +32,6 @@ public class VisitSocialQuestionSetData {
         this.socialReferralDesc = "";
         this.socialEncouragementDesc = "";
         this.socialOutcomeDesc = "";
-        this.socialGoalStatus = "";
     }
 
     public List<String> getEmptyQuestions() {
@@ -39,7 +41,7 @@ public class VisitSocialQuestionSetData {
                 || isSocialAdvocacyChecked
                 || isSocialReferralChecked
                 || isSocialEncouragementChecked;
-        boolean isQuestionFifteenEmpty = socialGoalStatus.isEmpty();
+        boolean isQuestionFifteenChecked = isGoalCancelled || isGoalConcluded || isGoalOngoing;
 
         boolean isSocialAdviceEmpty = socialAdviceDesc.isEmpty();
         boolean isSocialAdvocacyDescEmpty = socialAdvocacyDesc.isEmpty();
@@ -56,10 +58,26 @@ public class VisitSocialQuestionSetData {
         } else if (missingDesc) {
             questionNumbers.add("14.");
         }
-        if (isQuestionFifteenEmpty) {
+        if (!isQuestionFifteenChecked) {
             questionNumbers.add("15.");
         }
         return questionNumbers;
+    }
+
+    public void resetData() {
+        isSocialAdviceChecked = false;
+        isSocialAdvocacyChecked = false;
+        isSocialReferralChecked = false;
+        isSocialEncouragementChecked = false;
+        isGoalCancelled = false;
+        isGoalOngoing = false;
+        isGoalConcluded = false;
+        socialAdviceDesc = "";
+        socialAdvocacyDesc = "";
+        socialReferralDesc = "";
+        socialEncouragementDesc = "";
+        socialOutcomeDesc = "";
+        socialGoalStatus = "";
     }
 
     public Integer getClientId() {
@@ -148,6 +166,30 @@ public class VisitSocialQuestionSetData {
 
     public void setSocialOutcomeDesc(String socialOutcomeDesc) {
         this.socialOutcomeDesc = socialOutcomeDesc;
+    }
+
+    public boolean isGoalCancelled() {
+        return isGoalCancelled;
+    }
+
+    public void setGoalCancelled(boolean goalCancelled) {
+        isGoalCancelled = goalCancelled;
+    }
+
+    public boolean isGoalOngoing() {
+        return isGoalOngoing;
+    }
+
+    public void setGoalOngoing(boolean goalOngoing) {
+        isGoalOngoing = goalOngoing;
+    }
+
+    public boolean isGoalConcluded() {
+        return isGoalConcluded;
+    }
+
+    public void setGoalConcluded(boolean goalConcluded) {
+        isGoalConcluded = goalConcluded;
     }
 
     public String getSocialGoalStatus() {

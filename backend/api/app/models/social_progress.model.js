@@ -15,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
         isSocialAdvocacyChecked: {
             type: Sequelize.BOOLEAN
         },
-        isSocialRefChecked: {
+        isSocialReferralChecked: {
             type: Sequelize.BOOLEAN
         },
         isSocialEncouragementChecked: {
@@ -27,7 +27,7 @@ module.exports = (sequelize, Sequelize) => {
         socialAdvocacyDesc: {
             type: Sequelize.STRING
         },
-        socialRefDesc:{
+        socialReferralDesc:{
             type: Sequelize.STRING
         },
         socialEncouragementDesc: {

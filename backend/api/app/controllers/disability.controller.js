@@ -19,13 +19,13 @@ exports.create = (req, res) => {
     polioDisability: req.body.polioDisability,
     spinalCordInjuryDisability: req.body.spinalCordInjuryDisability,
     cerebralPalsyDisability: req.body.cerebralPalsyDisability,
-    spinalBifidaDisability: req.body.spinalBifidaDisability,
+    spinaBifidaDisability: req.body.spinaBifidaDisability,
     hydrocephalusDisability: req.body.hydrocephalusDisability,
     visualImpairmentDisability: req.body.visualImpairmentDisability,
     hearingImpairmentDisability: req.body.hearingImpairmentDisability,
     doNotKnowDisability: req.body.doNotKnowDisability,
     otherDisability: req.body.otherDisability,
-    specifyDisability: req.body.specifyDisability
+    describeOtherDisability: req.body.describeOtherDisability
   };
 
   // Save item in database

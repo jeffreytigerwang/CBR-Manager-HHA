@@ -184,6 +184,9 @@ class Statistics extends Component {
         var numberOfCBRVisits = 0;
         var numberOfDCRVisits = 0;
         var numberOfDCRFUVisits = 0;
+        var numberOfHealthVisits = 0;
+        var numberOfEducationVisits = 0;
+        var numberOfSocialVisits = 0;
         var numberOfWheelChair = 0;
 
         generalVisitData.forEach(element => {
@@ -193,6 +196,15 @@ class Statistics extends Component {
                 numberOfDCRVisits++;
             } else {
                 numberOfDCRFUVisits++;
+            }
+            if (element.isHealthChecked) {
+                numberOfHealthVisits++;   
+            }
+            if (element.isEducationChecked) {
+                numberOfEducationVisits++;   
+            }
+            if (element.isSocialChecked) {
+                numberOfSocialVisits++;   
             }
         });
 
@@ -205,6 +217,9 @@ class Statistics extends Component {
         var counts = [{id: "Number of CBR visits", count: numberOfCBRVisits},
                         {id: "Number of Disability Centre referral visits", count: numberOfDCRVisits},
                         {id: "Number of Disability Centre referral follow up visits", count: numberOfDCRFUVisits},
+                        {id: "Number of visits for health", count: numberOfHealthVisits},
+                        {id: "Number of visits for education", count: numberOfEducationVisits},
+                        {id: "Number of visites for social", count: numberOfSocialVisits},
                         {id: "Number of wheel chairs", count: numberOfWheelChair}]
 
         const allAspectChartOptions = this.setupRiskChartOptions(allAspectRiskStats, "All Aspect");
@@ -224,7 +239,7 @@ class Statistics extends Component {
                     <div>
                         {
                             !visitsPerCBRWorker.length ? LOADING :
-                            <DataTable data={visitsPerCBRWorker} headers={["Worker name", "Visits completed"]}></DataTable>
+                            <DataTable data={visitsPerCBRWorker} headers={["Worker name", "Visits recorded"]}></DataTable>
                         }
                     </div>
                 </div>

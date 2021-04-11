@@ -61,7 +61,8 @@ public class DBHelper extends SQLiteOpenHelper {
         String createClients = "CREATE TABLE CLIENT_TABLE (ID INT PRIMARY KEY, " + FIRST_NAME +
                 " TEXT, " + LAST_NAME + " TEXT, " + "GENDER TEXT, AGE INTEGER, CONTACT_NUMBER TEXT, " +
                 "DATE_JOINED TEXT, VILLAGE_NUMBER TEXT, " + ZONE + " TEXT, GPS_LOCATION TEXT, " +
-                "CAREGIVER_PRESENT BOOL, CAREGIVER_CONTACT_NUMBER TEXT, PHOTO BLOB)";
+                "CAREGIVER_PRESENT BOOL, CAREGIVER_FIRST_NAME TEXT, CAREGIVER_LAST_NAME TEXT, " +
+                "CAREGIVER_CONTACT_NUMBER TEXT, PHOTO BLOB)";
         sqLiteDatabase.execSQL(createClients);
 
         String createDisability = "CREATE TABLE DISABILITY_TABLE (CLIENT_ID INT, AMPUTEE BOOL, " +
@@ -145,6 +146,9 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("GPS_LOCATION", client.getGpsLocation());
         cv.put("CAREGIVER_PRESENT", client.getCaregiverPresentForInterview());
         cv.put("CAREGIVER_CONTACT_NUMBER", client.getCaregiverContactNumber());
+        cv.put("CAREGIVER_FIRST_NAME", client.getCaregiverFirstName());
+        cv.put("CAREGIVER_LAST_NAME", client.getCaregiverLastName());
+        cv.put("PHOTO", client.getPhoto());
 
         long success = db.insert(CLIENT_TABLE, null, cv);
         return success != -1;
@@ -359,9 +363,9 @@ public class DBHelper extends SQLiteOpenHelper {
         if(clientCursor.moveToFirst()) {
             do {
 
-                String firstName = clientCursor.getString(0);
-                String lastName = clientCursor.getString(1);
-                int id = clientCursor.getInt(2);
+                int id = clientCursor.getInt(0);
+                String firstName = clientCursor.getString(1);
+                String lastName = clientCursor.getString(2);
                 String gender = clientCursor.getString(3);
                 int age = clientCursor.getInt(4);
                 String contactNumber = clientCursor.getString(5);
@@ -370,12 +374,16 @@ public class DBHelper extends SQLiteOpenHelper {
                 String zone = clientCursor.getString(8);
                 String gpsLocation = clientCursor.getString(9);
                 boolean caregiverPresent = clientCursor.getInt(10) == 1;
-                String caregiverContact = clientCursor.getString(11);
+
+                String caregiverFirstName = clientCursor.getString(11);
+                String caregiverLastName = clientCursor.getString(12);
+                String caregiverContact = clientCursor.getString(13);
+                byte[] photo = clientCursor.getBlob(14);
 
                 ClientInfo client = new ClientInfo();
+                client.setClientId(id);
                 client.setFirstName(firstName);
                 client.setLastName(lastName);
-                client.setClientId(id);
                 client.setGender(gender);
                 client.setAge(age);
                 client.setContactNumber(contactNumber);
@@ -384,7 +392,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 client.setZoneLocation(zone);
                 client.setGpsLocation(gpsLocation);
                 client.setCaregiverPresentForInterview(caregiverPresent);
+                client.setCaregiverFirstName(caregiverFirstName);
+                client.setCaregiverLastName(caregiverLastName);
                 client.setCaregiverContactNumber(caregiverContact);
+                client.setPhoto(photo);
 
                 clientInfoList.add(client);
 

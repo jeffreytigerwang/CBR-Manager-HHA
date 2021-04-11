@@ -257,6 +257,56 @@ class Statistics extends Component {
         return (
             <div>
                 <div>
+                    <h1 className="decorated"><span>Risk Level Charts</span></h1>
+
+                    <Grid container spacing={2}>
+                        <Grid item sm={12}>
+                            <div>
+                                {
+                                    this.state.isLoading ? LOADING : 
+                                    <CanvasJSChart options = {allAspectChartOptions} 
+                                        onRef = {ref => this.chart = ref}
+                                    />
+                                }
+
+                            </div>
+                        </Grid>
+                        <Grid item sm>
+                            <div>
+                                {
+                                    this.state.isLoading ? LOADING : 
+                                    <CanvasJSChart options = {healthChartOptions} 
+                                        onRef = {ref => this.chart = ref}
+                                    />
+                                }
+
+                            </div>
+                        </Grid>
+                        <Grid item sm>
+                            <div>
+                                {
+                                    this.state.isLoading ? LOADING : 
+                                    <CanvasJSChart options = {educationChartOptions} 
+                                        onRef = {ref => this.chart = ref}
+                                    />
+                                }
+
+                            </div>
+                        </Grid>
+                        <Grid item sm>
+                            <div>
+                                {
+                                    this.state.isLoading ? LOADING : 
+                                    <CanvasJSChart options = {socialChartOptions} 
+                                        onRef = {ref => this.chart = ref}
+                                    />
+                                }
+
+                            </div>
+                        </Grid>
+                    </Grid>
+                </div>
+                <div>
                     <h1 className="decorated"><span>General Statistics</span></h1>
                     <span>
                         <Grid container spacing={2}>
@@ -273,7 +323,7 @@ class Statistics extends Component {
                                 }
                             </Grid>
                             <Grid item xs={6}>
-                                
+
                             </Grid>
                             <Grid item xs={6}>
                                 {
@@ -332,57 +382,7 @@ class Statistics extends Component {
                         </Grid>
                     </span>
                 </div>
-                <div>
-                    <h1 className="decorated"><span>Risk Level Charts</span></h1>
-
                 </div>
-                </div>
-                <Grid container spacing={2}>
-                    <Grid item sm={12}>
-                        <div>
-                            {
-                                this.state.isLoading ? LOADING : 
-                                <CanvasJSChart options = {allAspectChartOptions} 
-                                    onRef = {ref => this.chart = ref}
-                                />
-                            }
-
-                        </div>
-                    </Grid>
-                    <Grid item sm>
-                        <div>
-                            {
-                                this.state.isLoading ? LOADING : 
-                                <CanvasJSChart options = {healthChartOptions} 
-                                    onRef = {ref => this.chart = ref}
-                                />
-                            }
-
-                        </div>
-                    </Grid>
-                    <Grid item sm>
-                        <div>
-                            {
-                                this.state.isLoading ? LOADING : 
-                                <CanvasJSChart options = {educationChartOptions} 
-                                    onRef = {ref => this.chart = ref}
-                                />
-                            }
-
-                        </div>
-                    </Grid>
-                    <Grid item sm>
-                        <div>
-                            {
-                                this.state.isLoading ? LOADING : 
-                                <CanvasJSChart options = {socialChartOptions} 
-                                    onRef = {ref => this.chart = ref}
-                                />
-                            }
-
-                        </div>
-                    </Grid>
-                </Grid>
             </div>
         )
     }

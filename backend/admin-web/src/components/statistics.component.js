@@ -31,6 +31,8 @@ class Statistics extends Component {
             allDisabilityCounts: [],
             bidibidiDisabilityCounts: [],
             palorinyaDisabilityCounts: [],
+            allReferralByType: [],
+            allReferralSum: [],
         };
     }
 
@@ -40,7 +42,25 @@ class Statistics extends Component {
         this.getAllAspectRiskStats();
         this.getNumberOfVisitsPerCBRWorker();
         this.getDisabilityData();
+        this.getReferralsData();
     }
+
+    getReferralsData = () => {
+        this.setState({isLoading: true});
+        StatsDataService.getReferralsStats()
+            .then(response => {
+                //console.log(response);
+                this.setState({
+                    isLoading: false,
+                    allReferralByType: response.allReferralsByType,
+                    allReferralSum: response.allReferralSum,
+                });
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    }
+
 
     getDisabilityData = () => {
         this.setState({isLoading: true});
@@ -175,6 +195,9 @@ class Statistics extends Component {
         const { allDisabilityCounts } = this.state;
         const { bidibidiDisabilityCounts } = this.state;
         const { palorinyaDisabilityCounts } = this.state;
+
+        const { allReferralsByType } = this.state;
+        const { allReferralSum } = this.state;
         // Bug: when trying to access arrays or any data that
         // requires API calls here, you get TypeError.
         // React Lesson: You need to add condition because

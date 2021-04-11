@@ -27,7 +27,9 @@ class Statistics extends Component {
             healthRiskStats: [],
             educationRiskStats: [],
             socialRiskStats: [],
-            visitsPerCBRWorker: []
+            visitsPerCBRWorker: [],
+            allDisabilityCounts: [],
+            zoneDisabilityCounts: [],
         };
     }
 
@@ -43,10 +45,11 @@ class Statistics extends Component {
         this.setState({isLoading: true});
         StatsDataService.getDisabilityStats()
             .then(response => {
-                //console.log(response);
+                console.log(response);
                 this.setState({
                     isLoading: false,
-                    disabilityData: response
+                    allDisabilityCounts: response.allDisabilityCounts,
+                    zoneDisabilityCounts: response.zoneDisabilityCounts,
                 });
             })
             .catch(e => {
@@ -105,7 +108,7 @@ class Statistics extends Component {
         this.setState({isLoading: true});
         StatsDataService.getNumberOfVisitsPerCBRWorker()
             .then(result => {
-                //console.log(result);
+                console.log(result);
                 this.setState({
                     isLoading: false,
                     visitsPerCBRWorker: result
@@ -159,11 +162,16 @@ class Statistics extends Component {
         const { classes } = this.props;
         const { generalVisitData } = this.state;
         const { healthVisitData } = this.state;
+
         const { allAspectRiskStats } = this.state;
         const { healthRiskStats } = this.state;
         const { educationRiskStats } = this.state;
         const { socialRiskStats } = this.state;
+
         const { visitsPerCBRWorker } = this.state;
+
+        const { allDisabilityCounts } = this.state;
+        const { zoneDisabilityCounts } = this.state;
         // Bug: when trying to access arrays or any data that
         // requires API calls here, you get TypeError.
         // React Lesson: You need to add condition because
@@ -194,6 +202,10 @@ class Statistics extends Component {
             }
         });
 
+        var counts = [{id: "Number of CBR visits", count: numberOfCBRVisits},
+                        {id: "Number of Disability Centre referral visits", count: numberOfDCRVisits},
+                        {id: "Number of Disability Centre referral follow up visits", count: numberOfDCRFUVisits},
+                        {id: "Number of wheel chairs", count: numberOfWheelChair}]
 
         const allAspectChartOptions = this.setupRiskChartOptions(allAspectRiskStats, "All Aspect");
         const healthChartOptions = this.setupRiskChartOptions(healthRiskStats, "Health");
@@ -203,20 +215,16 @@ class Statistics extends Component {
         return (
             <div>
                 <div>
+                    <h1 className="decorated"><span>General Statistics</span></h1>
+                        {
+                            !generalVisitData.length ? LOADING :
+                            <DataTable data={counts} headers={["Visits check list", "Count"]}></DataTable>
+                        }
                     <h1 className="decorated"><span>Stats Per CBR Worker</span></h1>
                     <div>
-                        <ul>
-                            <li>Number of CBR visits: {numberOfCBRVisits}</li>
-                            <li>Number of Disability Centre referral visits: {numberOfDCRVisits}</li>
-                            <li>Number of Disability Centre referral follow up visits: {numberOfDCRFUVisits}</li>
-                            <li>Number of wheel chairs: {numberOfWheelChair}</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h2>Number of visits per CBR worker:</h2>
                         {
                             !visitsPerCBRWorker.length ? LOADING :
-                            <DataTable data={visitsPerCBRWorker} descHeader="Worker name" valueHeader="Visits completed"></DataTable>
+                            <DataTable data={visitsPerCBRWorker} headers={["Worker name", "Visits completed"]}></DataTable>
                         }
                     </div>
                 </div>

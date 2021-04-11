@@ -36,7 +36,7 @@ const rows = [
 /**
  * 2 column table
  * 
- * @param {[]} data [{id: String, count: int}, descHeader=String, valueHeader=String]
+ * @param {[]} data [{id: String, count: int}, headers=[Strings...]]
  * @returns TableContainer
  */
 export default function DataTable(data) {
@@ -47,8 +47,17 @@ export default function DataTable(data) {
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell className={classes.tableHeader}>{data.descHeader}</TableCell>
-                <TableCell className={classes.tableHeader} align="right">{data.valueHeader}</TableCell>
+                {
+                  data.headers.map((header, index) => {
+                    return (index === 0 ?
+                      <TableCell className={classes.tableHeader}>
+                        {header}
+                      </TableCell> : 
+                      <TableCell className={classes.tableHeader} align="right">
+                        {header}
+                      </TableCell>)
+                  })
+                }
               </TableRow>
             </TableHead>
             <TableBody>

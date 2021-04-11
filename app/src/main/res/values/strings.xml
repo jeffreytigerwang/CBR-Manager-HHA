@@ -281,7 +281,7 @@
     <string name="enter_address_city_or_zip_code">Enter Address, City or Zip Code</string>
     <string name="sort">Sort</string>
     <string name="chat">Chat</string>
-    <string name="send_you_discussion_today">send you discussion today....</string>
+    <string name="chat_input_hint">Send a message</string>
     <string name="send">Send</string>
     <string name="cbrWorkerIntent_userId">userId</string>
     <string name="cbrWorkerIntent_iconIdx">iconIdx</string>

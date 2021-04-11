@@ -113,12 +113,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String createReferral = "CREATE TABLE REFERRAL_TABLE (CLIENT_ID INT, REFERRAL_ID INT, " +
                 "REQUIRE_PHYSIOTHERAPY BOOL, REQUIRE_PROSTHETIC BOOL, REQUIRE_ORTHOTIC BOOL, " +
-                "REQUIRE_WHEEL_CHAIR BOOL, REQUIRE_OTHER BOOL, OTHER_DESC STRING, " +
+                "REQUIRE_WHEEL_CHAIR BOOL, REQUIRE_OTHER BOOL, OTHER_DESC TEXT, " +
                 "AMPUTEE BOOL, POLIO BOOL, SPINAL_CORD_INJURY BOOL, CEREBRAL_PALSY BOOL, " +
                 "SPINA_BIFIDA BOOL, HYDROCEPHALUS BOOL, VISUAL_IMPAIRMENT BOOL, " +
                 "HEARING_IMPAIRMENT BOOL, OTHER BOOL, INJURY_ABOVE_KNEE BOOL, INJURY_BELOW_KNEE BOOL, " +
-                "INTERMEDIATE_WHEEL_CHAIR_USER BOOL, HIP_WIDTH INTEGER, HAS_EXISTING_WHEEL_CHAIR BOOL, " +
-                "CAN_REPAIR_WHEEL_CHAIR BOOL, OUTCOME TEXT)";
+                "INJURY_ABOVE_ELBOW BOOL, INJURY_BELOW_ELBOW BOOL, INTERMEDIATE_WHEEL_CHAIR_USER BOOL, " +
+                "HIP_WIDTH INTEGER, HAS_EXISTING_WHEEL_CHAIR BOOL, " +
+                "CAN_REPAIR_WHEEL_CHAIR BOOL, OUTCOME TEXT, PHYSIOTHERAPY_PHOTO BLOB)";
         sqLiteDatabase.execSQL(createReferral);
 
     }
@@ -304,39 +305,48 @@ public class DBHelper extends SQLiteOpenHelper {
         return success != -1;
     }
 
-    //Referral model is being updated, adjustments need to be made after the changes
-//    public boolean addReferral(ReferralInfo referral) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues cv = new ContentValues();
-//
-//        cv.put("CLIENT_ID", referral.getClientId());
-//        cv.put("REFERRAL_ID", referral.getReferralId());
-//        cv.put("REQUIRE_PHYSIOTHERAPY", referral.isRequirePhysiotherapy());
-//        cv.put("REQUIRE_PROSTHETIC", referral.isRequireProsthetic());
-//        cv.put("REQUIRE_ORTHOTIC", referral.isRequireOrthotic());
-//        cv.put("REQUIRE_WHEEL_CHAIR", referral.isRequireWheelchair());
-//        cv.put("REQUIRE_OTHER", referral.isRequireOther());
-//        cv.put("OTHER_DESC", referral.getOtherDescription());
-//        cv.put("AMPUTEE", referral.isAmputeeDisability());
-//        cv.put("POLIO", referral.isPolioDisability());
-//        cv.put("SPINAL_CORD_INJURY", referral.isSpinalCordInjuryDisability());
-//        cv.put("CEREBRAL_PALSY", referral.isCerebralPalsyDisability());
-//        cv.put("SPINA_BIFIDA", referral.isSpinaBifidaDisability());
-//        cv.put("HYDROCEPHALUS", referral.isHydrocephalusDisability());
-//        cv.put("VISUAL_IMPAIRMENT", referral.isVisualImpairmentDisability());
-//        cv.put("HEARING_IMPAIRMENT", referral.isHearingImpairmentDisability());
-//        cv.put("OTHER", referral.isOtherDisability());
-//        cv.put("INJURY_ABOVE_KNEE", referral.isInjuryAboveKnee());
-//        cv.put("INJURY_BELOW_KNEE", referral.isInjuryBelowKnee());
-//        cv.put("INTERMEDIATE_WHEEL_CHAIR_USER", referral.isIntermediateWheelchairUser());
-//        cv.put("HIP_WIDTH", referral.getHipWidth());
-//        cv.put("HAS_EXISTING_WHEEL_CHAIR", referral.isHasExistingWheelchair());
-//        cv.put("CAN_REPAIR_WHEEL_CHAIR", referral.isCanRepairWheelchair());
-//        cv.put("OUTCOME", referral.getOutcome());
-//
-//        long success = db.insert(REFERRAL_TABLE, null, cv);
-//        return success != -1;
-//    }
+    public boolean addReferral(ReferralInfo referral) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("CLIENT_ID", referral.getClientId());
+        cv.put("REFERRAL_ID", referral.getReferralId());
+        cv.put("REQUIRE_PHYSIOTHERAPY", referral.isRequirePhysiotherapy());
+        cv.put("REQUIRE_PROSTHETIC", referral.isRequireProsthetic());
+        cv.put("REQUIRE_ORTHOTIC", referral.isRequireOrthotic());
+        cv.put("REQUIRE_WHEEL_CHAIR", referral.isRequireWheelchair());
+        cv.put("REQUIRE_OTHER", referral.isRequireOther());
+        cv.put("OTHER_DESC", referral.getOtherDescription());
+        cv.put("AMPUTEE", referral.isAmputeeDisability());
+        cv.put("POLIO", referral.isPolioDisability());
+        cv.put("SPINAL_CORD_INJURY", referral.isSpinalCordInjuryDisability());
+        cv.put("CEREBRAL_PALSY", referral.isCerebralPalsyDisability());
+        cv.put("SPINA_BIFIDA", referral.isSpinaBifidaDisability());
+        cv.put("HYDROCEPHALUS", referral.isHydrocephalusDisability());
+        cv.put("VISUAL_IMPAIRMENT", referral.isVisualImpairmentDisability());
+        cv.put("HEARING_IMPAIRMENT", referral.isHearingImpairmentDisability());
+        cv.put("OTHER", referral.isOtherDisability());
+        cv.put("INJURY_ABOVE_KNEE", referral.isInjuryAboveKnee());
+        cv.put("INJURY_BELOW_KNEE", referral.isInjuryBelowKnee());
+        cv.put("INJURY_ABOVE_ELBOW", referral.isInjuryAboveElbow());
+        cv.put("INJURY_BELOW_ELBOW", referral.isInjuryBelowElbow());
+
+        cv.put("INTERMEDIATE_WHEEL_CHAIR_USER", referral.isIntermediateWheelchairUser());
+        cv.put("HIP_WIDTH", referral.getHipWidth());
+        cv.put("HAS_EXISTING_WHEEL_CHAIR", referral.isHasExistingWheelchair());
+        cv.put("CAN_REPAIR_WHEEL_CHAIR", referral.isCanRepairWheelchair());
+        cv.put("OUTCOME", referral.getOutcome());
+
+        Byte[] wBytes = referral.getPhysiotherapyPhoto();
+        byte[] bytes = new byte[wBytes.length];
+        for(int i = 0; i < wBytes.length; i++) {
+            bytes[i] = wBytes[i];
+        }
+        cv.put("PHYSIOTHERAPY_PHOTO", bytes);
+
+        long success = db.insert(REFERRAL_TABLE, null, cv);
+        return success != -1;
+    }
 
     public List<ClientInfo> getAllClients() {
         List<ClientInfo> clientInfoList = new ArrayList<>();
@@ -696,43 +706,67 @@ public class DBHelper extends SQLiteOpenHelper {
         return clientDisabilities;
     }
 
-    //CHANGES NEED TO BE MADE AS REFFERALINFO MODEL IS BEING UPDATED
-//    public List<ReferralInfo> getAllReferrals() {
-//        List<ReferralInfo> referralInfos = new ArrayList<>();
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        String query = SELECT_ALL_FROM + REFERRAL_TABLE;
-//        Cursor cursor = db.rawQuery(query, null);
-//
-//        if(cursor.moveToFirst()) {
-//            do {
-//                int clientId = cursor.getInt(0);
-//                int referralId = cursor.getInt(1);
-//                boolean requirePhysiotherapy = cursor.getInt(2) == 1;
-//                boolean requireProsthetic = cursor.getInt(3) == 1;
-//                boolean requireOrthotic = cursor.getInt(4) == 1;
-//                boolean requireWheelchair = cursor.getInt(5) == 1;
-//                boolean requireOther = cursor.getInt(6) == 1;
-//                boolean otherDesc = cursor.getInt(7) == 1;
-//
-//
-//
-//                boolean amputeeDisability = cursor.getInt(8) == 1;
-//                boolean polioDisability = cursor.getInt(9) == 1;
-//                boolean spinalCordInjuryDisability = cursor.getInt(10) == 1;
-//                boolean cerebralPalsyDisability = cursor.getInt(11) == 1;
-//                boolean spinaBifidaDisability = cursor.getInt(12) == 1;
-//                boolean hydrocephalusDisability = cursor.getInt(13) == 1;
-//                boolean visualImpairmentDisability = cursor.getInt(14) == 1;
-//                boolean hearingImpairmentDisability = cursor.getInt(15) == 1;
-//                boolean otherDisability = cursor.getInt(16) == 1;
-//
-//
-//            } while(cursor.moveToNext());
-//        }
-//
-//        return referralInfos;
-//    }
+
+    public List<ReferralInfo> getAllReferrals() {
+        List<ReferralInfo> referralInfos = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = SELECT_ALL_FROM + REFERRAL_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int clientId = cursor.getInt(0);
+                int referralId = cursor.getInt(1);
+                boolean requirePhysiotherapy = cursor.getInt(2) == 1;
+                boolean requireProsthetic = cursor.getInt(3) == 1;
+                boolean requireOrthotic = cursor.getInt(4) == 1;
+                boolean requireWheelchair = cursor.getInt(5) == 1;
+                boolean requireOther = cursor.getInt(6) == 1;
+                String otherDesc = cursor.getString(7);
+
+                boolean amputeeDisability = cursor.getInt(8) == 1;
+                boolean polioDisability = cursor.getInt(9) == 1;
+                boolean spinalCordInjuryDisability = cursor.getInt(10) == 1;
+                boolean cerebralPalsyDisability = cursor.getInt(11) == 1;
+                boolean spinaBifidaDisability = cursor.getInt(12) == 1;
+                boolean hydrocephalusDisability = cursor.getInt(13) == 1;
+                boolean visualImpairmentDisability = cursor.getInt(14) == 1;
+                boolean hearingImpairmentDisability = cursor.getInt(15) == 1;
+                boolean otherDisability = cursor.getInt(16) == 1;
+
+                boolean injuryAboveKnee = cursor.getInt(17) == 1;
+                boolean injuryBelowKnee = cursor.getInt(18) == 1;
+                boolean injuryAboveElbow = cursor.getInt(19) == 1;
+                boolean injuryBelowElbow = cursor.getInt(20) == 1;
+
+                boolean intermediateWheelChair = cursor.getInt(21) == 1;
+                int hipWidth = cursor.getInt(22);
+                boolean hasExistingWheelchair = cursor.getInt(23) == 1;
+                boolean canRepairWheelchair = cursor.getInt(24) == 1;
+                String outcome = cursor.getString(25);
+
+                byte[] bytes = cursor.getBlob(26);
+                Byte[] physiotherapyPhoto = new Byte[bytes.length];
+                for(int i = 0; i < bytes.length; i++) {
+                    physiotherapyPhoto[i] = bytes[i];
+                }
+
+                ReferralInfo referral = new ReferralInfo(clientId, referralId, requirePhysiotherapy,
+                        requireProsthetic, requireOrthotic, requireWheelchair, requireOther, otherDesc,
+                        physiotherapyPhoto, amputeeDisability, polioDisability, spinalCordInjuryDisability,
+                        cerebralPalsyDisability, spinaBifidaDisability, hydrocephalusDisability,
+                        visualImpairmentDisability, hearingImpairmentDisability, otherDisability,
+                        injuryAboveKnee, injuryBelowKnee, injuryAboveElbow, injuryBelowElbow,
+                        intermediateWheelChair, hipWidth, hasExistingWheelchair, canRepairWheelchair,
+                        outcome);
+                referralInfos.add(referral);
+
+            } while(cursor.moveToNext());
+        }
+
+        return referralInfos;
+    }
 
 
 }

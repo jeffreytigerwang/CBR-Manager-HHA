@@ -39,9 +39,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String REFERRAL_TABLE = "REFERRAL_TABLE";
     public static final String SELECT_ALL_FROM = "SELECT * FROM ";
 
-
-
-
     public static final String ID = "ID";
     public static final String FIRST_NAME = "FIRST_NAME";
     public static final String LAST_NAME = "LAST_NAME";

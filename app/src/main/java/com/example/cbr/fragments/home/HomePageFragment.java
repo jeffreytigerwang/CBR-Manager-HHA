@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -13,6 +14,7 @@ import com.example.cbr.R;
 import com.example.cbr.databinding.FragmentHomePageBinding;
 import com.example.cbr.fragments.DashboardPageFragment;
 import com.example.cbr.fragments.base.BaseFragment;
+import com.example.cbr.localdb.DBHelper;
 
 
 public class HomePageFragment extends BaseFragment implements HomePageContract.View, View.OnClickListener{
@@ -20,7 +22,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
     private FragmentHomePageBinding binding;
     private HomePageFragmentInterface homePageFragmentInterface;
     private DashboardPageFragment.DashboardFragmentInterface dashboardFragmentInterface;
-
+    private DBHelper dbHelper;
 
 
     @Override
@@ -44,6 +46,8 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
         binding.cardViewAllClients.setOnClickListener(this);
         binding.cardViewDashboard.setOnClickListener(this);
         binding.cardViewNewClient.setOnClickListener(this);
+
+        dbHelper = new DBHelper(getContext());
 
         View view = binding.getRoot();
         return view;
@@ -78,9 +82,16 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
                 dashboardFragmentInterface.swapToNewClient();
                 break;
 
+            case R.id.cardViewSync:
+                Toast.makeText(getActivity(),getString(R.string.syncing_toast), Toast.LENGTH_LONG).show();
+                syncData();
             default:
                 break;
         }
+    }
+
+    private void syncData() {
+
     }
 
 

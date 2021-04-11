@@ -6,7 +6,7 @@ import StatsDataService from "../services/stats.service"
 import { LOADING, LOADING_CHART_OPTIONS } from "../Util/Constants";
 import "../styles/lineHeader.css"
 
-import { TextField, Button, withStyles, Grid, Paper, ListItem, Table as statsTable } from "@material-ui/core"
+import { TextField, Button, withStyles, Grid, Paper, ListItem, Table as statsTable, Grow } from "@material-ui/core"
 import { styles } from "../css-common"
 import CanvasJSReact from './canvasjs.react';
 import DataTable from './dataTable.component';
@@ -31,8 +31,8 @@ class Statistics extends Component {
             allDisabilityCounts: [],
             bidibidiDisabilityCounts: [],
             palorinyaDisabilityCounts: [],
-            allReferralByType: [],
-            allReferralSum: [],
+            allReferralsByType: [],
+            allReferralsSum: [],
         };
     }
 
@@ -49,11 +49,11 @@ class Statistics extends Component {
         this.setState({isLoading: true});
         StatsDataService.getReferralsStats()
             .then(response => {
-                //console.log(response);
+                console.log(response);
                 this.setState({
                     isLoading: false,
-                    allReferralByType: response.allReferralsByType,
-                    allReferralSum: response.allReferralSum,
+                    allReferralsByType: response.allReferralsByType,
+                    allReferralsSum: response.allReferralsSum,
                 });
             })
             .catch(e => {
@@ -66,7 +66,7 @@ class Statistics extends Component {
         this.setState({isLoading: true});
         StatsDataService.getDisabilityStats()
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 this.setState({
                     isLoading: false,
                     allDisabilityCounts: response.allDisabilityCounts,
@@ -197,7 +197,7 @@ class Statistics extends Component {
         const { palorinyaDisabilityCounts } = this.state;
 
         const { allReferralsByType } = this.state;
-        const { allReferralSum } = this.state;
+        const { allReferralsSum } = this.state;
         // Bug: when trying to access arrays or any data that
         // requires API calls here, you get TypeError.
         // React Lesson: You need to add condition because
@@ -257,12 +257,28 @@ class Statistics extends Component {
             <div>
                 <div>
                     <h1 className="decorated"><span>General Statistics</span></h1>
-                    <div>
-                        {
-                            !generalVisitData.length ? LOADING :
-                            <DataTable data={counts} headers={["Visits check list", "#Of times checked"]}></DataTable>
-                        }
-                    </div>
+                    <span>
+                        <Grid container spacing={2}>
+                            <Grid item xs>
+                                {
+                                    !generalVisitData.length ? LOADING :
+                                    <DataTable data={counts} headers={["Visits check list", "#Of times checked"]}></DataTable>
+                                }
+                            </Grid>
+                            <Grid item xs>
+                                {
+                                    !allReferralsByType.length ? LOADING :
+                                    <DataTable data={allReferralsByType} headers={["Referrals by type", "#Of times checked"]}></DataTable>
+                                }
+                            </Grid>
+                            <Grid item xs>
+                                {
+                                    !allReferralsSum.length ? LOADING :
+                                    <DataTable data={allReferralsSum} headers={["Visits with referrals", "Sum"]}></DataTable>
+                                }
+                            </Grid>
+                        </Grid>
+                    </span>
                     <h1 className="decorated"><span>Stats Per CBR Worker</span></h1>
                     <div>
                         {
@@ -279,22 +295,22 @@ class Statistics extends Component {
                     <h1 className="decorated"><span>Stats for settlement as a whole</span></h1>
                     <span>
                         <Grid container spacing={2}>
-                            <Grid item sm>
+                            <Grid item xs={12}>
                                 {
                                     !allDisabilityCounts.length ? LOADING :
-                                    <DataTable data={allDisabilityCounts} headers={["Disabilities", "#Of times checked"]}></DataTable>
+                                    <DataTable data={allDisabilityCounts} headers={["All settlements", "#Of times checked"]}></DataTable>
                                 }
                             </Grid>
-                            <Grid item sm>
+                            <Grid item xs={6}>
                                 {
                                     !bidibidiDisabilityCounts.length ? LOADING :
-                                    <DataTable data={bidibidiDisabilityCounts} headers={["Disabilities", "#Of times checked"]}></DataTable>
+                                    <DataTable data={bidibidiDisabilityCounts} headers={["Bidibidi", "#Of times checked"]}></DataTable>
                                 }
                             </Grid>
-                            <Grid item sm>
+                            <Grid item xs={6}>
                                 {
                                     !palorinyaDisabilityCounts.length ? LOADING :
-                                    <DataTable data={palorinyaDisabilityCounts} headers={["Disabilities", "#Of times checked"]}></DataTable>
+                                    <DataTable data={palorinyaDisabilityCounts} headers={["Palorinya", "#Of times checked"]}></DataTable>
                                 }
                             </Grid>
                         </Grid>

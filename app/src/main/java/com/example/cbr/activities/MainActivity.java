@@ -40,7 +40,7 @@ import retrofit2.Retrofit;
 public class MainActivity extends AppCompatActivity implements RegisterDialog.registerDialogListener{
 
 
-    // Init API
+    // Init API for calls to the database
     private Retrofit retrofit;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
 

@@ -13,7 +13,7 @@ public class NewReferralPresenter implements NewReferralContract.Presenter {
 
     private NewReferralContract.View newReferralView;
 
-    // Init API
+    // Init API for calls to the database
     private Retrofit retrofit;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
 

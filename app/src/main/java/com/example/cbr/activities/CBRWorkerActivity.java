@@ -21,7 +21,7 @@ import retrofit2.Retrofit;
 
 public class CBRWorkerActivity extends AppCompatActivity {
 
-    // Init API
+    // Init API for calls to the database
     private Retrofit retrofit;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
 

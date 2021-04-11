@@ -628,13 +628,8 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         }
 
         // Error checking for the Social Status page
-        if (isStringFieldNull(describeSocialStatus, getString(R.string.social_status_description_cannot_be_empty)) ||
-            isStringFieldNull(socialStatusGoal, getString(R.string.social_status_goal_cannot_be_empty)))
-        {
-            return false;
-        }
-
-        return true;
+        return !isStringFieldNull(describeSocialStatus, getString(R.string.social_status_description_cannot_be_empty)) &&
+                !isStringFieldNull(socialStatusGoal, getString(R.string.social_status_goal_cannot_be_empty));
     }
 
     private boolean isStringFieldNull(String field, String message) {
@@ -652,10 +647,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
         Pattern p = Pattern.compile(gpsPattern);
         Matcher m = p.matcher(coordinate);
 
-        if (m.find()) {
-            return false;
-        }
-        return true;
+        return !m.find();
     }
 
     private void updateDisplayInfo(int currentPage) {

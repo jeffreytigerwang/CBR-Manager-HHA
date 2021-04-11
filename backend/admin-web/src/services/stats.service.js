@@ -43,12 +43,16 @@ class StatsDataService {
       hearingImpairmentDisability: hearingImpairmentDisabilityCount,
       doNotKnowDisability: doNotKnowDisabilityCount,
       otherDisability: otherDisabilityCount
-      }
+      };
+
+      const zoneDisabilityCounts = {};
+      const statsData = {allDisabilityCounts: allDisabilityCounts,
+                         zoneDisabilityCounts: zoneDisabilityCounts};
 
       console.log('aggregated to: ');
-      console.log(allDisabilityCounts);
+      console.log(statsData);
 
-      return data;
+      return statsData;
 
   }
 

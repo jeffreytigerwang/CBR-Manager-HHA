@@ -25,7 +25,7 @@ class Statistics extends Component {
             healthVisitData: new Array(),
             healthRiskStats: [],
             visitsPerCBRWorker: [],
-            disabilityData: new Array()
+            disabilityData: new Object()
         };
     }
 
@@ -41,10 +41,10 @@ class Statistics extends Component {
         this.setState({isLoading: true});
         StatsDataService.getDisabilityStats()
             .then(response => {
-                console.log(response.data);
+                //console.log(response);
                 this.setState({
                     isLoading: false,
-                    disabilityData: response.data
+                    disabilityData: response
                 });
             })
             .catch(e => {
@@ -108,6 +108,7 @@ class Statistics extends Component {
     }
 
 
+
     /**
      * @param {[]} riskStats Array of properties
      * @param {String} aspect Health, education, or social
@@ -165,6 +166,7 @@ class Statistics extends Component {
         // on initial render the healthRiskStats is empty array
         // and doesn’t have any objects in it. E.g.,
         // healthRiskStats.length ? console.log(healthRiskStats[0].percentage) : console.log(LOADING);
+
 
         var numberOfVisits = generalVisitData.length;
         var numberOfCBRVisits = 0;

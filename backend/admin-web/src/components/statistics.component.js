@@ -12,7 +12,8 @@ import CanvasJSReact from './canvasjs.react';
 import DataTable from './dataTable.component';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+var CanvasJSChartAllAspect = CanvasJSReact.CanvasJSChart;
+var CanvasJSChartHealth = CanvasJSReact.CanvasJSChart;
 
 class Statistics extends Component {
     constructor(props) {
@@ -23,7 +24,10 @@ class Statistics extends Component {
             currentUser: new Array(),
             generalVisitData: new Array(),
             healthVisitData: new Array(),
+            allAspectRiskStats: [],
             healthRiskStats: [],
+            educationRiskStats: [],
+            socialRiskStats: [],
             visitsPerCBRWorker: []
         };
     }
@@ -31,7 +35,7 @@ class Statistics extends Component {
     componentDidMount() {
         this.getAllGeneralVisitData();
         this.getAllHealthVisitData();
-        // this.getHealthRiskStats();
+        this.getAllAspectRiskStats();
         this.getNumberOfVisitsPerCBRWorker();
     }
 
@@ -63,19 +67,23 @@ class Statistics extends Component {
             .catch(e => {
                 console.log(e);
             });
-    } 
-    
-    getHealthRiskStats = () => {
+    }
+
+    getAllAspectRiskStats = () => {
         this.setState({isLoading: true});
         StatsDataService.getRisks()
             .then(result => {
                 console.log(result);
                 this.setState({
                     isLoading: false,
-                    healthRiskStats: result
+                    allAspectRiskStats: result.allRisk,
+                    healthRiskStats: result.healthRisk,
+                    educationRiskStats: result.educationRisk,
+                    socialRiskStats: result.socialRisk,
                 })
             });
     }
+
 
     getNumberOfVisitsPerCBRWorker = () => {
         this.setState({isLoading: true});
@@ -88,7 +96,6 @@ class Statistics extends Component {
                 })
             })
     }
-    
     
     /**
      * @param {[]} riskStats Array of properties
@@ -110,7 +117,7 @@ class Statistics extends Component {
                 verticalAlign: "center",
                 fontSize: 24,
                 dockInsidePlotArea: true,
-                maxWidth: 166
+                maxWidth: 130
             }, {
                 //  TODO: get the very first and last date of visit info for this chart.
                 // text: "${initialDate} ${lastDate}",
@@ -171,10 +178,10 @@ class Statistics extends Component {
         });
 
 
-        // const allAspectChartOptions = this.setupRiskChartOptions(allAspectRiskStats, "All Aspect");
-        // const healthChartOptions = this.setupRiskChartOptions(healthRiskStats, "Health");
-        // const educationChartOptions = this.setupRiskChartOptions(educationRiskStats, "Education");
-        // const socialChartOptions = this.setupRiskChartOptions(socialRiskStats, "Social");
+        const allAspectChartOptions = this.setupRiskChartOptions(allAspectRiskStats, "All Aspect");
+        const healthChartOptions = this.setupRiskChartOptions(healthRiskStats, "Health");
+        const educationChartOptions = this.setupRiskChartOptions(educationRiskStats, "Education");
+        const socialChartOptions = this.setupRiskChartOptions(socialRiskStats, "Social");
 
         return (
             <div>
@@ -197,16 +204,16 @@ class Statistics extends Component {
                     </div>
                 </div>
                 <div>
-                <h1 class="decorated"><span>Stats Per Zone</span></h1>
-                <h1 class="decorated"><span>Stats for settlement as a whole</span></h1>
-                <h1 class="decorated"><span>Risk Level Charts</span></h1>
+                <h1 className="decorated"><span>Stats Per Zone</span></h1>
+                <h1 className="decorated"><span>Stats for settlement as a whole</span></h1>
+                <h1 className="decorated"><span>Risk Level Charts</span></h1>
                 </div>
                 <Grid container spacing={2}>
                     <Grid item sm={12}>
                         <div>
                             {
-                                this.state.isLoading ? LOADING :
-                                <CanvasJSChart options = {LOADING_CHART_OPTIONS} 
+                                this.state.isLoading ? LOADING : 
+                                <CanvasJSChartAllAspect options = {allAspectChartOptions} 
                                     onRef = {ref => this.chart = ref}
                                 />
                             }
@@ -216,8 +223,8 @@ class Statistics extends Component {
                     <Grid item sm>
                         <div>
                             {
-                                this.state.isLoading ? LOADING :
-                                <CanvasJSChart options = {LOADING_CHART_OPTIONS} 
+                                this.state.isLoading ? LOADING : 
+                                <CanvasJSChartHealth options = {healthChartOptions} 
                                     onRef = {ref => this.chart = ref}
                                 />
                             }
@@ -227,8 +234,8 @@ class Statistics extends Component {
                     <Grid item sm>
                         <div>
                             {
-                                this.state.isLoading ? LOADING :
-                                <CanvasJSChart options = {LOADING_CHART_OPTIONS} 
+                                this.state.isLoading ? LOADING : 
+                                <CanvasJSChartAllAspect options = {educationChartOptions} 
                                     onRef = {ref => this.chart = ref}
                                 />
                             }
@@ -238,8 +245,8 @@ class Statistics extends Component {
                     <Grid item sm>
                         <div>
                             {
-                                this.state.isLoading ? LOADING :
-                                <CanvasJSChart options = {LOADING_CHART_OPTIONS} 
+                                this.state.isLoading ? LOADING : 
+                                <CanvasJSChartAllAspect options = {socialChartOptions} 
                                     onRef = {ref => this.chart = ref}
                                 />
                             }

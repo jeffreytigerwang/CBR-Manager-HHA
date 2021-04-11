@@ -40,7 +40,6 @@ const rows = [
  * @returns TableContainer
  */
 export default function DataTable(data) {
-  console.log(data);
   const classes = useStyles();
 
     return (

@@ -24,7 +24,8 @@ class Statistics extends Component {
             generalVisitData: new Array(),
             healthVisitData: new Array(),
             healthRiskStats: [],
-            visitsPerCBRWorker: []
+            visitsPerCBRWorker: [],
+            disabilityData: new Array()
         };
     }
 
@@ -33,13 +34,30 @@ class Statistics extends Component {
         this.getAllHealthVisitData();
         // this.getHealthRiskStats();
         this.getNumberOfVisitsPerCBRWorker();
+        this.getDisabilityData();
     }
+
+    getDisabilityData = () => {
+        this.setState({isLoading: true});
+        StatsDataService.getDisabilityStats()
+            .then(response => {
+                console.log(response.data);
+                this.setState({
+                    isLoading: false,
+                    disabilityData: response.data
+                });
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    }
+
 
     getAllGeneralVisitData = () => {
         this.setState({isLoading: true});
         VisitDataService.getAllGeneralData()
             .then(response => {
-                console.log(response.data);
+                //console.log(response.data);
                 this.setState({
                     isLoading: false,
                     generalVisitData: response.data
@@ -49,12 +67,12 @@ class Statistics extends Component {
                 console.log(e);
             });
     }
-    
+
     getAllHealthVisitData = () => {
         this.setState({isLoading: true});
         VisitDataService.getAllHealthData()
             .then(response => {
-                console.log(response.data);
+                //console.log(response.data);
                 this.setState({
                     isLoading: false,
                     healthVisitData: response.data
@@ -63,13 +81,13 @@ class Statistics extends Component {
             .catch(e => {
                 console.log(e);
             });
-    } 
-    
+    }
+
     getHealthRiskStats = () => {
         this.setState({isLoading: true});
         StatsDataService.getRisks()
             .then(result => {
-                console.log(result);
+                //console.log(result);
                 this.setState({
                     isLoading: false,
                     healthRiskStats: result
@@ -81,15 +99,15 @@ class Statistics extends Component {
         this.setState({isLoading: true});
         StatsDataService.getNumberOfVisitsPerCBRWorker()
             .then(result => {
-                console.log(result);
+                //console.log(result);
                 this.setState({
                     isLoading: false,
                     visitsPerCBRWorker: result
                 })
             })
     }
-    
-    
+
+
     /**
      * @param {[]} riskStats Array of properties
      * @param {String} aspect Health, education, or social
@@ -130,7 +148,7 @@ class Statistics extends Component {
             }]
         } : LOADING_CHART_OPTIONS;
     }
-    
+
     render() {
         const currentUser = this.state.isLoading ? LOADING : this.state.currentUser;
         const { classes } = this.props;
@@ -143,8 +161,8 @@ class Statistics extends Component {
         const { visitsPerCBRWorker } = this.state;
         // Bug: when trying to access arrays or any data that
         // requires API calls here, you get TypeError.
-        // React Lesson: You need to add condition because 
-        // on initial render the healthRiskStats is empty array 
+        // React Lesson: You need to add condition because
+        // on initial render the healthRiskStats is empty array
         // and doesn’t have any objects in it. E.g.,
         // healthRiskStats.length ? console.log(healthRiskStats[0].percentage) : console.log(LOADING);
 
@@ -163,7 +181,7 @@ class Statistics extends Component {
                 numberOfDCRFUVisits++;
             }
         });
-        
+
         healthVisitData.forEach(element => {
             if (element.isWheelChairChecked) {
                 numberOfWheelChair++;
@@ -180,7 +198,7 @@ class Statistics extends Component {
             <div>
                 <div>
                     <h1 className="decorated"><span>Stats Per CBR Worker</span></h1>
-                    <div>    
+                    <div>
                         <ul>
                             <li>Number of CBR visits: {numberOfCBRVisits}</li>
                             <li>Number of Disability Centre referral visits: {numberOfDCRVisits}</li>
@@ -188,10 +206,10 @@ class Statistics extends Component {
                             <li>Number of wheel chairs: {numberOfWheelChair}</li>
                         </ul>
                     </div>
-                    <div>    
+                    <div>
                         <h2>Number of visits per CBR worker:</h2>
                         {
-                            !visitsPerCBRWorker.length ? LOADING :  
+                            !visitsPerCBRWorker.length ? LOADING :
                             <DataTable data={visitsPerCBRWorker} descHeader="Worker name" valueHeader="Visits completed"></DataTable>
                         }
                     </div>
@@ -206,44 +224,44 @@ class Statistics extends Component {
                         <div>
                             {
                                 this.state.isLoading ? LOADING :
-                                <CanvasJSChart options = {LOADING_CHART_OPTIONS} 
+                                <CanvasJSChart options = {LOADING_CHART_OPTIONS}
                                     onRef = {ref => this.chart = ref}
                                 />
                             }
-                            
+
                         </div>
                     </Grid>
                     <Grid item sm>
                         <div>
                             {
                                 this.state.isLoading ? LOADING :
-                                <CanvasJSChart options = {LOADING_CHART_OPTIONS} 
+                                <CanvasJSChart options = {LOADING_CHART_OPTIONS}
                                     onRef = {ref => this.chart = ref}
                                 />
                             }
-                            
+
                         </div>
                     </Grid>
                     <Grid item sm>
                         <div>
                             {
                                 this.state.isLoading ? LOADING :
-                                <CanvasJSChart options = {LOADING_CHART_OPTIONS} 
+                                <CanvasJSChart options = {LOADING_CHART_OPTIONS}
                                     onRef = {ref => this.chart = ref}
                                 />
                             }
-                            
+
                         </div>
                     </Grid>
                     <Grid item sm>
                         <div>
                             {
                                 this.state.isLoading ? LOADING :
-                                <CanvasJSChart options = {LOADING_CHART_OPTIONS} 
+                                <CanvasJSChart options = {LOADING_CHART_OPTIONS}
                                     onRef = {ref => this.chart = ref}
                                 />
                             }
-                            
+
                         </div>
                     </Grid>
                 </Grid>

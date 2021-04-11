@@ -12,8 +12,7 @@ import CanvasJSReact from './canvasjs.react';
 import DataTable from './dataTable.component';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
-var CanvasJSChartAllAspect = CanvasJSReact.CanvasJSChart;
-var CanvasJSChartHealth = CanvasJSReact.CanvasJSChart;
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class Statistics extends Component {
     constructor(props) {
@@ -213,7 +212,7 @@ class Statistics extends Component {
                         <div>
                             {
                                 this.state.isLoading ? LOADING : 
-                                <CanvasJSChartAllAspect options = {allAspectChartOptions} 
+                                <CanvasJSChart options = {allAspectChartOptions} 
                                     onRef = {ref => this.chart = ref}
                                 />
                             }
@@ -224,7 +223,7 @@ class Statistics extends Component {
                         <div>
                             {
                                 this.state.isLoading ? LOADING : 
-                                <CanvasJSChartHealth options = {healthChartOptions} 
+                                <CanvasJSChart options = {healthChartOptions} 
                                     onRef = {ref => this.chart = ref}
                                 />
                             }
@@ -235,7 +234,7 @@ class Statistics extends Component {
                         <div>
                             {
                                 this.state.isLoading ? LOADING : 
-                                <CanvasJSChartAllAspect options = {educationChartOptions} 
+                                <CanvasJSChart options = {educationChartOptions} 
                                     onRef = {ref => this.chart = ref}
                                 />
                             }
@@ -246,7 +245,7 @@ class Statistics extends Component {
                         <div>
                             {
                                 this.state.isLoading ? LOADING : 
-                                <CanvasJSChartAllAspect options = {socialChartOptions} 
+                                <CanvasJSChart options = {socialChartOptions} 
                                     onRef = {ref => this.chart = ref}
                                 />
                             }

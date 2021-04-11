@@ -12,7 +12,7 @@ export const LOADING = "Loading...";
 export const LOADING_CHART_OPTIONS = {
     animationEnabled: true,
     title: {
-        text: "Dummy Graph"
+        text: "This is a temporary graph"
     },
     subtitles: [{
         text: "Actual Graph has not loaded yet",

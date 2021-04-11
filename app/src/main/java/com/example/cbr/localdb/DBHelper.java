@@ -135,7 +135,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         cv.put(FIRST_NAME, client.getFirstName());
         cv.put(LAST_NAME, client.getLastName());
-        cv.put(ID, client.getId());
+        cv.put(ID, client.getClientId());
         cv.put("GENDER", client.getGender());
         cv.put("AGE", client.getAge());
         cv.put("CONTACT_NUMBER", client.getContactNumber());
@@ -366,7 +366,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 int age = clientCursor.getInt(4);
                 String contactNumber = clientCursor.getString(5);
                 String dateJoined = clientCursor.getString(6);
-                String villageNumber = clientCursor.getString(7);
+                int villageNumber = clientCursor.getInt(7);
                 String zone = clientCursor.getString(8);
                 String gpsLocation = clientCursor.getString(9);
                 boolean caregiverPresent = clientCursor.getInt(10) == 1;
@@ -375,7 +375,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 ClientInfo client = new ClientInfo();
                 client.setFirstName(firstName);
                 client.setLastName(lastName);
-                client.setId(String.valueOf(id));
+                client.setClientId(id);
                 client.setGender(gender);
                 client.setAge(age);
                 client.setContactNumber(contactNumber);
@@ -692,11 +692,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 boolean hearingImpairmentDisability = cursor.getInt(8) == 1;
                 boolean doNotKnowDisability = cursor.getInt(9) == 1;
                 boolean otherDisability = cursor.getInt(10) == 1;
+                String describeOtherDisability = cursor.getString(11);
 
                 ClientDisability client = new ClientDisability(clientId, amputeeDisability,
                         polioDisability, spinalCordInjuryDisability, cerebralPalsyDisability,
                         spinaBifidaDisability, hydrocephalusDisability, visualImpairmentDisability,
-                        hearingImpairmentDisability, doNotKnowDisability, otherDisability);
+                        hearingImpairmentDisability, doNotKnowDisability, otherDisability, describeOtherDisability);
 
                 clientDisabilities.add(client);
 

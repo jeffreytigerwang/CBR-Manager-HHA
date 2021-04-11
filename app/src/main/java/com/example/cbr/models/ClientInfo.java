@@ -10,7 +10,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ClientInfo implements Serializable, Comparable<ClientInfo>{
-    private double nullCoordinateHandler = 300;
     private static final double nullCoordinateHandler = 300;
     private Integer clientId;
     private double latitude;

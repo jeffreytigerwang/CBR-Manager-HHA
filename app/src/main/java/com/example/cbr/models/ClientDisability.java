@@ -32,6 +32,8 @@ public class ClientDisability {
         this.describeOtherDisability = describeOtherDisability;
     }
 
+
+
     public Integer getId() {
         return clientId;
     }
@@ -126,5 +128,13 @@ public class ClientDisability {
 
     public void setDescribeOtherDisability(String describeOtherDisability) {
         this.describeOtherDisability = describeOtherDisability;
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
     }
 }

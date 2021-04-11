@@ -198,7 +198,7 @@ class StatsDataService {
       const statsData = {allReferralsSum: allReferralsSum,
                          allReferralsByType: allReferralsByType,
                          bidibidiReferralsByType: bidibidiReferralsByType,
-                         palorinyaReferralsByType: bidibidiReferralsByType};
+                         palorinyaReferralsByType: palorinyaReferralsByType};
 
 
       console.log('Aggregated to:');

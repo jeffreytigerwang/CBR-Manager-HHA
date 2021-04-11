@@ -53,12 +53,13 @@ For future iterations we hope to include a referrals and survey page, and implem
     - implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1’
 - Detailed dependencies can be found in the module-level build.gradle file under app package.
 
-**Map**
+**Map:**
+
 Maps SDK for Android requires a Google billing account and a API Key.
 Please follow the guide on: https://developers.google.com/maps/documentation/android-sdk/start to
 replace the current API key with the organization's API key in future for long-term use.
 
-**Citation**
+**Citation:**
 
 - newClient icon: <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 - map infowindow icon: <div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>

@@ -21,12 +21,12 @@ class StatsDataService {
       .catch(err => { console.log(err); });
 
       // get clientIds with zones
+      /*
       var zoneMap = {};
       visitsData.data.forEach(function(item, index) {
           zoneMap[item.clientId] = item.zoneLocation.split(" ")[0];
       });
 
-      /*
       // get disability counts
       const disabilityData = await http.get(`/disability`)
       .catch(err => { console.log(err); });

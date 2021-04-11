@@ -3,8 +3,6 @@ package com.example.cbr.models;
 import com.example.cbr.util.Constants;
 
 import java.io.Serializable;
-import java.sql.Blob;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;

@@ -8,8 +8,6 @@ import com.example.cbr.models.ClientHealthAspect;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ClientSocialAspect;
 
-import java.util.ArrayList;
-
 public interface NewClientContract {
     interface Presenter extends BasePresenter {
         void createClientInfo(ClientInfo clientInfo);

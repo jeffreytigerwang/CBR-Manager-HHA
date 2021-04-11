@@ -10,7 +10,7 @@ public class ReferralInfo {
     private boolean requireWheelchair;
     private boolean requireOther;
     private String otherDescription;
-    private Byte[] physiotherapyPhoto;
+    private byte[] physiotherapyPhoto;
     private boolean amputeeDisability;
     private boolean polioDisability;
     private boolean spinalCordInjuryDisability;
@@ -42,7 +42,7 @@ public class ReferralInfo {
                         boolean requireWheelchair,
                         boolean requireOther,
                         String otherDescription,
-                        Byte[] physiotherapyPhoto,
+                        byte[] physiotherapyPhoto,
                         boolean amputeeDisability,
                         boolean polioDisability,
                         boolean spinalCordInjuryDisability,
@@ -282,11 +282,11 @@ public class ReferralInfo {
         this.referralId = referralId;
     }
 
-    public Byte[] getPhysiotherapyPhoto() {
+    public byte[] getPhysiotherapyPhoto() {
         return physiotherapyPhoto;
     }
 
-    public void setPhysiotherapyPhoto(Byte[] physiotherapyPhoto) {
+    public void setPhysiotherapyPhoto(byte[] physiotherapyPhoto) {
         this.physiotherapyPhoto = physiotherapyPhoto;
     }
 

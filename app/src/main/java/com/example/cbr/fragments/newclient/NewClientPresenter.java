@@ -13,6 +13,7 @@ import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ClientSocialAspect;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -23,6 +23,7 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Ques
 import com.example.cbr.databinding.FragmentClientpageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.ReferralInfo;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.util.StringsUtil;
 
@@ -40,6 +41,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
 
     private ClientInfo clientInfo;
     private List<VisitGeneralQuestionSetData> visitsList;
+    private List<ReferralInfo> referralsList;
     private InfoAdapter clientInfoAdapter;
 
     private static final String CLIENT_PAGE_BUNDLE = "clientPageBundle";
@@ -63,6 +65,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
 
         try {
             visitsList = clientListPresenter.getVisits();
+            referralsList = clientListPresenter.getReferrals();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -150,24 +153,43 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.please_describe_what_they_require), clientInfo.getDescribeSocialStatus()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.individual_goal), clientInfo.getSetGoalForSocialStatus()));
 
-        if (visitsList == null || visitsList.isEmpty()) {
-            return questionDataContainerList;
-        }
-
-        // add visit info to the data container list, if the list is not empty
-        questionDataContainerList.add(new HeaderViewContainer(getString(R.string.visits)));
-        questionDataContainerList.add(new DividerViewContainer());
-        for (final VisitGeneralQuestionSetData visitGeneralQuestionSetData: visitsList) {
-            ClickableViewContainer.ClickableViewHolderBehavior clickableViewHolderBehavior = new ClickableViewContainer.ClickableViewHolderBehavior() {
-                @Override
-                public void onClick() {
-                    clientPageFragmentInterface.swapToVisitPage(visitGeneralQuestionSetData);
-                }
-            };
-
-            questionDataContainerList.add(new ClickableViewContainer(getString(R.string.visits_list, visitGeneralQuestionSetData.getDateOfVisit()), clickableViewHolderBehavior));
+        if (visitsList != null && !visitsList.isEmpty()) {
+            // add visit info to the data container list, if the list is not empty
+            questionDataContainerList.add(new HeaderViewContainer(getString(R.string.visits)));
             questionDataContainerList.add(new DividerViewContainer());
+            for (final VisitGeneralQuestionSetData visitGeneralQuestionSetData: visitsList) {
+                ClickableViewContainer.ClickableViewHolderBehavior clickableViewHolderBehavior = new ClickableViewContainer.ClickableViewHolderBehavior() {
+                    @Override
+                    public void onClick() {
+                        clientPageFragmentInterface.swapToVisitPage(visitGeneralQuestionSetData);
+                    }
+                };
+
+                String dateUK = StringsUtil.dateToUKFormat(visitGeneralQuestionSetData.getDateOfVisit());
+                questionDataContainerList.add(new ClickableViewContainer(getString(R.string.visits_list, dateUK), clickableViewHolderBehavior));
+                questionDataContainerList.add(new DividerViewContainer());
+            }
         }
+
+        if (referralsList != null && !referralsList.isEmpty()) {
+            // add referral info to the data container list, if the list is not empty
+            questionDataContainerList.add(new HeaderViewContainer(getString(R.string.referrals)));
+            questionDataContainerList.add(new DividerViewContainer());
+            for (final ReferralInfo referralInfo: referralsList) {
+                ClickableViewContainer.ClickableViewHolderBehavior clickableViewHolderBehavior = new ClickableViewContainer.ClickableViewHolderBehavior() {
+                    @Override
+                    public void onClick() {
+//                        clientPageFragmentInterface.swapToVisitPage(visitGeneralQuestionSetData);
+                        //TODO add clickable behaviour here
+                    }
+                };
+
+                questionDataContainerList.add(new ClickableViewContainer(getString(R.string.referrals_list, referralInfo.getClientId()), clickableViewHolderBehavior));
+                questionDataContainerList.add(new DividerViewContainer());
+            }
+        }
+
+
 
         return questionDataContainerList;
     }

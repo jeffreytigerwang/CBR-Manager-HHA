@@ -340,13 +340,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("HAS_EXISTING_WHEEL_CHAIR", referral.isHasExistingWheelchair());
         cv.put("CAN_REPAIR_WHEEL_CHAIR", referral.isCanRepairWheelchair());
         cv.put("OUTCOME", referral.getOutcome());
-
-        Byte[] wBytes = referral.getPhysiotherapyPhoto();
-        byte[] bytes = new byte[wBytes.length];
-        for(int i = 0; i < wBytes.length; i++) {
-            bytes[i] = wBytes[i];
-        }
-        cv.put("PHYSIOTHERAPY_PHOTO", bytes);
+        cv.put("PHYSIOTHERAPY_PHOTO", referral.getPhysiotherapyPhoto());
 
         long success = db.insert(REFERRAL_TABLE, null, cv);
         return success != -1;
@@ -758,11 +752,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 boolean canRepairWheelchair = cursor.getInt(24) == 1;
                 String outcome = cursor.getString(25);
 
-                byte[] bytes = cursor.getBlob(26);
-                Byte[] physiotherapyPhoto = new Byte[bytes.length];
-                for(int i = 0; i < bytes.length; i++) {
-                    physiotherapyPhoto[i] = bytes[i];
-                }
+                byte[] physiotherapyPhoto = cursor.getBlob(26);
 
                 ReferralInfo referral = new ReferralInfo(clientId, referralId, requirePhysiotherapy,
                         requireProsthetic, requireOrthotic, requireWheelchair, requireOther, otherDesc,

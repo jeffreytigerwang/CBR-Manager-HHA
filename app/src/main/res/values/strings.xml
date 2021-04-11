@@ -28,6 +28,7 @@
     <string name="social_status">Social Status</string>
     <string name="visits">Visits</string>
     <string name="visits_list">Visit on: %1$s</string>
+    <string name="referrals_list">Referral for client id: %1$d</string>
 
     <!-- Visit page -->
     <string name="visit_details">Visit details</string>
@@ -227,6 +228,7 @@
     <string name="name">Name</string>
     <string name="risk">Risk</string>
     <string name="referral">Referral</string>
+    <string name="referrals">Referrals</string>
     <string name="must_consent_to_interview">Must consent to interview</string>
     <string name="first_name_cannot_be_empty">First name cannot be empty</string>
     <string name="last_name_cannot_be_empty">Last name cannot be empty</string>

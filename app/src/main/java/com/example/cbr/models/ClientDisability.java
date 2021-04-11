@@ -119,4 +119,12 @@ public class ClientDisability {
     public void setOtherDisability(boolean otherDisability) {
         this.otherDisability = otherDisability;
     }
+
+    public String getDescribeOtherDisability() {
+        return describeOtherDisability;
+    }
+
+    public void setDescribeOtherDisability(String describeOtherDisability) {
+        this.describeOtherDisability = describeOtherDisability;
+    }
 }

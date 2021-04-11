@@ -5,6 +5,7 @@ import com.example.cbr.models.ClientEducationAspect;
 import com.example.cbr.models.ClientHealthAspect;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ClientSocialAspect;
+import com.example.cbr.models.ReferralInfo;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
@@ -69,10 +70,28 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
 
     @Override
     public List<ClientInfo> getOutstandingReferral() throws IOException {
-        Call<List<ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
-        Response<List<ClientInfo>> response = call.execute();
+        Call<List<ClientInfo>> clientsCall = jsonPlaceHolderApi.getClientsInfo();
+        Response<List<ClientInfo>> clientsResponse = clientsCall.execute();
 
-        return response.body();
+        Call<List<ReferralInfo>> referralsCall = jsonPlaceHolderApi.getReferralInfo();
+        Response<List<ReferralInfo>> referralsResponse = referralsCall.execute();
+
+
+        List<ClientInfo> clientList = clientsResponse.body();
+        List<ClientInfo> result = new ArrayList<>();
+        List<ReferralInfo> referrals = referralsResponse.body();
+
+        for(ReferralInfo referral : referrals) {
+            if(referral.getOutcome() != null && referral.getOutcome().equals("Outstanding")){
+                for(ClientInfo client: clientList) {
+                    if(client.getClientId().equals(referral.getClientId())) {
+                        result.add(client);
+                    }
+                }
+            }
+        }
+
+        return result;
     }
 
     @Override

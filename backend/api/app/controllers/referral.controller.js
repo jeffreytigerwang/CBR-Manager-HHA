@@ -32,6 +32,8 @@ exports.create = (req, res) => {
     otherDisability: req.body.otherDisability,
     isInjuryAboveKnee: req.body.isInjuryAboveKnee,
     isInjuryBelowKnee: req.body.isInjuryBelowKnee,
+    isInjuryAboveElbow: req.body.isInjuryAboveElbow,
+    isInjuryBelowElbow: req.body.isInjuryBelowElbow,
     isIntermediateWheelchairUser: req.body.isIntermediateWheelchairUser,
     hipWidth: req.body.hipWidth,
     hasExistingWheelchair: req.body.hasExistingWheelchair,

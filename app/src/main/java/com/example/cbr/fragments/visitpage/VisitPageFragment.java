@@ -74,7 +74,7 @@ public class VisitPageFragment extends BaseFragment implements VisitPageContract
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.visit_date), visitInfo.getDateOfVisit().toString()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.worker_name), visitInfo.getWorkerName()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.gps_location), visitInfo.getVisitGpsLocation()));
-        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.village_number), visitInfo.getVillageNumber()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.village_number), String.valueOf(visitInfo.getVillageNumber())));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.zone_location), visitInfo.getVisitZoneLocation()));
 
         return questionDataContainerList;

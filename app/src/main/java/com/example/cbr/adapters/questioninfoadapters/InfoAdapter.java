@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -29,7 +28,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -55,9 +53,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-import static android.app.Activity.RESULT_OK;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CHECK_BOX_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CHECK_BOX_WITH_DESCRIPTION_VIEW_TYPE;
 import static com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer.CLICKABLE_VIEW_TYPE;
@@ -481,6 +477,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private class RecordPhotoViewHolder extends RecyclerView.ViewHolder {
+        private final TextView textView;
         private final Button recordButton;
         private final ImageView photo;
         private RecordPhotoViewContainer recordPhotoViewContainer;
@@ -488,12 +485,15 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public RecordPhotoViewHolder(@NonNull View itemView) {
             super(itemView);
+            textView = itemView.findViewById(R.id.recyclerview_text);
             recordButton = itemView.findViewById(R.id.recyclerview_cameraButton);
             photo = itemView.findViewById(R.id.recyclerview_photo);
         }
 
         public void bind(final RecordPhotoViewContainer recordPhotoViewContainer) {
             this.recordPhotoViewContainer = recordPhotoViewContainer;
+
+            textView.setText(recordPhotoViewContainer.getQuestionText());
 
             if (recordPhotoViewContainer.getImage() != null) {
                 photo.setImageBitmap(recordPhotoViewContainer.getImage());
@@ -525,6 +525,7 @@ public class InfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             recordPhotoViewContainer.setImage(bitmap);
             photo.setImageBitmap(bitmap);
             activeCameraViewHolder = null;
+            onDataChanged(getLayoutPosition(), recordPhotoViewContainer);
         }
     }
 

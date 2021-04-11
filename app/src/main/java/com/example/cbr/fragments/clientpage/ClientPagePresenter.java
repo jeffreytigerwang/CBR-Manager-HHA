@@ -1,5 +1,6 @@
 package com.example.cbr.fragments.clientpage;
 
+import com.example.cbr.models.ReferralInfo;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
@@ -13,7 +14,7 @@ import retrofit2.Retrofit;
 
 public class ClientPagePresenter implements ClientPageContract.Presenter {
 
-    // Init API
+    // Init API for calls to the database
     private Retrofit retrofit;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
 
@@ -32,6 +33,14 @@ public class ClientPagePresenter implements ClientPageContract.Presenter {
         Call<List<VisitGeneralQuestionSetData>> call = jsonPlaceHolderApi.getVisitGeneralQuestionSetData();
 
         Response<List<VisitGeneralQuestionSetData>> response = call.execute();
+        return response.body();
+    }
+
+    @Override
+    public List<ReferralInfo> getReferrals() throws IOException {
+        Call<List<ReferralInfo>> call = jsonPlaceHolderApi.getReferralInfo();
+
+        Response<List<ReferralInfo>> response = call.execute();
         return response.body();
     }
 }

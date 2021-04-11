@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -56,33 +54,8 @@ public class DashboardPageFragment extends Fragment implements DashboardPageCont
         populatePriorityList();
         populateOutstandingList();
 
-        setupNewClientButton();
-        setupSyncButton();
-
-
         return binding.getRoot();
     }
-
-    private void setupSyncButton() {
-        Button button = binding.dashboardSyncButton;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Syncing...", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void setupNewClientButton() {
-        Button button = binding.dashboardNewClientButton;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dashboardFragmentInterface.swapToNewClient();
-            }
-        });
-    }
-
 
     private void populatePriorityList() {
         priorityList = new ArrayList<>();

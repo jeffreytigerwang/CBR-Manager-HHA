@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
-import com.example.cbr.adapters.questioninfoadapters.VisitInfoAdapter;
+import com.example.cbr.adapters.questioninfoadapters.InfoAdapter;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DividerViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DoubleTextViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.HeaderViewContainer;
@@ -31,7 +31,7 @@ public class VisitPageFragment extends BaseFragment implements VisitPageContract
 
     private VisitGeneralQuestionSetData visitInfo;
     private List<VisitGeneralQuestionSetData> visitsList;
-    private VisitInfoAdapter visitInfoAdapter;
+    private InfoAdapter visitInfoAdapter;
 
     private static final String VISIT_PAGE_BUNDLE = "visitPageBundle";
 
@@ -57,7 +57,7 @@ public class VisitPageFragment extends BaseFragment implements VisitPageContract
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        visitInfoAdapter = new VisitInfoAdapter(getActivity(), generateDataContainerList());
+        visitInfoAdapter = new InfoAdapter(this, generateDataContainerList());
         recyclerView.setAdapter(visitInfoAdapter);
     }
 

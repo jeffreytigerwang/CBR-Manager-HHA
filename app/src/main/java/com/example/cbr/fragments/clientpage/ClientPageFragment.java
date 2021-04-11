@@ -9,12 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cbr.R;
-import com.example.cbr.activities.NewVisitActivity;
-import com.example.cbr.adapters.questioninfoadapters.ClientInfoAdapter;
+import com.example.cbr.adapters.questioninfoadapters.InfoAdapter;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.ClickableViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DividerViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.DoubleTextViewContainer;
@@ -29,6 +29,9 @@ import com.example.cbr.util.StringsUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+import static com.example.cbr.util.Constants.CAMERA_REQUEST_CODE;
+
 public class ClientPageFragment extends BaseFragment implements ClientPageContract.View {
 
     private FragmentClientpageBinding binding;
@@ -37,7 +40,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
 
     private ClientInfo clientInfo;
     private List<VisitGeneralQuestionSetData> visitsList;
-    private ClientInfoAdapter clientInfoAdapter;
+    private InfoAdapter clientInfoAdapter;
 
     private static final String CLIENT_PAGE_BUNDLE = "clientPageBundle";
 
@@ -49,7 +52,6 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         } catch (ClassCastException e) {
             Log.e(getFragmentTag(), "Activity should implement ClientPageFragmentInterface");
         }
-
     }
 
     @Override
@@ -72,6 +74,13 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+            clientInfoAdapter.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
@@ -87,9 +96,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         binding.clientPageNewVisitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = NewVisitActivity.makeLaunchIntent(getActivity(),
-                        clientInfo);
-                startActivity(intent);
+                clientPageFragmentInterface.swapToNewVisitPage(clientInfo);
             }
         });
 
@@ -106,7 +113,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        clientInfoAdapter = new ClientInfoAdapter(getActivity(), generateDataContainerList());
+        clientInfoAdapter = new InfoAdapter(this, generateDataContainerList());
         recyclerView.setAdapter(clientInfoAdapter);
     }
 
@@ -117,7 +124,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.consent_to_interview), StringsUtil.boolToText(clientInfo.isConsentToInterview())));
 
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.gps_location), clientInfo.getGpsLocation()));
-        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.location), clientInfo.getZoneLocation()));
+        questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.site_location), clientInfo.getZoneLocation()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.village_number), clientInfo.getVillageNumber()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.date), clientInfo.getDateJoined()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.first_name), clientInfo.getFirstName()));
@@ -143,7 +150,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.please_describe_what_they_require), clientInfo.getDescribeSocialStatus()));
         questionDataContainerList.add(new DoubleTextViewContainer(getString(R.string.individual_goal), clientInfo.getSetGoalForSocialStatus()));
 
-        if (visitsList.isEmpty()) {
+        if (visitsList == null || visitsList.isEmpty()) {
             return questionDataContainerList;
         }
 
@@ -185,6 +192,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
     }
 
     public interface ClientPageFragmentInterface {
+        void swapToNewVisitPage(ClientInfo clientInfo);
         void swapToVisitPage(VisitGeneralQuestionSetData visitGeneralQuestionSetData);
         void swapToReferralPage(ClientInfo clientInfo);
     }

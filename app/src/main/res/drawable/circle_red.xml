@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--From https://gist.github.com/arvkmr/c6f65f9d4c0cd9534bcd82b69d074396-->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#5C0E0E"/>
+        </shape>
+    </item>
+    <item android:bottom="5dp" android:right="3dp">
+        <shape android:shape="oval">
+            <solid android:color="#fff"/>
+            <gradient
+                android:startColor="@android:color/holo_red_light"
+                android:endColor="#FF6F6F"
+                android:angle="90"
+                />
+            <stroke android:color="#AE1A1A" android:width="3dp"/>
+        </shape>
+    </item>
+</layer-list>

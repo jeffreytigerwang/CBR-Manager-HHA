@@ -33,10 +33,10 @@ module.exports = (sequelize, Sequelize) => {
         otherDisability: {
             type: Sequelize.BOOLEAN
         },
-        specifyDisability: {
+        describeOtherDisability: {
             type: Sequelize.STRING
         }
-        
+
     });
 
     return Disability;

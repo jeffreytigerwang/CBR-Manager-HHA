@@ -3,10 +3,15 @@ package com.example.cbr.adapters.questioninfoadapters;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
 import com.example.cbr.fragments.QuestionsPageFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,8 +21,8 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
     private final ArrayList<ViewPagerContainer> totalFragmentsList;
     private final List<ViewPagerContainer> activeFragmentsList;
 
-    public QuestionsFragmentPagerAdapter(@NonNull FragmentActivity fragmentActivity, ArrayList<ViewPagerContainer> totalFragmentsList) {
-        super(fragmentActivity);
+    public QuestionsFragmentPagerAdapter(@NonNull Fragment fragment, ArrayList<ViewPagerContainer> totalFragmentsList) {
+        super(fragment);
         this.totalFragmentsList = totalFragmentsList;
         activeFragmentsList = new ArrayList<>();
         updatePages();
@@ -43,7 +48,7 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return QuestionsPageFragment.newInstance(activeFragmentsList.get(position));
+        return QuestionsPageFragment.newInstance(activeFragmentsList.get(position).getViewHolderDataList(), position);
     }
 
     @Override
@@ -64,6 +69,36 @@ public class QuestionsFragmentPagerAdapter extends FragmentStateAdapter {
     @Override
     public long getItemId(int position) {
         return activeFragmentsList.get(position).hashCode();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onDataChanged(@NonNull InfoAdapter.DataChangedEvent dataChangedEvent) {
+        int position = dataChangedEvent.getPositionChanged();
+        QuestionDataContainer changedContainer = dataChangedEvent.getQuestionDataContainer();
+
+        OnViewPagerChangedListener onViewPagerChangedListener = null;
+        for (ViewPagerContainer viewPagerContainer : activeFragmentsList) {
+            ArrayList<QuestionDataContainer> currentList = viewPagerContainer.getViewHolderDataList();
+            if (position < currentList.size() && currentList.get(position) == changedContainer) {
+                onViewPagerChangedListener = viewPagerContainer.onViewPagerChangedListener;
+            }
+        }
+
+        if (onViewPagerChangedListener != null) {
+            onViewPagerChangedListener.onChanged(position, changedContainer);
+        }
     }
 
     public static class ViewPagerContainer implements Serializable {

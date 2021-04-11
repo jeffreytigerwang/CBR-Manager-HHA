@@ -1,9 +1,5 @@
 package com.example.cbr.models;
 
-import androidx.annotation.NonNull;
-
-import com.example.cbr.util.Constants;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,11 +14,16 @@ public class VisitGeneralQuestionSetData implements Serializable {
     private Integer clientId;
     private Integer visitId;
 
+    private boolean isCBRChecked;
+    private boolean isDCRChecked;
+    private boolean isDCRFUChecked;
     private boolean isHealthChecked;
     private boolean isEducationChecked;
     private boolean isSocialChecked;
 
     private String purposeOfVisit;
+
+    private final Date dateOfVisit;
 
     private Date dateOfVisit;
 
@@ -31,7 +32,6 @@ public class VisitGeneralQuestionSetData implements Serializable {
     private int villageNumber;
     private String visitZoneLocation;
     public VisitGeneralQuestionSetData() {
-        this.purposeOfVisit = "";
         this.dateOfVisit = new Date();
         this.workerName = "";
         this.visitGpsLocation = "";
@@ -39,21 +39,53 @@ public class VisitGeneralQuestionSetData implements Serializable {
         this.visitZoneLocation = "";
     }
 
+    public VisitGeneralQuestionSetData(Integer clientId,
+                                       Integer visitId,
+                                       boolean isCBRChecked,
+                                       boolean isDCRChecked,
+                                       boolean isDCRFUChecked,
+                                       boolean isHealthChecked,
+                                       boolean isEducationChecked,
+                                       boolean isSocialChecked,
+                                       Date dateOfVisit,
+                                       String workerName,
+                                       String visitGpsLocation,
+                                       String villageNumber,
+                                       String visitZoneLocation) {
+        this.clientId = clientId;
+        this.visitId = visitId;
+        this.isCBRChecked = isCBRChecked;
+        this.isDCRChecked = isDCRChecked;
+        this.isDCRFUChecked = isDCRFUChecked;
+        this.isHealthChecked = isHealthChecked;
+        this.isEducationChecked = isEducationChecked;
+        this.isSocialChecked = isSocialChecked;
+        this.dateOfVisit = dateOfVisit;
+        this.workerName = workerName;
+        this.visitGpsLocation = visitGpsLocation;
+        this.villageNumber = villageNumber;
+        this.visitZoneLocation = visitZoneLocation;
+    }
+
     public List<String> getEmptyQuestions() {
         List<String> questionNumbers = new ArrayList<>();
 
-        boolean isQuestionOneEmpty = purposeOfVisit.isEmpty();
+        boolean isQuestionOneChecked = isCBRChecked || isDCRChecked || isDCRFUChecked;
         boolean isQuestionTwoChecked = isHealthChecked || isEducationChecked || isSocialChecked;
+        boolean isQuestionThreeNull = dateOfVisit == null;
         boolean isQuestionFourEmpty = workerName.isEmpty();
         boolean isQuestionFiveEmpty = visitGpsLocation.isEmpty();
         boolean isQuestionSixEmpty = visitZoneLocation.isEmpty();
         boolean isQuestionSevenEmpty = villageNumber == -1;
 
-        if (isQuestionOneEmpty) {
+        if (!isQuestionOneChecked) {
             questionNumbers.add("1.");
         }
         if (!isQuestionTwoChecked) {
             questionNumbers.add("2.");
+        }
+        if (isQuestionThreeNull) {
+            questionNumbers.add("3.");
         }
         if (isQuestionFourEmpty) {
             questionNumbers.add("4.");
@@ -110,14 +142,6 @@ public class VisitGeneralQuestionSetData implements Serializable {
         isSocialChecked = socialChecked;
     }
 
-    public String getPurposeOfVisit() {
-        return purposeOfVisit;
-    }
-
-    public void setPurposeOfVisit(String purposeOfVisit) {
-        this.purposeOfVisit = purposeOfVisit;
-    }
-
     public Date getDateOfVisit() {
         return dateOfVisit;
     }
@@ -158,19 +182,35 @@ public class VisitGeneralQuestionSetData implements Serializable {
         this.visitZoneLocation = visitZoneLocation;
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        return "VisitGeneralQuestionSetData{" +
-                "isHealthChecked=" + isHealthChecked +
-                ", isEducationChecked=" + isEducationChecked +
-                ", isSocialChecked=" + isSocialChecked +
-                ", purposeOfVisit='" + purposeOfVisit + '\'' +
-                ", dateOfVisit='" + dateOfVisit + '\'' +
-                ", workerName='" + workerName + '\'' +
-                ", visitGPSLocation='" + visitGpsLocation + '\'' +
-                ", villageNumber='" + villageNumber + '\'' +
-                ", visitZoneLocation='" + visitZoneLocation + '\'' +
-                '}';
+    public boolean isCBRChecked() {
+        return isCBRChecked;
+    }
+
+    public void setCBRChecked(boolean CBRChecked) {
+        isCBRChecked = CBRChecked;
+    }
+
+    public boolean isDCRChecked() {
+        return isDCRChecked;
+    }
+
+    public void setDCRChecked(boolean DCRChecked) {
+        isDCRChecked = DCRChecked;
+    }
+
+    public boolean isDCRFUChecked() {
+        return isDCRFUChecked;
+    }
+
+    public void setDCRFUChecked(boolean DCRFUChecked) {
+        isDCRFUChecked = DCRFUChecked;
+    }
+
+    public String getPurposeOfVisit() {
+        return purposeOfVisit;
+    }
+
+    public void setPurposeOfVisit(String purposeOfVisit) {
+        this.purposeOfVisit = purposeOfVisit;
     }
 }

@@ -273,6 +273,9 @@ class Statistics extends Component {
                                 }
                             </Grid>
                             <Grid item xs={6}>
+                                
+                            </Grid>
+                            <Grid item xs={6}>
                                 {
                                     !allReferralsSum.length ? LOADING :
                                     <DataTable data={allReferralsSum} headers={["Visits with referrals", "Sum"]}></DataTable>

@@ -5,7 +5,8 @@ var db = require('../app/models/index.js');
 // lon between 30.08 and 33.34
 const gpsLocations = ["3.53, 31.36", "3.26, 32.36", "3.07, 31.10",
                       "3.28, 31.28", "3.22, 31.73", "3.25, 31.87",
-                      "2.67, 31.83"];
+                      "2.67, 31.83", "2.23, 30.90", "3.10, 32.67",
+                      "2.5, 30.99", "3.21, 31.22", "3.77, 3.10"];
 
 
 async function seedData() {
@@ -216,6 +217,9 @@ async function seedData() {
     // create client #1 visits data
 
     seed = await db.visits.create({
+            isCBRChecked:	true,
+            isDCRChecked:	true,
+            isDCRFUChecked:	false,
             isHealthChecked: true,
             isEducationChecked: false,
             isSocialChecked: false,
@@ -227,6 +231,34 @@ async function seedData() {
             villageNumber: 5,
             clientId: 1234,
             visitId: 9000
+    });
+    seed = await db.referrals.create({
+            clientId: 1234,
+            visitId: 1234,
+            requirePhysiotherapy: true,
+            requireProsthetic: false,
+            requireOrthotic: false,
+            requireWheelchair: true,
+            requireOther: false,
+            otherDescription: "",
+            amputeeDisability: false,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: false,
+            visualImpairmentDisability: false,
+            otherDisability: false,
+            isInjuryAboveKnee: false,
+            isInjuryBelowKnee: true,
+            isInjuryAboveElbow: false,
+            isInjuryBelowElbow: false,
+            isIntermediateWheelchairUser: false,
+            hipWidth: 32,
+            hasExistingWheelchair: false,
+            canRepairWheelchair: false,
+            outcome: "client's son will got to the health center on her behalf"
+
     });
     seed = await db.health_progress.create({
             isWheelChairChecked: true,
@@ -386,6 +418,35 @@ async function seedData() {
             clientId: 1270,
             visitId: 8000
     });
+    seed = await db.referrals.create({
+            clientId: 1270,
+            visitId: 8000,
+            requirePhysiotherapy: false,
+            requireProsthetic: false,
+            requireOrthotic: false,
+            requireWheelchair: false,
+            requireOther: true,
+            otherDescription: "May need hearing aids, or to learn sign",
+            amputeeDisability: false,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: false,
+            visualImpairmentDisability: false,
+            otherDisability: false,
+            isInjuryAboveKnee: false,
+            isInjuryBelowKnee: false,
+            isInjuryAboveElbow: false,
+            isInjuryBelowElbow: false,
+            isIntermediateWheelchairUser: false,
+            hipWidth: 32,
+            hasExistingWheelchair: false,
+            canRepairWheelchair: false,
+            outcome: "Needs to see a doctor to test hearing ability"
+
+    });
+
     seed = await db.health_progress.create({
             isWheelChairChecked: false,
             isProstheticChecked: false,
@@ -528,6 +589,48 @@ async function seedData() {
             clientId: 1230
     });
 
+    seed = await db.visits.create({
+            isHealthChecked: false,
+            isEducationChecked: false,
+            isSocialChecked: true,
+            purposeOfVisit: 'initial consultation',
+            dateOfVisit: '2021-03-01',
+            workerName: 'Eniola Muhammad',
+            visitGpsLocation: gpsLocations[7],
+            visitZoneLocation: 'Palorinya Basecamp',
+            villageNumber: 4,
+            clientId: 1230,
+            visitId: 3123
+    });
+    seed = await db.referrals.create({
+            clientId: 1230,
+            visitId: 3123,
+            requirePhysiotherapy: false,
+            requireProsthetic: false,
+            requireOrthotic: false,
+            requireWheelchair: false,
+            requireOther: true,
+            otherDescription: "Needs assistance learning to read",
+            amputeeDisability: false,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: false,
+            visualImpairmentDisability: false,
+            otherDisability: false,
+            isInjuryAboveKnee: false,
+            isInjuryBelowKnee: false,
+            isInjuryAboveElbow: false,
+            isInjuryBelowElbow: false,
+            isIntermediateWheelchairUser: false,
+            hipWidth: 32,
+            hasExistingWheelchair: false,
+            canRepairWheelchair: false,
+            outcome: "CBR worker to follow up on reading progress"
+
+    });
+
 
     seed = await db.clients.create({
             firstName: 'Abioye',
@@ -575,6 +678,48 @@ async function seedData() {
             setGoalForSocialStatus: 'need to speak with family and ensure his needs are met every day',
             clientId: 1220
     });
+    seed = await db.visits.create({
+            isHealthChecked: true,
+            isEducationChecked: false,
+            isSocialChecked: true,
+            purposeOfVisit: 'initial consultation',
+            dateOfVisit: '2021-01-13',
+            workerName: 'Eniola Muhammad',
+            visitGpsLocation: gpsLocations[8],
+            visitZoneLocation: 'Palorinya Zone 3',
+            villageNumber: 6,
+            clientId: 1220,
+            visitId: 3999
+    });
+    seed = await db.referrals.create({
+            clientId: 1220,
+            visitId: 3999,
+            requirePhysiotherapy: false,
+            requireProsthetic: false,
+            requireOrthotic: false,
+            requireWheelchair: false,
+            requireOther: true,
+            otherDescription: "requires learning braile",
+            amputeeDisability: false,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: false,
+            visualImpairmentDisability: true,
+            otherDisability: false,
+            isInjuryAboveKnee: false,
+            isInjuryBelowKnee: false,
+            isInjuryAboveElbow: false,
+            isInjuryBelowElbow: false,
+            isIntermediateWheelchairUser: false,
+            hipWidth: 32,
+            hasExistingWheelchair: false,
+            canRepairWheelchair: false,
+            outcome: "Client is very educated, but can no longer see. Must learn braile" +
+            "to keep mental ability up"
+    });
+
 
 
     seed = await db.clients.create({
@@ -624,6 +769,48 @@ async function seedData() {
             clientId: 2220
     });
 
+    seed = await db.visits.create({
+            isHealthChecked: true,
+            isEducationChecked: true,
+            isSocialChecked: true,
+            purposeOfVisit: 'initial consultation',
+            dateOfVisit: '2020-12-23',
+            workerName: 'Ali Darasimi',
+            visitGpsLocation: gpsLocations[9],
+            visitZoneLocation: 'Palorinya Zone 3',
+            villageNumber: 6,
+            clientId: 2220,
+            visitId: 3998
+    });
+    seed = await db.referrals.create({
+            clientId: 2220,
+            visitId: 3998,
+            requirePhysiotherapy: true,
+            requireProsthetic: true,
+            requireOrthotic: false,
+            requireWheelchair: false,
+            requireOther: false,
+            otherDescription: "",
+            amputeeDisability: false,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: true,
+            visualImpairmentDisability: true,
+            otherDisability: false,
+            isInjuryAboveKnee: false,
+            isInjuryBelowKnee: false,
+            isInjuryAboveElbow: false,
+            isInjuryBelowElbow: false,
+            isIntermediateWheelchairUser: false,
+            hipWidth: 32,
+            hasExistingWheelchair: false,
+            canRepairWheelchair: false,
+            outcome: "needs social assistance"
+    });
+
+
     seed = await db.clients.create({
             firstName: 'Bimpe',
             lastName: 'Umar',
@@ -670,6 +857,48 @@ async function seedData() {
             setGoalForSocialStatus: 'join our self help groups and socializing events each week',
             clientId: 3220
     });
+
+    seed = await db.visits.create({
+            isHealthChecked: true,
+            isEducationChecked: true,
+            isSocialChecked: true,
+            purposeOfVisit: 'initial consultation',
+            dateOfVisit: '2020-11-15',
+            workerName: 'Kikelomo Darasimi',
+            visitGpsLocation: gpsLocations[10],
+            visitZoneLocation: 'Palorinya Zone 2',
+            villageNumber: 6,
+            clientId: 3220,
+            visitId: 3997
+    });
+    seed = await db.referrals.create({
+            clientId: 3220,
+            visitId: 3997,
+            requirePhysiotherapy: true,
+            requireProsthetic: true,
+            requireOrthotic: true,
+            requireWheelchair: true,
+            requireOther: false,
+            otherDescription: "",
+            amputeeDisability: true,
+            polioDisability: true,
+            spinalCordInjuryDisability: true,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: true,
+            visualImpairmentDisability: true,
+            otherDisability: false,
+            isInjuryAboveKnee: false,
+            isInjuryBelowKnee: false,
+            isInjuryAboveElbow: false,
+            isInjuryBelowElbow: false,
+            isIntermediateWheelchairUser: false,
+            hipWidth: 32,
+            hasExistingWheelchair: false,
+            canRepairWheelchair: false,
+            outcome: "needs education assistance"
+    });
+
 
 
 
@@ -720,6 +949,48 @@ async function seedData() {
             clientId: 4220
     });
 
+    seed = await db.visits.create({
+            isHealthChecked: true,
+            isEducationChecked: true,
+            isSocialChecked: true,
+            purposeOfVisit: 'initial consultation',
+            dateOfVisit: '2020-09-17',
+            workerName: 'Kikelomo Darasimi',
+            visitGpsLocation: gpsLocations[12],
+            visitZoneLocation: 'Palorinya Zone 1',
+            villageNumber: 3,
+            clientId: 4220,
+            visitId: 3996
+    });
+    seed = await db.referrals.create({
+            clientId: 4220,
+            visitId: 3996,
+            requirePhysiotherapy: true,
+            requireProsthetic: true,
+            requireOrthotic: true,
+            requireWheelchair: true,
+            requireOther: false,
+            otherDescription: "",
+            amputeeDisability: true,
+            polioDisability: true,
+            spinalCordInjuryDisability: true,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: true,
+            visualImpairmentDisability: true,
+            otherDisability: true,
+            isInjuryAboveKnee: true,
+            isInjuryBelowKnee: true,
+            isInjuryAboveElbow: true,
+            isInjuryBelowElbow: false,
+            isIntermediateWheelchairUser: true,
+            hipWidth: 32,
+            hasExistingWheelchair: false,
+            canRepairWheelchair: false,
+            outcome: "needs health assistance"
+    });
+
+
 
     seed = await db.clients.create({
             firstName: 'Ayomide',
@@ -767,6 +1038,370 @@ async function seedData() {
             setGoalForSocialStatus: 'join our self help groups and socializing events each week',
             clientId: 5220
     });
+
+    seed = await db.visits.create({
+            isHealthChecked: true,
+            isEducationChecked: true,
+            isSocialChecked: true,
+            purposeOfVisit: 'initial consultation',
+            dateOfVisit: '2020-08-04',
+            workerName: 'Bisi Garba',
+            visitGpsLocation: gpsLocations[12],
+            visitZoneLocation: 'Palorinya Zone 2',
+            villageNumber: 3,
+            clientId: 5220,
+            visitId: 3995
+    });
+    seed = await db.referrals.create({
+            clientId: 5220,
+            visitId: 3995,
+            requirePhysiotherapy: true,
+            requireProsthetic: true,
+            requireOrthotic: true,
+            requireWheelchair: true,
+            requireOther: false,
+            otherDescription: "",
+            amputeeDisability: true,
+            polioDisability: true,
+            spinalCordInjuryDisability: true,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: true,
+            visualImpairmentDisability: true,
+            otherDisability: true,
+            isInjuryAboveKnee: true,
+            isInjuryBelowKnee: true,
+            isInjuryAboveElbow: true,
+            isInjuryBelowElbow: false,
+            isIntermediateWheelchairUser: true,
+            hipWidth: 32,
+            hasExistingWheelchair: false,
+            canRepairWheelchair: false,
+            outcome: "needs health assistance"
+    });
+
+    // bulk referrals + disabilities to get stats numbers up
+    //
+    seed = await db.referrals.create({
+            clientId: 6220,
+            visitId: 3994,
+            requirePhysiotherapy: true,
+            requireProsthetic: true,
+            requireOrthotic: false,
+            requireWheelchair: true,
+            requireOther: false,
+            otherDescription: "",
+            amputeeDisability: true,
+            polioDisability: false,
+            spinalCordInjuryDisability: true,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: true,
+            hydrocephalusDisability: true,
+            visualImpairmentDisability: false,
+            otherDisability: true,
+            isInjuryAboveKnee: true,
+            isInjuryBelowKnee: false,
+            isInjuryAboveElbow: true,
+            isInjuryBelowElbow: false,
+            isIntermediateWheelchairUser: true,
+            hipWidth: 32,
+            hasExistingWheelchair: true,
+            canRepairWheelchair: true,
+            outcome: "needs social assistance"
+    });
+    seed = await db.referrals.create({
+            clientId: 6220,
+            visitId: 3994,
+            requirePhysiotherapy: true,
+            requireProsthetic: true,
+            requireOrthotic: false,
+            requireWheelchair: true,
+            requireOther: false,
+            otherDescription: "",
+            amputeeDisability: true,
+            polioDisability: false,
+            spinalCordInjuryDisability: true,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: true,
+            hydrocephalusDisability: true,
+            visualImpairmentDisability: false,
+            otherDisability: true,
+            isInjuryAboveKnee: true,
+            isInjuryBelowKnee: false,
+            isInjuryAboveElbow: true,
+            isInjuryBelowElbow: false,
+            isIntermediateWheelchairUser: true,
+            hipWidth: 32,
+            hasExistingWheelchair: true,
+            canRepairWheelchair: true,
+            outcome: "needs social assistance"
+    });
+    seed = await db.referrals.create({
+            clientId: 6220,
+            visitId: 3993,
+            requirePhysiotherapy: true,
+            requireProsthetic: true,
+            requireOrthotic: false,
+            requireWheelchair: true,
+            requireOther: false,
+            otherDescription: "",
+            amputeeDisability: true,
+            polioDisability: false,
+            spinalCordInjuryDisability: true,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: true,
+            hydrocephalusDisability: true,
+            visualImpairmentDisability: false,
+            otherDisability: true,
+            isInjuryAboveKnee: true,
+            isInjuryBelowKnee: false,
+            isInjuryAboveElbow: true,
+            isInjuryBelowElbow: false,
+            isIntermediateWheelchairUser: true,
+            hipWidth: 32,
+            hasExistingWheelchair: true,
+            canRepairWheelchair: true,
+            outcome: "needs health assistance"
+    });
+    seed = await db.referrals.create({
+            clientId: 6220,
+            visitId: 3992,
+            requirePhysiotherapy: true,
+            requireProsthetic: true,
+            requireOrthotic: false,
+            requireWheelchair: true,
+            requireOther: false,
+            otherDescription: "",
+            amputeeDisability: true,
+            polioDisability: false,
+            spinalCordInjuryDisability: true,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: true,
+            hydrocephalusDisability: true,
+            visualImpairmentDisability: false,
+            otherDisability: true,
+            isInjuryAboveKnee: true,
+            isInjuryBelowKnee: false,
+            isInjuryAboveElbow: true,
+            isInjuryBelowElbow: false,
+            isIntermediateWheelchairUser: true,
+            hipWidth: 32,
+            hasExistingWheelchair: true,
+            canRepairWheelchair: true,
+            outcome: "needs education assistance"
+    });
+    seed = await db.disability.create({
+            clientId: 6220,
+            amputeeDisability: true,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: true,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: true,
+            visualImpairmentDisability: true,
+            hearingImpairmentDisability: false,
+            doNotKnowDisability: false,
+            otherDisability: false,
+            specifyDisability: ''
+    });
+    seed = await db.disability.create({
+            clientId: 6220,
+            amputeeDisability: true,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: true,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: true,
+            visualImpairmentDisability: true,
+            hearingImpairmentDisability: false,
+            doNotKnowDisability: false,
+            otherDisability: false,
+            specifyDisability: ''
+    });
+    seed = await db.disability.create({
+            clientId: 6220,
+            amputeeDisability: true,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: true,
+            spinaBifidaDisability: true,
+            hydrocephalusDisability: false,
+            visualImpairmentDisability: true,
+            hearingImpairmentDisability: true,
+            doNotKnowDisability: true,
+            otherDisability: false,
+            specifyDisability: ''
+    });
+    seed = await db.disability.create({
+            clientId: 6220,
+            amputeeDisability: true,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: false,
+            spinaBifidaDisability: false,
+            hydrocephalusDisability: true,
+            visualImpairmentDisability: true,
+            hearingImpairmentDisability: true,
+            doNotKnowDisability: false,
+            otherDisability: true,
+            specifyDisability: 'Bad back'
+    });
+    seed = await db.disability.create({
+            clientId: 6220,
+            amputeeDisability: true,
+            polioDisability: false,
+            spinalCordInjuryDisability: false,
+            cerebralPalsyDisability: true,
+            spinaBifidaDisability: true,
+            hydrocephalusDisability: false,
+            visualImpairmentDisability: false,
+            hearingImpairmentDisability: false,
+            doNotKnowDisability: false,
+            otherDisability: false,
+            specifyDisability: ''
+    });
+    seed = await db.disability.create({
+            clientId: 6220,
+            amputeeDisability: true,
+            polioDisability: true,
+            spinalCordInjuryDisability: true,
+            cerebralPalsyDisability: true,
+            spinaBifidaDisability: true,
+            hydrocephalusDisability: false,
+            visualImpairmentDisability: true,
+            hearingImpairmentDisability: true,
+            doNotKnowDisability: true,
+            otherDisability: true,
+            specifyDisability: 'Who knows'
+    });
+    seed = await db.disability.create({
+            clientId: 6220,
+            amputeeDisability: true,
+            polioDisability: true,
+            spinalCordInjuryDisability: true,
+            cerebralPalsyDisability: true,
+            spinaBifidaDisability: true,
+            hydrocephalusDisability: false,
+            visualImpairmentDisability: true,
+            hearingImpairmentDisability: true,
+            doNotKnowDisability: true,
+            otherDisability: true,
+            specifyDisability: 'Who knows'
+    });
+    seed = await db.disability.create({
+            clientId: 6220,
+            amputeeDisability: true,
+            polioDisability: true,
+            spinalCordInjuryDisability: true,
+            cerebralPalsyDisability: true,
+            spinaBifidaDisability: true,
+            hydrocephalusDisability: false,
+            visualImpairmentDisability: true,
+            hearingImpairmentDisability: true,
+            doNotKnowDisability: true,
+            otherDisability: true,
+            specifyDisability: 'Who knows'
+    });
+
+    // Messages
+    seed = await db.message.create({
+            userId:	1,
+            firstName: "Team",
+            lastName: "Mars",
+            message: "Hello Everyone! The messages services is now active. Please make a test message" +
+            "from the app!",
+            postDate: "2021-01-11T06:44:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	2,
+            firstName: "Bisi",
+            lastName: "Garba",
+            message: "Hello Everyone! Testing testing!",
+            postDate: "2021-01-11T06:47:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	3,
+            firstName: "Kikelomo",
+            lastName: "Ali",
+            message: "Hello Bisi, happy to hear from you",
+            postDate: "2021-01-11T06:48:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	2,
+            firstName: "Bisi",
+            lastName: "Garba",
+            message: "Hello Kikelomo, how is your family?",
+            postDate: "2021-01-11T07:39:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	2,
+            firstName: "Bisi",
+            lastName: "Garba",
+            message: "Hello Kikelomo? Did you get my messages?",
+            postDate: "2021-01-11T08:44:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	3,
+            firstName: "Kikelomo",
+            lastName: "Ali",
+            message: "Yes Bisi. But I am trying to get my work done",
+            postDate: "2021-01-11T08:48:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	4,
+            firstName: "Damola",
+            lastName: "Usman",
+            message: "Did someone eat my sandwhich from the refrigerator?",
+            postDate: "2021-02-10T10:43:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	5,
+            firstName: "Amadi",
+            lastName: "Yusuf",
+            message: "I am sorry Damola, I might have eaten your sandwhich",
+            postDate: "2021-02-10T10:48:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	5,
+            firstName: "Amadi",
+            lastName: "Yusuf",
+            message: "I will make it up for you by visiting your last two clients",
+            postDate: "2021-02-10T10:49:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	7,
+            firstName: "Olaoluwa",
+            lastName: "Abubakar",
+            message: "The service around Bibdibidi Zone 3 is not great. Please remember to " +
+            "sync your data before entering that location",
+            postDate: "2021-02-10T10:48:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	6,
+            firstName: "Gbenga",
+            lastName: "Muhammad",
+            message: "If anyone is heading out to the Palorinya settlement, there" +
+            " is an accident on the bridge. Try to take another route",
+            postDate: "2021-03-01T12:48:08.000Z"
+    });
+    seed = await db.message.create({
+            userId:	8,
+            firstName: "Najwa",
+            lastName: "Owuli",
+            message: "Hello admin center? My son is ill and I cannot make the rest" +
+            " of my visits. Is that okay?",
+            postDate: "2021-04-10T10:48:08.000Z"
+    });
+
+
+
+
+
+
+
+
+
+
 
 
 

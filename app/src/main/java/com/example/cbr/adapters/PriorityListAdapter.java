@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cbr.R;
 import com.example.cbr.fragments.DashboardPageFragment.DashboardFragmentInterface;
 import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.ClientInfoManager;
 
+import java.io.IOException;
 import java.util.List;
 
 public class PriorityListAdapter extends RecyclerView.Adapter<PriorityListAdapter.ViewHolder>{
@@ -21,16 +23,13 @@ public class PriorityListAdapter extends RecyclerView.Adapter<PriorityListAdapte
     private Context context;
     private List<ClientInfo> priorityList;
     private DashboardFragmentInterface dashboardFragmentInterface;
-    private List<String> dateOfLastVisits;
 
     public PriorityListAdapter(Context context, List<ClientInfo> priorityList,
-                               DashboardFragmentInterface dashboardFragmentInterface,
-                               List<String> datesOfLastVisits){
+                               DashboardFragmentInterface dashboardFragmentInterface){
         this.context = context;
         this.priorityList = priorityList;
         this.dashboardFragmentInterface = dashboardFragmentInterface;
         this.inflater = LayoutInflater.from(context);
-        this.dateOfLastVisits = datesOfLastVisits;
     }
 
     @NonNull
@@ -42,7 +41,7 @@ public class PriorityListAdapter extends RecyclerView.Adapter<PriorityListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull PriorityListAdapter.ViewHolder holder, int position) {
-        holder.bind(priorityList.get(position), dateOfLastVisits.get(position));
+        holder.bind(priorityList.get(position));
     }
 
     @Override
@@ -64,7 +63,10 @@ public class PriorityListAdapter extends RecyclerView.Adapter<PriorityListAdapte
             dateText = itemView.findViewById(R.id.dashboard_priorityListDate);
         }
 
-        public void bind(final ClientInfo clientInfo, String dateOfLastVisit){
+        public void bind(final ClientInfo clientInfo){
+
+            ClientInfoManager manager = ClientInfoManager.getInstance();
+
             nameText.setText(clientInfo.getFullName());
 
             String risk = context.getString(R.string.risk_levels_message, clientInfo.getRateEducation(),
@@ -72,8 +74,11 @@ public class PriorityListAdapter extends RecyclerView.Adapter<PriorityListAdapte
 
             riskText.setText(risk);
             locationText.setText(clientInfo.getZoneLocation());
-            dateText.setText(context.getString(R.string.last_visit_message,dateOfLastVisit));
-
+            try {
+                dateText.setText(manager.getDateOfLastVisit(clientInfo));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

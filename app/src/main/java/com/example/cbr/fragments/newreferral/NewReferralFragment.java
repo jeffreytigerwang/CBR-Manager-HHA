@@ -1,5 +1,6 @@
 package com.example.cbr.fragments.newreferral;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -157,7 +158,6 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.wheelchair)));
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.other)));
         mainPageList.add(new EditTextViewContainer(getString(R.string.other_option), Constants.PRIMARY_TEXT_SIZE_SP, "", getString(R.string.other), InputType.TYPE_CLASS_TEXT));
-        mainPageList.add(new RecordPhotoViewContainer("hello"));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
@@ -211,10 +211,40 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.hearing_impairment)));
         physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.other)));
         physioTherapyList.add(new EditTextViewContainer(getString(R.string.other_option), Constants.PRIMARY_TEXT_SIZE_SP, "", getString(R.string.other), InputType.TYPE_CLASS_TEXT));
+        physioTherapyList.add(new RecordPhotoViewContainer(getString(R.string.new_referral_picture)));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+
+                if (questionDataContainer instanceof CheckBoxViewContainer) {
+                    String disability = ((CheckBoxViewContainer) questionDataContainer).getQuestionText();
+                    boolean isChecked = ((CheckBoxViewContainer) questionDataContainer).isChecked();
+
+                    if (disability.equals(getString(R.string.amputee))) {
+                        referralInfo.setAmputeeDisability(isChecked);
+                    } else if (disability.equals(getString(R.string.polio))) {
+                        referralInfo.setPolioDisability(isChecked);
+                    } else if (disability.equals(getString(R.string.spinal_cord_injury))) {
+                        referralInfo.setSpinalCordInjuryDisability(isChecked);
+                    } else if (disability.equals(getString(R.string.cerebral_palsy))) {
+                        referralInfo.setCerebralPalsyDisability(isChecked);
+                    } else if (disability.equals(getString(R.string.spina_bifida))) {
+                        referralInfo.setSpinaBifidaDisability(isChecked);
+                    } else if (disability.equals(getString(R.string.hydrocephalus))) {
+                        referralInfo.setHydrocephalusDisability(isChecked);
+                    } else if (disability.equals(getString(R.string.visual_impairment))) {
+                        referralInfo.setVisualImpairmentDisability(isChecked);
+                    } else if (disability.equals(getString(R.string.hearing_impairment))) {
+                        referralInfo.setHearingImpairmentDisability(isChecked);
+                    } else if (disability.equals(getString(R.string.other))) {
+                        referralInfo.setOtherDisability(isChecked);
+                    }
+                }
+
+                if (questionDataContainer instanceof RecordPhotoViewContainer) {
+                    Bitmap bitmap = ((RecordPhotoViewContainer) questionDataContainer).getImage();
+                }
             }
         };
 

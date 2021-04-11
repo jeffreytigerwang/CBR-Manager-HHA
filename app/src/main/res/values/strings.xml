@@ -258,5 +258,6 @@
     <string name="education_question_record_cancelled">Education Question Cancelled. No network connection or may be too slow</string>
     <string name="social_question_record_cancelled">Social Question Cancelled. No network connection or may be too slow</string>
     <string name="retrofit_call_fail">Record fail! No network connection or may be too slow</string>
+    <string name="new_referral_picture">Please take a picture of the client</string>
 
 </resources>

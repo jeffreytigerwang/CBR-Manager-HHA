@@ -26,6 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_launcher"
+        android:adjustViewBounds="true"
+        android:layout_marginVertical="20dp"
         app:layout_constraintBottom_toTopOf="@id/recyclerview_cameraButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -54,6 +54,12 @@ module.exports = (sequelize, Sequelize) => {
         isInjuryBelowKnee: {
             type: Sequelize.BOOLEAN
         },
+        isInjuryAboveElbow: {
+            type: Sequelize.BOOLEAN
+        },
+        isInjuryBelowElbow: {
+            type: Sequelize.BOOLEAN
+        },
         isIntermediateWheelchairUser: {
             type: Sequelize.BOOLEAN
         },

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.cbr.R;
 import com.example.cbr.models.ClientDisability;
 import com.example.cbr.models.ClientEducationAspect;
 import com.example.cbr.models.ClientHealthAspect;
@@ -18,6 +19,8 @@ import com.example.cbr.models.VisitHealthQuestionSetData;
 import com.example.cbr.models.VisitSocialQuestionSetData;
 import com.example.cbr.util.Constants;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,10 +46,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String FIRST_NAME = "FIRST_NAME";
     public static final String LAST_NAME = "LAST_NAME";
     public static final String ZONE = "ZONE";
+    private Context context;
 
 
     public DBHelper (Context context) {
         super(context, Constants.LOCAL_DATABASE, null, 1);
+        this.context = context;
     }
 
     @Override
@@ -55,7 +60,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String createClients = "CREATE TABLE CLIENT_TABLE (ID INT PRIMARY KEY, " + FIRST_NAME +
                 " TEXT, " + LAST_NAME + " TEXT, " + "GENDER TEXT, AGE INTEGER, CONTACT_NUMBER TEXT, " +
-                "DATE_JOINED DATE, VILLAGE_NUMBER TEXT, " + ZONE + " TEXT, GPS_LOCATION TEXT, " +
+                "DATE_JOINED TEXT, VILLAGE_NUMBER TEXT, " + ZONE + " TEXT, GPS_LOCATION TEXT, " +
                 "CAREGIVER_PRESENT BOOL, CAREGIVER_CONTACT_NUMBER TEXT, PHOTO BLOB)";
         sqLiteDatabase.execSQL(createClients);
 
@@ -67,7 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String createVisits = "CREATE TABLE VISITS_TABLE (CLIENT_ID INT, VISIT_ID INTEGER, " +
                 "IS_HEALTH_CHECKED BOOL, IS_EDUCATION_CHECKED BOOL, IS_SOCIAL_CHECKED BOOL, " +
-                "PURPOSE_OF_VISIT TEXT, DATE_OF_VISIT DATE, WORKER_NAME TEXT, GPS_LOCATION TEXT, " +
+                "PURPOSE_OF_VISIT TEXT, DATE_OF_VISIT TEXT, WORKER_NAME TEXT, GPS_LOCATION TEXT, " +
                 "ZONE_LOCATION TEXT, VILLAGE_NUMBER INT)";
         sqLiteDatabase.execSQL(createVisits);
 
@@ -378,7 +383,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return clientInfoList;
     }
 
-    //TODO: FIGURE OUT DATE ISSUES
     public List<VisitGeneralQuestionSetData> getAllVisitGeneralQuestions() {
         List<VisitGeneralQuestionSetData> visitsList = new ArrayList<>();
 
@@ -395,7 +399,15 @@ public class DBHelper extends SQLiteOpenHelper {
                 boolean isEducationChecked = cursor.getInt(3) == 1;
                 boolean isSocialChecked = cursor.getInt(4) == 1;
                 String visitPurpose = cursor.getString(5);
-//                Date dateOfVisit = cursor.
+
+                Date dateOfVisit = null;
+
+                try {
+                    dateOfVisit = new SimpleDateFormat(context.getString(R.string.date_pattern_database)).parse(cursor.getString(6));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 String workerName = cursor.getString(7);
                 String gpsLocation = cursor.getString(8);
                 String zoneLocation = cursor.getString(9);
@@ -408,7 +420,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 visit.setEducationChecked(isEducationChecked);
                 visit.setSocialChecked(isSocialChecked);
                 visit.setPurposeOfVisit(visitPurpose);
-//                visit.
+                visit.setDateOfVisit(dateOfVisit);
                 visit.setWorkerName(workerName);
                 visit.setVisitGpsLocation(gpsLocation);
                 visit.setVisitZoneLocation(zoneLocation);

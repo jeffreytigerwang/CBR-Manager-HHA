@@ -231,5 +231,6 @@
 
     <string name="google_map_api_key">AIzaSyB_JlRLqJ_ASLFjJW_qIBNK_Eev0jUCF0k</string>
     <string name="marker_in_Uganda">Marker in Uganda</string>
+    <string name="date_pattern_database">yyyy-MM-dd\'T\'HH:mm:ss.SSSZ</string>
 
 </resources>

@@ -33,6 +33,8 @@ class Statistics extends Component {
             palorinyaDisabilityCounts: [],
             allReferralsByType: [],
             allReferralsSum: [],
+            bidibidiReferralsByType: [],
+            palorinyaReferralsByType: [],
         };
     }
 
@@ -49,11 +51,12 @@ class Statistics extends Component {
         this.setState({isLoading: true});
         StatsDataService.getReferralsStats()
             .then(response => {
-                console.log(response);
                 this.setState({
                     isLoading: false,
                     allReferralsByType: response.allReferralsByType,
                     allReferralsSum: response.allReferralsSum,
+                    bidibidiReferralsByType: response.bidibidiReferralsByType,
+                    palorinyaReferralsByType: response.palorinyaReferralsByType,
                 });
             })
             .catch(e => {
@@ -66,7 +69,6 @@ class Statistics extends Component {
         this.setState({isLoading: true});
         StatsDataService.getDisabilityStats()
             .then(response => {
-                // console.log(response);
                 this.setState({
                     isLoading: false,
                     allDisabilityCounts: response.allDisabilityCounts,
@@ -84,7 +86,6 @@ class Statistics extends Component {
         this.setState({isLoading: true});
         VisitDataService.getAllGeneralData()
             .then(response => {
-                //console.log(response.data);
                 this.setState({
                     isLoading: false,
                     generalVisitData: response.data
@@ -99,7 +100,6 @@ class Statistics extends Component {
         this.setState({isLoading: true});
         VisitDataService.getAllHealthData()
             .then(response => {
-                //console.log(response.data);
                 this.setState({
                     isLoading: false,
                     healthVisitData: response.data
@@ -114,7 +114,6 @@ class Statistics extends Component {
         this.setState({isLoading: true});
         StatsDataService.getRisks()
             .then(result => {
-                //console.log(result);
                 this.setState({
                     isLoading: false,
                     allAspectRiskStats: result.allRisk,
@@ -198,6 +197,8 @@ class Statistics extends Component {
 
         const { allReferralsByType } = this.state;
         const { allReferralsSum } = this.state;
+        const { bidibidiReferralsByType } = this.state;
+        const { palorinyaReferralsByType } = this.state;
         // Bug: when trying to access arrays or any data that
         // requires API calls here, you get TypeError.
         // React Lesson: You need to add condition because
@@ -259,19 +260,19 @@ class Statistics extends Component {
                     <h1 className="decorated"><span>General Statistics</span></h1>
                     <span>
                         <Grid container spacing={2}>
-                            <Grid item xs>
+                            <Grid item xs={6}>
                                 {
                                     !generalVisitData.length ? LOADING :
                                     <DataTable data={counts} headers={["Visits check list", "#Of times checked"]}></DataTable>
                                 }
                             </Grid>
-                            <Grid item xs>
+                            <Grid item xs={6}>
                                 {
                                     !allReferralsByType.length ? LOADING :
                                     <DataTable data={allReferralsByType} headers={["Referrals by type", "#Of times checked"]}></DataTable>
                                 }
                             </Grid>
-                            <Grid item xs>
+                            <Grid item xs={6}>
                                 {
                                     !allReferralsSum.length ? LOADING :
                                     <DataTable data={allReferralsSum} headers={["Visits with referrals", "Sum"]}></DataTable>
@@ -298,19 +299,31 @@ class Statistics extends Component {
                             <Grid item xs={12}>
                                 {
                                     !allDisabilityCounts.length ? LOADING :
-                                    <DataTable data={allDisabilityCounts} headers={["All settlements", "#Of times checked"]}></DataTable>
+                                    <DataTable data={allDisabilityCounts} headers={["All settlement disabilitys", "#Of times checked"]}></DataTable>
                                 }
                             </Grid>
                             <Grid item xs={6}>
                                 {
                                     !bidibidiDisabilityCounts.length ? LOADING :
-                                    <DataTable data={bidibidiDisabilityCounts} headers={["Bidibidi", "#Of times checked"]}></DataTable>
+                                    <DataTable data={bidibidiDisabilityCounts} headers={["Bidibidi disabilitys", "#Of times checked"]}></DataTable>
                                 }
                             </Grid>
                             <Grid item xs={6}>
                                 {
                                     !palorinyaDisabilityCounts.length ? LOADING :
-                                    <DataTable data={palorinyaDisabilityCounts} headers={["Palorinya", "#Of times checked"]}></DataTable>
+                                    <DataTable data={palorinyaDisabilityCounts} headers={["Palorinya disabilitys", "#Of times checked"]}></DataTable>
+                                }
+                            </Grid>
+                            <Grid item xs={6}>
+                                {
+                                    !bidibidiReferralsByType.length ? LOADING :
+                                    <DataTable data={bidibidiReferralsByType} headers={["Bidibidi referrals", "#Of times checked"]}></DataTable>
+                                }
+                            </Grid>
+                            <Grid item xs={6}>
+                                {
+                                    !palorinyaReferralsByType.length ? LOADING :
+                                    <DataTable data={palorinyaReferralsByType} headers={["Palorinya referrals", "#Of times checked"]}></DataTable>
                                 }
                             </Grid>
                         </Grid>

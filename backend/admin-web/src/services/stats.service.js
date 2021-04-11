@@ -118,27 +118,27 @@ class StatsDataService {
           var hasExistingWheelchair = aggregate.match({ zone: 'Bidibidi',  hasExistingWheelchair: true }).exec().length;
           var canRepairWheelchair = aggregate.match({ zone: 'Bidibidi',  canRepairWheelchair: true }).exec().length;
 
-          const referralCountsByType = {
-          0: { id: 'Requires Physiotherapy', count: requirePhysiotherapyCount },
-          1: { id: 'Requires Prosthetic', count: requireProstheticCount },
-          2: { id: 'Requires Orthotic', count: requireOrthotic },
-          3: { id: 'Require Wheelchair', count: requireWheelchair },
-          4: { id: 'Requires Other', count: requireOther },
-          5: { id: 'Amputee Disability', count: amputeeDisability },
-          6: { id: 'Polio Disability', count: polioDisability },
-          7: { id: 'Spinal Cord Injury Disability', count: spinalCordInjuryDisability },
-          8: { id: 'cerebral Palsy Disability', count: cerebralPalsyDisability },
-          9: { id: 'spinaBifida Disability', count: spinaBifidaDisability },
-          10: { id: 'hydrocephalus Disability', count: hydrocephalusDisability },
-          11: { id: 'Visual Impairment Disability', count: visualImpairmentDisability },
-          12: { id: 'Other Disability', count: otherDisability },
-          13: { id: 'Has Injury Above Knee', count: isInjuryAboveKnee },
-          14: { id: 'Has Injury Below Knee', count: isInjuryBelowKnee },
-          15: { id: 'Has Intermediate Wheelchair experience', count: isIntermediateWheelchairUser },
-          16: { id: 'Hip Width', count: hipWidth },
-          17: { id: 'has Existing Wheelchair', count: hasExistingWheelchair },
-          18: { id: 'Can Repair Wheelchair', count: canRepairWheelchair },
-          };
+          const referralCountsByType = [
+          { id: 'Requires Physiotherapy', count: requirePhysiotherapyCount },
+          { id: 'Requires Prosthetic', count: requireProstheticCount },
+          { id: 'Requires Orthotic', count: requireOrthotic },
+          { id: 'Require Wheelchair', count: requireWheelchair },
+          { id: 'Requires Other', count: requireOther },
+          { id: 'Amputee Disability', count: amputeeDisability },
+          { id: 'Polio Disability', count: polioDisability },
+          { id: 'Spinal Cord Injury Disability', count: spinalCordInjuryDisability },
+          { id: 'cerebral Palsy Disability', count: cerebralPalsyDisability },
+          { id: 'spinaBifida Disability', count: spinaBifidaDisability },
+          { id: 'hydrocephalus Disability', count: hydrocephalusDisability },
+          { id: 'Visual Impairment Disability', count: visualImpairmentDisability },
+          { id: 'Other Disability', count: otherDisability },
+          { id: 'Has Injury Above Knee', count: isInjuryAboveKnee },
+          { id: 'Has Injury Below Knee', count: isInjuryBelowKnee },
+          { id: 'Has Intermediate Wheelchair experience', count: isIntermediateWheelchairUser },
+          { id: 'Hip Width', count: hipWidth },
+          { id: 'has Existing Wheelchair', count: hasExistingWheelchair },
+          { id: 'Can Repair Wheelchair', count: canRepairWheelchair },
+          ];
 
           return referralCountsByType;
       }
@@ -164,27 +164,27 @@ class StatsDataService {
           var hasExistingWheelchair = aggregate.match({ zone: 'Palorinya',  hasExistingWheelchair: true }).exec().length;
           var canRepairWheelchair = aggregate.match({ zone: 'Palorinya',  canRepairWheelchair: true }).exec().length;
 
-          const referralCountsByType = {
-          0: { id: 'Requires Physiotherapy', count: requirePhysiotherapyCount },
-          1: { id: 'Requires Prosthetic', count: requireProstheticCount },
-          2: { id: 'Requires Orthotic', count: requireOrthotic },
-          3: { id: 'Require Wheelchair', count: requireWheelchair },
-          4: { id: 'Requires Other', count: requireOther },
-          5: { id: 'Amputee Disability', count: amputeeDisability },
-          6: { id: 'Polio Disability', count: polioDisability },
-          7: { id: 'Spinal Cord Injury Disability', count: spinalCordInjuryDisability },
-          8: { id: 'cerebral Palsy Disability', count: cerebralPalsyDisability },
-          9: { id: 'spinaBifida Disability', count: spinaBifidaDisability },
-          10: { id: 'hydrocephalus Disability', count: hydrocephalusDisability },
-          11: { id: 'Visual Impairment Disability', count: visualImpairmentDisability },
-          12: { id: 'Other Disability', count: otherDisability },
-          13: { id: 'Has Injury Above Knee', count: isInjuryAboveKnee },
-          14: { id: 'Has Injury Below Knee', count: isInjuryBelowKnee },
-          15: { id: 'Has Intermediate Wheelchair experience', count: isIntermediateWheelchairUser },
-          16: { id: 'Hip Width', count: hipWidth },
-          17: { id: 'has Existing Wheelchair', count: hasExistingWheelchair },
-          18: { id: 'Can Repair Wheelchair', count: canRepairWheelchair },
-          };
+          const referralCountsByType = [
+          { id: 'Requires Physiotherapy', count: requirePhysiotherapyCount },
+          { id: 'Requires Prosthetic', count: requireProstheticCount },
+          { id: 'Requires Orthotic', count: requireOrthotic },
+          { id: 'Require Wheelchair', count: requireWheelchair },
+          { id: 'Requires Other', count: requireOther },
+          { id: 'Amputee Disability', count: amputeeDisability },
+          { id: 'Polio Disability', count: polioDisability },
+          { id: 'Spinal Cord Injury Disability', count: spinalCordInjuryDisability },
+          { id: 'cerebral Palsy Disability', count: cerebralPalsyDisability },
+          { id: 'spinaBifida Disability', count: spinaBifidaDisability },
+          { id: 'hydrocephalus Disability', count: hydrocephalusDisability },
+          { id: 'Visual Impairment Disability', count: visualImpairmentDisability },
+          { id: 'Other Disability', count: otherDisability },
+          { id: 'Has Injury Above Knee', count: isInjuryAboveKnee },
+          { id: 'Has Injury Below Knee', count: isInjuryBelowKnee },
+          { id: 'Has Intermediate Wheelchair experience', count: isIntermediateWheelchairUser },
+          { id: 'Hip Width', count: hipWidth },
+          { id: 'has Existing Wheelchair', count: hasExistingWheelchair },
+          { id: 'Can Repair Wheelchair', count: canRepairWheelchair },
+          ];
 
           return referralCountsByType;
       }

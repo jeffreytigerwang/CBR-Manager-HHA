@@ -11,7 +11,6 @@ class Reports extends Component {
     constructor(props) {
         super(props);
 
-        //this.onChangeFirstName = this.onChangeFirstName.bind(this);
 
         this.state = {
          stats: ""
@@ -20,33 +19,7 @@ class Reports extends Component {
 
 
     componentDidMount() {
-        //this.getUser(this.props.match.params.id);
     }
-/*
-    onChangeFirstName(e) {
-        const firstName = e.target.value;
-        this.setState(function (prevState) {
-            return {
-                currentUser: {
-                    ...prevState.currentUser,
-                    firstName: firstName
-                }
-            };
-        });
-    }
-    getUser(id) {
-        UserDataService.get(id)
-            .then(response => {
-                this.setState({
-                    currentUser: response.data
-                });
-                console.log(response.data);
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    }
-*/
 
    render() {
         const { currentUser } = this.state;

@@ -79,7 +79,6 @@ class statsDataService {
                                 .catch(err => { console.log(err); });
           const data = jsonAggregate.create(JSON.stringify(res.data));
 
-          // Filter by Risk & Sum
           var criticalCount = data
                                       .match({ rateHealth: 'Critical risk' })
                                       .group({ id: 'rateHealth',
@@ -121,7 +120,6 @@ class statsDataService {
                                 .catch(err => { console.log(err); });
           const data = jsonAggregate.create(JSON.stringify(res.data));
 
-          // Filter by Risk & Sum
           var criticalCount = data
                                       .match({ rateEducation: 'Critical risk' })
                                       .group({ id: 'rateEducation',
@@ -162,7 +160,6 @@ class statsDataService {
                                 .catch(err => { console.log(err); });
           const data = jsonAggregate.create(JSON.stringify(res.data));
 
-          // Filter by Risk & Sum
           var criticalCount = data
                                       .match({ rateSocialStatus: 'Critical risk' })
                                       .group({ id: 'rateSocialStatus',
@@ -200,7 +197,6 @@ class statsDataService {
       function getAllAspectRiskStats(riskData) {
           const data = jsonAggregate.create(JSON.stringify(riskData));
 
-          // Filter by Risk & Sum
           var allRiskCounts = data
                                       .group({ id: 'id',
                                                count: { $sum: 'count' } })
@@ -224,6 +220,7 @@ class statsDataService {
                         'educationRisk': educationRiskData,
                         'socialRisk': socialRiskData
                        };
+
       // get all risk data
       const allRiskDataRaw = healthRiskData.concat(educationRiskData).concat(socialRiskData);
       const allRiskData = getAllAspectRiskStats(allRiskDataRaw);

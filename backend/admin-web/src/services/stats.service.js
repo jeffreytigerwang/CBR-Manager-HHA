@@ -13,10 +13,13 @@ class StatsDataService {
       return aggregate;
   }
 
-  async getDisabilityStats() {
-      var zoneData = await http.get(`/clients`)
+  async getReferralsStats() {
+      var visitsData = await http.get(`/visits`)
       .catch(err => { console.log(err); });
 
+      var statsData = visitsData.data;
+
+      /*
       // get clientIds with zones
       var zoneMap = {};
       zoneData.data.forEach(function(item, index) {
@@ -133,9 +136,139 @@ class StatsDataService {
                          bidibidiDisabilityCounts: bidibidiDisabilityCounts,
                          palorinyaDisabilityCounts: palorinyaDisabilityCounts};
 
+      */
 
-      //console.log('aggregated to: ');
-      //console.log(statsData);
+      console.log('aggregated to: ');
+      console.log(statsData);
+
+      return statsData;
+
+  }
+
+
+  async getDisabilityStats() {
+      var zoneData = await http.get(`/clients`)
+      .catch(err => { console.log(err); });
+
+      // get clientIds with zones
+      var zoneMap = {};
+      zoneData.data.forEach(function(item, index) {
+          zoneMap[item.clientId] = item.zoneLocation.split(" ")[0];
+      });
+
+      // get disability counts
+      const disabilityData = await http.get(`/disability`)
+      .catch(err => { console.log(err); });
+
+      disabilityData.data.forEach(function(item, index) {
+          item.zone = zoneMap[item.clientId];
+      });
+
+
+      const disabilityJson = JSON.stringify(disabilityData.data);
+      const aggregate = jsonAggregate.create(disabilityJson);
+
+
+      // get counts for each zones
+      function getDisabilityForBidibidi() {
+          var amputeeDisabilityCount = aggregate.match({ zone: 'Bidibidi', amputeeDisability: true }).exec().length;
+          var polioDisabilityCount = aggregate.match({ zone: 'Bidibidi', polioDisability: true }).exec().length;
+          var spinalCordInjuryDisabilityCount = aggregate.match({ zone: 'Bidibidi', spinalCordInjuryDisability: true }).exec().length;
+          var cerebralPalsyDisabilityCount = aggregate.match({ zone: 'Bidibidi', cerebralPalsyDisability: true }).exec().length;
+          var spinaBifidaDisabilityCount = aggregate.match({ zone: 'Bidibidi', spinaBifidaDisability: true }).exec().length;
+          var hydrocephalusDisabilityCount = aggregate.match({ zone: 'Bidibidi', hydrocephalusDisability: true }).exec().length;
+          var visualImpairmentDisabilityCount = aggregate.match({ zone: 'Bidibidi', visualImpairmentDisability: true }).exec().length;
+          var hearingImpairmentDisabilityCount = aggregate.match({ zone: 'Bidibidi', hearingImpairmentDisability: true }).exec().length;
+          var doNotKnowDisabilityCount = aggregate.match({ zone: 'Bidibidi', doNotKnowDisability: true }).exec().length;
+          var otherDisabilityCount = aggregate.match({ zone: 'Bidibidi', otherDisability: true }).exec().length;
+
+          const disabilityCounts = {
+          0: { id: 'amputeeDisability', count: amputeeDisabilityCount },
+          1: { id: 'polioDisability', count: polioDisabilityCount },
+          2: { id: 'spinalCordInjuryDisability', count: spinalCordInjuryDisabilityCount },
+          3: { id: 'cerebralPalsyDisability', count: cerebralPalsyDisabilityCount },
+          4: { id: 'spinaBifidaDisability', count: spinaBifidaDisabilityCount },
+          5: { id: 'hydrocephalusDisability', count: hydrocephalusDisabilityCount },
+          6: { id: 'visualImpairmentDisability', count: visualImpairmentDisabilityCount },
+          7: { id: 'hearingImpairmentDisability', count: hearingImpairmentDisabilityCount },
+          9: { id: 'doNotKnowDisability', count: doNotKnowDisabilityCount },
+          0: { id: 'otherDisability', count: otherDisabilityCount }
+          };
+
+          return disabilityCounts;
+      }
+
+      function getDisabilityForPalorinya() {
+          var amputeeDisabilityCount = aggregate.match({ zone: 'Palorinya', amputeeDisability: true }).exec().length;
+          var polioDisabilityCount = aggregate.match({ zone: 'Palorinya', polioDisability: true }).exec().length;
+          var spinalCordInjuryDisabilityCount = aggregate.match({ zone: 'Palorinya', spinalCordInjuryDisability: true }).exec().length;
+          var cerebralPalsyDisabilityCount = aggregate.match({ zone: 'Palorinya', cerebralPalsyDisability: true }).exec().length;
+          var spinaBifidaDisabilityCount = aggregate.match({ zone: 'Palorinya', spinaBifidaDisability: true }).exec().length;
+          var hydrocephalusDisabilityCount = aggregate.match({ zone: 'Palorinya', hydrocephalusDisability: true }).exec().length;
+          var visualImpairmentDisabilityCount = aggregate.match({ zone: 'Palorinya', visualImpairmentDisability: true }).exec().length;
+          var hearingImpairmentDisabilityCount = aggregate.match({ zone: 'Palorinya', hearingImpairmentDisability: true }).exec().length;
+          var doNotKnowDisabilityCount = aggregate.match({ zone: 'Palorinya', doNotKnowDisability: true }).exec().length;
+          var otherDisabilityCount = aggregate.match({ zone: 'Palorinya', otherDisability: true }).exec().length;
+
+          const disabilityCounts = {
+          0: { id: 'amputeeDisability', count: amputeeDisabilityCount },
+          1: { id: 'polioDisability', count: polioDisabilityCount },
+          2: { id: 'spinalCordInjuryDisability', count: spinalCordInjuryDisabilityCount },
+          3: { id: 'cerebralPalsyDisability', count: cerebralPalsyDisabilityCount },
+          4: { id: 'spinaBifidaDisability', count: spinaBifidaDisabilityCount },
+          5: { id: 'hydrocephalusDisability', count: hydrocephalusDisabilityCount },
+          6: { id: 'visualImpairmentDisability', count: visualImpairmentDisabilityCount },
+          7: { id: 'hearingImpairmentDisability', count: hearingImpairmentDisabilityCount },
+          9: { id: 'doNotKnowDisability', count: doNotKnowDisabilityCount },
+          0: { id: 'otherDisability', count: otherDisabilityCount }
+          };
+
+          return disabilityCounts;
+      }
+
+
+
+      // get counts for all zones
+      function getDisabilityForAll() {
+          var amputeeDisabilityCount = aggregate.match({ amputeeDisability: true }).exec().length;
+          var polioDisabilityCount = aggregate.match({ polioDisability: true }).exec().length;
+          var spinalCordInjuryDisabilityCount = aggregate.match({ spinalCordInjuryDisability: true }).exec().length;
+          var cerebralPalsyDisabilityCount = aggregate.match({ cerebralPalsyDisability: true }).exec().length;
+          var spinaBifidaDisabilityCount = aggregate.match({ spinaBifidaDisability: true }).exec().length;
+          var hydrocephalusDisabilityCount = aggregate.match({ hydrocephalusDisability: true }).exec().length;
+          var visualImpairmentDisabilityCount = aggregate.match({ visualImpairmentDisability: true }).exec().length;
+          var hearingImpairmentDisabilityCount = aggregate.match({ hearingImpairmentDisability: true }).exec().length;
+          var doNotKnowDisabilityCount = aggregate.match({ doNotKnowDisability: true }).exec().length;
+          var otherDisabilityCount = aggregate.match({ otherDisability: true }).exec().length;
+
+          const disabilityCounts = {
+          0: { id: 'amputeeDisability', count: amputeeDisabilityCount },
+          1: { id: 'polioDisability', count: polioDisabilityCount },
+          2: { id: 'spinalCordInjuryDisability', count: spinalCordInjuryDisabilityCount },
+          3: { id: 'cerebralPalsyDisability', count: cerebralPalsyDisabilityCount },
+          4: { id: 'spinaBifidaDisability', count: spinaBifidaDisabilityCount },
+          5: { id: 'hydrocephalusDisability', count: hydrocephalusDisabilityCount },
+          6: { id: 'visualImpairmentDisability', count: visualImpairmentDisabilityCount },
+          7: { id: 'hearingImpairmentDisability', count: hearingImpairmentDisabilityCount },
+          9: { id: 'doNotKnowDisability', count: doNotKnowDisabilityCount },
+          0: { id: 'otherDisability', count: otherDisabilityCount }
+          };
+
+          return disabilityCounts;
+      }
+
+      var allDisabilityCounts = getDisabilityForAll();
+      var bidibidiDisabilityCounts = getDisabilityForBidibidi();
+      var palorinyaDisabilityCounts = getDisabilityForPalorinya();
+
+      const zoneDisabilityCounts = {};
+      const statsData = {allDisabilityCounts: allDisabilityCounts,
+                         bidibidiDisabilityCounts: bidibidiDisabilityCounts,
+                         palorinyaDisabilityCounts: palorinyaDisabilityCounts};
+
+
+      console.log('statsData:');
+      console.log(statsData);
 
       return statsData;
 
@@ -169,6 +302,9 @@ class StatsDataService {
         visitsPerCBRWorker.push({id: usersWorkerName, count: 0});
       }
     });
+
+    console.log('visitsPerCBRWorker');
+    console.log(visitsPerCBRWorker);
 
     return visitsPerCBRWorker;
   }

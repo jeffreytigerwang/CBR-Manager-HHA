@@ -23,8 +23,6 @@ public class VisitGeneralQuestionSetData implements Serializable {
 
     private String purposeOfVisit;
 
-    private final Date dateOfVisit;
-
     private Date dateOfVisit;
 
     private String workerName;
@@ -50,7 +48,7 @@ public class VisitGeneralQuestionSetData implements Serializable {
                                        Date dateOfVisit,
                                        String workerName,
                                        String visitGpsLocation,
-                                       String villageNumber,
+                                       int villageNumber,
                                        String visitZoneLocation) {
         this.clientId = clientId;
         this.visitId = visitId;

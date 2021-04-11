@@ -269,14 +269,12 @@
     <string name="map">Map</string>
     <string name="title_activity_maps">Map</string>
     <string name="use_camera">Use Camera</string>
-
     <string name="google_map_api_key">AIzaSyB_JlRLqJ_ASLFjJW_qIBNK_Eev0jUCF0k</string>
     <string name="marker_in_Uganda">Marker in Uganda</string>
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
     <string name="latitude_cannot_be_empty">Latitude cannot be empty</string>
     <string name="longitude_cannot_be_empty">Longitude cannot be empty</string>
-    <string name="invalid_gps_coordinate">Invalid GPS coordinate</string>
     <string name="latitude_not_entered_properly">Latitude not entered properly</string>
     <string name="longitude_not_entered_properly">Longitude not entered properly</string>
     <string name="enter_address_city_or_zip_code">Enter Address, City or Zip Code</string>
@@ -299,5 +297,6 @@
     <string name="education_question_record_cancelled">Education Question Cancelled. No network connection or may be too slow</string>
     <string name="social_question_record_cancelled">Social Question Cancelled. No network connection or may be too slow</string>
     <string name="retrofit_call_fail">Record fail! No network connection or may be too slow</string>
+    <string name="invalid_gps_location">invalid GPS location</string>
 
 </resources>

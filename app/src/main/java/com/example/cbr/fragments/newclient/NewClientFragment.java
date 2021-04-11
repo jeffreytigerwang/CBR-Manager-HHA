@@ -587,7 +587,7 @@ public class NewClientFragment extends BaseFragment implements NewClientContract
             if (coordinates.length != 2 ||
                 isInvalidGpsCoordinate(coordinates[0]) ||
                 isInvalidGpsCoordinate(coordinates[1])) {
-                showOkDialog(getString(R.string.missing_fields), getString(R.string.invalid_gps_coordinate), null);
+                showOkDialog(getString(R.string.missing_fields), getString(R.string.invalid_gps_location), null);
                 return false;
             }
         }

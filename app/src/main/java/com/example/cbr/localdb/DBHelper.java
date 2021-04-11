@@ -73,7 +73,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String createVisits = "CREATE TABLE VISITS_TABLE (CLIENT_ID INT, VISIT_ID INTEGER, " +
                 "IS_HEALTH_CHECKED BOOL, IS_EDUCATION_CHECKED BOOL, IS_SOCIAL_CHECKED BOOL, " +
                 "PURPOSE_OF_VISIT TEXT, DATE_OF_VISIT TEXT, WORKER_NAME TEXT, GPS_LOCATION TEXT, " +
-                "ZONE_LOCATION TEXT, VILLAGE_NUMBER INT)";
+                "ZONE_LOCATION TEXT, VILLAGE_NUMBER TEXT)";
         sqLiteDatabase.execSQL(createVisits);
 
         String createEducationAspect = "CREATE TABLE EDUCATION_ASPECT_TABLE (CLIENT_ID INT, " +
@@ -411,7 +411,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String workerName = cursor.getString(7);
                 String gpsLocation = cursor.getString(8);
                 String zoneLocation = cursor.getString(9);
-                int villageNumber = cursor.getInt(10);
+                String villageNumber = cursor.getString(10);
 
                 VisitGeneralQuestionSetData visit = new VisitGeneralQuestionSetData();
                 visit.setClientId(clientId);

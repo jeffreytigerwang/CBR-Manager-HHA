@@ -27,13 +27,13 @@ public class VisitGeneralQuestionSetData implements Serializable {
 
     private String workerName;
     private String visitGpsLocation;
-    private int villageNumber;
+    private String villageNumber;
     private String visitZoneLocation;
     public VisitGeneralQuestionSetData() {
         this.dateOfVisit = new Date();
         this.workerName = "";
         this.visitGpsLocation = "";
-        this.villageNumber = -1;
+        this.villageNumber = "";
         this.visitZoneLocation = "";
     }
 
@@ -48,7 +48,7 @@ public class VisitGeneralQuestionSetData implements Serializable {
                                        Date dateOfVisit,
                                        String workerName,
                                        String visitGpsLocation,
-                                       int villageNumber,
+                                       String villageNumber,
                                        String visitZoneLocation) {
         this.clientId = clientId;
         this.visitId = visitId;
@@ -74,7 +74,7 @@ public class VisitGeneralQuestionSetData implements Serializable {
         boolean isQuestionFourEmpty = workerName.isEmpty();
         boolean isQuestionFiveEmpty = visitGpsLocation.isEmpty();
         boolean isQuestionSixEmpty = visitZoneLocation.isEmpty();
-        boolean isQuestionSevenEmpty = villageNumber == -1;
+        boolean isQuestionSevenEmpty = villageNumber.isEmpty();
 
         if (!isQuestionOneChecked) {
             questionNumbers.add("1.");
@@ -164,11 +164,11 @@ public class VisitGeneralQuestionSetData implements Serializable {
         this.visitGpsLocation = visitGpsLocation;
     }
 
-    public int getVillageNumber() {
+    public String getVillageNumber() {
         return villageNumber;
     }
 
-    public void setVillageNumber(int villageNumber) {
+    public void setVillageNumber(String villageNumber) {
         this.villageNumber = villageNumber;
     }
 

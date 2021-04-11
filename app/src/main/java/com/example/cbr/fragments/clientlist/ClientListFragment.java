@@ -23,7 +23,6 @@ import com.example.cbr.R;
 import com.example.cbr.adapters.ClientListAdapter;
 import com.example.cbr.databinding.FragmentClientlistBinding;
 import com.example.cbr.fragments.base.BaseFragment;
-
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ClientInfoManager;
 

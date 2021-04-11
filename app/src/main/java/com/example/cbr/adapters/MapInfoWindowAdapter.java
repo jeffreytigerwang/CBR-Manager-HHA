@@ -9,7 +9,6 @@ import com.example.cbr.R;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ClientInfoManager;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 import java.io.IOException;

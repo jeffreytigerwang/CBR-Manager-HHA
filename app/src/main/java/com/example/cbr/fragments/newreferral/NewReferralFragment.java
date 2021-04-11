@@ -22,23 +22,12 @@ import com.example.cbr.databinding.FragmentQuestionspageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ReferralInfo;
-import com.example.cbr.retrofit.JsonPlaceHolderApi;
-import com.example.cbr.retrofit.RetrofitInit;
 import com.example.cbr.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-
 public class NewReferralFragment extends BaseFragment implements NewReferralContract.View {
-
-    // Init API
-    private Retrofit retrofit;
-    private JsonPlaceHolderApi jsonPlaceHolderApi;
 
     private FragmentQuestionspageBinding binding;
     private NewReferralContract.Presenter clientListPresenter;
@@ -62,10 +51,6 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setPresenter(new NewReferralPresenter(this));
         binding = FragmentQuestionspageBinding.inflate(inflater, container, false);
-
-        // Init Retrofit & NodeJs stuff
-        retrofit = RetrofitInit.getInstance();
-        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         clientInfo = (ClientInfo) getArguments().getSerializable(NEW_REFERRAL_PAGE_BUNDLE);
 
@@ -123,7 +108,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
             public void onClick(View v) {
                 if (binding.questionsPageViewPager.getCurrentItem() == questionsFragmentPagerAdapter.getItemCount() - 1) {
                     getActivity().getSupportFragmentManager().popBackStack();
-                    createReferralInfo(referralInfo);
+                    clientListPresenter.createReferralInfo(referralInfo);
                 }
                 binding.questionsPageViewPager.setCurrentItem(binding.questionsPageViewPager.getCurrentItem() + 1);
             }
@@ -157,7 +142,6 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.wheelchair)));
         mainPageList.add(new CheckBoxViewContainer(getString(R.string.other)));
         mainPageList.add(new EditTextViewContainer(getString(R.string.other_option), Constants.PRIMARY_TEXT_SIZE_SP, "", getString(R.string.other), InputType.TYPE_CLASS_TEXT));
-        mainPageList.add(new RecordPhotoViewContainer("hello"));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
@@ -211,10 +195,37 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.hearing_impairment)));
         physioTherapyList.add(new CheckBoxViewContainer(getString(R.string.other)));
         physioTherapyList.add(new EditTextViewContainer(getString(R.string.other_option), Constants.PRIMARY_TEXT_SIZE_SP, "", getString(R.string.other), InputType.TYPE_CLASS_TEXT));
+        physioTherapyList.add(new RecordPhotoViewContainer(getString(R.string.new_referral_picture)));
 
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+                if (questionDataContainer instanceof CheckBoxViewContainer) {
+                    String disability = ((CheckBoxViewContainer) questionDataContainer).getQuestionText();
+                    boolean isChecked = ((CheckBoxViewContainer) questionDataContainer).isChecked();
+
+                    if (disability.equals(getString(R.string.amputee))) {
+                        referralInfo.setAmputeeDisability(isChecked);
+                    } else if (disability.equals(getString(R.string.polio))) {
+                        referralInfo.setPolioDisability(isChecked);
+                    } else if (disability.equals(getString(R.string.spinal_cord_injury))) {
+                        referralInfo.setSpinalCordInjuryDisability(isChecked);
+                    } else if (disability.equals(getString(R.string.cerebral_palsy))) {
+                        referralInfo.setCerebralPalsyDisability(isChecked);
+                    } else if (disability.equals(getString(R.string.spina_bifida))) {
+                        referralInfo.setSpinaBifidaDisability(isChecked);
+                    } else if (disability.equals(getString(R.string.hydrocephalus))) {
+                        referralInfo.setHydrocephalusDisability(isChecked);
+                    } else if (disability.equals(getString(R.string.visual_impairment))) {
+                        referralInfo.setVisualImpairmentDisability(isChecked);
+                    } else if (disability.equals(getString(R.string.hearing_impairment))) {
+                        referralInfo.setHearingImpairmentDisability(isChecked);
+                    } else if (disability.equals(getString(R.string.other))) {
+                        referralInfo.setOtherDisability(isChecked);
+                    }
+                }
+
+                //TODO add photo to database once it is working
             }
         };
 
@@ -233,7 +244,18 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+                if (questionDataContainer instanceof RadioGroupViewContainer) {
+                   String description = ((RadioGroupViewContainer) questionDataContainer).getCheckedItem().getDescription();
+                   boolean isChecked = ((RadioGroupViewContainer) questionDataContainer).getCheckedItem().isChecked();
 
+                   if (description.equals(getString(R.string.above_knee_question))) {
+                       referralInfo.setInjuryAboveKnee(isChecked);
+                       referralInfo.setInjuryBelowKnee(!isChecked);
+                   } else if (description.equals(getString(R.string.below_knee_question))) {
+                       referralInfo.setInjuryBelowElbow(isChecked);
+                       referralInfo.setInjuryAboveElbow(!isChecked);
+                   }
+                }
             }
         };
 
@@ -252,7 +274,18 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+                if (questionDataContainer instanceof RadioGroupViewContainer) {
+                    String description = ((RadioGroupViewContainer) questionDataContainer).getCheckedItem().getDescription();
+                    boolean isChecked = ((RadioGroupViewContainer) questionDataContainer).getCheckedItem().isChecked();
 
+                    if (description.equals(getString(R.string.above_elbow_question))) {
+                        referralInfo.setInjuryAboveElbow(isChecked);
+                        referralInfo.setInjuryBelowElbow(!isChecked);
+                    } else if (description.equals(getString(R.string.below_elbow_question))) {
+                        referralInfo.setInjuryBelowElbow(isChecked);
+                        referralInfo.setInjuryAboveElbow(!isChecked);
+                    }
+                }
             }
         };
 
@@ -279,10 +312,44 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         wheelchair.add(new RadioGroupViewContainer(getString(R.string.wheelchair_repair_question), true, wheelchairRepair));
         wheelchair.add(new SingleTextViewContainer(getString(R.string.wheelchair_centre), 15));
 
+        wheelchair.add(new EditTextViewContainer("What is the client's hip width in inches?", Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, "", "", InputType.TYPE_CLASS_NUMBER));
+
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+                if (questionDataContainer instanceof RadioGroupViewContainer) {
+                    String question = ((RadioGroupViewContainer) questionDataContainer).getQuestionText();
+                    String description = ((RadioGroupViewContainer) questionDataContainer).getCheckedItem().getDescription();
 
+                    if (question.equals(getString(R.string.wheelchair_expertise_question))) {
+                        if (description.equals(getString(R.string.basic_user))) {
+                            referralInfo.setIntermediateWheelchairUser(false);
+                        } else if (description.equals(getString(R.string.intermediate_user))) {
+                            referralInfo.setIntermediateWheelchairUser(true);
+                        }
+                    }
+
+                    if (question.equals(getString(R.string.existing_wheelchair_question))) {
+                        if (description.equals(getString(R.string.yes))) {
+                            referralInfo.setHasExistingWheelchair(true);
+                        } else if (description.equals(getString(R.string.no))) {
+                            referralInfo.setHasExistingWheelchair(false);
+                        }
+                    }
+
+                    if (question.equals(getString(R.string.wheelchair_repair_question))) {
+                        if (description.equals(getString(R.string.yes))) {
+                            referralInfo.setCanRepairWheelchair(true);
+                        } else if (description.equals(getString(R.string.no))) {
+                            referralInfo.setCanRepairWheelchair(false);
+                        }
+                    }
+                }
+
+                if (questionDataContainer instanceof EditTextViewContainer) {
+                    Integer hipWidth = Integer.valueOf(((EditTextViewContainer) questionDataContainer).getUserInput());
+                    referralInfo.setHipWidth(hipWidth);
+                }
             }
         };
 
@@ -308,28 +375,4 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
     public static String getFragmentTag() {
         return NewReferralFragment.class.getSimpleName();
     }
-
-
-    private void createReferralInfo(ReferralInfo referralInfo) {
-        Call<ReferralInfo> call = jsonPlaceHolderApi.createReferralInfo(referralInfo);
-
-        call.enqueue(new Callback<ReferralInfo>() {
-            @Override
-            public void onResponse(Call<ReferralInfo> call, Response<ReferralInfo> response) {
-
-                if (!response.isSuccessful()) {
-                    return;
-                }
-
-                ReferralInfo referralResponse = response.body();
-
-            }
-
-            @Override
-            public void onFailure(Call<ReferralInfo> call, Throwable t) {
-
-            }
-        });
-    }
-
 }

@@ -38,7 +38,8 @@ exports.create = (req, res) => {
     hipWidth: req.body.hipWidth,
     hasExistingWheelchair: req.body.hasExistingWheelchair,
     canRepairWheelchair: req.body.canRepairWheelchair,
-    outcome: req.body.outcome
+    outcome: req.body.outcome,
+    resolved: req.body.resolved
   };
 
   // Save item in database

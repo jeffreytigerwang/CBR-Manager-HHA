@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.cbr.R;
 import com.example.cbr.adapters.MapInfoWindowAdapter;
+
 import com.example.cbr.databinding.FragmentMapBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.fragments.clientlist.ClientListFragment;

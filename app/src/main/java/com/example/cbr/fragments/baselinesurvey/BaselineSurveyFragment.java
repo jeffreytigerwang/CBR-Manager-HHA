@@ -120,7 +120,52 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
     }
 
     private void generateHealth() {
+        final ArrayList<QuestionDataContainer> healthList = new ArrayList<>();
+        healthList.add(new HeaderViewContainer(getString(R.string.health)));
 
+        List<String> rateGeneralHealthOptions = new ArrayList<>(
+                Arrays.asList(getResources().getStringArray(R.array.rate_satisfactions_array))
+        );
+        healthList.add(new SpinnerViewContainer(getString(R.string.rate_your_general_health), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, rateGeneralHealthOptions));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> haveAccessToRehabilitationServicesOptions = new ArrayList<>();
+        haveAccessToRehabilitationServicesOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        haveAccessToRehabilitationServicesOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        healthList.add(new RadioGroupViewContainer(getString(R.string.do_you_have_access_to_rehabilitation_services), true, haveAccessToRehabilitationServicesOptions));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> needAccessToRehabilitationOptions = new ArrayList<>();
+        needAccessToRehabilitationOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        needAccessToRehabilitationOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        healthList.add(new RadioGroupViewContainer(getString(R.string.do_you_need_access_to_rehabilitation_services), true, needAccessToRehabilitationOptions));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> haveAssistiveDeviceOptions = new ArrayList<>();
+        haveAssistiveDeviceOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        haveAssistiveDeviceOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        healthList.add(new RadioGroupViewContainer(getString(R.string.do_you_have_an_assistive_device), true, haveAssistiveDeviceOptions));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> needAssistiveDeviceOptions = new ArrayList<>();
+        needAssistiveDeviceOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        needAssistiveDeviceOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        healthList.add(new RadioGroupViewContainer(getString(R.string.do_you_need_an_assistive_device), true, needAssistiveDeviceOptions));
+
+        List<String> assistiveDeviceOptions = new ArrayList<>(
+                Arrays.asList(getResources().getStringArray(R.array.assistive_devices_array))
+        );
+        healthList.add(new SpinnerViewContainer(getString(R.string.what_assistive_device_do_you_need), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, assistiveDeviceOptions));
+
+        List<String> rateSatisfactionOptions = new ArrayList<>(
+                Arrays.asList(getResources().getStringArray(R.array.rate_satisfactions_array))
+        );
+        healthList.add(new SpinnerViewContainer(getString(R.string.are_you_satisfied_with_the_health_services_you_receive), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, rateSatisfactionOptions));
+
+        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+            @Override
+            public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+
+            }
+        };
+
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(healthList, true, onViewPagerChangedListener));
     }
 
     private void generateEducation() {

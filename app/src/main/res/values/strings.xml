@@ -314,11 +314,37 @@
     <string name="if_no_have_you_ever_been_to_school_before">If no, have you ever been to school before?</string>
     <string name="if_no_do_you_want_to_go_to_school">If no, do you want to go to school?</string>
     <string name="if_no_why_do_you_not_go_to_school">If no, why do you not go to school?</string>
+    <string name="rate_your_general_health">Rate your general health</string>
+    <string name="do_you_need_access_to_rehabilitation_services">Do you need access to rehabilitation services?</string>
+    <string name="do_you_have_access_to_rehabilitation_services">Do you have access to rehabilitation services? (E.g physiotherapy, speech therapy, training how to use assistive devices)</string>
+    <string name="do_you_have_an_assistive_device">Do you have an assistive device? (E.g wheelchair, crutches, prosthetic limbs, hearing aid)</string>
+    <string name="do_you_need_an_assistive_device">Do you need an assistive device?</string>
+    <string name="what_assistive_device_do_you_need">What assistive device do you need?</string>
+    <string name="are_you_satisfied_with_the_health_services_you_receive">Are you satisfied with the health services you receive?</string>
 
     <string-array name="reasons_for_not_going_to_school_array">
         <item>Lack of funding</item>
         <item>My disability stops me</item>
         <item>Other</item>
+    </string-array>
+
+    <string-array name="rate_satisfactions_array">
+        <item>Very poor</item>
+        <item>Poor</item>
+        <item>Fine</item>
+        <item>Good</item>
+    </string-array>
+
+    <string-array name="assistive_devices_array">
+        <item>Wheelchair</item>
+        <item>Prosthetic</item>
+        <item>Orthotic</item>
+        <item>Crutch</item>
+        <item>Walking stick</item>
+        <item>Hearing aid</item>
+        <item>Glasses</item>
+        <item>Standing frame</item>
+        <item>Corner seat</item>
     </string-array>
 
 </resources>

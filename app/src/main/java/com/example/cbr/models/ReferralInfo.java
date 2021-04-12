@@ -3,12 +3,14 @@ package com.example.cbr.models;
 public class ReferralInfo {
 
     private Integer clientId;
+    private Integer referralId;
     private boolean requirePhysiotherapy;
     private boolean requireProsthetic;
     private boolean requireOrthotic;
     private boolean requireWheelchair;
     private boolean requireOther;
     private String otherDescription;
+    private byte[] physiotherapyPhoto;
     private boolean amputeeDisability;
     private boolean polioDisability;
     private boolean spinalCordInjuryDisability;
@@ -20,6 +22,8 @@ public class ReferralInfo {
     private boolean otherDisability;
     private boolean isInjuryAboveKnee;
     private boolean isInjuryBelowKnee;
+    private boolean isInjuryAboveElbow;
+    private boolean isInjuryBelowElbow;
     private boolean isIntermediateWheelchairUser;
     private Integer hipWidth;
     private boolean hasExistingWheelchair;
@@ -31,12 +35,14 @@ public class ReferralInfo {
     }
 
     public ReferralInfo(Integer clientId,
+                        Integer referralId,
                         boolean requirePhysiotherapy,
                         boolean requireProsthetic,
                         boolean requireOrthotic,
                         boolean requireWheelchair,
                         boolean requireOther,
                         String otherDescription,
+                        byte[] physiotherapyPhoto,
                         boolean amputeeDisability,
                         boolean polioDisability,
                         boolean spinalCordInjuryDisability,
@@ -48,34 +54,40 @@ public class ReferralInfo {
                         boolean otherDisability,
                         boolean isInjuryAboveKnee,
                         boolean isInjuryBelowKnee,
+                        boolean isInjuryAboveElbow,
+                        boolean isInjuryBelowElbow,
                         boolean isIntermediateWheelchairUser,
                         Integer hipWidth,
                         boolean hasExistingWheelchair,
                         boolean canRepairWheelchair,
                         String outcome) {
-                                this.clientId = clientId;
-                                this.requirePhysiotherapy = requirePhysiotherapy;
-                                this.requireProsthetic = requireProsthetic;
-                                this.requireOrthotic = requireOrthotic;
-                                this.requireWheelchair = requireWheelchair;
-                                this.requireOther = requireOther;
-                                this.otherDescription = otherDescription;
-                                this.amputeeDisability = amputeeDisability;
-                                this.polioDisability = polioDisability;
-                                this.spinalCordInjuryDisability = spinalCordInjuryDisability;
-                                this.cerebralPalsyDisability = cerebralPalsyDisability;
-                                this.spinaBifidaDisability = spinaBifidaDisability;
-                                this.hydrocephalusDisability = hydrocephalusDisability;
-                                this.visualImpairmentDisability = visualImpairmentDisability;
-                                this.hearingImpairmentDisability = hearingImpairmentDisability;
-                                this.otherDisability = otherDisability;
-                                this.isInjuryAboveKnee = isInjuryAboveKnee;
-                                this.isInjuryBelowKnee = isInjuryBelowKnee;
-                                this.isIntermediateWheelchairUser = isIntermediateWheelchairUser;
-                                this.hipWidth = hipWidth;
-                                this.hasExistingWheelchair = hasExistingWheelchair;
-                                this.canRepairWheelchair = canRepairWheelchair;
-                                this.outcome = outcome;
+        this.clientId = clientId;
+        this.referralId = referralId;
+        this.requirePhysiotherapy = requirePhysiotherapy;
+        this.requireProsthetic = requireProsthetic;
+        this.requireOrthotic = requireOrthotic;
+        this.requireWheelchair = requireWheelchair;
+        this.requireOther = requireOther;
+        this.otherDescription = otherDescription;
+        this.physiotherapyPhoto = physiotherapyPhoto;
+        this.amputeeDisability = amputeeDisability;
+        this.polioDisability = polioDisability;
+        this.spinalCordInjuryDisability = spinalCordInjuryDisability;
+        this.cerebralPalsyDisability = cerebralPalsyDisability;
+        this.spinaBifidaDisability = spinaBifidaDisability;
+        this.hydrocephalusDisability = hydrocephalusDisability;
+        this.visualImpairmentDisability = visualImpairmentDisability;
+        this.hearingImpairmentDisability = hearingImpairmentDisability;
+        this.otherDisability = otherDisability;
+        this.isInjuryAboveKnee = isInjuryAboveKnee;
+        this.isInjuryBelowKnee = isInjuryBelowKnee;
+        this.isInjuryAboveElbow = isInjuryAboveElbow;
+        this.isInjuryBelowElbow = isInjuryBelowElbow;
+        this.isIntermediateWheelchairUser = isIntermediateWheelchairUser;
+        this.hipWidth = hipWidth;
+        this.hasExistingWheelchair = hasExistingWheelchair;
+        this.canRepairWheelchair = canRepairWheelchair;
+        this.outcome = outcome;
     }
 
     public Integer getClientId() {
@@ -260,5 +272,37 @@ public class ReferralInfo {
 
     public void setOutcome(String outcome) {
         this.outcome = outcome;
+    }
+
+    public Integer getReferralId() {
+        return referralId;
+    }
+
+    public void setReferralId(Integer referralId) {
+        this.referralId = referralId;
+    }
+
+    public byte[] getPhysiotherapyPhoto() {
+        return physiotherapyPhoto;
+    }
+
+    public void setPhysiotherapyPhoto(byte[] physiotherapyPhoto) {
+        this.physiotherapyPhoto = physiotherapyPhoto;
+    }
+
+    public boolean isInjuryAboveElbow() {
+        return isInjuryAboveElbow;
+    }
+
+    public void setInjuryAboveElbow(boolean injuryAboveElbow) {
+        isInjuryAboveElbow = injuryAboveElbow;
+    }
+
+    public boolean isInjuryBelowElbow() {
+        return isInjuryBelowElbow;
+    }
+
+    public void setInjuryBelowElbow(boolean injuryBelowElbow) {
+        isInjuryBelowElbow = injuryBelowElbow;
     }
 }

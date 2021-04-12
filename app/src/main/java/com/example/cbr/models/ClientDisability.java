@@ -13,10 +13,11 @@ public class ClientDisability {
     private boolean hearingImpairmentDisability;
     private boolean doNotKnowDisability;
     private boolean otherDisability;
-
+    private String describeOtherDisability;
 
     public ClientDisability(int id, boolean amputeeDisability, boolean polioDisability, boolean spinalCordInjuryDisability, boolean cerebralPalsyDisability, boolean spinaBifidaDisability,
-                            boolean hydrocephalusDisability, boolean visualImpairmentDisability, boolean hearingImpairmentDisability, boolean doNotKnowDisability, boolean otherDisability) {
+                            boolean hydrocephalusDisability, boolean visualImpairmentDisability, boolean hearingImpairmentDisability, boolean doNotKnowDisability, boolean otherDisability,
+                            String describeOtherDisability) {
         this.clientId = id;
         this.amputeeDisability = amputeeDisability;
         this.polioDisability = polioDisability;
@@ -28,7 +29,9 @@ public class ClientDisability {
         this.hearingImpairmentDisability = hearingImpairmentDisability;
         this.doNotKnowDisability = doNotKnowDisability;
         this.otherDisability = otherDisability;
+        this.describeOtherDisability = describeOtherDisability;
     }
+
 
 
     public Integer getId() {
@@ -117,5 +120,21 @@ public class ClientDisability {
 
     public void setOtherDisability(boolean otherDisability) {
         this.otherDisability = otherDisability;
+    }
+
+    public String getDescribeOtherDisability() {
+        return describeOtherDisability;
+    }
+
+    public void setDescribeOtherDisability(String describeOtherDisability) {
+        this.describeOtherDisability = describeOtherDisability;
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
     }
 }

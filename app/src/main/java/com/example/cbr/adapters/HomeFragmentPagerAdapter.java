@@ -8,9 +8,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.example.cbr.fragments.DashboardPageFragment;
 import com.example.cbr.fragments.clientlist.ClientListFragment;
 import com.example.cbr.fragments.discussion.DiscussionFragment;
-import com.example.cbr.fragments.map.MapFragment;
 import com.example.cbr.fragments.home.HomePageFragment;
-import com.example.cbr.fragments.notification.NotificationFragment;
+import com.example.cbr.fragments.map.MapFragment;
 
 public class HomeFragmentPagerAdapter extends FragmentStateAdapter {
 

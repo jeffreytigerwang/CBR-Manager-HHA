@@ -68,7 +68,7 @@ public class RegisterDialog extends AppCompatDialogFragment {
     private registerDialogListener listener;
     private final String key = "Bar12345Bar12345";
 
-    // Init API
+    // Init API for calls to the database
     private Retrofit retrofit;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
 

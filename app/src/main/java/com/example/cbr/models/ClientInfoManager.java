@@ -8,8 +8,8 @@ import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,12 +19,11 @@ import retrofit2.Retrofit;
 
 public class ClientInfoManager implements Iterable<ClientInfo>{
 
-    // Init API
+    // Init API for calls to the database
     private Retrofit retrofit;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
 
     private ArrayList<ClientInfo> clientInfoArrayList;
-
 
 
     private void getClientsInfo() throws IOException {
@@ -84,6 +83,40 @@ public class ClientInfoManager implements Iterable<ClientInfo>{
             clientInfoArrayList.set(i, clientInfo);
         }
 
+    }
+
+    public String getDateOfLastVisit(ClientInfo clientInfo) throws IOException {
+
+        Call<List<VisitGeneralQuestionSetData>> call = jsonPlaceHolderApi.getVisitGeneralQuestionSetData();
+        Response<List<VisitGeneralQuestionSetData>> response = call.execute();
+        List<VisitGeneralQuestionSetData> visits = response.body();
+
+
+        Date dateOfLastVisit = new Date(Long.MIN_VALUE);
+        for(VisitGeneralQuestionSetData visit : visits) {
+            if(clientInfo.getClientId().equals(visit.getClientId())) {
+                if(dateOfLastVisit.before(visit.getDateOfVisit())) {
+                    dateOfLastVisit = visit.getDateOfVisit();
+                }
+            }
+        }
+        if(dateOfLastVisit.equals(new Date(Long.MIN_VALUE))) {
+            return clientInfo.getDateJoined();
+        } else {
+            return String.valueOf(dateOfLastVisit);
+        }
+
+    }
+
+
+
+    public ClientInfo findClientByName(String name){
+        for (ClientInfo clientInfo : clientInfoArrayList){
+            if (clientInfo.getFullName().equals(name)){
+                return clientInfo;
+            }
+        }
+        return null;
     }
 
     /*

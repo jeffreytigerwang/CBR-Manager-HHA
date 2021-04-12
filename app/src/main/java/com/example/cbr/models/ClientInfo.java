@@ -8,28 +8,25 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ClientInfo implements Serializable, Comparable<ClientInfo>{
-    private double nullCoordinateHandler = 300;
-
-    private Boolean consentToInterview;
-
+    private static final double nullCoordinateHandler = 300;
     private Integer clientId;
-    private String gpsLocation;
     private double latitude;
     private double longitude;
-
-    private String zoneLocation;
-    private String villageNumber;
     private String dateJoined;
+    private boolean consentToInterview;
     private String firstName;
     private String lastName;
     private String gender;
-    private String id;
     private Integer age;
     private String contactNumber;
-
-    private Boolean caregiverPresentForInterview;
+    private String gpsLocation;
+    private String zoneLocation;
+    private Integer villageNumber;
+    private boolean caregiverPresentForInterview;
+    private String caregiverFirstName;
+    private String caregiverLastName;
     private String caregiverContactNumber;
-
+    private byte[] photo;
     private boolean amputeeDisability;
     private boolean polioDisability;
     private boolean spinalCordInjuryDisability;
@@ -40,36 +37,38 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     private boolean hearingImpairmentDisability;
     private boolean doNotKnowDisability;
     private boolean otherDisability;
-
+    private String describeOtherDisability;
     private String rateHealth;
     private String describeHealth;
     private String setGoalForHealth;
-
     private String rateEducation;
     private String describeEducation;
     private String setGoalForEducation;
-
     private String rateSocialStatus;
     private String describeSocialStatus;
     private String setGoalForSocialStatus;
-
     private double overallRisk;
     
-    public ClientInfo() {}
+    public ClientInfo() {
 
-    public ClientInfo(boolean consentToInterview,
-                      Integer clientId,
-                      String gpsLocation,
-                      String zoneLocation,
-                      String villageNumber,
-                      String dateJoined,
+    }
+
+    public ClientInfo(Integer clientId,
+                      boolean consentToInterview,
                       String firstName,
                       String lastName,
-                      String gender,
                       Integer age,
+                      String gender,
                       String contactNumber,
-                      Boolean caregiverPresentForInterview,
+                      String dateJoined,
+                      String gpsLocation,
+                      String zoneLocation,
+                      Integer villageNumber,
+                      boolean caregiverPresentForInterview,
+                      String caregiverFirstName,
+                      String caregiverLastName,
                       String caregiverContactNumber,
+                      byte[] photo,
                       boolean amputeeDisability,
                       boolean polioDisability,
                       boolean spinalCordInjuryDisability,
@@ -80,6 +79,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
                       boolean hearingImpairmentDisability,
                       boolean doNotKnowDisability,
                       boolean otherDisability,
+                      String describeOtherDisability,
                       String rateHealth,
                       String describeHealth,
                       String setGoalForHealth,
@@ -89,19 +89,22 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
                       String rateSocialStatus,
                       String describeSocialStatus,
                       String setGoalForSocialStatus) {
-        this.consentToInterview = consentToInterview;
         this.clientId = clientId;
+        this.consentToInterview = consentToInterview;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.gender = gender;
+        this.contactNumber = contactNumber;
+        this.dateJoined = dateJoined;
         this.gpsLocation = gpsLocation;
         this.zoneLocation = zoneLocation;
         this.villageNumber = villageNumber;
-        this.dateJoined = dateJoined;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
-        this.age = age;
-        this.contactNumber = contactNumber;
         this.caregiverPresentForInterview = caregiverPresentForInterview;
+        this.caregiverFirstName = caregiverFirstName;
+        this.caregiverLastName = caregiverLastName;
         this.caregiverContactNumber = caregiverContactNumber;
+        this.photo = photo;
         this.amputeeDisability = amputeeDisability;
         this.polioDisability = polioDisability;
         this.spinalCordInjuryDisability = spinalCordInjuryDisability;
@@ -112,6 +115,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         this.hearingImpairmentDisability = hearingImpairmentDisability;
         this.doNotKnowDisability = doNotKnowDisability;
         this.otherDisability = otherDisability;
+        this.describeOtherDisability = describeOtherDisability;
         this.rateHealth = rateHealth;
         this.describeHealth = describeHealth;
         this.setGoalForHealth = setGoalForHealth;
@@ -122,12 +126,12 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         this.describeSocialStatus = describeSocialStatus;
         this.setGoalForSocialStatus = setGoalForSocialStatus;
 
-        this.latitude = getLatitude();
-        this.longitude = getLongitude();
+        this.latitude = getClientLatitude();
+        this.longitude = getClientLongitude();
         overallRisk = 0;
     }
 
-    public double getLatitude() {
+    public double getClientLatitude() {
         if (getGpsLocation()!= null && !getGpsLocation().trim().isEmpty()){
             String[] coordinates = getGpsLocation().split("[\\s,]+");
             return Double.parseDouble(coordinates[0]);
@@ -136,7 +140,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         return nullCoordinateHandler;
     }
 
-    public double getLongitude() {
+    public double getClientLongitude() {
         if (getGpsLocation()!= null && !getGpsLocation().trim().isEmpty()){
             String[] coordinates = getGpsLocation().split("[\\s,]+");
             return Double.parseDouble(coordinates[1]);
@@ -160,9 +164,6 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     public double getOverallRisk(){
         return overallRisk;
     }
-    public Boolean isConsentToInterview() {
-        return consentToInterview;
-    }
 
     public String getGpsLocation() {
         return gpsLocation;
@@ -172,7 +173,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         return zoneLocation;
     }
 
-    public String getVillageNumber() {
+    public Integer getVillageNumber() {
         return villageNumber;
     }
 
@@ -199,13 +200,8 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         return age;
     }
 
-
     public String getContactNumber() {
         return contactNumber;
-    }
-
-    public Boolean isCaregiverPresentForInterview() {
-        return caregiverPresentForInterview;
     }
 
     public String getCaregiverContactNumber() {
@@ -214,20 +210,20 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
 
     public List<String> getDisabilityList() {
         List<String> disabilityList = new ArrayList<>();
-        if (isDoNotKnowDisability()) {
+        if (getDoNotKnowDisability()) {
             disabilityList.add(Constants.UNKNOWN_DISABILITY);
             return disabilityList;
         }
 
-        if (isAmputeeDisability()) disabilityList.add(Constants.AMPUTEE_DISABILITY);
-        if (isPolioDisability()) disabilityList.add(Constants.POLIO_DISABILITY);
-        if (isSpinalCordInjuryDisability()) disabilityList.add(Constants.SPINAL_CORD_INJURY_DISABILITY);
-        if (isCerebralPalsyDisability()) disabilityList.add(Constants.CEREBRAL_PALSY_DISABILITY);
-        if (isSpinaBifidaDisability()) disabilityList.add(Constants.SPINA_BIFIDA_DISABILITY);
-        if (isHydrocephalusDisability()) disabilityList.add(Constants.HYDROCEPHALUS_DISABILITY);
-        if (isVisualImpairmentDisability()) disabilityList.add(Constants.VISUAL_IMPAIRMENT_DISABILITY);
-        if (isHearingImpairmentDisability()) disabilityList.add(Constants.HEARING_IMPAIRMENT_DISABILITY);
-        if (isOtherDisability()) disabilityList.add(Constants.OTHER_DISABILITY);
+        if (getAmputeeDisability()) disabilityList.add(Constants.AMPUTEE_DISABILITY);
+        if (getPolioDisability()) disabilityList.add(Constants.POLIO_DISABILITY);
+        if (getSpinalCordInjuryDisability()) disabilityList.add(Constants.SPINAL_CORD_INJURY_DISABILITY);
+        if (getCerebralPalsyDisability()) disabilityList.add(Constants.CEREBRAL_PALSY_DISABILITY);
+        if (getSpinaBifidaDisability()) disabilityList.add(Constants.SPINA_BIFIDA_DISABILITY);
+        if (getHydrocephalusDisability()) disabilityList.add(Constants.HYDROCEPHALUS_DISABILITY);
+        if (getVisualImpairmentDisability()) disabilityList.add(Constants.VISUAL_IMPAIRMENT_DISABILITY);
+        if (getHearingImpairmentDisability()) disabilityList.add(Constants.HEARING_IMPAIRMENT_DISABILITY);
+        if (getOtherDisability()) disabilityList.add(Constants.OTHER_DISABILITY);
 
         return disabilityList;
     }
@@ -236,43 +232,43 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         return getDisabilityList().toString().replace("[", "").replace("]", "");
     }
 
-    public boolean isAmputeeDisability() {
+    public boolean getAmputeeDisability() {
         return amputeeDisability;
     }
 
-    public boolean isPolioDisability() {
+    public boolean getPolioDisability() {
         return polioDisability;
     }
 
-    public boolean isSpinalCordInjuryDisability() {
+    public boolean getSpinalCordInjuryDisability() {
         return spinalCordInjuryDisability;
     }
 
-    public boolean isCerebralPalsyDisability() {
+    public boolean getCerebralPalsyDisability() {
         return cerebralPalsyDisability;
     }
 
-    public boolean isSpinaBifidaDisability() {
+    public boolean getSpinaBifidaDisability() {
         return spinaBifidaDisability;
     }
 
-    public boolean isHydrocephalusDisability() {
+    public boolean getHydrocephalusDisability() {
         return hydrocephalusDisability;
     }
 
-    public boolean isVisualImpairmentDisability() {
+    public boolean getVisualImpairmentDisability() {
         return visualImpairmentDisability;
     }
 
-    public boolean isHearingImpairmentDisability() {
+    public boolean getHearingImpairmentDisability() {
         return hearingImpairmentDisability;
     }
 
-    public boolean isDoNotKnowDisability() {
+    public boolean getDoNotKnowDisability() {
         return doNotKnowDisability;
     }
 
-    public boolean isOtherDisability() {
+    public boolean getOtherDisability() {
         return otherDisability;
     }
 
@@ -324,7 +320,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         this.zoneLocation = zoneLocation;
     }
 
-    public void setVillageNumber(String villageNumber) {
+    public void setVillageNumber(Integer villageNumber) {
         this.villageNumber = villageNumber;
     }
 
@@ -337,7 +333,7 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;//this.id = id;
+        this.lastName = lastName;
     }
 
     public void setAge(Integer age) {
@@ -432,14 +428,6 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         this.setGoalForSocialStatus = setGoalForSocialStatus;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getGender() {
         return gender;
     }
@@ -448,20 +436,44 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
         this.gender = gender;
     }
 
-    public Boolean getConsentToInterview() {
+    public boolean getConsentToInterview() {
         return consentToInterview;
-    }
-
-    public void setConsentToInterview(Boolean consentToInterview) {
-        this.consentToInterview = consentToInterview;
     }
 
     public Boolean getCaregiverPresentForInterview() {
         return caregiverPresentForInterview;
     }
 
-    public void setCaregiverPresentForInterview(Boolean caregiverPresentForInterview) {
-        this.caregiverPresentForInterview = caregiverPresentForInterview;
+    public String getCaregiverFirstName() {
+        return caregiverFirstName;
+    }
+
+    public void setCaregiverFirstName(String caregiverFirstName) {
+        this.caregiverFirstName = caregiverFirstName;
+    }
+
+    public void setCaregiverLastName(String caregiverLastName) {
+        this.caregiverLastName = caregiverLastName;
+    }
+
+    public String getDescribeOtherDisability() {
+        return describeOtherDisability;
+    }
+
+    public void setDescribeOtherDisability(String describeOtherDisability) {
+        this.describeOtherDisability = describeOtherDisability;
+    }
+
+    public String getCaregiverLastName() {
+        return caregiverLastName;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     @Override
@@ -486,18 +498,14 @@ public class ClientInfo implements Serializable, Comparable<ClientInfo>{
     public static final Comparator<ClientInfo> BY_ID_ASCENDING = new Comparator<ClientInfo>() {
         @Override
         public int compare(ClientInfo clientInfo, ClientInfo t1) {
-            Integer clientInfoInt = Integer.parseInt(clientInfo.getId());
-            Integer t1Int = Integer.parseInt(t1.getId());
-            return clientInfoInt.compareTo(t1Int);
+            return clientInfo.getClientId().compareTo(t1.getClientId());
         }
     };
 
     public static final Comparator<ClientInfo> BY_ID_DESCENDING = new Comparator<ClientInfo>() {
         @Override
         public int compare(ClientInfo clientInfo, ClientInfo t1) {
-            Integer clientInfoInt = Integer.parseInt(clientInfo.getId());
-            Integer t1Int = Integer.parseInt(t1.getId());
-            return t1Int.compareTo(clientInfoInt);
+            return t1.getClientId().compareTo(clientInfo.getClientId());
         }
     };
 

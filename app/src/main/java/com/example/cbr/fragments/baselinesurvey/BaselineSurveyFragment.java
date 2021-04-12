@@ -22,7 +22,12 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Spin
 import com.example.cbr.databinding.FragmentBaselinesurveyBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.models.BaselineEducationSurveyData;
+import com.example.cbr.models.BaselineEmpowermentSurveyData;
+import com.example.cbr.models.BaselineFoodAndNutritionSurveyData;
 import com.example.cbr.models.BaselineHealthSurveyData;
+import com.example.cbr.models.BaselineLivelihoodSurveyData;
+import com.example.cbr.models.BaselineShelterAndCareSurveyData;
+import com.example.cbr.models.BaselineSocialSurveyData;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 import com.example.cbr.util.Constants;
@@ -30,6 +35,7 @@ import com.example.cbr.util.Constants;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import retrofit2.Retrofit;
 
@@ -55,6 +61,12 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
 
     BaselineHealthSurveyData baselineHealthSurveyData = new BaselineHealthSurveyData();
     BaselineEducationSurveyData baselineEducationSurveyData = new BaselineEducationSurveyData();
+    BaselineSocialSurveyData baselineSocialSurveyData = new BaselineSocialSurveyData();
+    BaselineLivelihoodSurveyData baselineLivelihoodSurveyData = new BaselineLivelihoodSurveyData();
+    BaselineFoodAndNutritionSurveyData baselineFoodAndNutritionSurveyData = new BaselineFoodAndNutritionSurveyData();
+    BaselineEmpowermentSurveyData baselineEmpowermentSurveyData = new BaselineEmpowermentSurveyData();
+    BaselineShelterAndCareSurveyData baselineShelterAndCareSurveyData = new BaselineShelterAndCareSurveyData();
+
     private int clientId;
     private Retrofit retrofit;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
@@ -261,7 +273,7 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
                     String userInput = ((EditTextViewContainer) questionDataContainer).getUserInput();
 
                     if (questionText.equals(getString(R.string.if_yes_what_grade))) {
-                        baselineEducationSurveyData.setGrade(userInput);
+                        baselineEducationSurveyData.setGrade(Integer.parseInt(userInput));
                     }
                 }
 
@@ -312,7 +324,22 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+                if (questionDataContainer instanceof RadioGroupViewContainer) {
+                    String questionText = ((RadioGroupViewContainer) questionDataContainer).getQuestionText();
+                    String selectedItem = ((RadioGroupViewContainer) questionDataContainer).getCheckedItem().getDescription();
 
+                    if (questionText.equals(getString(R.string.do_you_feel_valued_as_a_member_of_your_community))) {
+                        baselineSocialSurveyData.setFeelsValued(selectedItem.equals(getString(R.string.yes)));
+                    } else if (questionText.equals(getString(R.string.do_you_feel_independent))) {
+                        baselineSocialSurveyData.setFeelsIndependent(selectedItem.equals(getString(R.string.yes)));
+                    } else if (questionText.equals(getString(R.string.are_you_able_to_participate_in_events))) {
+                        baselineSocialSurveyData.setAbleToParticipateInEvents(selectedItem.equals(getString(R.string.yes)));
+                    } else if (questionText.equals(getString(R.string.does_your_disability_affect_your_ability_to_interact_socially))) {
+                        baselineSocialSurveyData.setDisabilityAffectsAbilityToSocialize(selectedItem.equals(getString(R.string.yes)));
+                    } else if (questionText.equals(getString(R.string.have_you_experienced_discrimination_because_of_your_disability))) {
+                        baselineSocialSurveyData.setHasExperiencedDiscrimination(selectedItem.equals(getString(R.string.yes)));
+                    }
+                }
             }
         };
 
@@ -353,7 +380,39 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+                if (questionDataContainer instanceof RadioGroupViewContainer) {
+                    String questionText = ((RadioGroupViewContainer) questionDataContainer).getQuestionText();
+                    String selectedItem = ((RadioGroupViewContainer) questionDataContainer).getCheckedItem().getDescription();
 
+                    if (questionText.equals(getString(R.string.are_you_working))) {
+                        baselineLivelihoodSurveyData.setWorking(selectedItem.equals(getString(R.string.yes)));
+                    } else if (questionText.equals(getString(R.string.does_this_meet_your_financial_needs))) {
+                        baselineLivelihoodSurveyData.setMeetsFinancialNeeds(selectedItem.equals(getString(R.string.yes)));
+                    } else if (questionText.equals(getString(R.string.does_your_disability_affect_your_ability_to_go_to_work))) {
+                        baselineLivelihoodSurveyData.setDisabilityAffectsAbilityToWork(selectedItem.equals(getString(R.string.yes)));
+                    } else if (questionText.equals(getString(R.string.do_you_want_to_work))) {
+                        baselineLivelihoodSurveyData.setWantsToWork(selectedItem.equals(getString(R.string.yes)));
+                    }
+
+                }
+
+                if (questionDataContainer instanceof SpinnerViewContainer) {
+                    String questionText = ((SpinnerViewContainer) questionDataContainer).getQuestionText();
+                    String selectedItem = ((SpinnerViewContainer) questionDataContainer).getSelectedItem();
+
+                    if (questionText.equals(getString(R.string.are_you_employed_or_self_employed))) {
+                        baselineLivelihoodSurveyData.setEmploymentType(selectedItem);
+                    }
+                }
+
+                if (questionDataContainer instanceof EditTextViewContainer) {
+                    String questionText = ((EditTextViewContainer) questionDataContainer).getQuestionText();
+                    String userInput = ((EditTextViewContainer) questionDataContainer).getUserInput();
+
+                    if (questionText.equals(getString(R.string.if_yes_what_do_you_do))) {
+                        baselineLivelihoodSurveyData.setWhatDoYouDo(userInput);
+                    }
+                }
             }
         };
 
@@ -382,7 +441,25 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+                if (questionDataContainer instanceof SpinnerViewContainer) {
+                    String questionText = ((SpinnerViewContainer) questionDataContainer).getQuestionText();
+                    String selectedItem = ((SpinnerViewContainer) questionDataContainer).getSelectedItem();
 
+                    if (questionText.equals(getString(R.string.what_do_you_think_of_your_food_security))) {
+                        baselineFoodAndNutritionSurveyData.setRateFoodSecurity(selectedItem);
+                    } else if (questionText.equals(getString(R.string.if_child_is_this_child))) {
+                        baselineFoodAndNutritionSurveyData.setChildNutrition(selectedItem);
+                    }
+                }
+
+                if (questionDataContainer instanceof RadioGroupViewContainer) {
+                    String questionText = ((RadioGroupViewContainer) questionDataContainer).getQuestionText();
+                    String selectedItem = ((RadioGroupViewContainer) questionDataContainer).getCheckedItem().getDescription();
+
+                    if (questionText.equals(getString(R.string.do_you_have_enough_food_every_month))) {
+                        baselineFoodAndNutritionSurveyData.setHasEnoughFoodEveryMonth(selectedItem.equals(getString(R.string.yes)));
+                    }
+                }
             }
         };
 
@@ -413,7 +490,27 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+                if (questionDataContainer instanceof RadioGroupViewContainer) {
+                    String questionText = ((RadioGroupViewContainer) questionDataContainer).getQuestionText();
+                    String selectedItem = ((RadioGroupViewContainer) questionDataContainer).getCheckedItem().getDescription();
 
+                    if (questionText.equals(getString(R.string.are_you_a_member_of_any_organizations_which_assist_people_with_disabilities))) {
+                        baselineEmpowermentSurveyData.setMemberOfAnyOrganization(selectedItem.equals(getString(R.string.yes)));
+                    } else if (questionText.equals(getString(R.string.are_you_aware_of_your_rights_as_a_citizen_living_with_disabilities))) {
+                        baselineEmpowermentSurveyData.setAwareOfRights(selectedItem.equals(getString(R.string.yes)));
+                    } else if (questionText.equals(getString(R.string.do_you_feel_like_you_are_able_to_influence_people_around_you))) {
+                        baselineEmpowermentSurveyData.setFeelsAbleToInfluencePeople(selectedItem.equals(getString(R.string.yes)));
+                    }
+                }
+
+                if (questionDataContainer instanceof EditTextViewContainer) {
+                    String questionText = ((EditTextViewContainer) questionDataContainer).getQuestionText();
+                    String userInput = ((EditTextViewContainer) questionDataContainer).getUserInput();
+
+                    if (questionText.equals(getString(R.string.if_yes_which_organizations))) {
+                        baselineEmpowermentSurveyData.setOrganizationName(userInput);
+                    }
+                }
             }
         };
 
@@ -437,7 +534,16 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+                if (questionDataContainer instanceof RadioGroupViewContainer) {
+                    String questionText = ((RadioGroupViewContainer) questionDataContainer).getQuestionText();
+                    String selectedItem = ((RadioGroupViewContainer) questionDataContainer).getCheckedItem().getDescription();
 
+                    if (questionText.equals(getString(R.string.do_you_have_adequate_shelter))) {
+                        baselineShelterAndCareSurveyData.setHasAdequateShelter(selectedItem.equals(getString(R.string.yes)));
+                    } else if (questionText.equals(getString(R.string.do_you_have_access_to_essential_items_for_your_household))) {
+                        baselineShelterAndCareSurveyData.setHasAccessToEssentialItems(selectedItem.equals(getString(R.string.yes)));
+                    }
+                }
             }
         };
 
@@ -449,7 +555,8 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
             @Override
             public void onClick(View v) {
                 if (binding.baselineSurveyPageViewPager.getCurrentItem() == baselineSurveyFragmentAdapter.getItemCount() - 1) {
-                    // Check if fields are filled and make database API call
+                    recordAndFinish();
+                    // Make database API call
                     getActivity().getSupportFragmentManager().popBackStack();
                 }
                 binding.baselineSurveyPageViewPager.setCurrentItem(binding.baselineSurveyPageViewPager.getCurrentItem() + 1);
@@ -466,6 +573,17 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
             }
         });
 
+    }
+
+    private void recordAndFinish() {
+        clientId = ThreadLocalRandom.current().nextInt(100000000, 999999999);
+        baselineHealthSurveyData.setClientId(clientId);
+        baselineEducationSurveyData.setClientId(clientId);
+        baselineSocialSurveyData.setClientId(clientId);
+        baselineLivelihoodSurveyData.setClientId(clientId);
+        baselineFoodAndNutritionSurveyData.setClientId(clientId);
+        baselineEmpowermentSurveyData.setClientId(clientId);
+        baselineShelterAndCareSurveyData.setClientId(clientId);
     }
 
     private void updateDisplayInfo(int currentPage) {

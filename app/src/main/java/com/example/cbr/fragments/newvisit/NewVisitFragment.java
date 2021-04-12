@@ -160,8 +160,8 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
             binding.questionsPageTitle.setText(clientInfo.getFullName());
             try {
                 clientId = clientInfo.getClientId();
-            } catch (NullPointerException e) {
                 Log.i(LOG_TAG, "onCreateView: clientId=" + clientInfo.getClientId());
+            } catch (NullPointerException e) {
                 Toast.makeText(context, getResources().getString(R.string.failed_to_get_client_id),
                         Toast.LENGTH_SHORT).show();
                 finish();
@@ -172,7 +172,6 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                     Toast.LENGTH_SHORT).show();
             finish();
         }
-
     }
 
     @Override

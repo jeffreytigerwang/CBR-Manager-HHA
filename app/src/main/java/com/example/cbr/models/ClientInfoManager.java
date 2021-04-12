@@ -6,8 +6,11 @@ import androidx.annotation.NonNull;
 
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
+import com.example.cbr.util.StringsUtil;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -101,9 +104,19 @@ public class ClientInfoManager implements Iterable<ClientInfo>{
             }
         }
         if(dateOfLastVisit.equals(new Date(Long.MIN_VALUE))) {
-            return clientInfo.getDateJoined();
+            Date date = null;
+            try {
+                date = new SimpleDateFormat("YYYY-MM-DD").parse(clientInfo.getDateJoined());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if(date == null) {
+                return clientInfo.getDateJoined();
+            }
+            return StringsUtil.dateToUKFormat(date);
+
         } else {
-            return String.valueOf(dateOfLastVisit);
+            return StringsUtil.dateToUKFormat(dateOfLastVisit);
         }
 
     }

@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cbr.R;
 import com.example.cbr.fragments.DashboardPageFragment.DashboardFragmentInterface;
 import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.ClientInfoManager;
 
+import java.io.IOException;
 import java.util.List;
 
 public class OutstandingListAdapter extends RecyclerView.Adapter<OutstandingListAdapter.ViewHolder>{
@@ -59,12 +61,19 @@ public class OutstandingListAdapter extends RecyclerView.Adapter<OutstandingList
             dateText = itemView.findViewById(R.id.dashboard_outstandingListDate);
         }
 
-        //TODO: find way to show most critical risk level and last visit date
         public void bind(final ClientInfo clientInfo){
+
+            ClientInfoManager manager = ClientInfoManager.getInstance();
+
             nameText.setText(clientInfo.getFullName());
             referralText.setText(R.string.outstanding_referrals);
             locationText.setText(clientInfo.getZoneLocation());
-            dateText.setText(R.string.dummy_data_last_visit1);
+
+            try {
+                dateText.setText(manager.getDateOfLastVisit(clientInfo));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

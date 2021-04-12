@@ -321,6 +321,11 @@
     <string name="do_you_need_an_assistive_device">Do you need an assistive device?</string>
     <string name="what_assistive_device_do_you_need">What assistive device do you need?</string>
     <string name="are_you_satisfied_with_the_health_services_you_receive">Are you satisfied with the health services you receive?</string>
+    <string name="do_you_feel_valued_as_a_member_of_your_community">Do you feel valued as a member of your community?</string>
+    <string name="do_you_feel_independent">Do you feel independent?</string>
+    <string name="are_you_able_to_participate_in_events">Are you able to participate in community/social events? (E.g going to church, market, meeting friends)</string>
+    <string name="does_your_disability_affect_your_ability_to_interact_socially">Does your disability affect your ability to interact socially?</string>
+    <string name="have_you_experienced_discrimination_because_of_your_disability">Have you experienced discrimination because of your disability?</string>
 
     <string-array name="reasons_for_not_going_to_school_array">
         <item>Lack of funding</item>

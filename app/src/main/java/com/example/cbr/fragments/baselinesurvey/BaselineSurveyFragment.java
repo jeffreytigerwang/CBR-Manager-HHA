@@ -205,7 +205,42 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
     }
 
     private void generateSocial() {
+        final ArrayList<QuestionDataContainer> socialList = new ArrayList<>();
+        socialList.add(new HeaderViewContainer(getString(R.string.social)));
 
+        List<RadioGroupViewContainer.RadioGroupListItem> valuedMemberOfCommunityOptions = new ArrayList<>();
+        valuedMemberOfCommunityOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        valuedMemberOfCommunityOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        socialList.add(new RadioGroupViewContainer(getString(R.string.do_you_feel_valued_as_a_member_of_your_community), true, valuedMemberOfCommunityOptions));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> feelIndependentOptions = new ArrayList<>();
+        feelIndependentOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        feelIndependentOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        socialList.add(new RadioGroupViewContainer(getString(R.string.do_you_feel_independent), true, feelIndependentOptions));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> participateInEventsOptions = new ArrayList<>();
+        participateInEventsOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        participateInEventsOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        socialList.add(new RadioGroupViewContainer(getString(R.string.are_you_able_to_participate_in_events), true, participateInEventsOptions));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> disabilityAffectInteractionOptions = new ArrayList<>();
+        disabilityAffectInteractionOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        disabilityAffectInteractionOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        socialList.add(new RadioGroupViewContainer(getString(R.string.does_your_disability_affect_your_ability_to_interact_socially), true, disabilityAffectInteractionOptions));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> experiencedDiscriminationOptions = new ArrayList<>();
+        experiencedDiscriminationOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        experiencedDiscriminationOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        socialList.add(new RadioGroupViewContainer(getString(R.string.have_you_experienced_discrimination_because_of_your_disability), true, experiencedDiscriminationOptions));
+
+        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+            @Override
+            public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+
+            }
+        };
+
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(socialList, true, onViewPagerChangedListener));
     }
 
     private void generateLivelihood() {

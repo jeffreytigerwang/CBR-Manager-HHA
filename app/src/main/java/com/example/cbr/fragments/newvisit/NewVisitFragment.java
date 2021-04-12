@@ -162,14 +162,12 @@ public class NewVisitFragment extends BaseFragment implements NewVisitContract.V
                 clientId = clientInfo.getClientId();
                 Log.i(LOG_TAG, "onCreateView: clientId=" + clientInfo.getClientId());
             } catch (NullPointerException e) {
-                Toast.makeText(context, getResources().getString(R.string.failed_to_get_client_id),
-                        Toast.LENGTH_SHORT).show();
+                showErrorDialog(getString(R.string.failed_to_get_client_id), null);
                 finish();
             }
             setClientId();
         } else {
-            Toast.makeText(context, getString(R.string.unable_to_retrieve_client_info),
-                    Toast.LENGTH_SHORT).show();
+            showErrorDialog(getString(R.string.unable_to_retrieve_client_info), null);
             finish();
         }
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
     private FragmentHomePageBinding binding;
     private HomePageFragmentInterface homePageFragmentInterface;
     private DashboardPageFragment.DashboardFragmentInterface dashboardFragmentInterface;
+    private boolean setSwitch = true;
     private DBHelper dbHelper;
 
 
@@ -63,6 +65,8 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
         binding.cardViewSync.setOnClickListener(this);
 
         dbHelper = new DBHelper(getContext());
+
+        setHasOptionsMenu(true);
 
         View view = binding.getRoot();
         return view;
@@ -261,6 +265,17 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
         for(VisitSocialQuestionSetData progress :visitSocialQuestionSetDataList) {
             homePagePresenter.createVisitSocialQuestionSetData(progress);
         }
+    }
+
+
+
+    public void onPrepareOptionsMenu(Menu menu) {
+        if(setSwitch){
+            menu.findItem(R.id.clientListSearch).setVisible(false);
+            menu.findItem(R.id.clientListSort).setVisible(false);
+            setSwitch = false;
+        }
+        super.onPrepareOptionsMenu(menu);
     }
 
 

@@ -79,8 +79,9 @@ public class VisitHealthQuestionSetData {
 
         if (!isQuestionEightChecked) {
             questionNumbers.add("8.");
-        } else if (missingDesc) {
-            questionNumbers.add("8.");
+        }
+        if (missingDesc) {
+            questionNumbers.add("8.Desc");
         }
         if (!isQuestionNineChecked) {
             questionNumbers.add("9.");

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cbr.R;
 import com.example.cbr.dialog.RegisterDialog;
+import com.example.cbr.fragments.base.BaseActivity;
 import com.example.cbr.models.Users;
 import com.example.cbr.retrofit.AES;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
@@ -37,7 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class MainActivity extends AppCompatActivity implements RegisterDialog.registerDialogListener{
+public class MainActivity extends BaseActivity implements RegisterDialog.registerDialogListener{
 
 
     // Init API for calls to the database
@@ -117,15 +118,13 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
             public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
 
                 if (!response.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                    showErrorDialog(getString(R.string.login_failed), null);
                     return;
                 }
 
                 List<Users> userResponse = response.body();
 
-                int successfulLogin = 0;
-                int checkPassword = 0;
-
+                boolean success = false;
                 for (Users users: userResponse) {
                     if (users.getPhoneNumber().equals(phone)) {
 
@@ -135,18 +134,15 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
                             continue;
 
                         if (!decryptPassword.equals(password)) {
-                            checkPassword = 1;
-                            Toast.makeText(MainActivity.this, "You Enter the Wrong Password", Toast.LENGTH_SHORT).show();
+                            showErrorDialog(getString(R.string.login_failed), null);
                         } else {
-                            successfulLogin = 1;
+                            success = true;
                             Users userInstance = Users.getInstance();
                             userInstance.setId(users.getId());
                             userInstance.setFirstName(users.getFirstName());
                             userInstance.setLastName(users.getLastName());
                             userInstance.setPhoneNumber(phone);
                             userInstance.setPassword(password);
-
-                            Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
                             Intent intent = HomeActivity.makeIntent(MainActivity.this);
                             startActivity(intent);
@@ -155,18 +151,15 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
                     }
                 }
 
-                if (successfulLogin == 0)
-                    if (checkPassword == 0)
-                        Toast.makeText(MainActivity.this, "Please Register First!", Toast.LENGTH_SHORT).show();
+                if (!success) {
+                    showErrorDialog(getString(R.string.login_failed), null);
+                }
 
             }
 
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
-
-                Intent intent = HomeActivity.makeIntent(MainActivity.this);
-                startActivity(intent);
-                finish();
+                showErrorDialog(getString(R.string.login_failed), null);
             }
         });
     }
@@ -219,13 +212,10 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
         call.enqueue(new Callback<Users>() {
             @Override
             public void onResponse(@NonNull Call<Users> call, @NonNull Response<Users> response) {
-
                 if (!response.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Register Failed", Toast.LENGTH_SHORT).show();
+                    showErrorDialog(getString(R.string.register_failed), null);
                     return;
                 }
-
-                Toast.makeText(MainActivity.this, "Register Successful", Toast.LENGTH_SHORT).show();
 
                 Users usersResponse = response.body();
                 edt_username.setText(usersResponse.getPhoneNumber());
@@ -233,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements RegisterDialog.re
 
             @Override
             public void onFailure(@NonNull Call<Users> call, @NonNull Throwable t) {
-
+                showErrorDialog(getString(R.string.register_failed), null);
             }
         });
     }

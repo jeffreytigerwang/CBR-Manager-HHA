@@ -21,6 +21,7 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Radi
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SpinnerViewContainer;
 import com.example.cbr.databinding.FragmentBaselinesurveyBinding;
 import com.example.cbr.fragments.base.BaseFragment;
+import com.example.cbr.models.BaselineEducationSurveyData;
 import com.example.cbr.models.BaselineHealthSurveyData;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
@@ -53,6 +54,7 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
     private static final String BASELINE_SURVEY_PAGE_BUNDLE = "baselineSurveyPageBundle";
 
     BaselineHealthSurveyData baselineHealthSurveyData = new BaselineHealthSurveyData();
+    BaselineEducationSurveyData baselineEducationSurveyData = new BaselineEducationSurveyData();
     private int clientId;
     private Retrofit retrofit;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
@@ -110,6 +112,13 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
                 if (questionDataContainer instanceof CheckBoxViewContainer) {
                     String questionText = ((CheckBoxViewContainer) questionDataContainer).getQuestionText();
                     boolean isChecked = ((CheckBoxViewContainer) questionDataContainer).isChecked();
+
+                    setPageActive(PAGES.MAIN.ordinal(), true);
+                    setPageActive(PAGES.HEALTH.ordinal(), true);
+                    setPageActive(PAGES.SOCIAL.ordinal(), true);
+                    setPageActive(PAGES.FOOD_AND_NUTRITION.ordinal(), true);
+                    setPageActive(PAGES.EMPOWERMENT.ordinal(), true);
+                    setPageActive(PAGES.SHELTER_AND_CARE.ordinal(), true);
 
                     if (questionText.equals(getString(R.string.are_you_over_sixteen))) {
                         setPageActive(PAGES.LIVELIHOOD.ordinal(), isChecked);
@@ -234,6 +243,36 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+                if (questionDataContainer instanceof RadioGroupViewContainer) {
+                    String questionText = ((RadioGroupViewContainer) questionDataContainer).getQuestionText();
+                    String selectedItem = ((RadioGroupViewContainer) questionDataContainer).getCheckedItem().getDescription();
+
+                    if (questionText.equals(getString(R.string.do_you_go_to_school))) {
+                        baselineEducationSurveyData.setAttendingSchool(selectedItem.equals(getString(R.string.yes)));
+                    } else if (questionText.equals(getString(R.string.if_no_have_you_ever_been_to_school_before))) {
+                        baselineEducationSurveyData.setHasBeenToSchool(selectedItem.equals(getString(R.string.yes)));
+                    } else if (questionText.equals(getString(R.string.if_no_do_you_want_to_go_to_school))) {
+                        baselineEducationSurveyData.setWantsToAttendSchool(selectedItem.equals(getString(R.string.yes)));
+                    }
+                }
+
+                if (questionDataContainer instanceof EditTextViewContainer) {
+                    String questionText = ((EditTextViewContainer) questionDataContainer).getQuestionText();
+                    String userInput = ((EditTextViewContainer) questionDataContainer).getUserInput();
+
+                    if (questionText.equals(getString(R.string.if_yes_what_grade))) {
+                        baselineEducationSurveyData.setGrade(userInput);
+                    }
+                }
+
+                if (questionDataContainer instanceof SpinnerViewContainer) {
+                    String questionText = ((SpinnerViewContainer) questionDataContainer).getQuestionText();
+                    String selectedItem = ((SpinnerViewContainer) questionDataContainer).getSelectedItem();
+
+                    if (questionText.equals(getString(R.string.if_no_why_do_you_not_go_to_school))) {
+                        baselineEducationSurveyData.setReasonForNotAttendingSchool(selectedItem);
+                    }
+                }
 
             }
         };

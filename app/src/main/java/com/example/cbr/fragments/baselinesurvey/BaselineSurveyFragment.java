@@ -244,7 +244,44 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
     }
 
     private void generateLivelihood() {
+        final ArrayList<QuestionDataContainer> livelihoodList = new ArrayList<>();
+        livelihoodList.add(new HeaderViewContainer(getString(R.string.livelihood)));
 
+        List<RadioGroupViewContainer.RadioGroupListItem> workingOptions = new ArrayList<>();
+        workingOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        workingOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        livelihoodList.add(new RadioGroupViewContainer(getString(R.string.are_you_working), true, workingOptions));
+
+        livelihoodList.add(new EditTextViewContainer(getString(R.string.if_yes_what_do_you_do), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.grade), InputType.TYPE_CLASS_TEXT));
+
+        List<String> employedOptions = new ArrayList<>(
+                Arrays.asList(getResources().getStringArray(R.array.employment_array))
+        );
+        livelihoodList.add(new SpinnerViewContainer(getString(R.string.are_you_employed_or_self_employed), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, employedOptions));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> meetFinancialNeedsOptions = new ArrayList<>();
+        meetFinancialNeedsOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        meetFinancialNeedsOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        livelihoodList.add(new RadioGroupViewContainer(getString(R.string.does_this_meet_your_financial_needs), true, meetFinancialNeedsOptions));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> disabilityAffectWorkOptions = new ArrayList<>();
+        disabilityAffectWorkOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        disabilityAffectWorkOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        livelihoodList.add(new RadioGroupViewContainer(getString(R.string.does_your_disability_affect_your_ability_to_go_to_work), true, disabilityAffectWorkOptions));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> wantToWorkOptions = new ArrayList<>();
+        wantToWorkOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        wantToWorkOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        livelihoodList.add(new RadioGroupViewContainer(getString(R.string.do_you_want_to_work), true, wantToWorkOptions));
+
+        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+            @Override
+            public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+
+            }
+        };
+
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(livelihoodList, true, onViewPagerChangedListener));
     }
 
     private void generateFoodAndNutrition() {

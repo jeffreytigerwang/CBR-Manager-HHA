@@ -326,6 +326,13 @@
     <string name="are_you_able_to_participate_in_events">Are you able to participate in community/social events? (E.g going to church, market, meeting friends)</string>
     <string name="does_your_disability_affect_your_ability_to_interact_socially">Does your disability affect your ability to interact socially?</string>
     <string name="have_you_experienced_discrimination_because_of_your_disability">Have you experienced discrimination because of your disability?</string>
+    <string name="livelihood">Livelihood</string>
+    <string name="are_you_working">Are you working?</string>
+    <string name="if_yes_what_do_you_do">If yes, what do you do?</string>
+    <string name="are_you_employed_or_self_employed">Are you employed or self-employed?</string>
+    <string name="does_this_meet_your_financial_needs">Does this meet your financial needs?</string>
+    <string name="does_your_disability_affect_your_ability_to_go_to_work">Does your disability affect your ability to go to work?</string>
+    <string name="do_you_want_to_work">Do you want to work?</string>
 
     <string-array name="reasons_for_not_going_to_school_array">
         <item>Lack of funding</item>
@@ -350,6 +357,11 @@
         <item>Glasses</item>
         <item>Standing frame</item>
         <item>Corner seat</item>
+    </string-array>
+
+    <string-array name="employment_array">
+        <item>Employed</item>
+        <item>Self-employed</item>
     </string-array>
 
 </resources>

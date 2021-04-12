@@ -1,12 +1,10 @@
 package com.example.cbr.fragments.baselinesurvey;
 
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager2.widget.ViewPager2;

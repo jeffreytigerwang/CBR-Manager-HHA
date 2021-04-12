@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +25,7 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Head
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
 import com.example.cbr.databinding.FragmentClientpageBinding;
 import com.example.cbr.fragments.base.BaseFragment;
+import com.example.cbr.fragments.clientlist.ClientListFragment;
 import com.example.cbr.models.ClientInfo;
 import com.example.cbr.models.ReferralInfo;
 import com.example.cbr.models.VisitGeneralQuestionSetData;
@@ -44,6 +47,10 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
     private List<VisitGeneralQuestionSetData> visitsList;
     private List<ReferralInfo> referralsList;
     private InfoAdapter clientInfoAdapter;
+
+    private FragmentManager fragmentManager;
+    String previousFragment;
+    int fragmentCount;
 
     private static final String CLIENT_PAGE_BUNDLE = "clientPageBundle";
 
@@ -196,8 +203,15 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
 
 
     public void onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.clientListSearch).setVisible(false);
-        menu.findItem(R.id.clientListSort).setVisible(false);
+        fragmentManager = getParentFragmentManager();
+        fragmentCount = fragmentManager.getBackStackEntryCount();
+        try {
+            menu.findItem(R.id.clientListSearch).setVisible(false);
+            menu.findItem(R.id.clientListSort).setVisible(false);
+        }
+        catch (NullPointerException ignored){
+        }
+
         super.onPrepareOptionsMenu(menu);
     }
 

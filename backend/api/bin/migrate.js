@@ -257,7 +257,8 @@ async function seedData() {
             hipWidth: 32,
             hasExistingWheelchair: false,
             canRepairWheelchair: false,
-            outcome: "client's son will got to the health center on her behalf"
+            outcome: "client's son will got to the health center on her behalf",
+            resolved: true
 
     });
     seed = await db.health_progress.create({
@@ -443,7 +444,8 @@ async function seedData() {
             hipWidth: 32,
             hasExistingWheelchair: false,
             canRepairWheelchair: false,
-            outcome: "Needs to see a doctor to test hearing ability"
+            outcome: "Needs to see a doctor to test hearing ability",
+            resolved: true
 
     });
 
@@ -627,7 +629,8 @@ async function seedData() {
             hipWidth: 32,
             hasExistingWheelchair: false,
             canRepairWheelchair: false,
-            outcome: "CBR worker to follow up on reading progress"
+            outcome: "CBR worker to follow up on reading progress",
+            resolved: false
 
     });
 
@@ -717,7 +720,8 @@ async function seedData() {
             hasExistingWheelchair: false,
             canRepairWheelchair: false,
             outcome: "Client is very educated, but can no longer see. Must learn braile" +
-            "to keep mental ability up"
+            "to keep mental ability up",
+            resolved: true
     });
 
 
@@ -807,7 +811,8 @@ async function seedData() {
             hipWidth: 32,
             hasExistingWheelchair: false,
             canRepairWheelchair: false,
-            outcome: "needs social assistance"
+            outcome: "needs social assistance",
+            resolved: false
     });
 
 
@@ -896,7 +901,8 @@ async function seedData() {
             hipWidth: 32,
             hasExistingWheelchair: false,
             canRepairWheelchair: false,
-            outcome: "needs education assistance"
+            outcome: "needs education assistance",
+            resolved: true
     });
 
 
@@ -987,7 +993,8 @@ async function seedData() {
             hipWidth: 32,
             hasExistingWheelchair: false,
             canRepairWheelchair: false,
-            outcome: "needs health assistance"
+            outcome: "needs health assistance",
+            resolved: true
     });
 
 
@@ -1077,7 +1084,8 @@ async function seedData() {
             hipWidth: 32,
             hasExistingWheelchair: false,
             canRepairWheelchair: false,
-            outcome: "needs health assistance"
+            outcome: "needs health assistance",
+            resolved: false
     });
 
     // bulk referrals + disabilities to get stats numbers up
@@ -1107,7 +1115,8 @@ async function seedData() {
             hipWidth: 32,
             hasExistingWheelchair: true,
             canRepairWheelchair: true,
-            outcome: "needs social assistance"
+            outcome: "needs social assistance",
+            resolved: false
     });
     seed = await db.referrals.create({
             clientId: 6220,
@@ -1134,7 +1143,8 @@ async function seedData() {
             hipWidth: 32,
             hasExistingWheelchair: true,
             canRepairWheelchair: true,
-            outcome: "needs social assistance"
+            outcome: "needs social assistance",
+            resolved: false
     });
     seed = await db.referrals.create({
             clientId: 6220,
@@ -1161,7 +1171,8 @@ async function seedData() {
             hipWidth: 32,
             hasExistingWheelchair: true,
             canRepairWheelchair: true,
-            outcome: "needs health assistance"
+            outcome: "needs health assistance",
+            resolved: true
     });
     seed = await db.referrals.create({
             clientId: 6220,
@@ -1188,7 +1199,8 @@ async function seedData() {
             hipWidth: 32,
             hasExistingWheelchair: true,
             canRepairWheelchair: true,
-            outcome: "needs education assistance"
+            outcome: "needs education assistance",
+            resolved: false
     });
     seed = await db.disability.create({
             clientId: 6220,

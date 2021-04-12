@@ -1060,12 +1060,8 @@ public class DBHelper extends SQLiteOpenHelper {
         boolean hasExistingWheelchair = cursor.getInt(23) == 1;
         boolean canRepairWheelchair = cursor.getInt(24) == 1;
         String outcome = cursor.getString(25);
-                boolean intermediateWheelChair = cursor.getInt(21) == 1;
-                int hipWidth = cursor.getInt(22);
-                boolean hasExistingWheelchair = cursor.getInt(23) == 1;
-                boolean canRepairWheelchair = cursor.getInt(24) == 1;
-                String outcome = cursor.getString(25);
-                boolean resolved = cursor.getInt(26) == 1;
+
+        boolean resolved = cursor.getInt(26) == 1;
 
         byte[] physiotherapyPhoto = cursor.getBlob(26);
 
@@ -1076,7 +1072,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 visualImpairmentDisability, hearingImpairmentDisability, otherDisability,
                 injuryAboveKnee, injuryBelowKnee, injuryAboveElbow, injuryBelowElbow,
                 intermediateWheelChair, hipWidth, hasExistingWheelchair, canRepairWheelchair,
-                outcome);
+                outcome, resolved);
     }
 
 

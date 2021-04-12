@@ -78,7 +78,6 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
         Call<List<ReferralInfo>> referralsCall = jsonPlaceHolderApi.getReferralInfo();
         Response<List<ReferralInfo>> referralsResponse = referralsCall.execute();
 
-
         List<ClientInfo> clientList = clientsResponse.body();
         List<ClientInfo> result = new ArrayList<>();
         List<ReferralInfo> referrals = referralsResponse.body();
@@ -96,6 +95,7 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
                 }
             }
         }
+        setGeneralAspect(result);
 
         return result;
     }

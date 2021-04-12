@@ -12,7 +12,6 @@ exports.create = (req, res) => {
     return;
   }
 
-
   // Create Item
   const healthProgress = {
     isGoalCancelled: req.body.isGoalCancelled,

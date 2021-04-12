@@ -124,7 +124,7 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
         healthList.add(new HeaderViewContainer(getString(R.string.health)));
 
         List<String> rateGeneralHealthOptions = new ArrayList<>(
-                Arrays.asList(getResources().getStringArray(R.array.rate_satisfactions_array))
+                Arrays.asList(getResources().getStringArray(R.array.satisfactions_array))
         );
         healthList.add(new SpinnerViewContainer(getString(R.string.rate_your_general_health), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, rateGeneralHealthOptions));
 
@@ -154,7 +154,7 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
         healthList.add(new SpinnerViewContainer(getString(R.string.what_assistive_device_do_you_need), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, assistiveDeviceOptions));
 
         List<String> rateSatisfactionOptions = new ArrayList<>(
-                Arrays.asList(getResources().getStringArray(R.array.rate_satisfactions_array))
+                Arrays.asList(getResources().getStringArray(R.array.satisfactions_array))
         );
         healthList.add(new SpinnerViewContainer(getString(R.string.are_you_satisfied_with_the_health_services_you_receive), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, rateSatisfactionOptions));
 
@@ -177,7 +177,7 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
         currentlyGoingToSchoolOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
         educationList.add(new RadioGroupViewContainer(getString(R.string.do_you_go_to_school), true, currentlyGoingToSchoolOptions));
 
-        educationList.add(new EditTextViewContainer(getString(R.string.if_yes_what_grade), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.grade), InputType.TYPE_CLASS_NUMBER));
+        educationList.add(new EditTextViewContainer(getString(R.string.if_yes_what_grade), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.if_yes_what_grade), InputType.TYPE_CLASS_NUMBER));
 
         List<String> reasonsForNotGoingToSchoolOptions = new ArrayList<>(
                 Arrays.asList(getResources().getStringArray(R.array.reasons_for_not_going_to_school_array))
@@ -252,7 +252,7 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
         workingOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
         livelihoodList.add(new RadioGroupViewContainer(getString(R.string.are_you_working), true, workingOptions));
 
-        livelihoodList.add(new EditTextViewContainer(getString(R.string.if_yes_what_do_you_do), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.grade), InputType.TYPE_CLASS_TEXT));
+        livelihoodList.add(new EditTextViewContainer(getString(R.string.if_yes_what_do_you_do), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.if_yes_what_do_you_do), InputType.TYPE_CLASS_TEXT));
 
         List<String> employedOptions = new ArrayList<>(
                 Arrays.asList(getResources().getStringArray(R.array.employment_array))
@@ -285,15 +285,87 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
     }
 
     private void generateFoodAndNutrition() {
+        final ArrayList<QuestionDataContainer> foodAndNutritionList = new ArrayList<>();
+        foodAndNutritionList.add(new HeaderViewContainer(getString(R.string.food_and_nutrition)));
 
+        List<String> rateFoodSecurityOptions = new ArrayList<>(
+                Arrays.asList(getResources().getStringArray(R.array.satisfactions_array))
+        );
+        foodAndNutritionList.add(new SpinnerViewContainer(getString(R.string.what_do_you_think_of_your_food_security), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, rateFoodSecurityOptions));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> haveEnoughFoodOptions = new ArrayList<>();
+        haveEnoughFoodOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        haveEnoughFoodOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        foodAndNutritionList.add(new RadioGroupViewContainer(getString(R.string.do_you_have_enough_food_every_month), true, haveEnoughFoodOptions));
+
+        List<String> rateNutritionOptions = new ArrayList<>(
+                Arrays.asList(getResources().getStringArray(R.array.nutrition_array))
+        );
+        foodAndNutritionList.add(new SpinnerViewContainer(getString(R.string.if_child_is_this_child), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, rateNutritionOptions));
+
+        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+            @Override
+            public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+
+            }
+        };
+
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(foodAndNutritionList, true, onViewPagerChangedListener));
     }
 
     private void generateEmpowerment() {
+        final ArrayList<QuestionDataContainer> empowermentList = new ArrayList<>();
+        empowermentList.add(new HeaderViewContainer(getString(R.string.empowerment)));
 
+        List<RadioGroupViewContainer.RadioGroupListItem> memberOfOrganizationsOptions = new ArrayList<>();
+        memberOfOrganizationsOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        memberOfOrganizationsOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        empowermentList.add(new RadioGroupViewContainer(getString(R.string.are_you_a_member_of_any_organizations_which_assist_people_with_disabilities), true, memberOfOrganizationsOptions));
+
+        empowermentList.add(new EditTextViewContainer(getString(R.string.if_yes_which_organizations), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.if_yes_which_organizations), InputType.TYPE_CLASS_TEXT));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> awareOfRightsOptions = new ArrayList<>();
+        awareOfRightsOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        awareOfRightsOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        empowermentList.add(new RadioGroupViewContainer(getString(R.string.are_you_aware_of_your_rights_as_a_citizen_living_with_disabilities), true, awareOfRightsOptions));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> ableToInfluencePeopleOptions = new ArrayList<>();
+        ableToInfluencePeopleOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        ableToInfluencePeopleOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        empowermentList.add(new RadioGroupViewContainer(getString(R.string.do_you_feel_like_you_are_able_to_influence_people_around_you), true, ableToInfluencePeopleOptions));
+
+        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+            @Override
+            public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+
+            }
+        };
+
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(empowermentList, true, onViewPagerChangedListener));
     }
 
     private void generateShelterAndCare() {
+        final ArrayList<QuestionDataContainer> shelterAndCareList = new ArrayList<>();
+        shelterAndCareList.add(new HeaderViewContainer(getString(R.string.shelter_and_care)));
 
+        List<RadioGroupViewContainer.RadioGroupListItem> adequateShelterOptions = new ArrayList<>();
+        adequateShelterOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        adequateShelterOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        shelterAndCareList.add(new RadioGroupViewContainer(getString(R.string.do_you_have_adequate_shelter), true, adequateShelterOptions));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> accessToEssentialItemsOptions = new ArrayList<>();
+        accessToEssentialItemsOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        accessToEssentialItemsOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        shelterAndCareList.add(new RadioGroupViewContainer(getString(R.string.do_you_have_access_to_essential_items_for_your_household), true, accessToEssentialItemsOptions));
+
+        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+            @Override
+            public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+
+            }
+        };
+
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(shelterAndCareList, true, onViewPagerChangedListener));
     }
 
     private void setupButtons() {

@@ -333,6 +333,18 @@
     <string name="does_this_meet_your_financial_needs">Does this meet your financial needs?</string>
     <string name="does_your_disability_affect_your_ability_to_go_to_work">Does your disability affect your ability to go to work?</string>
     <string name="do_you_want_to_work">Do you want to work?</string>
+    <string name="what_do_you_think_of_your_food_security">What do you think of your food security?</string>
+    <string name="do_you_have_enough_food_every_month">Do you have enough food every month?</string>
+    <string name="if_child_is_this_child">If child, is this child</string>
+    <string name="are_you_a_member_of_any_organizations_which_assist_people_with_disabilities">Are you a member of any organizations which assist people with disabilities?</string>
+    <string name="if_yes_which_organizations">If yes, which organizations?</string>
+    <string name="are_you_aware_of_your_rights_as_a_citizen_living_with_disabilities">Are you aware of your rights as a citizen living with disabilities?</string>
+    <string name="do_you_feel_like_you_are_able_to_influence_people_around_you">Do you feel like you are able to influence people around you?</string>
+    <string name="do_you_have_adequate_shelter">Do you have adequate shelter?</string>
+    <string name="shelter_and_care">Shelter and Care</string>
+    <string name="empowerment">Empowerment</string>
+    <string name="food_and_nutrition">Food and Nutrition</string>
+    <string name="do_you_have_access_to_essential_items_for_your_household">Do you have access to essential items for your household?</string>
 
     <string-array name="reasons_for_not_going_to_school_array">
         <item>Lack of funding</item>
@@ -340,7 +352,7 @@
         <item>Other</item>
     </string-array>
 
-    <string-array name="rate_satisfactions_array">
+    <string-array name="satisfactions_array">
         <item>Very poor</item>
         <item>Poor</item>
         <item>Fine</item>
@@ -362,6 +374,12 @@
     <string-array name="employment_array">
         <item>Employed</item>
         <item>Self-employed</item>
+    </string-array>
+
+    <string-array name="nutrition_array">
+        <item>Malnourished</item>
+        <item>Undernourished</item>
+        <item>Well nourished</item>
     </string-array>
 
 </resources>

@@ -198,13 +198,12 @@ public class DBHelper extends SQLiteOpenHelper {
             } while (clientCursor.moveToNext());
         }
 
-
         return clientInfoList;
 
     }
 
     private ClientInfo getClientInfoFromCursor(Cursor clientCursor) {
-        int id = clientCursor.getInt(0);
+        int clientId = clientCursor.getInt(0);
         String firstName = clientCursor.getString(1);
         String lastName = clientCursor.getString(2);
         String gender = clientCursor.getString(3);
@@ -222,7 +221,7 @@ public class DBHelper extends SQLiteOpenHelper {
         byte[] photo = clientCursor.getBlob(14);
 
         ClientInfo client = new ClientInfo();
-        client.setClientId(id);
+        client.setClientId(clientId);
         client.setFirstName(firstName);
         client.setLastName(lastName);
         client.setGender(gender);

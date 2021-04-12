@@ -56,7 +56,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        setPresenter(new HomePagePresenter(this));
+        setPresenter(new HomePagePresenter(this, getContext()));
 
 
         binding = FragmentHomePageBinding.inflate(inflater, container, false);

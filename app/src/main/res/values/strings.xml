@@ -347,6 +347,16 @@
     <string name="food_and_nutrition">Food and Nutrition</string>
     <string name="do_you_have_access_to_essential_items_for_your_household">Do you have access to essential items for your household?</string>
     <string name="is_your_assistive_device_working_well">Is your assistive device working well?</string>
+    <string name="referral_info_record_fail">ReferralInfo record failed</string>
+    <string name="unable_to_retrieve_visits">Unable to retrieve visits</string>
+    <string name="unable_to_retrieve_education_aspect">Unable to retrieve education aspect</string>
+    <string name="unable_to_retrieve_health_aspect">Unable to retrieve health aspect</string>
+    <string name="unable_to_retrieve_social_aspect">Unable to retrieve social aspect</string>
+    <string name="unable_to_retrieve_referrals">Unable to retrieve referrals</string>
+    <string name="unable_to_retrieve_disabilities">Unable to retrieve disabilities</string>
+    <string name="unable_to_retrieve_education_rogress">Unable to retrieve education progress</string>
+    <string name="unable_to_retrieve_health_progress">Unable to retrieve health progress</string>
+    <string name="unable_to_retrieve_social_progress">Unable to retrieve social progress</string>
 
     <string-array name="reasons_for_not_going_to_school_array">
         <item>Lack of funding</item>

@@ -21,6 +21,7 @@ import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -46,17 +47,24 @@ public class HomePagePresenter implements HomePageContract.Presenter {
     private HomePageContract.View homePageView;
     private Retrofit retrofit;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
+    private Context context;
 
-    public HomePagePresenter(HomePageContract.View homePageView) {
+    public HomePagePresenter(HomePageContract.View homePageView, Context context) {
         retrofit = RetrofitInit.getInstance();
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
         this.homePageView = homePageView;
+        this.context = context;
     }
 
     @Override
     public List<ClientInfo> getAllClients() throws IOException {
         Call<List<ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();
         Response<List<ClientInfo>> response = call.execute();
+
+        if(!response.isSuccessful()) {
+            Toast.makeText(context, R.string.unable_to_retrieve_client_info, Toast.LENGTH_SHORT).show();
+        }
+
         return response.body();
     }
 
@@ -64,6 +72,9 @@ public class HomePagePresenter implements HomePageContract.Presenter {
     public List<ClientDisability> getAllClientDisabilities() throws IOException {
         Call<List<ClientDisability>> call = jsonPlaceHolderApi.getClientDisability();
         Response<List<ClientDisability>> response = call.execute();
+        if(!response.isSuccessful()) {
+            Toast.makeText(context, R.string.unable_to_retrieve_disabilities, Toast.LENGTH_SHORT).show();
+        }
         return response.body();
     }
 
@@ -71,6 +82,9 @@ public class HomePagePresenter implements HomePageContract.Presenter {
     public List<ClientEducationAspect> getAllClientEducationAspect() throws IOException {
         Call<List<ClientEducationAspect>> call = jsonPlaceHolderApi.getClientEducationAspect();
         Response<List<ClientEducationAspect>> response = call.execute();
+        if(!response.isSuccessful()) {
+            Toast.makeText(context, R.string.unable_to_retrieve_education_aspect, Toast.LENGTH_SHORT).show();
+        }
         return response.body();
     }
 
@@ -78,6 +92,10 @@ public class HomePagePresenter implements HomePageContract.Presenter {
     public List<ClientHealthAspect> getAllClientHealthAspect() throws IOException {
         Call<List<ClientHealthAspect>> call = jsonPlaceHolderApi.getClientHealthAspect();
         Response<List<ClientHealthAspect>> response = call.execute();
+        if(!response.isSuccessful()) {
+            Toast.makeText(context, R.string.unable_to_retrieve_health_aspect, Toast.LENGTH_SHORT).show();
+        }
+
         return response.body();
     }
 
@@ -85,6 +103,9 @@ public class HomePagePresenter implements HomePageContract.Presenter {
     public List<ClientSocialAspect> getAllClientSocialAspect() throws IOException {
         Call<List<ClientSocialAspect>> call = jsonPlaceHolderApi.getClientSocialAspect();
         Response<List<ClientSocialAspect>> response = call.execute();
+        if(!response.isSuccessful()) {
+            Toast.makeText(context, R.string.unable_to_retrieve_social_aspect, Toast.LENGTH_SHORT).show();
+        }
         return response.body();
     }
 
@@ -92,6 +113,9 @@ public class HomePagePresenter implements HomePageContract.Presenter {
     public List<ReferralInfo> getAllReferrals() throws IOException {
         Call<List<ReferralInfo>> call = jsonPlaceHolderApi.getReferralInfo();
         Response<List<ReferralInfo>> response = call.execute();
+        if(!response.isSuccessful()) {
+            Toast.makeText(context, R.string.unable_to_retrieve_referrals, Toast.LENGTH_SHORT).show();
+        }
         return response.body();
     }
 
@@ -99,6 +123,9 @@ public class HomePagePresenter implements HomePageContract.Presenter {
     public List<VisitEducationQuestionSetData> getAllVisitEducationQuestions() throws IOException {
         Call<List<VisitEducationQuestionSetData>> call = jsonPlaceHolderApi.getVisitEducationQuestionSetData();
         Response<List<VisitEducationQuestionSetData>> response = call.execute();
+        if(!response.isSuccessful()) {
+            Toast.makeText(context, R.string.unable_to_retrieve_education_rogress, Toast.LENGTH_SHORT).show();
+        }
         return response.body();
     }
 
@@ -106,6 +133,9 @@ public class HomePagePresenter implements HomePageContract.Presenter {
     public List<VisitGeneralQuestionSetData> getAllVisitGeneralQuestions() throws IOException {
         Call<List<VisitGeneralQuestionSetData>> call = jsonPlaceHolderApi.getVisitGeneralQuestionSetData();
         Response<List<VisitGeneralQuestionSetData>> response = call.execute();
+        if(!response.isSuccessful()) {
+            Toast.makeText(context, R.string.unable_to_retrieve_visits, Toast.LENGTH_SHORT).show();
+        }
         return response.body();
     }
 
@@ -113,6 +143,9 @@ public class HomePagePresenter implements HomePageContract.Presenter {
     public List<VisitHealthQuestionSetData> getAllVisitHealthQuestions() throws IOException {
         Call<List<VisitHealthQuestionSetData>> call = jsonPlaceHolderApi.getVisitHealthQuestionSetData();
         Response<List<VisitHealthQuestionSetData>> response = call.execute();
+        if(!response.isSuccessful()) {
+            Toast.makeText(context, R.string.unable_to_retrieve_health_progress, Toast.LENGTH_SHORT).show();
+        }
         return response.body();
     }
 
@@ -120,6 +153,9 @@ public class HomePagePresenter implements HomePageContract.Presenter {
     public List<VisitSocialQuestionSetData> getAllVisitSocialQuestions() throws IOException {
         Call<List<VisitSocialQuestionSetData>> call = jsonPlaceHolderApi.getVisitSocialQuestionSetData();
         Response<List<VisitSocialQuestionSetData>> response = call.execute();
+        if(!response.isSuccessful()) {
+            Toast.makeText(context, R.string.unable_to_retrieve_social_progress, Toast.LENGTH_SHORT).show();
+        }
 
         return response.body();
     }
@@ -130,6 +166,10 @@ public class HomePagePresenter implements HomePageContract.Presenter {
         call.enqueue(new Callback<ClientInfo>() {
             @Override
             public void onResponse(Call<ClientInfo> call, Response<ClientInfo> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context, R.string.client_record_fail, Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
 
             @Override
@@ -150,6 +190,10 @@ public class HomePagePresenter implements HomePageContract.Presenter {
             public void onResponse(@NonNull Call<VisitGeneralQuestionSetData> call,
                                    @NonNull Response<VisitGeneralQuestionSetData> response) {
 
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context, general_question_record_fail, Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
 
             @Override
@@ -170,6 +214,10 @@ public class HomePagePresenter implements HomePageContract.Presenter {
             public void onResponse(@NonNull Call<VisitHealthQuestionSetData> call,
                                    @NonNull Response<VisitHealthQuestionSetData> response) {
 
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context, health_question_record_fail, Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
 
             @Override
@@ -190,7 +238,10 @@ public class HomePagePresenter implements HomePageContract.Presenter {
             public void onResponse(@NonNull Call<VisitEducationQuestionSetData> call,
                                    @NonNull Response<VisitEducationQuestionSetData> response) {
 
-
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context, education_question_record_fail, Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
 
             @Override
@@ -210,6 +261,10 @@ public class HomePagePresenter implements HomePageContract.Presenter {
             public void onResponse(@NonNull Call<VisitSocialQuestionSetData> call,
                                    @NonNull Response<VisitSocialQuestionSetData> response) {
 
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context, social_question_record_fail, Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
 
             @Override
@@ -227,6 +282,10 @@ public class HomePagePresenter implements HomePageContract.Presenter {
             @Override
             public void onResponse(@NonNull Call<ClientDisability> call,
                                    @NonNull Response<ClientDisability> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context, R.string.disability_record_fail, Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
 
             @Override
@@ -243,6 +302,10 @@ public class HomePagePresenter implements HomePageContract.Presenter {
             @Override
             public void onResponse(@NonNull Call<ClientHealthAspect> call,
                                    @NonNull Response<ClientHealthAspect> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context, R.string.health_aspect_record_fail, Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
 
             @Override
@@ -259,6 +322,10 @@ public class HomePagePresenter implements HomePageContract.Presenter {
             @Override
             public void onResponse(@NonNull Call<ClientEducationAspect> call,
                                    @NonNull Response<ClientEducationAspect> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context, R.string.education_aspect_record_fail, Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
 
             @Override
@@ -275,6 +342,10 @@ public class HomePagePresenter implements HomePageContract.Presenter {
             @Override
             public void onResponse(@NonNull Call<ClientSocialAspect> call,
                                    @NonNull Response<ClientSocialAspect> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context, R.string.social_aspect_record_fail, Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
 
             @Override
@@ -290,6 +361,10 @@ public class HomePagePresenter implements HomePageContract.Presenter {
         call.enqueue(new Callback<ReferralInfo>() {
             @Override
             public void onResponse(Call<ReferralInfo> call, Response<ReferralInfo> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context, R.string.referral_info_record_fail, Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
 
             @Override

@@ -57,6 +57,20 @@ For future iterations we hope to include a referrals and survey page, and implem
 
 The form for the Baseline Survey has been created but the button that opens the fragment has not yet been created. All the code related to the Baseline Survey is prefixed with _Baseline_.
 
+
+**Local Database**
+
+Local database is done through SQLite. 
+Since SQLite does not support the Date object, it is stored as a string and converted via String Formatter. 
+There is current functionality to upload and download data to and from the remote database though the progress models do not seem to be working. 
+The app could possibly crash from the sync button, possibly due to the amount of memory available. This could possibly be fixed by adjusting the way the sync is being done. Currently since remote database only allows adding objects and not changing them, the lists need to be iterated through to check which can cause a lot of decrease in performance. For future, add a column that will track whether a row has been changed and create queries to check for that rather than retrieving all data from tables and checking on the application.
+
+Work also needs to be done to connect the local database to the application.
+
+Additional methods that call specific queries need to be added to DBHelper for better performance.
+
+
+
 **Map:**
 
 Maps SDK for Android requires a Google billing account and a API Key.

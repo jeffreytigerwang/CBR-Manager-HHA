@@ -917,7 +917,7 @@ async function seedData() {
             caregiverPresentForInterview: true,
     });
     seed = await db.disability.create({
-            clientId: 3220,
+            clientId: 4220,
             amputeeDisability: true,
             polioDisability: false,
             spinalCordInjuryDisability: false,

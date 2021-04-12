@@ -18,8 +18,7 @@ class User extends Component {
         this.onChangeZones = this.onChangeZones.bind(this);
         this.onChangeUserType = this.onChangeUserType.bind(this);
         this.getUser = this.getUser.bind(this);
-        // TODO going to convert to activate function
-        //this.updatePublished = this.updatePublished.bind(this);
+        
         this.updateUser = this.updateUser.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
 
@@ -148,30 +147,6 @@ class User extends Component {
             .then(response => {
                 console.log(response.data);
                 this.props.history.push('/users')
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    }
-
-// TODO: Remove published and change to activation
-    updatePublished(status) {
-        var data = {
-            id: this.state.currentTutorial.id,
-            title: this.state.currentTutorial.title,
-            description: this.state.currentTutorial.description,
-            published: status
-        };
-
-        UserDataService.update(this.state.currentTutorial.id, data)
-            .then(response => {
-                this.setState(prevState => ({
-                    currentTutorial: {
-                        ...prevState.currentTutorial,
-                        published: status
-                    }
-                }));
-                console.log(response.data);
             })
             .catch(e => {
                 console.log(e);

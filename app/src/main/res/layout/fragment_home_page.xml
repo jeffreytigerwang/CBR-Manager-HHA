@@ -161,13 +161,14 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewSync"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
-            app:cardElevation="4dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            app:cardCornerRadius="8dp">
+            android:layout_margin="10dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -176,22 +177,22 @@
                 <ImageView
                     android:layout_width="65dp"
                     android:layout_height="65dp"
-                    android:src="@drawable/sync"
                     android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginLeft="15dp" />
+                    android:src="@drawable/sync" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="19dp"
+                    android:layout_marginLeft="19dp"
                     android:layout_marginBottom="15dp"
                     android:text="@string/sync"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="19dp" />
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 

@@ -47,8 +47,6 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
 
     }
 
-
-
     @Override
     public List<ClientInfo> getTopPriority() throws IOException {
         Call<List<ClientInfo>> call = jsonPlaceHolderApi.getClientsInfo();

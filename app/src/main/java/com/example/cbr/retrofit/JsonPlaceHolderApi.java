@@ -96,6 +96,15 @@ public interface JsonPlaceHolderApi {
 
     @GET("api/messages")
     Call<List<Messages>> getMessages();
+
+    @GET("api/healthProgress")
+    Call<List<VisitHealthQuestionSetData>> getVisitHealthQuestionSetData();
+
+    @GET("api/educationProgress")
+    Call<List<VisitEducationQuestionSetData>> getVisitEducationQuestionSetData();
+
+    @GET("api/socialProgress")
+    Call<List<VisitSocialQuestionSetData>> getVisitSocialQuestionSetData();
 }
 
 

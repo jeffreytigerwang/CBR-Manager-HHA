@@ -1,16 +1,7 @@
-# Coding Diary
-
-- Components work and UI loads
-- search function works
-- phone updated in master
-- Added padding with components
-- needs conditions checking
-- needs an 'active' property in models
-- needs to remove all tutorials code
-- need to fix how ui looks
 
 # Admin Web Interface Info
 
+Shows all users, can add additional users, and view statistics for the whole CBR Project.
 
 # React App Commands
 

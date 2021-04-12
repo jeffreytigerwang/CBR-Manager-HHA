@@ -53,6 +53,10 @@ For future iterations we hope to include a referrals and survey page, and implem
     - implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1’
 - Detailed dependencies can be found in the module-level build.gradle file under app package.
 
+**Baseline Survey:**
+
+The form for the Baseline Survey has been created but the button that opens the fragment has not yet been created. All the code related to the Baseline Survey is prefixed with _Baseline_.
+
 **Map:**
 
 Maps SDK for Android requires a Google billing account and a API Key.

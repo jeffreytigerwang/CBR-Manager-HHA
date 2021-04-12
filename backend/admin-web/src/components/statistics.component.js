@@ -337,10 +337,6 @@ class Statistics extends Component {
                     </div>
                 </div>
                 <div>
-                <div>
-                    <h1 className="decorated"><span>Stats Per Zone</span></h1>
-                </div>
-                <div>
                     <h1 className="decorated"><span>Stats for settlement as a whole</span></h1>
                     <span>
                         <Grid container spacing={2}>
@@ -376,7 +372,6 @@ class Statistics extends Component {
                             </Grid>
                         </Grid>
                     </span>
-                </div>
                 </div>
             </div>
         )

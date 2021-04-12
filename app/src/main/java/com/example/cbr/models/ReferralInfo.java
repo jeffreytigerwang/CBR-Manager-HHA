@@ -29,6 +29,7 @@ public class ReferralInfo {
     private boolean hasExistingWheelchair;
     private boolean canRepairWheelchair;
     private String outcome;
+    private boolean resolved;
 
     public ReferralInfo() {
 
@@ -60,7 +61,7 @@ public class ReferralInfo {
                         Integer hipWidth,
                         boolean hasExistingWheelchair,
                         boolean canRepairWheelchair,
-                        String outcome) {
+                        String outcome, boolean resolved) {
         this.clientId = clientId;
         this.referralId = referralId;
         this.requirePhysiotherapy = requirePhysiotherapy;
@@ -88,6 +89,7 @@ public class ReferralInfo {
         this.hasExistingWheelchair = hasExistingWheelchair;
         this.canRepairWheelchair = canRepairWheelchair;
         this.outcome = outcome;
+        this.resolved = resolved;
     }
 
     public Integer getClientId() {
@@ -304,5 +306,13 @@ public class ReferralInfo {
 
     public void setInjuryBelowElbow(boolean injuryBelowElbow) {
         isInjuryBelowElbow = injuryBelowElbow;
+    }
+
+    public boolean isResolved() {
+        return resolved;
+    }
+
+    public void setResolved(boolean resolved) {
+        this.resolved = resolved;
     }
 }

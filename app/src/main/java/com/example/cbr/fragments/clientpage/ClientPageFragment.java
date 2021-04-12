@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -60,6 +61,7 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setPresenter(new ClientPagePresenter(this));
         binding = FragmentClientpageBinding.inflate(inflater, container, false);
+        setHasOptionsMenu(true);
 
         clientInfo = (ClientInfo) getArguments().getSerializable(CLIENT_PAGE_BUNDLE);
 
@@ -189,8 +191,14 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
         }
 
 
-
         return questionDataContainerList;
+    }
+
+
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.clientListSearch).setVisible(false);
+        menu.findItem(R.id.clientListSort).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
     }
 
     @Override

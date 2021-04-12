@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,7 +21,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
     private FragmentHomePageBinding binding;
     private HomePageFragmentInterface homePageFragmentInterface;
     private DashboardPageFragment.DashboardFragmentInterface dashboardFragmentInterface;
-
+    private boolean setSwitch = true;
 
 
     @Override
@@ -44,6 +45,8 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
         binding.cardViewAllClients.setOnClickListener(this);
         binding.cardViewDashboard.setOnClickListener(this);
         binding.cardViewNewClient.setOnClickListener(this);
+
+        setHasOptionsMenu(true);
 
         View view = binding.getRoot();
         return view;
@@ -81,6 +84,17 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
             default:
                 break;
         }
+    }
+
+
+
+    public void onPrepareOptionsMenu(Menu menu) {
+        if(setSwitch){
+            menu.findItem(R.id.clientListSearch).setVisible(false);
+            menu.findItem(R.id.clientListSort).setVisible(false);
+            setSwitch = false;
+        }
+        super.onPrepareOptionsMenu(menu);
     }
 
 

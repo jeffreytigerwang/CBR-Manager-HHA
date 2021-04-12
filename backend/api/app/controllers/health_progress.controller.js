@@ -11,9 +11,8 @@ exports.create = (req, res) => {
     });
     return;
   }
-	
-  var visitId = uuid.v4()
-	
+
+
   // Create Item
   const healthProgress = {
     isGoalCancelled: req.body.isGoalCancelled,

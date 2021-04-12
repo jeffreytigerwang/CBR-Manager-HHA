@@ -76,30 +76,30 @@ public class HomePagePresenter implements HomePageContract.Presenter {
 
     @Override
     public List<VisitEducationQuestionSetData> getAllVisitEducationQuestions() throws IOException {
-//        Call<List<VisitEducationQuestionSetData>> call = jsonPlaceHolderApi.();
-//        Response<List<VisitEducationQuestionSetData>> response = call.execute();
-        return null;
+        Call<List<VisitEducationQuestionSetData>> call = jsonPlaceHolderApi.getVisitEducationQuestionSetData();
+        Response<List<VisitEducationQuestionSetData>> response = call.execute();
+        return response.body();
     }
 
     @Override
     public List<VisitGeneralQuestionSetData> getAllVisitGeneralQuestions() throws IOException {
-//        Call<List<VisitGeneralQuestionSetData>> call = jsonPlaceHolderApi.getClientsInfo();
-//        Response<List<VisitGeneralQuestionSetData>> response = call.execute();
-        return null;
+        Call<List<VisitGeneralQuestionSetData>> call = jsonPlaceHolderApi.getVisitGeneralQuestionSetData();
+        Response<List<VisitGeneralQuestionSetData>> response = call.execute();
+        return response.body();
     }
 
     @Override
     public List<VisitHealthQuestionSetData> getAllVisitHealthQuestions() throws IOException {
-//        Call<List<VisitHealthQuestionSetData>> call = jsonPlaceHolderApi.getClientsInfo();
-//        Response<List<VisitHealthQuestionSetData>> response = call.execute();
-        return null;
+        Call<List<VisitHealthQuestionSetData>> call = jsonPlaceHolderApi.getVisitHealthQuestionSetData();
+        Response<List<VisitHealthQuestionSetData>> response = call.execute();
+        return response.body();
     }
 
     @Override
     public List<VisitSocialQuestionSetData> getAllVisitSocialQuestions() throws IOException {
-//        Call<List<VisitSocialQuestionSetData>> call = jsonPlaceHolderApi.getClientsInfo();
-//        Response<List<VisitSocialQuestionSetData>> response = call.execute();
+        Call<List<VisitSocialQuestionSetData>> call = jsonPlaceHolderApi.getVisitSocialQuestionSetData();
+        Response<List<VisitSocialQuestionSetData>> response = call.execute();
 
-        return null;
+        return response.body();
     }
 }

@@ -32,7 +32,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String VISIT_TABLE = "VISIT_TABLE";
     public static final String EDUCATION_ASPECT_TABLE = "EDUCATION_ASPECT_TABLE";
     public static final String HEALTH_ASPECT_TABLE = "HEALTH_ASPECT_TABLE";
-    public static final String SOCIAL_STATUS_ASPECT_TABLE = "SOCIAL_STATUS_ASPECT_TABLE";
+    public static final String SOCIAL_STATUS_ASPECT_TABLE = "SOCIAL_ASPECT_TABLE";
     public static final String EDUCATION_PROGRESS_TABLE = "EDUCATION_PROGRESS_TABLE";
     public static final String HEALTH_PROGRESS_TABLE = "HEALTH_PROGRESS_TABLE";
     public static final String SOCIAL_PROGRESS_TABLE = "SOCIAL_PROGRESS_TABLE";
@@ -56,7 +56,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
 
-        String createClients = "CREATE TABLE CLIENT_TABLE (ID INT PRIMARY KEY, " + FIRST_NAME +
+        String createClients = "CREATE TABLE CLIENT_TABLE (ID INT, " + FIRST_NAME +
                 " TEXT, " + LAST_NAME + " TEXT, " + "GENDER TEXT, AGE INTEGER, CONTACT_NUMBER TEXT, " +
                 "DATE_JOINED TEXT, VILLAGE_NUMBER TEXT, " + ZONE + " TEXT, GPS_LOCATION TEXT, " +
                 "CAREGIVER_PRESENT BOOL, CAREGIVER_FIRST_NAME TEXT, CAREGIVER_LAST_NAME TEXT, " +
@@ -66,10 +66,10 @@ public class DBHelper extends SQLiteOpenHelper {
         String createDisability = "CREATE TABLE DISABILITY_TABLE (CLIENT_ID INT, AMPUTEE BOOL, " +
                 "POLIO BOOL, SPINAL_CORD_INJURY BOOL, CEREBRAL_PALSY BOOL, SPINAL_BIFIDA BOOL, " +
                 "HYDROCEPHALUS BOOL, VISUAL_IMPAIRMENT BOOL, HEARING_IMPAIRMENT BOOL, " +
-                "DO_KNOW_KNOW BOOL, OTHER BOOL, OTHER_DESC TEXT, CHANGED BOOL)";
+                "DO_NOT_KNOW BOOL, OTHER BOOL, OTHER_DESC TEXT, CHANGED BOOL)";
         sqLiteDatabase.execSQL(createDisability);
 
-        String createVisits = "CREATE TABLE VISITS_TABLE (CLIENT_ID INT, VISIT_ID INTEGER, " +
+        String createVisits = "CREATE TABLE VISIT_TABLE (CLIENT_ID INT, VISIT_ID INTEGER, " +
                 "IS_HEALTH_CHECKED BOOL, IS_EDUCATION_CHECKED BOOL, IS_SOCIAL_CHECKED BOOL, " +
                 "PURPOSE_OF_VISIT TEXT, DATE_OF_VISIT TEXT, WORKER_NAME TEXT, GPS_LOCATION TEXT, " +
                 "ZONE_LOCATION TEXT, VILLAGE_NUMBER TEXT, CHANGED BOOL)";
@@ -174,6 +174,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while (clientCursor.moveToNext());
         }
+        db.close();
+        clientCursor.close();
         return clientInfoList;
     }
 
@@ -195,6 +197,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while (clientCursor.moveToNext());
         }
+
+        db.close();
+        clientCursor.close();
         return clientInfoList;
 
     }
@@ -274,6 +279,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
+        db.close();
+        cursor.close();
         return clientDisabilities;
     }
 
@@ -293,6 +300,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
+        db.close();
+        cursor.close();
         return clientDisabilities;
     }
 
@@ -354,6 +363,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while (cursor.moveToNext());
         }
+        db.close();
+        cursor.close();
         return visitsList;
     }
 
@@ -373,6 +384,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while (cursor.moveToNext());
         }
+        db.close();
+        cursor.close();
         return visitsList;
 
     }
@@ -445,6 +458,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
+        db.close();
+        cursor.close();
         return clientList;
     }
 
@@ -464,6 +479,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
+        db.close();
+        cursor.close();
         return clientList;
 
     }
@@ -517,8 +534,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while(cursor.moveToNext());
         }
-
+        db.close();
+        cursor.close();
         return visitsList;
+
     }
 
     public List<VisitEducationQuestionSetData> getChangedAllVisitEducationQuestions() {
@@ -537,7 +556,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while(cursor.moveToNext());
         }
-
+        db.close();
+        cursor.close();
         return visitsList;
 
 
@@ -607,6 +627,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
+        db.close();
+        cursor.close();
         return clientList;
     }
 
@@ -625,7 +647,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while(cursor.moveToNext());
         }
-
+        db.close();
+        cursor.close();
         return clientList;
     }
 
@@ -688,6 +711,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
+        db.close();
+        cursor.close();
         return visitsList;
     }
 
@@ -707,6 +732,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while(cursor.moveToNext());
         }
+        db.close();
+        cursor.close();
 
         return visitsList;
 
@@ -789,6 +816,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
+        db.close();
+        cursor.close();
         return clientList;
     }
 
@@ -808,6 +837,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
+        db.close();
+        cursor.close();
         return clientList;
 
     }
@@ -861,6 +892,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
+        db.close();
+        cursor.close();
         return visitsList;
     }
 
@@ -881,6 +914,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
+        db.close();
+        cursor.close();
         return visitsList;
 
     }
@@ -969,6 +1004,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
+        db.close();
+        cursor.close();
         return referralInfos;
     }
 
@@ -986,6 +1023,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while(cursor.moveToNext());
         }
+        db.close();
+        cursor.close();
 
         return referralInfos;
 

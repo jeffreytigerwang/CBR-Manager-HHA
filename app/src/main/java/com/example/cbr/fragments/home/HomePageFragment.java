@@ -2,6 +2,7 @@ package com.example.cbr.fragments.home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -56,6 +57,7 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setPresenter(new HomePagePresenter(this));
+
 
         binding = FragmentHomePageBinding.inflate(inflater, container, false);
 

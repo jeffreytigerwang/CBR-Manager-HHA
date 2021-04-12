@@ -174,8 +174,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while (clientCursor.moveToNext());
         }
-        db.close();
-        clientCursor.close();
+
+
         return clientInfoList;
     }
 
@@ -198,8 +198,7 @@ public class DBHelper extends SQLiteOpenHelper {
             } while (clientCursor.moveToNext());
         }
 
-        db.close();
-        clientCursor.close();
+
         return clientInfoList;
 
     }
@@ -279,8 +278,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
-        db.close();
-        cursor.close();
+
+
         return clientDisabilities;
     }
 
@@ -300,8 +299,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
-        db.close();
-        cursor.close();
+
+
         return clientDisabilities;
     }
 
@@ -363,8 +362,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while (cursor.moveToNext());
         }
-        db.close();
-        cursor.close();
+
+
         return visitsList;
     }
 
@@ -384,8 +383,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while (cursor.moveToNext());
         }
-        db.close();
-        cursor.close();
+
+
         return visitsList;
 
     }
@@ -458,8 +457,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
-        db.close();
-        cursor.close();
+
+
         return clientList;
     }
 
@@ -479,8 +478,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
-        db.close();
-        cursor.close();
+
+
         return clientList;
 
     }
@@ -534,8 +533,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while(cursor.moveToNext());
         }
-        db.close();
-        cursor.close();
+
+
         return visitsList;
 
     }
@@ -556,8 +555,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while(cursor.moveToNext());
         }
-        db.close();
-        cursor.close();
+
+
         return visitsList;
 
 
@@ -627,8 +626,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
-        db.close();
-        cursor.close();
+
+
         return clientList;
     }
 
@@ -647,8 +646,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while(cursor.moveToNext());
         }
-        db.close();
-        cursor.close();
+
+
+
         return clientList;
     }
 
@@ -711,8 +711,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
-        db.close();
-        cursor.close();
+
+
         return visitsList;
     }
 
@@ -732,8 +732,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while(cursor.moveToNext());
         }
-        db.close();
-        cursor.close();
+
+
 
         return visitsList;
 
@@ -816,8 +816,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
-        db.close();
-        cursor.close();
+
+
         return clientList;
     }
 
@@ -837,8 +837,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
-        db.close();
-        cursor.close();
+
+
         return clientList;
 
     }
@@ -892,8 +892,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
-        db.close();
-        cursor.close();
+
+
         return visitsList;
     }
 
@@ -914,8 +914,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
-        db.close();
-        cursor.close();
+
+
         return visitsList;
 
     }
@@ -1004,8 +1004,8 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
-        db.close();
-        cursor.close();
+
+
         return referralInfos;
     }
 
@@ -1023,8 +1023,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
             } while(cursor.moveToNext());
         }
-        db.close();
-        cursor.close();
+
+
 
         return referralInfos;
 

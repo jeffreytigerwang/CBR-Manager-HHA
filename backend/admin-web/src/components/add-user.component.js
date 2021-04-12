@@ -7,10 +7,6 @@ import { styles } from "../css-common"
 class AddUser extends Component {
     constructor(props) {
         super(props);
-        this.onChangeTitle = this.onChangeTitle.bind(this);
-        this.onChangeDescription = this.onChangeDescription.bind(this);
-        this.saveTutorial = this.saveTutorial.bind(this);
-        this.newTutorial = this.newTutorial.bind(this);
 
         this.onChangePhoneNumber = this.onChangePhoneNumber.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
@@ -131,40 +127,6 @@ class AddUser extends Component {
             priorityLevel: "",
             zones: "",
             userType: "",
-
-            submitted: false
-        });
-    }
-
-    saveTutorial() {
-        var data = {
-            title: this.state.title,
-            description: this.state.description
-        };
-
-        UserDataService.create(data)
-            .then(response => {
-                this.setState({
-                    id: response.data.id,
-                    title: response.data.title,
-                    description: response.data.description,
-                    published: response.data.published,
-
-                    submitted: true
-                });
-                console.log(response.data);
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    }
-
-    newTutorial() {
-        this.setState({
-            id: null,
-            title: "",
-            description: "",
-            published: false,
 
             submitted: false
         });

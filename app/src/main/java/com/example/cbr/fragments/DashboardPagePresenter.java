@@ -29,6 +29,8 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
 
     private HashMap<String, Double> overallRiskMap;
 
+    private final String NO_RECORDED = "Not Recorded";
+
     public DashboardPagePresenter(DashboardPageContract.View dashboardPageView) {
 
         retrofit = RetrofitInit.getInstance();
@@ -73,6 +75,8 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
         return response.body();
     }
 
+
+
     @Override
     public void setGeneralAspect(List<ClientInfo> clientInfoList) throws IOException {
 
@@ -97,32 +101,81 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
         for (int i = 0; i < clientInfoList.size(); i++) {
             ClientInfo clientInfo = clientInfoList.get(i);
 
-            clientInfo.setAmputeeDisability(clientDisabilityList.get(i).isAmputeeDisability());
-            clientInfo.setPolioDisability(clientDisabilityList.get(i).isPolioDisability());
-            clientInfo.setSpinalCordInjuryDisability(clientDisabilityList.get(i).isSpinalCordInjuryDisability());
-            clientInfo.setCerebralPalsyDisability(clientDisabilityList.get(i).isCerebralPalsyDisability());
-            clientInfo.setSpinaBifidaDisability(clientDisabilityList.get(i).isSpinaBifidaDisability());
-            clientInfo.setHydrocephalusDisability(clientDisabilityList.get(i).isHydrocephalusDisability());
-            clientInfo.setVisualImpairmentDisability(clientDisabilityList.get(i).isVisualImpairmentDisability());
-            clientInfo.setHearingImpairmentDisability(clientDisabilityList.get(i).isHearingImpairmentDisability());
-            clientInfo.setDoNotKnowDisability(clientDisabilityList.get(i).isDoNotKnowDisability());
-            clientInfo.setOtherDisability(clientDisabilityList.get(i).isOtherDisability());
+            boolean isHealthSet = false;
+            boolean isEducationSet = false;
+            boolean isSocialSet = false;
 
-            clientInfo.setRateHealth(clientHealthAspectList.get(i).getRateHealth());
-            clientInfo.setDescribeHealth(clientHealthAspectList.get(i).getDescribeHealth());
-            clientInfo.setSetGoalForHealth(clientHealthAspectList.get(i).getSetGoalForHealth());
+            // Check is there data from disability table to match with clientId
+            for (int j = 0; j < clientDisabilityList.size(); j++) {
+                if (clientDisabilityList.get(j).getClientId().equals(clientInfo.getClientId())) {
+                    clientInfo.setAmputeeDisability(clientDisabilityList.get(j).isAmputeeDisability());
+                    clientInfo.setPolioDisability(clientDisabilityList.get(j).isPolioDisability());
+                    clientInfo.setSpinalCordInjuryDisability(clientDisabilityList.get(j).isSpinalCordInjuryDisability());
+                    clientInfo.setCerebralPalsyDisability(clientDisabilityList.get(j).isCerebralPalsyDisability());
+                    clientInfo.setSpinaBifidaDisability(clientDisabilityList.get(j).isSpinaBifidaDisability());
+                    clientInfo.setHydrocephalusDisability(clientDisabilityList.get(j).isHydrocephalusDisability());
+                    clientInfo.setVisualImpairmentDisability(clientDisabilityList.get(j).isVisualImpairmentDisability());
+                    clientInfo.setHearingImpairmentDisability(clientDisabilityList.get(j).isHearingImpairmentDisability());
+                    clientInfo.setDoNotKnowDisability(clientDisabilityList.get(j).isDoNotKnowDisability());
+                    clientInfo.setOtherDisability(clientDisabilityList.get(j).isOtherDisability());
+                }
+            }
 
-            clientInfo.setRateEducation(clientEducationAspectList.get(i).getRateEducation());
-            clientInfo.setDescribeEducation(clientEducationAspectList.get(i).getDescribeEducation());
-            clientInfo.setSetGoalForEducation(clientEducationAspectList.get(i).getSetGoalForEducation());
+            // Check is there data from HealthAspect table to match with clientId
+            for (int j = 0; j < clientHealthAspectList.size(); j++) {
+                if (clientHealthAspectList.get(j).getClientId().equals(clientInfo.getClientId())) {
+                    clientInfo.setRateHealth(clientHealthAspectList.get(j).getRateHealth());
+                    clientInfo.setDescribeHealth(clientHealthAspectList.get(j).getDescribeHealth());
+                    clientInfo.setSetGoalForHealth(clientHealthAspectList.get(j).getSetGoalForHealth());
+                    isHealthSet = true;
+                }
+            }
 
-            clientInfo.setRateSocialStatus(clientSocialAspectList.get(i).getRateSocialStatus());
-            clientInfo.setDescribeSocialStatus(clientSocialAspectList.get(i).getDescribeSocialStatus());
-            clientInfo.setSetGoalForSocialStatus(clientSocialAspectList.get(i).getSetGoalForSocialStatus());
+            // Check is there data from EducationAspect table to match with clientId
+            for (int j = 0; j < clientEducationAspectList.size(); j++) {
+                if (clientEducationAspectList.get(j).getClientId().equals(clientInfo.getClientId())) {
+                    clientInfo.setRateEducation(clientEducationAspectList.get(j).getRateEducation());
+                    clientInfo.setDescribeEducation(clientEducationAspectList.get(j).getDescribeEducation());
+                    clientInfo.setSetGoalForEducation(clientEducationAspectList.get(j).getSetGoalForEducation());
+                    isEducationSet = true;
+                }
+            }
+
+            // Check is there data from SocialAspect table to match with clientId
+            for (int j = 0; j < clientSocialAspectList.size(); j++) {
+                if (clientSocialAspectList.get(j).getClientId().equals(clientInfo.getClientId())) {
+                    clientInfo.setRateSocialStatus(clientSocialAspectList.get(j).getRateSocialStatus());
+                    clientInfo.setDescribeSocialStatus(clientSocialAspectList.get(j).getDescribeSocialStatus());
+                    clientInfo.setSetGoalForSocialStatus(clientSocialAspectList.get(j).getSetGoalForSocialStatus());
+                    isSocialSet = true;
+                }
+            }
+
+            // If there is no information to match the HealthAspect table, set all information to "not recorded"
+            if (!isHealthSet) {
+                clientInfo.setRateHealth(NO_RECORDED);
+                clientInfo.setDescribeHealth(NO_RECORDED);
+                clientInfo.setSetGoalForHealth(NO_RECORDED);
+            }
+
+            // If there is no information to match the EducationAspect table, set all information to "not recorded"
+            if (!isEducationSet) {
+                clientInfo.setRateEducation(NO_RECORDED);
+                clientInfo.setDescribeEducation(NO_RECORDED);
+                clientInfo.setSetGoalForEducation(NO_RECORDED);
+            }
+
+            // If there is no information to match the SocialAspect table, set all information to "not recorded"
+            if (!isSocialSet) {
+                clientInfo.setRateSocialStatus(NO_RECORDED);
+                clientInfo.setDescribeSocialStatus(NO_RECORDED);
+                clientInfo.setSetGoalForSocialStatus(NO_RECORDED);
+            }
 
         }
 
     }
+
 
     @Override
     public List<String> getDatesOfLastVisits(List<ClientInfo> clientInfoList) throws IOException {

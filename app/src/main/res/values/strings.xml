@@ -345,6 +345,7 @@
     <string name="empowerment">Empowerment</string>
     <string name="food_and_nutrition">Food and Nutrition</string>
     <string name="do_you_have_access_to_essential_items_for_your_household">Do you have access to essential items for your household?</string>
+    <string name="is_your_assistive_device_working_well">Is your assistive device working well?</string>
 
     <string-array name="reasons_for_not_going_to_school_array">
         <item>Lack of funding</item>

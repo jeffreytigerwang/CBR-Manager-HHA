@@ -1,10 +1,12 @@
 package com.example.cbr.fragments.baselinesurvey;
 
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager2.widget.ViewPager2;
@@ -19,6 +21,7 @@ import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.Radi
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SpinnerViewContainer;
 import com.example.cbr.databinding.FragmentBaselinesurveyBinding;
 import com.example.cbr.fragments.base.BaseFragment;
+import com.example.cbr.models.BaselineHealthSurveyData;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
 import com.example.cbr.util.Constants;
@@ -48,8 +51,9 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
     }
     
     private static final String BASELINE_SURVEY_PAGE_BUNDLE = "baselineSurveyPageBundle";
-    
-    // Instantiate BaselineSurvey class here
+
+    BaselineHealthSurveyData baselineHealthSurveyData = new BaselineHealthSurveyData();
+    private int clientId;
     private Retrofit retrofit;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
 
@@ -143,6 +147,11 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
         haveAssistiveDeviceOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
         healthList.add(new RadioGroupViewContainer(getString(R.string.do_you_have_an_assistive_device), true, haveAssistiveDeviceOptions));
 
+        List<RadioGroupViewContainer.RadioGroupListItem> isAssistiveDeviceWorkingWellOptions = new ArrayList<>();
+        isAssistiveDeviceWorkingWellOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        isAssistiveDeviceWorkingWellOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        healthList.add(new RadioGroupViewContainer(getString(R.string.is_your_assistive_device_working_well), true, isAssistiveDeviceWorkingWellOptions));
+
         List<RadioGroupViewContainer.RadioGroupListItem> needAssistiveDeviceOptions = new ArrayList<>();
         needAssistiveDeviceOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
         needAssistiveDeviceOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
@@ -161,7 +170,35 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
         QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
             @Override
             public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+                if (questionDataContainer instanceof SpinnerViewContainer) {
+                    String questionText = ((SpinnerViewContainer) questionDataContainer).getQuestionText();
+                    String selectedItem = ((SpinnerViewContainer) questionDataContainer).getSelectedItem();
 
+                    if (questionText.equals(getString(R.string.rate_your_general_health))) {
+                        baselineHealthSurveyData.setRateGeneralHealth(selectedItem);
+                    } else if (questionText.equals(getString(R.string.what_assistive_device_do_you_need))) {
+                        baselineHealthSurveyData.setAssistiveDeviceNeeded(selectedItem);
+                    } else if (questionText.equals(getString(R.string.are_you_satisfied_with_the_health_services_you_receive))) {
+                        baselineHealthSurveyData.setHealthServiceSatisfaction(selectedItem);
+                    }
+                }
+
+                if (questionDataContainer instanceof RadioGroupViewContainer) {
+                    String questionText = ((RadioGroupViewContainer) questionDataContainer).getQuestionText();
+                    String selectedItem = ((RadioGroupViewContainer) questionDataContainer).getCheckedItem().getDescription();
+
+                    if (questionText.equals(getString(R.string.do_you_have_access_to_rehabilitation_services))) {
+                        baselineHealthSurveyData.setHasAccessToRehabilitationServices(selectedItem.equals(getString(R.string.yes)));
+                    } else if (questionText.equals(getString(R.string.do_you_need_access_to_rehabilitation_services))) {
+                        baselineHealthSurveyData.setNeedsAccessToRehabilitationServices(selectedItem.equals(getString(R.string.yes)));
+                    } else if (questionText.equals(getString(R.string.do_you_have_an_assistive_device))) {
+                        baselineHealthSurveyData.setHasAssistiveDevice(selectedItem.equals(getString(R.string.yes)));
+                    } else if (questionText.equals(getString(R.string.is_your_assistive_device_working_well))) {
+                        baselineHealthSurveyData.setAssistiveDeviceWorkingWell(selectedItem.equals(getString(R.string.yes)));
+                    } else if (questionText.equals(getString(R.string.do_you_need_an_assistive_device))) {
+                        baselineHealthSurveyData.setNeedsAssistiveDevice(selectedItem.equals(getString(R.string.yes)));
+                    }
+                }
             }
         };
 
@@ -373,8 +410,8 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
             @Override
             public void onClick(View v) {
                 if (binding.baselineSurveyPageViewPager.getCurrentItem() == baselineSurveyFragmentAdapter.getItemCount() - 1) {
+                    // Check if fields are filled and make database API call
                     getActivity().getSupportFragmentManager().popBackStack();
-                    // Database API call
                 }
                 binding.baselineSurveyPageViewPager.setCurrentItem(binding.baselineSurveyPageViewPager.getCurrentItem() + 1);
             }

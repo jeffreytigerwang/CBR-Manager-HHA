@@ -84,10 +84,14 @@ public class DashboardPagePresenter implements DashboardPageContract.Presenter {
         List<ReferralInfo> referrals = referralsResponse.body();
 
         for(ReferralInfo referral : referrals) {
-            if(referral.getOutcome() != null && referral.getOutcome().equals("Outstanding")){
+            if(!referral.isResolved()){
                 for(ClientInfo client: clientList) {
-                    if(client.getClientId().equals(referral.getClientId())) {
+
+                    if(client.getClientId().equals(referral.getClientId())
+                        && !result.contains(client)) {
+
                         result.add(client);
+                        break;
                     }
                 }
             }

@@ -55,8 +55,9 @@ public class VisitEducationQuestionSetData {
 
         if (!isQuestionElevenChecked) {
             questionNumbers.add("11.");
-        } else if (missingDesc) {
-            questionNumbers.add("11.");
+        }
+        if (missingDesc) {
+            questionNumbers.add("11.Desc");
         }
         if (!isQuestionTwelveChecked) {
             questionNumbers.add("12.");

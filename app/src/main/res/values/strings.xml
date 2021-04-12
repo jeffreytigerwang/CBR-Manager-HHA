@@ -302,8 +302,85 @@
     <string name="education_question_record_cancelled">Education Question Cancelled. No network connection or may be too slow</string>
     <string name="social_question_record_cancelled">Social Question Cancelled. No network connection or may be too slow</string>
     <string name="retrofit_call_fail">Record fail! No network connection or may be too slow</string>
+    <string name="baseline_survey">Baseline Survey</string>
+    <string name="are_you_over_sixteen">Are you over 16?</string>
+    <string name="are_you_under_eighteen">Are you under 18?</string>
     <string name="date_pattern_database">yyyy-MM-dd\'T\'HH:mm:ss.SSSZ</string>
     <string name="invalid_gps_location">invalid GPS location</string>
     <string name="new_referral_picture">Please take a picture of the client</string>
+    <string name="if_yes_what_grade">If yes, what grade?</string>
+    <string name="grade">Grade</string>
+    <string name="do_you_go_to_school">Do you go to school?</string>
+    <string name="if_no_have_you_ever_been_to_school_before">If no, have you ever been to school before?</string>
+    <string name="if_no_do_you_want_to_go_to_school">If no, do you want to go to school?</string>
+    <string name="if_no_why_do_you_not_go_to_school">If no, why do you not go to school?</string>
+    <string name="rate_your_general_health">Rate your general health</string>
+    <string name="do_you_need_access_to_rehabilitation_services">Do you need access to rehabilitation services?</string>
+    <string name="do_you_have_access_to_rehabilitation_services">Do you have access to rehabilitation services? (E.g physiotherapy, speech therapy, training how to use assistive devices)</string>
+    <string name="do_you_have_an_assistive_device">Do you have an assistive device? (E.g wheelchair, crutches, prosthetic limbs, hearing aid)</string>
+    <string name="do_you_need_an_assistive_device">Do you need an assistive device?</string>
+    <string name="what_assistive_device_do_you_need">What assistive device do you need?</string>
+    <string name="are_you_satisfied_with_the_health_services_you_receive">Are you satisfied with the health services you receive?</string>
+    <string name="do_you_feel_valued_as_a_member_of_your_community">Do you feel valued as a member of your community?</string>
+    <string name="do_you_feel_independent">Do you feel independent?</string>
+    <string name="are_you_able_to_participate_in_events">Are you able to participate in community/social events? (E.g going to church, market, meeting friends)</string>
+    <string name="does_your_disability_affect_your_ability_to_interact_socially">Does your disability affect your ability to interact socially?</string>
+    <string name="have_you_experienced_discrimination_because_of_your_disability">Have you experienced discrimination because of your disability?</string>
+    <string name="livelihood">Livelihood</string>
+    <string name="are_you_working">Are you working?</string>
+    <string name="if_yes_what_do_you_do">If yes, what do you do?</string>
+    <string name="are_you_employed_or_self_employed">Are you employed or self-employed?</string>
+    <string name="does_this_meet_your_financial_needs">Does this meet your financial needs?</string>
+    <string name="does_your_disability_affect_your_ability_to_go_to_work">Does your disability affect your ability to go to work?</string>
+    <string name="do_you_want_to_work">Do you want to work?</string>
+    <string name="what_do_you_think_of_your_food_security">What do you think of your food security?</string>
+    <string name="do_you_have_enough_food_every_month">Do you have enough food every month?</string>
+    <string name="if_child_is_this_child">If child, is this child</string>
+    <string name="are_you_a_member_of_any_organizations_which_assist_people_with_disabilities">Are you a member of any organizations which assist people with disabilities?</string>
+    <string name="if_yes_which_organizations">If yes, which organizations?</string>
+    <string name="are_you_aware_of_your_rights_as_a_citizen_living_with_disabilities">Are you aware of your rights as a citizen living with disabilities?</string>
+    <string name="do_you_feel_like_you_are_able_to_influence_people_around_you">Do you feel like you are able to influence people around you?</string>
+    <string name="do_you_have_adequate_shelter">Do you have adequate shelter?</string>
+    <string name="shelter_and_care">Shelter and Care</string>
+    <string name="empowerment">Empowerment</string>
+    <string name="food_and_nutrition">Food and Nutrition</string>
+    <string name="do_you_have_access_to_essential_items_for_your_household">Do you have access to essential items for your household?</string>
+    <string name="is_your_assistive_device_working_well">Is your assistive device working well?</string>
+
+    <string-array name="reasons_for_not_going_to_school_array">
+        <item>Lack of funding</item>
+        <item>My disability stops me</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="satisfactions_array">
+        <item>Very poor</item>
+        <item>Poor</item>
+        <item>Fine</item>
+        <item>Good</item>
+    </string-array>
+
+    <string-array name="assistive_devices_array">
+        <item>Wheelchair</item>
+        <item>Prosthetic</item>
+        <item>Orthotic</item>
+        <item>Crutch</item>
+        <item>Walking stick</item>
+        <item>Hearing aid</item>
+        <item>Glasses</item>
+        <item>Standing frame</item>
+        <item>Corner seat</item>
+    </string-array>
+
+    <string-array name="employment_array">
+        <item>Employed</item>
+        <item>Self-employed</item>
+    </string-array>
+
+    <string-array name="nutrition_array">
+        <item>Malnourished</item>
+        <item>Undernourished</item>
+        <item>Well nourished</item>
+    </string-array>
 
 </resources>

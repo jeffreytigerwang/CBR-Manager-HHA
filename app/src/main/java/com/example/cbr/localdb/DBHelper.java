@@ -340,6 +340,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("HAS_EXISTING_WHEEL_CHAIR", referral.isHasExistingWheelchair());
         cv.put("CAN_REPAIR_WHEEL_CHAIR", referral.isCanRepairWheelchair());
         cv.put("OUTCOME", referral.getOutcome());
+        cv.put("RESOLVED", referral.isResolved());
         cv.put("PHYSIOTHERAPY_PHOTO", referral.getPhysiotherapyPhoto());
 
         long success = db.insert(REFERRAL_TABLE, null, cv);
@@ -751,6 +752,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 boolean hasExistingWheelchair = cursor.getInt(23) == 1;
                 boolean canRepairWheelchair = cursor.getInt(24) == 1;
                 String outcome = cursor.getString(25);
+                boolean resolved = cursor.getInt(26) == 1;
 
                 byte[] physiotherapyPhoto = cursor.getBlob(26);
 
@@ -761,7 +763,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         visualImpairmentDisability, hearingImpairmentDisability, otherDisability,
                         injuryAboveKnee, injuryBelowKnee, injuryAboveElbow, injuryBelowElbow,
                         intermediateWheelChair, hipWidth, hasExistingWheelchair, canRepairWheelchair,
-                        outcome);
+                        outcome, resolved);
                 referralInfos.add(referral);
 
             } while(cursor.moveToNext());

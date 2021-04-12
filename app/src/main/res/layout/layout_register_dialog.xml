@@ -10,27 +10,29 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingEnd="10dp"
             android:orientation="vertical">
 
             <EditText
                 android:id="@+id/registerDialog_firstNameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:hint="@string/first_name"
-                android:background="@drawable/edit_text_border"
-                android:padding="5dp" />
+                android:background="@drawable/edit_text_border" />
 
             <EditText
                 android:id="@+id/registerDialog_lastNameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/last_name"
                 android:layout_marginTop="10dp"
+                android:hint="@string/last_name"
                 android:background="@drawable/edit_text_border"
                 android:padding="5dp" />
 
@@ -38,8 +40,8 @@
                 android:id="@+id/registerDialog_phoneNumberEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/phone_number"
                 android:layout_marginTop="10dp"
+                android:hint="@string/phone_number"
                 android:inputType="phone"
                 android:background="@drawable/edit_text_border"
                 android:padding="5dp" />
@@ -55,65 +57,56 @@
             <CheckBox
                 android:id="@+id/registerDialog_bidibidiZone1CheckBox"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:text="@string/bidibidi_zone_1"
-                android:layout_marginTop="10dp" />
+                android:layout_height="wrap_content"
+                android:text="@string/bidibidi_zone_1" />
 
             <CheckBox
                 android:id="@+id/registerDialog_bidibidiZone2CheckBox"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:text="@string/bidibidi_zone_2"
-                android:layout_marginTop="10dp" />
+                android:layout_height="wrap_content"
+                android:text="@string/bidibidi_zone_2" />
 
             <CheckBox
                 android:id="@+id/registerDialog_bidibidiZone3CheckBox"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:text="@string/bidibidi_zone_3"
-                android:layout_marginTop="10dp" />
+                android:layout_height="wrap_content"
+                android:text="@string/bidibidi_zone_3" />
 
             <CheckBox
                 android:id="@+id/registerDialog_bidibidiZone4CheckBox"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:text="@string/bidibidi_zone_4"
-                android:layout_marginTop="10dp" />
+                android:layout_height="wrap_content"
+                android:text="@string/bidibidi_zone_4" />
 
             <CheckBox
                 android:id="@+id/registerDialog_bidibidiZone5CheckBox"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:text="@string/bidibidi_zone_5"
-                android:layout_marginTop="10dp" />
+                android:layout_height="wrap_content"
+                android:text="@string/bidibidi_zone_5" />
 
             <CheckBox
                 android:id="@+id/registerDialog_palorinyaBasecampCheckBox"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:text="@string/palorinya_basecamp"
-                android:layout_marginTop="10dp" />
+                android:layout_height="wrap_content"
+                android:text="@string/palorinya_basecamp" />
 
             <CheckBox
                 android:id="@+id/registerDialog_palorinyaZone1CheckBox"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:text="@string/palorinya_zone_1"
-                android:layout_marginTop="10dp" />
+                android:layout_height="wrap_content"
+                android:text="@string/palorinya_zone_1" />
 
             <CheckBox
                 android:id="@+id/registerDialog_palorinyaZone2CheckBox"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:text="@string/palorinya_zone_2"
-                android:layout_marginTop="10dp" />
+                android:layout_height="wrap_content"
+                android:text="@string/palorinya_zone_2" />
 
             <CheckBox
                 android:id="@+id/registerDialog_palorinyaZone3CheckBox"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:text="@string/palorinya_zone_3"
-                android:layout_marginTop="10dp" />
+                android:layout_height="wrap_content"
+                android:text="@string/palorinya_zone_3" />
 
             <TextView
                 android:id="@+id/registerDialog_selectUserTypeTextView"
@@ -154,9 +147,9 @@
                 android:id="@+id/registerDialog_passwordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:layout_marginTop="15dp"
                 android:background="@drawable/edit_text_border"
                 android:padding="5dp" />
 

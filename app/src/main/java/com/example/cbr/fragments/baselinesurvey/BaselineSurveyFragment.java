@@ -1,6 +1,7 @@
 package com.example.cbr.fragments.baselinesurvey;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,20 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.cbr.R;
 import com.example.cbr.adapters.questioninfoadapters.QuestionsFragmentPagerAdapter;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.CheckBoxViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.EditTextViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.HeaderViewContainer;
 import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.QuestionDataContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.RadioGroupViewContainer;
+import com.example.cbr.adapters.questioninfoadapters.questiondatacontainers.SpinnerViewContainer;
 import com.example.cbr.databinding.FragmentBaselinesurveyBinding;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.retrofit.JsonPlaceHolderApi;
 import com.example.cbr.retrofit.RetrofitInit;
+import com.example.cbr.util.Constants;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import retrofit2.Retrofit;
 
@@ -78,6 +86,7 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
 
     private void generateViewPagerList() {
         generateMainPage();
+        generateHealth();
         generateEducation();
         generateSocial();
         generateLivelihood();
@@ -110,8 +119,44 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
         viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(mainPageList, true, onViewPagerChangedListener));
     }
 
-    private void generateEducation() {
+    private void generateHealth() {
 
+    }
+
+    private void generateEducation() {
+        final ArrayList<QuestionDataContainer> educationList = new ArrayList<>();
+        educationList.add(new HeaderViewContainer(getString(R.string.education)));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> currentlyGoingToSchoolOptions = new ArrayList<>();
+        currentlyGoingToSchoolOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        currentlyGoingToSchoolOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        educationList.add(new RadioGroupViewContainer(getString(R.string.do_you_go_to_school), true, currentlyGoingToSchoolOptions));
+
+        educationList.add(new EditTextViewContainer(getString(R.string.if_yes_what_grade), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, null, getString(R.string.grade), InputType.TYPE_CLASS_NUMBER));
+
+        List<String> reasonsForNotGoingToSchoolOptions = new ArrayList<>(
+                Arrays.asList(getResources().getStringArray(R.array.reasons_for_not_going_to_school_array))
+        );
+        educationList.add(new SpinnerViewContainer(getString(R.string.if_no_why_do_you_not_go_to_school), Constants.PRIMARY_QUESTION_TEXT_SIZE_SP, reasonsForNotGoingToSchoolOptions));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> hasBeenToSchoolOptions = new ArrayList<>();
+        hasBeenToSchoolOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        hasBeenToSchoolOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        educationList.add(new RadioGroupViewContainer(getString(R.string.if_no_have_you_ever_been_to_school_before), true, hasBeenToSchoolOptions));
+
+        List<RadioGroupViewContainer.RadioGroupListItem> wantToGoToSchoolOptions = new ArrayList<>();
+        wantToGoToSchoolOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.yes), false, View.generateViewId()));
+        wantToGoToSchoolOptions.add(new RadioGroupViewContainer.RadioGroupListItem(getString(R.string.no), false, View.generateViewId()));
+        educationList.add(new RadioGroupViewContainer(getString(R.string.if_no_do_you_want_to_go_to_school), true, wantToGoToSchoolOptions));
+
+        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+            @Override
+            public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+
+            }
+        };
+
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(educationList, true, onViewPagerChangedListener));
     }
 
     private void generateSocial() {

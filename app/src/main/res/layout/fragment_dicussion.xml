@@ -30,7 +30,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginBottom="1dp"
         android:ems="10"
-        android:hint="@string/send_you_discussion_today"
+        android:hint="@string/chat_input_hint"
         android:inputType="textPersonName"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

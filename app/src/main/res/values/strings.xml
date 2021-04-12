@@ -55,6 +55,8 @@
     <string name="existing_wheelchair_question">Do they have an existing wheelchair?</string>
     <string name="wheelchair_repair_question">Can the existing wheelchair be repaired?</string>
     <string name="wheelchair_centre">*If yes, please bring the wheelchair to the centre</string>
+    <string name="outcome_question">Is this referral outstanding?</string>
+    <string name="post_referral">Post new referral</string>
 
     <!-- View pager -->
     <string name="viewpager_page_number">Page %1$d of %2$d</string>
@@ -153,6 +155,7 @@
     <string name="patient_list">Patient List</string>
     <string name="initial_goal">Initial goal:</string>
     <string name="login_failed">Login Failed</string>
+    <string name="register_failed">Register Failed</string>
     <string name="database_call_fail">Response to the database failed.</string>
     <string name="database_on_response_fail_health_goal">Response fail to get client health goal.</string>
     <string name="initial_goal_not_found">Initial goal not found</string>
@@ -282,7 +285,7 @@
     <string name="enter_address_city_or_zip_code">Enter Address, City or Zip Code</string>
     <string name="sort">Sort</string>
     <string name="chat">Chat</string>
-    <string name="send_you_discussion_today">send you discussion today....</string>
+    <string name="chat_input_hint">Send a message</string>
     <string name="send">Send</string>
     <string name="cbrWorkerIntent_userId">userId</string>
     <string name="cbrWorkerIntent_iconIdx">iconIdx</string>

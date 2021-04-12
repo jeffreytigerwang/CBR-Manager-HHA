@@ -74,6 +74,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         outcome: {
             type: Sequelize.STRING
+        },
+        resolved: {
+            type: Sequelize.BOOLEAN
         }
     });
 

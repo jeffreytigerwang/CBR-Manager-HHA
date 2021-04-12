@@ -5,17 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
+    android:padding="12dp"
     android:background="?android:attr/selectableItemBackground"
     android:id="@+id/outerConstrainLayout">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
+        app:cardCornerRadius="2dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,53 +27,68 @@
 
             <ImageView
                 android:id="@+id/discussion_imageView"
-                android:layout_width="52dp"
-                android:layout_height="35dp"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/discussion_firstName"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/discussion_firstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="12sp"
+                android:layout_marginStart="4dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/discussion_imageView"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/discussion_lastName"
+                app:layout_constraintBottom_toTopOf="@id/discussion_message"
+                tools:text="First name"/>
 
             <TextView
                 android:id="@+id/discussion_lastName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="TextView"
-                android:textSize="12sp"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/discussion_firstName"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/discussion_message"
+                tools:text="Last name"/>
 
             <TextView
                 android:id="@+id/discussion_message"
-                android:layout_width="322dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:layout_marginStart="4dp"
                 android:textAlignment="viewStart"
-                android:textSize="12sp"
-                android:textStyle="bold"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/discussion_imageView"
-                app:layout_constraintTop_toBottomOf="@+id/discussion_firstName" />
+                app:layout_constraintTop_toBottomOf="@+id/discussion_firstName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="Message" />
 
             <TextView
                 android:id="@+id/discussion_date"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:text="TextView"
-                android:textSize="10sp"
+                android:layout_height="0dp"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/discussion_message"
+                app:layout_constraintStart_toEndOf="@id/discussion_lastName"
+                app:layout_constraintHorizontal_bias="1.0"
+                tools:text="Date" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+
+    </com.google.android.material.card.MaterialCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -343,19 +343,19 @@ class Statistics extends Component {
                             <Grid item xs={12}>
                                 {
                                     !allDisabilityCounts.length ? LOADING :
-                                    <DataTable data={allDisabilityCounts} headers={["All settlement disabilitys", "#Of times checked"]}></DataTable>
+                                    <DataTable data={allDisabilityCounts} headers={["All settlement disabilities", "#Of times checked"]}></DataTable>
                                 }
                             </Grid>
                             <Grid item xs={6}>
                                 {
                                     !bidibidiDisabilityCounts.length ? LOADING :
-                                    <DataTable data={bidibidiDisabilityCounts} headers={["Bidibidi disabilitys", "#Of times checked"]}></DataTable>
+                                    <DataTable data={bidibidiDisabilityCounts} headers={["Bidibidi disabilities", "#Of times checked"]}></DataTable>
                                 }
                             </Grid>
                             <Grid item xs={6}>
                                 {
                                     !palorinyaDisabilityCounts.length ? LOADING :
-                                    <DataTable data={palorinyaDisabilityCounts} headers={["Palorinya disabilitys", "#Of times checked"]}></DataTable>
+                                    <DataTable data={palorinyaDisabilityCounts} headers={["Palorinya disabilities", "#Of times checked"]}></DataTable>
                                 }
                             </Grid>
                             <Grid item xs={6}>

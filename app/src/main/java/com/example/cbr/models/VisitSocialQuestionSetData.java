@@ -55,8 +55,9 @@ public class VisitSocialQuestionSetData {
 
         if (!isQuestionFourteenChecked) {
             questionNumbers.add("14.");
-        } else if (missingDesc) {
-            questionNumbers.add("14.");
+        }
+        if (missingDesc) {
+            questionNumbers.add("14.Desc");
         }
         if (!isQuestionFifteenChecked) {
             questionNumbers.add("15.");

@@ -131,7 +131,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addClient(ClientInfo client) {
+    public boolean addClient(ClientInfo client, boolean changed) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -150,7 +150,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("CAREGIVER_FIRST_NAME", client.getCaregiverFirstName());
         cv.put("CAREGIVER_LAST_NAME", client.getCaregiverLastName());
         cv.put("PHOTO", client.getPhoto());
-        cv.put("CHANGED", true);
+        cv.put("CHANGED", changed);
 
         long success = db.insert(CLIENT_TABLE, null, cv);
         return success != -1;
@@ -236,7 +236,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return client;
     }
 
-    public boolean addDisability(ClientDisability clientDisability) {
+    public boolean addDisability(ClientDisability clientDisability, boolean changed) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -252,8 +252,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("DO_NOT_KNOW", clientDisability.isDoNotKnowDisability());
         cv.put("OTHER", clientDisability.isOtherDisability());
         cv.put("OTHER_DESC", clientDisability.getDescribeOtherDisability());
-        cv.put("CHANGED", true);
-
+        cv.put("CHANGED", changed);
 
         long success = db.insert(DISABILITY_TABLE, null, cv);
         return success != -1;
@@ -317,7 +316,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 hearingImpairmentDisability, doNotKnowDisability, otherDisability, describeOtherDisability);
     }
 
-    public boolean addVisit(VisitGeneralQuestionSetData visit) {
+    public boolean addVisit(VisitGeneralQuestionSetData visit, boolean changed) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -332,7 +331,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("GPS_LOCATION", visit.getVisitGpsLocation());
         cv.put("ZONE_LOCATION", visit.getVisitZoneLocation());
         cv.put("VILLAGE_NUMBER", visit.getVillageNumber());
-        cv.put("CHANGED", true);
+        cv.put("CHANGED", changed);
 
 
         long success = db.insert(VISIT_TABLE, null, cv);
@@ -414,8 +413,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return visit;
     }
 
-
-    public boolean addEducationAspect(ClientEducationAspect aspect) {
+    public boolean addEducationAspect(ClientEducationAspect aspect, boolean changed) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -423,7 +421,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("RATE_EDUCATION", aspect.getRateEducation());
         cv.put("DESCRIBE_EDUCATION", aspect.getDescribeEducation());
         cv.put("SET_GOAL_FOR_EDUCATION", aspect.getSetGoalForEducation());
-        cv.put("CHANGED", true);
+        cv.put("CHANGED", changed);
 
 
         long success = db.insert(EDUCATION_ASPECT_TABLE, null, cv);
@@ -480,7 +478,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 describeEducation, setGoalForEducation);
     }
 
-    public boolean addEducationProgress(VisitEducationQuestionSetData progress) {
+    public boolean addEducationProgress(VisitEducationQuestionSetData progress, boolean changed) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -496,7 +494,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("EDUCATION_ENCOURAGEMENT_DESC", progress.getEducationEncouragementDesc());
         cv.put("EDUCATION_OUTCOME_DESC", progress.getEducationOutcomeDesc());
         cv.put("EDUCATION_GOAL_STATUS", progress.getEducationGoalStatus());
-        cv.put("CHANGED", true);
+        cv.put("CHANGED", changed);
 
 
         long success = db.insert(EDUCATION_PROGRESS_TABLE, null, cv);
@@ -576,7 +574,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return visit;
     }
 
-    public boolean addHealthAspect(ClientHealthAspect aspect) {
+    public boolean addHealthAspect(ClientHealthAspect aspect, boolean changed) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -584,7 +582,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("RATE_HEALTH", aspect.getRateHealth());
         cv.put("DESCRIBE_HEALTH", aspect.getDescribeHealth());
         cv.put("SET_GOAL_FOR_HEALTH", aspect.getSetGoalForHealth());
-        cv.put("CHANGED", true);
+        cv.put("CHANGED", changed);
 
 
         long success = db.insert(HEALTH_ASPECT_TABLE, null, cv);
@@ -642,7 +640,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 describeHealth, setGoalForHealth);
     }
 
-    public boolean addHealthProgress(VisitHealthQuestionSetData progress) {
+    public boolean addHealthProgress(VisitHealthQuestionSetData progress, boolean changed) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -666,7 +664,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("HEALTH_ENCOURAGEMENT_DESC", progress.getHealthEncouragementDesc());
         cv.put("HEALTH_OUTCOME_DESC", progress.getHealthOutcomeDesc());
         cv.put("HEALTH_GOAL_STATUS", progress.getHealthGoalStatus());
-        cv.put("CHANGED", true);
+        cv.put("CHANGED", changed);
 
 
         long success = db.insert(HEALTH_PROGRESS_TABLE, null, cv);
@@ -760,7 +758,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return visit;
     }
 
-    public boolean addSocialAspect(ClientSocialAspect aspect) {
+    public boolean addSocialAspect(ClientSocialAspect aspect, boolean changed) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -768,7 +766,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("RATE_SOCIAL_STATUS", aspect.getRateSocialStatus());
         cv.put("DESCRIBE_SOCIAL_STATUS", aspect.getDescribeSocialStatus());
         cv.put("SET_GOAL_FOR_SOCIAL_STATUS", aspect.getSetGoalForSocialStatus());
-        cv.put("CHANGED", true);
+        cv.put("CHANGED", changed);
 
 
         long success = db.insert(SOCIAL_STATUS_ASPECT_TABLE, null, cv);
@@ -824,7 +822,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 describeSocial, setGoalForSocial);
     }
 
-    public boolean addSocialProgress(VisitSocialQuestionSetData progress) {
+    public boolean addSocialProgress(VisitSocialQuestionSetData progress, boolean changed) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -840,7 +838,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("SOCIAL_ENCOURAGEMENT_DESC", progress.getSocialEncouragementDesc());
         cv.put("SOCIAL_OUTCOME_DESC", progress.getSocialOutcomeDesc());
         cv.put("SOCIAL_GOAL_STATUS", progress.getSocialGoalStatus());
-        cv.put("CHANGED", true);
+        cv.put("CHANGED", changed);
 
         long success = db.insert(SOCIAL_PROGRESS_TABLE, null, cv);
         return success != -1;
@@ -918,7 +916,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return visit;
     }
 
-    public boolean addReferral(ReferralInfo referral) {
+    public boolean addReferral(ReferralInfo referral, boolean changed) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -950,7 +948,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put("CAN_REPAIR_WHEEL_CHAIR", referral.isCanRepairWheelchair());
         cv.put("OUTCOME", referral.getOutcome());
         cv.put("PHYSIOTHERAPY_PHOTO", referral.getPhysiotherapyPhoto());
-        cv.put("CHANGED", true);
+        cv.put("CHANGED", changed);
 
         long success = db.insert(REFERRAL_TABLE, null, cv);
         return success != -1;

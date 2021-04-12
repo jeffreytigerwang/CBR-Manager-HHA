@@ -15,6 +15,19 @@ import com.example.cbr.databinding.FragmentHomePageBinding;
 import com.example.cbr.fragments.DashboardPageFragment;
 import com.example.cbr.fragments.base.BaseFragment;
 import com.example.cbr.localdb.DBHelper;
+import com.example.cbr.models.ClientDisability;
+import com.example.cbr.models.ClientEducationAspect;
+import com.example.cbr.models.ClientHealthAspect;
+import com.example.cbr.models.ClientInfo;
+import com.example.cbr.models.ClientSocialAspect;
+import com.example.cbr.models.ReferralInfo;
+import com.example.cbr.models.VisitEducationQuestionSetData;
+import com.example.cbr.models.VisitGeneralQuestionSetData;
+import com.example.cbr.models.VisitHealthQuestionSetData;
+import com.example.cbr.models.VisitSocialQuestionSetData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class HomePageFragment extends BaseFragment implements HomePageContract.View, View.OnClickListener{
@@ -90,8 +103,65 @@ public class HomePageFragment extends BaseFragment implements HomePageContract.V
         }
     }
 
+    //Syncing only supports when an entry has been added to database and not if entries where changed
     private void syncData() {
+        uploadLocalChanges();
 
+
+
+
+
+    }
+
+    private void uploadLocalChanges() {
+        List<ClientInfo> clients = dbHelper.getChangedAllClients();
+        List<ClientDisability> disabilities = dbHelper.getChangedAllDisability();
+        List<ReferralInfo> referrals = dbHelper.getChangedReferrals();
+        List<ClientEducationAspect> educationAspects = dbHelper.getChangedAllClientEducationAspects();
+        List<ClientSocialAspect> socialAspects = dbHelper.getAllClientSocialAspects();
+        List<ClientHealthAspect> healthAspects = dbHelper.getChangedAllClientHealthAspects();
+        List<VisitGeneralQuestionSetData> visitGeneralQuestionSetDataList = dbHelper.getChangedAllVisitGeneralQuestions();
+        List<VisitHealthQuestionSetData> visitHealthQuestionSetDataList = dbHelper.getChangedAllVisitHealthQuestions();
+        List<VisitEducationQuestionSetData> visitEducationQuestionSetDataList = dbHelper.getChangedAllVisitEducationQuestions();
+        List<VisitSocialQuestionSetData> visitSocialQuestionSetDataList = dbHelper.getChangedAllVisitSocialQuestions();
+
+        for(ClientInfo client : clients) {
+            homePagePresenter.createClientInfo(client);
+        }
+
+        for(ClientDisability disability : disabilities) {
+            homePagePresenter.createClientDisability(disability);
+        }
+
+        for(ReferralInfo referral : referrals) {
+            homePagePresenter.createReferralInfo(referral);
+        }
+
+        for(ClientEducationAspect aspect : educationAspects) {
+            homePagePresenter.createClientEducationAspect(aspect);
+        }
+
+        for(ClientSocialAspect aspect : socialAspects) {
+            homePagePresenter.createClientSocialAspect(aspect);
+        }
+
+        for(ClientHealthAspect aspect : healthAspects) {
+            homePagePresenter.createClientHealthAspect(aspect);
+        }
+
+        for(VisitEducationQuestionSetData progress :visitEducationQuestionSetDataList) {
+            homePagePresenter.createVisitEducationQuestionSetData(progress);
+        }
+
+        for(VisitHealthQuestionSetData progress :visitHealthQuestionSetDataList) {
+            homePagePresenter.createVisitHealthQuestionSetData(progress);
+        }
+        for(VisitGeneralQuestionSetData progress :visitGeneralQuestionSetDataList) {
+            homePagePresenter.createVisitGeneralQuestionSetData(progress);
+        }
+        for(VisitSocialQuestionSetData progress :visitSocialQuestionSetDataList) {
+            homePagePresenter.createVisitSocialQuestionSetData(progress);
+        }
     }
 
 

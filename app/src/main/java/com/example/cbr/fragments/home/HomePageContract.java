@@ -1,5 +1,7 @@
 package com.example.cbr.fragments.home;
 
+import androidx.annotation.NonNull;
+
 import com.example.cbr.fragments.base.BasePresenter;
 import com.example.cbr.fragments.base.BaseView;
 import com.example.cbr.models.ClientDisability;
@@ -30,6 +32,16 @@ public interface HomePageContract {
         List<VisitHealthQuestionSetData> getAllVisitHealthQuestions() throws IOException;
         List<VisitSocialQuestionSetData> getAllVisitSocialQuestions() throws IOException;
 
+         void createClientInfo(@NonNull ClientInfo clientInfo);
+         void createVisitGeneralQuestionSetData(@NonNull VisitGeneralQuestionSetData visitGeneralQuestionSetData);
+         void createVisitHealthQuestionSetData(@NonNull VisitHealthQuestionSetData visitHealthQuestionSetData);
+         void createVisitEducationQuestionSetData(@NonNull VisitEducationQuestionSetData visitEducationQuestionSetData);
+         void createVisitSocialQuestionSetData(@NonNull VisitSocialQuestionSetData visitSocialQuestionSetData);
+         void createClientDisability(@NonNull ClientDisability clientDisability);
+         void createClientHealthAspect(@NonNull ClientHealthAspect clientHealthAspect);
+         void createClientEducationAspect(@NonNull ClientEducationAspect clientEducationAspect);
+         void createClientSocialAspect(@NonNull ClientSocialAspect clientSocialAspect);
+         void createReferralInfo(@NonNull ReferralInfo referralInfo);
 
     }
 

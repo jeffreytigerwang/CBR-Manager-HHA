@@ -82,3 +82,23 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Dependencies
+
+The dependencies used for making the UI were:
+
+- [CanvasJS](https://canvasjs.com/) - CanvasJS React Charts
+- [Material-UI](https://material-ui.com/) - React templates & tools
+
+Copyright 2021 fenopix
+
+### CanvasJS License Information
+
+CanvasJS is a commercial product which requires purchase of license. Without a commercial license you can use it for evaluation purposes for upto 30 days. Please refer to the following link for further details.
+https://canvasjs.com/license/
+
+CanvasJS FREE For Non-Commercial Use
+See how you can apply: [Non-Commercial Chart License Application](https://canvasjs.com/apply/non-commercial/?utm_source=pricing&utm_medium=noncommercialbutton&utm_campaign=freelicense).
+
+There's also a free one for students and discount for startups that less than 3 years old.
+

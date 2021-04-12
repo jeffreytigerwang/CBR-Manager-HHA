@@ -90,9 +90,9 @@ The dependencies used for making the UI were:
 - [CanvasJS](https://canvasjs.com/) - CanvasJS React Charts
 - [Material-UI](https://material-ui.com/) - React templates & tools
 
-Copyright 2021 fenopix
 
 ### CanvasJS License Information
+Copyright 2021 fenopix
 
 CanvasJS is a commercial product which requires purchase of license. Without a commercial license you can use it for evaluation purposes for upto 30 days. Please refer to the following link for further details.
 https://canvasjs.com/license/

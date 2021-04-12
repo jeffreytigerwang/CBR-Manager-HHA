@@ -48,10 +48,6 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
     private List<ReferralInfo> referralsList;
     private InfoAdapter clientInfoAdapter;
 
-    private FragmentManager fragmentManager;
-    String previousFragment;
-    int fragmentCount;
-
     private static final String CLIENT_PAGE_BUNDLE = "clientPageBundle";
 
     @Override
@@ -203,8 +199,6 @@ public class ClientPageFragment extends BaseFragment implements ClientPageContra
 
 
     public void onPrepareOptionsMenu(Menu menu) {
-        fragmentManager = getParentFragmentManager();
-        fragmentCount = fragmentManager.getBackStackEntryCount();
         try {
             menu.findItem(R.id.clientListSearch).setVisible(false);
             menu.findItem(R.id.clientListSort).setVisible(false);

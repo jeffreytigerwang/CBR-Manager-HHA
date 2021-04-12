@@ -26,16 +26,12 @@ import com.example.cbr.models.BaselineHealthSurveyData;
 import com.example.cbr.models.BaselineLivelihoodSurveyData;
 import com.example.cbr.models.BaselineShelterAndCareSurveyData;
 import com.example.cbr.models.BaselineSocialSurveyData;
-import com.example.cbr.retrofit.JsonPlaceHolderApi;
-import com.example.cbr.retrofit.RetrofitInit;
 import com.example.cbr.util.Constants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-
-import retrofit2.Retrofit;
 
 public class BaselineSurveyFragment extends BaseFragment implements BaselineSurveyContract.View {
     private FragmentBaselinesurveyBinding binding;
@@ -66,8 +62,6 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
     BaselineShelterAndCareSurveyData baselineShelterAndCareSurveyData = new BaselineShelterAndCareSurveyData();
 
     private int clientId;
-    private Retrofit retrofit;
-    private JsonPlaceHolderApi jsonPlaceHolderApi;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,10 +70,7 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
         
         setupViewPager();
         setupButtons();
-        
-        retrofit = RetrofitInit.getInstance();
-        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-        
+
         return binding.getRoot();
     }
     
@@ -271,7 +262,7 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
                     String userInput = ((EditTextViewContainer) questionDataContainer).getUserInput();
 
                     if (questionText.equals(getString(R.string.if_yes_what_grade))) {
-                        baselineEducationSurveyData.setGrade(Integer.parseInt(userInput));
+                        baselineEducationSurveyData.setGrade(userInput);
                     }
                 }
 
@@ -408,7 +399,7 @@ public class BaselineSurveyFragment extends BaseFragment implements BaselineSurv
                     String userInput = ((EditTextViewContainer) questionDataContainer).getUserInput();
 
                     if (questionText.equals(getString(R.string.if_yes_what_do_you_do))) {
-                        baselineLivelihoodSurveyData.setWhatDoYouDo(userInput);
+                        baselineLivelihoodSurveyData.setOccupation(userInput);
                     }
                 }
             }

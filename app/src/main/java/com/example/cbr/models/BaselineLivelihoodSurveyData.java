@@ -5,7 +5,7 @@ public class BaselineLivelihoodSurveyData {
     private Integer clientId;
 
     private boolean isWorking;
-    private String whatDoYouDo;
+    private String occupation;
     private String employmentType;
     private boolean meetsFinancialNeeds;
     private boolean disabilityAffectsAbilityToWork;
@@ -13,7 +13,7 @@ public class BaselineLivelihoodSurveyData {
 
     public BaselineLivelihoodSurveyData() {
         this.isWorking = false;
-        this.whatDoYouDo = "";
+        this.occupation = "";
         this.employmentType = "";
         this.meetsFinancialNeeds = false;
         this.disabilityAffectsAbilityToWork = false;
@@ -36,12 +36,12 @@ public class BaselineLivelihoodSurveyData {
         isWorking = working;
     }
 
-    public String getWhatDoYouDo() {
-        return whatDoYouDo;
+    public String getOccupation() {
+        return occupation;
     }
 
-    public void setWhatDoYouDo(String whatDoYouDo) {
-        this.whatDoYouDo = whatDoYouDo;
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
     }
 
     public String getEmploymentType() {

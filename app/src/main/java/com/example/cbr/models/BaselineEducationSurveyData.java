@@ -5,14 +5,14 @@ public class BaselineEducationSurveyData {
     private Integer clientId;
 
     private boolean attendingSchool;
-    private Integer grade;
+    private String grade;
     private String reasonForNotAttendingSchool;
     private boolean hasBeenToSchool;
     private boolean wantsToAttendSchool;
 
     public BaselineEducationSurveyData() {
         this.attendingSchool = false;
-        this.grade = -1;
+        this.grade = "";
         this.reasonForNotAttendingSchool = "";
         this.hasBeenToSchool = false;
         this.wantsToAttendSchool = false;
@@ -34,11 +34,11 @@ public class BaselineEducationSurveyData {
         this.attendingSchool = attendingSchool;
     }
 
-    public Integer getGrade() {
+    public String getGrade() {
         return grade;
     }
 
-    public void setGrade(Integer grade) {
+    public void setGrade(String grade) {
         this.grade = grade;
     }
 

@@ -42,7 +42,8 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         PHYSIOTHERAPY,
         PROSTHETIC,
         ORTHOTIC,
-        WHEELCHAIR
+        WHEELCHAIR,
+        OUTCOME
     }
 
     private static final String NEW_REFERRAL_PAGE_BUNDLE = "newReferralPageBundle";
@@ -131,6 +132,7 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         generateProsthetic();
         generateOrthotic();
         generateWheelchair();
+        generateOutcome();
     }
 
     private void generateMainPage() {
@@ -354,6 +356,24 @@ public class NewReferralFragment extends BaseFragment implements NewReferralCont
         };
 
         viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(wheelchair, false, onViewPagerChangedListener));
+    }
+
+    private void generateOutcome() {
+        ArrayList<QuestionDataContainer> outcomeList = new ArrayList<>();
+
+        outcomeList.add(new HeaderViewContainer(getString(R.string.post_referral)));
+        outcomeList.add(new CheckBoxViewContainer(getString(R.string.outcome_question)));
+
+        QuestionsFragmentPagerAdapter.OnViewPagerChangedListener onViewPagerChangedListener = new QuestionsFragmentPagerAdapter.OnViewPagerChangedListener() {
+            @Override
+            public void onChanged(int positionChanged, QuestionDataContainer questionDataContainer) {
+                if (questionDataContainer instanceof CheckBoxViewContainer) {
+                    referralInfo.setResolved(((CheckBoxViewContainer) questionDataContainer).isChecked());
+                }
+            }
+        };
+
+        viewPagerContainerList.add(new QuestionsFragmentPagerAdapter.ViewPagerContainer(outcomeList, true, onViewPagerChangedListener));
     }
 
     @Override
